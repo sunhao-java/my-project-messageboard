@@ -11,7 +11,12 @@
          		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
          		http://www.springframework.org/schema/tx
            		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-           		
+    
+    <!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
+	<bean id="springHibernateUtils" class="com.message.utils.spring.SpringHibernateUtils">
+		<property name="genericHibernateDAO" ref="genericHibernateDAO"/>
+	</bean>
+    
     <!-- 引入外部的XML -->
     <import resource="admin/spring-admin.xml"/>
     <import resource="info/spring-info.xml"/>
@@ -51,7 +56,8 @@
 		</property>
 	</bean>
 	
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	<!-- 代替了注入hibernateTemplate -->
+	<bean id="genericHibernateDAO" class="com.message.utils.spring.GenericHibernateDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
@@ -114,11 +120,14 @@
 		</property>
 	</bean>
 	
-	<!--<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<!--
+	资源文件进行注入
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
 				<value>/WEB-INF/i18n/message</value>
 			</list>
 		</property>
-	</bean>-->
+	</bean>
+	-->
 </beans>

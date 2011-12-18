@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+body a:link,a:visited,a:active{
+	color: #0066CC;
+	text-decoration: none;
+}
+
+body a:hover{
+	color: red;
+	text-decoration: underline;
+}
+
+.module{
+	border: 1px solid #0066CC;
+	width: 400px;
+	height: 140px;
+	overflow: hidden;
+	text-align: center;
+	display:table-cell; 
+	vertical-align:middle;
+	line-height: 200%;
+	font-size: 11pt;
+	left: 300px;
+}

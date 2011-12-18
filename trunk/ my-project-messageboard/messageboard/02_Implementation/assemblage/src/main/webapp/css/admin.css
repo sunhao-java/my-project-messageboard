@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+body {
+	background-image: url(../image/welcome.jpg);
+	background-repeat: no-repeat;
+	background-position: right top;
+	font-family: Tahoma, Verdana, Arial, Simsun, sans-serif;
+}
+
+body h3 {
+	border-bottom: 1px solid #CCCCCC;
+	color: #333333;
+	line-height: 200%;
+	margin: 0.4em;
+	font-weight: bold;
+	font-size: 14px;
+	margin-top: 3px;
+}
+
+body p {
+	color: #666666;
+	margin: 0.4em;
+	font: 14px/ 1.5 'lucida grande', tahoma, arial, 'bitstream vera sans',
+		helvetica, sans-serif;
+}
+
+.loginUserMsg {
+	border: 1px solid #0066CC;
+	width: 400px;
+	height: 140px;
+	margin: 5px 5px;
+	padding: 0px 0px;
+	overflow: hidden;
+}
+
+.title {
+	background-color: #2782D6;
+	color: #FFFFFF;
+	padding-left: 5px;
+	font-size: 11pt;
+	font-family: Tahoma, Verdana, Arial, Simsun, sans-serif;
+	font-weight: bold;
+}

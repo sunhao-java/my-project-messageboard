@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+body{
+	text-align: left;
+	font-size: 12px;
+}
+
+#listDiv{
+	width: 90%;
+}
+
+table{
+	margin: 0;
+	padding: 0;
+	font-size: 9pt;
+	font-family: "Tahoma", "����";
+	border-collapse: collapse;
+	margin-top: 5px;
+}
+
+.fb_result th{
+	background:url(../image/wiseduimg/tbale_titlebg.gif) repeat-x bottom #FFF;
+    color: #000;
+    font-weight: bold;
+    text-align: left;
+	height:22px;
+	border-left:1px solid #add9ea;
+	border-right:1px solid #add9ea;
+	border-top:1px solid #add9ea;
+	text-indent:5px;
+}
+
+.fb_result td {
+    border: 1px solid #add9ea;
+    height: 28px;
+	text-indent:5px;
+    text-align: left;
+	text-indent:5px;
+}
+
+.fb_result td a:link,a:active,a:hover,a:visited{
+	text-decoration: none;
+}
+
+.welcome{
+	font-size: 12pt;
+	color: red;
+}
+
+#reply{
+	width: 300px; 
+	height: 170px; 
+	border-style: Double; 
+	border-width: 6pt; 
+	border-color: #ff4500; 
+	display: none; 
+	z-index: 100; 
+	padding-top: 0px;
+}
+
+#reply #head{
+	background-color: #BBC3DB;
+	font-size: 11pt;
+}

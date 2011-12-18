@@ -1,0 +1,38 @@
+@CHARSET "UTF-8";
+.tableform {
+	margin: 0;
+	padding: 0;
+	font-size: 11pt;
+	font-family: "Tahoma", "宋体";
+	width: 70%;
+	margin-top: 5px;
+	border-collapse: collapse;
+	border-color: silver;
+}
+
+.tableform td{
+	border-color: silver;
+}
+
+.tableform .fb_result_head{
+	background-color: #CFE1F6;
+	font-weight: bold;
+	text-align: center;
+	overflow: hidden;
+}
+
+#reply{
+	background-color: #FFFFDD;
+	width: 330px;
+	height: 200px;
+	border-style:Double;
+	border-width:6pt; 
+	border-color: #ff4500;
+	display: none;
+	padding-top: 0px;
+}
+
+#head{
+	background-color: #CFE1F6;
+	text-align: center;
+}

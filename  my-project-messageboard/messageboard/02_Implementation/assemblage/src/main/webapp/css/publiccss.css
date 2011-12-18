@@ -1,0 +1,96 @@
+@CHARSET "UTF-8";
+html{
+	overflow: scroll;
+}
+
+body{  
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-size: 80%;
+    background: #FFF;
+}
+
+iframe{
+	SCROLLBAR-FACE-COLOR:   rgb(10,236,209);   
+	SCROLLBAR-HIGHLIGHT-COLOR:   rgb(23,255,155);
+	SCROLLBAR-SHADOW-COLOR:   rgb(255,116,23);
+	SCROLLBAR-3DLIGHT-COLOR:   rgb(66,93,127);
+	SCROLLBAR-ARROW-COLOR:   rgb(93,232,255);
+	SCROLLBAR-TRACK-COLOR:   rgb(255,70,130);
+	SCROLLBAR-DARKSHADOW-COLOR:   rgb(10,0,209);
+	SCROLLBAR-BASE-COLOR:   rgb(66,93,128);
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.title{
+	background-image: url("../image/wiseduimg/banner.png");
+	background-repeat: no-repeat;
+	width: 494px;
+	height: 100%;
+	float: right;
+}
+
+#menu20 {
+    width: 200px;
+    margin: 10px;
+    font-weight: bold;
+}
+
+#menu20 li a {
+	height: 32px;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	height: 24px;
+	text-decoration: none;
+}
+
+#menu20 li a:link, #menu20 li a:visited {
+   color: #FFF;
+   display: block;
+   background:  url(/love/image/menu20.gif);
+   padding: 8px 0 0 35px;
+}
+
+#menu20 li a:hover {
+	color: #FFF;
+	background:  url(/love/image/menu20.gif) 0 -32px;
+	padding: 8px 0 0 35px;
+}
+
+img{
+	 width: 785;
+	 height: 69;
+	 border: none;
+}
+
+.tool{ position:absolute; right:15px; top:3px; height:16px;}
+.tool a{ display:inline-block; width:16px; height:16px; background:url(/love/image/wiseduimg/tool.png); margin-left:15px; outline:none;}
+.tool .t2 { background-position:-16px 0}
+.tool .t3 { background-position:-32px 0}
+.tool .t4 { background-position:-48px 0}
+.tool .t5 { background-position:-64px 0}
+.tool .t6 { background-position:-80px 0}
+
+#tailTab{
+	color: #000000;
+    font-family: "Arial","Helvetica","sans-serif";
+    font-size: 12px;
+    line-height: 10px;
+    border-width: 0px;
+    background-color: #F7F7F7;
+    text-align: center;
+}
+
+#tailTab p a:link,a:active,a:VISITED {
+	text-decoration: none;
+}
+
+.ipbackup {
+	color: #CDCDCD;
+}
+

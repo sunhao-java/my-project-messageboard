@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+img{
+	 width: 789px !important;
+	 height: 69 !important;
+	 border-right-color: red !important;
+}
+
+.title{
+	position: absolute;
+	margin-right: 0px;
+	margin-top:0px;
+	background-image: url('/love/image/wiseduimg/banner.png') !important;
+	background-repeat: no-repeat !important;
+	width: 494px !important;
+	height: 69px !important;
+	float: left !important;
+}
+
+#tailTab{
+	padding-top:1px;
+	padding-bottom:1px;
+	color: #000000;
+    font-family: "Arial","Helvetica","sans-serif";
+    line-height: 5px;
+    border-width: 0px;
+    background-color: #F7F7F7;
+    text-align: center;
+}

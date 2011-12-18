@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2009 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Image Properties dialog window.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Image Properties</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="../../../../css/base.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../../../../css/base1.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../../../../css/yui/button.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../../../../css/yui/container.css" type="text/css" charset="utf-8"/>
+
+    <script type="text/javascript" charset="utf-8" src="../../../js/fckeditor/utilities-241.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../ge.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../wiscom.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../../messages.do"></script>
+
+    <script type="text/javascript" charset="utf-8" src="../../../container.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../menu.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../button-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../treeview-min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../../app-file.js"></script>
+
+	<script src="common/fck_dialog_common.js" type="text/javascript"></script>
+	<script src="fck_image/fck_image.js" type="text/javascript"></script>
+		<script type="text/javascript">
+             var rand=randomStr ;
+             function flahsUploadCompleteFn() {
+
+                 var getImgUrl = FCKConfig.ContextPath+"forum/temps.do?r=" + rand +"&img=yes",_callback = {
+                     success:function(o) {
+                         var res = WE.util.getEvalRes(o),simaes;
+                         if (res.status == 1) {
+                             simaes = res.uploads;
+                             if (simaes) {
+                                 for (var i = 0; i < simaes.length; i++) {
+                                     var obj = simaes[i];
+                                     //img = document.createElement("img");
+                                     var img = FCKConfig.ContextPath+"forum/download.do?attachId=" + obj.attachId + "&img=" + obj.name;
+
+                                     oImage = FCK.InsertElement('img');
+                                     oImage.src = img;
+
+                                 }
+                             }
+                         }
+                     },
+                     failure:function(o) {
+
+                     }
+                 };
+                 YAHOO.util.Connect.asyncRequest("get", getImgUrl, _callback);
+
+             }
+
+             document.write(FCKTools.GetStyleHtml(GetCommonDialogCss()));
+             
+            YAHOO.util.Event.onDOMReady(function() {
+
+                var Connect = YAHOO.util.Connect,Dom = YAHOO.util.Dom,Event = YAHOO.util.Event,flashUploadUrl = FCKConfig.ContextPath+"forum/upload.do",callback = {
+                    success:function(o) {
+                        var res = WE.util.getEvalRes(o),_params;
+                        if (res.status == 1) {
+                            _params = {"iPlanetDirectoryPro":res.iPlanetDirectoryPro,'r':rand};
+                            var flashVars = WE.util.flashUploadVars;
+                            flashVars.fileCount = 0 + "";
+                            flashVars.fileSizeLimit = 50 * 1024 * 1024 + "";
+                            flashVars.totalUploadSize = 50 * 1024 * 1024 + "";
+                            flashVars.completeFunction = "flahsUploadCompleteFn";
+                            flashVars.fileTypes = "*.jpg;*.gif;*.png;*.bmp";
+                            flashVars.fileTypeDescription =  "(*.jpg;*.gif;*.png)";
+                            var fupload = new WE.util.FlashUpload(flashUploadUrl, _params, flashVars);
+                            //uploadFolder.innerHTML="aaaaa";
+                            fupload.show("divInfo");
+                        }
+                    },
+                    failure:function(o) {
+                    }
+                };
+                Connect.asyncRequest("get",flashUploadUrl,callback);
+                var callback1 = {
+                    success:function(o) {
+                        var res = WE.util.getEvalRes(o),html = "",folders,postfixmap = res.postfixTypeIconMap,fileListPlane = Dom.get("file-list-plane");
+                        if (res.status == 1) {
+                            folders = res.folders;
+                            html += "<table style=\"width:95%\">";
+                            if (!folders || folders.length < 1) {
+                                html += "<tr><td>" + WE.wts.MSG.RECORDS_NULL_SPAN + "</td></tr>";
+                            } else {
+                                for (var i = 0; i < folders.length; i++) {
+                                    var fid = "file" + folders[i].id;
+                                    html += "<div style=\"float:left;margin:5px;border:1px solid #ccc;padding:3px;height:120px;width:120px;overflow:hidden;\">" +
+                                            "<div style=\"height:90px;overflow:hidden;\"><img src=\"/thumd/" + folders[i].id + "/" + folders[i].name + "\" /></div>" +
+                                            "<div >" +
+                                            "<input type=\"checkbox\" name=\"chkFileId\" id=" + fid + " class=\"filechksclass\" value=\"" + folders[i].id + "\" />" + folders[i].name + "</div>" +
+                                            "</div>";
+
+                                }
+                            }
+                            html += "</table>";
+                            //alert(html);
+                            fileListPlane.innerHTML = html;
+                        }
+
+                    },
+                    failure:function(o) {
+
+                    }
+                }
+                function labclick(id,name){
+                    var foderName = Dom.get("selectedPerFolderName"),action = FCKConfig.ContextPath+"file/myPicsByAjax.do?nodeId=" + id;
+                    foderName.value = name;
+                    Connect.asyncRequest("get", action, callback1);
+                }
+                function glabclick(id,name){
+                    var foderName = Dom.get("selectedGroupFolderName"),action = FCKConfig.ContextPath+"file/myPicsByAjax.do?nodeId=" + id;
+                    foderName.value = name;
+                    Connect.asyncRequest("get", action, callback1);
+                }
+
+                WE.util.forders("selectedPerFolderPlane",labclick,FCKConfig.ContextPath+"file/ajaxMyFolders.do");
+                WE.util.groupForders("selectedGroupFolderPlane",glabclick,{"groupsUrl":FCKConfig.ContextPath+"file/groupFiles.do","childrenUrl":FCKConfig.ContextPath+"file/groupFiles.do"});
+                WE.util.albums("selectAlbumPlane","",FCKConfig.ContextPath+"album/myAlbumsForAjax.do",FCKConfig.ContextPath+"album/photosForAjax.do");
+
+            });
+        </script>
+</head>
+<body scroll="no" style="overflow: hidden">
+	<div id="divInfo">
+		
+	</div>
+	<div id="divUpload" style="display: none">
+            <div style="margin: 10px 0pt; overflow: hidden; display: block;" id="groupFolder"><span
+                    id="selectedGroupFolderPlane">文件夹：<input type="input" readonly="true" id="selectedGroupFolderName"
+                                                        name="selectedGroupFolderName" size="20" class="f-text"/> </span></div>
+
+
+	</div>
+	<div id="divLink" style="display: none">
+        <div style="margin: 10px 0pt; overflow: hidden; display: block;" id="personnelFolder"><span
+                id="selectedPerFolderPlane">文件夹：<input type="input" readonly="true" id="selectedPerFolderName"
+                                                    name="selectedPerFolderName" size="20" class="f-text"/></span></div>
+
+	</div>
+	<div id="divAdvanced" style="display: none">
+        <div style="margin: 10px 0pt; overflow: hidden; display: block;" id="albumFolder"><span id="selectAlbumPlane">图档：<input
+                type="input" readonly="true" id="selectedAlbumName" name="selectedAlbumName" size="20" class="f-text"/> </span>
+        </div>
+	</div>
+    <form method="post" action="/forum/copyNode1.do" id="pform" name="pform">
+    <div id="file-list-plane"/>
+     </form>
+</body>
+</html>

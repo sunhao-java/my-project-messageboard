@@ -1,0 +1,8 @@
+
+1、整体架构采用springMVC实现，数据库持久化层采用hibernate，view层管理使用tiles实现
+
+2、界面UI采用jquery easyUI
+
+3、分页组件采用jquery easyUI的datagrid实现（首先需要了解datagrid的一些用法）
+
+4、先这样吧

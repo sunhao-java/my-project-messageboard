@@ -14,7 +14,7 @@
     
     <!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
 	<bean id="springHibernateUtils" class="com.message.utils.spring.SpringHibernateUtils">
-		<property name="genericHibernateDAO" ref="genericHibernateDAO"/>
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
     
     <!-- 引入外部的XML -->
@@ -43,7 +43,7 @@
 		<property name="mappingResources">
 			<list>
 				<!-- 配置hibernate的映射文件 -->
-				<value>com/message/board/admin/pojo/Admin.hbm.xml</value>
+				<value>com/message/main/admin/pojo/Admin.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -52,17 +52,18 @@
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>
 	</bean>
 	
 	<!-- 代替了注入hibernateTemplate -->
-	<bean id="genericHibernateDAO" class="com.message.utils.spring.GenericHibernateDAO">
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
 	<aop:config>
-		<aop:pointcut expression="execution(public * com.message.board.*.dao.impl.*.*(..))" id="myPointcut"/>
+		<aop:pointcut expression="execution(public * com.message.main.*.dao.impl.*.*(..))" id="myPointcut"/>
 		<aop:advisor advice-ref="advice" pointcut-ref="myPointcut"/>
 	</aop:config>
 	
@@ -77,28 +78,12 @@
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
-		<property name="nestedTransactionAllowed" value="true"></property>
 	</bean>
 	<!-- 整合hibernate 结束 -->
 	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="defaultHandler" ref="adminController"/>
 	</bean>
-
-	<!-- 集增,删，改，查操作到一个类的controller -->
-	<bean id="adminController" class="com.sunhao.home.web.AdminController">
-		<property name="methodNameResolver">
-			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-				<property name="mappings">
-					<props>
-						<prop key="/inFirstJsp.do">inFirstJsp</prop>
-						<prop key="/inSecondJsp.do">inSecondJsp</prop>
-					</props>
-				</property>
-			</bean>
-		</property>
-	</bean>
-	
 	
 	<!-- 配置tiles页面解析器--> 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -112,10 +97,10 @@
 		<property name="definitions">
 			<list>
 				<value>/WEB-INF/tiles-defs/admin/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/info/tiles-def.xml</value>
+				<!--<value>/WEB-INF/tiles-defs/info/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/message/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/reply/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
+				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>-->
 			</list>
 		</property>
 	</bean>

@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
+	<bean id="adminDAO" class="com.message.main.admin.dao.impl.AdminDAOImpl">
+		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	</bean>
+
+    <bean id="adminService" class="com.message.main.admin.service.impl.AdminServiceImpl">
+    	<property name="adminDAO" ref="adminDAO"/>
+    </bean>
     
+    <bean id="adminController" class="com.message.main.admin.web.AdminController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/admin/inListAdmin.do">inListAdminJsp</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="adminService" ref="adminService"/>
+    </bean>
 </beans>

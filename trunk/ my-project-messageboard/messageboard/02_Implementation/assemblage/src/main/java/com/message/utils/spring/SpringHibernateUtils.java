@@ -1,11 +1,19 @@
 package com.message.utils.spring;
 
+import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.orm.hibernate3.HibernateCallback;
 
 /**
  * 封装spring的hibernateTemplate
@@ -25,9 +33,10 @@ public class SpringHibernateUtils {
 	 * @param params
 	 * @return
 	 */
-	public List<?> findByHQL(String hql, List<Object> params){
+	@SuppressWarnings("unchecked")
+	public List findByHQL(String hql, List params){
 		Query query = null;
-		List<?> result = null;
+		List result = null;
 		try{
 			query = this.genericHibernateDAO.getSessionFactory().getCurrentSession().createQuery(hql);
 			if(CollectionUtils.isNotEmpty(params)) {
@@ -42,6 +51,48 @@ public class SpringHibernateUtils {
 		}
 		
 		return result;
+	}
+	
+	/**
+	 * 执行纯正的SQL语句
+	 * @param sql
+	 * @param params
+	 * @return 表中受影响的数据条数
+	 */
+	@SuppressWarnings("unchecked")
+	public Integer updateByNativeSQL(final String sql, final Map params){
+		return this.genericHibernateDAO.getHibernateTemplate().execute(new HibernateCallback(){
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				SQLQuery sqlQuery = session.createSQLQuery(sql);
+				
+				Iterator it = params.entrySet().iterator();
+				while(it.hasNext()){
+					Entry en = (Entry) it.next();
+					sqlQuery.setParameter((String)en.getKey(), en.getValue());
+				}
+				
+				return sqlQuery.executeUpdate();
+			}
+		});
+	}
+	
+	/**
+	 * 保存实体
+	 * @param entity
+	 * @return
+	 */
+	public Object saveObject(Object entity){
+		this.genericHibernateDAO.getHibernateTemplate().save(entity);
+		return entity;
+	}
+	
+	/**
+	 * 更新实体
+	 * @param entity
+	 */
+	public void updateObject(Object entity){
+		this.genericHibernateDAO.getHibernateTemplate().update(entity);
 	}
 	
 	

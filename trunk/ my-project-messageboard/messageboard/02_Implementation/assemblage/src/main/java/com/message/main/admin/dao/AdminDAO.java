@@ -32,7 +32,7 @@ public interface AdminDAO {
 	/**
 	 * 保存管理员
 	 * @param admin
-	 * @return
+	 * @return true:success false:failure
 	 */
 	boolean saveAdmin(Admin admin);
 	
@@ -44,16 +44,9 @@ public interface AdminDAO {
 	boolean deleteAdminByPkId(Long pkId);
 	
 	/**
-	 * 根据ID的list批量删除
-	 * @param pkIds
-	 * @return
-	 */
-	boolean deleteAdminByList(List<Long> pkIds);
-	
-	/**
 	 * 编辑管理员
 	 * @param admin
-	 * @return
+	 * @return true:success false:failure
 	 */
 	boolean updateAdmin(Admin admin);
 	

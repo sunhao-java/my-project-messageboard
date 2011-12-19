@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
 <hibernate-mapping>
-	<class name="com.message.board.admin.pojo.Admin" table="t_message_admin">
+	<class name="com.message.main.admin.pojo.Admin" table="t_message_admin">
 		<id name="pkId" type="java.lang.Long">
 			<column name="PK_ID" length="10" />
 			<generator class="sequence">

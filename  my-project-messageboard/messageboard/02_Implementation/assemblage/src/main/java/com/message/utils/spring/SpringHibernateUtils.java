@@ -11,9 +11,11 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * 封装spring的hibernateTemplate
@@ -21,12 +23,12 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  */
 public class SpringHibernateUtils {
 	private static final Logger log = LoggerFactory.getLogger(SpringHibernateUtils.class);
-	private GenericHibernateDAO genericHibernateDAO;
+	private HibernateTemplate hibernateTemplate;
 
-	public void setGenericHibernateDAO(GenericHibernateDAO genericHibernateDAO) {
-		this.genericHibernateDAO = genericHibernateDAO;
+	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+		this.hibernateTemplate = hibernateTemplate;
 	}
-	
+
 	/**
 	 * 根据hql和参数list对象获取数值.
 	 * @param hql
@@ -38,7 +40,10 @@ public class SpringHibernateUtils {
 		Query query = null;
 		List result = null;
 		try{
-			query = this.genericHibernateDAO.getSessionFactory().getCurrentSession().createQuery(hql);
+			//query = this.hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(hql);
+			SessionFactory s = this.hibernateTemplate.getSessionFactory();
+			Session ss = s.openSession();
+			query = ss.createQuery(hql);
 			if(CollectionUtils.isNotEmpty(params)) {
 				for(int i = 0; i < params.size(); i++) {
 					query.setParameter(i, params.get(i));
@@ -61,7 +66,7 @@ public class SpringHibernateUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public Integer updateByNativeSQL(final String sql, final Map params){
-		return this.genericHibernateDAO.getHibernateTemplate().execute(new HibernateCallback(){
+		return this.hibernateTemplate.execute(new HibernateCallback(){
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				SQLQuery sqlQuery = session.createSQLQuery(sql);
@@ -83,7 +88,7 @@ public class SpringHibernateUtils {
 	 * @return
 	 */
 	public Object saveObject(Object entity){
-		this.genericHibernateDAO.getHibernateTemplate().save(entity);
+		this.hibernateTemplate.save(entity);
 		return entity;
 	}
 	
@@ -92,7 +97,7 @@ public class SpringHibernateUtils {
 	 * @param entity
 	 */
 	public void updateObject(Object entity){
-		this.genericHibernateDAO.getHibernateTemplate().update(entity);
+		this.hibernateTemplate.update(entity);
 	}
 	
 	

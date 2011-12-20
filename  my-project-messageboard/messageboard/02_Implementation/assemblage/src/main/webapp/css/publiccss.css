@@ -37,7 +37,7 @@ ul {
 
 #menu20 {
     width: 200px;
-    margin: 10px;
+    margin: 5px;
     font-weight: bold;
 }
 
@@ -52,13 +52,13 @@ ul {
 #menu20 li a:link, #menu20 li a:visited {
    color: #FFF;
    display: block;
-   background:  url(/love/image/menu20.gif);
+   background:  url(../image/menu20.gif);
    padding: 8px 0 0 35px;
 }
 
 #menu20 li a:hover {
 	color: #FFF;
-	background:  url(/love/image/menu20.gif) 0 -32px;
+	background:  url(../image/menu20.gif) 0 -32px;
 	padding: 8px 0 0 35px;
 }
 
@@ -69,7 +69,7 @@ img{
 }
 
 .tool{ position:absolute; right:15px; top:3px; height:16px;}
-.tool a{ display:inline-block; width:16px; height:16px; background:url(/love/image/wiseduimg/tool.png); margin-left:15px; outline:none;}
+.tool a{ display:inline-block; width:16px; height:16px; background:url(../image/wiseduimg/tool.png); margin-left:15px; outline:none;}
 .tool .t2 { background-position:-16px 0}
 .tool .t3 { background-position:-32px 0}
 .tool .t4 { background-position:-48px 0}

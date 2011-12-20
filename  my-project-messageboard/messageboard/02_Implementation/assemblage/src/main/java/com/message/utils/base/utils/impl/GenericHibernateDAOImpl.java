@@ -1,4 +1,4 @@
-package com.message.utils.spring;
+package com.message.utils.base.utils.impl;
 
 import java.sql.SQLException;
 import java.util.Iterator;
@@ -16,12 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-/**
- * 封装spring的hibernateTemplate
- * 错误的类！不要用
- * @author sunhao(sunhao.java@gmail.com)
- */
-public class SpringHibernateUtils {
+import com.message.utils.base.utils.GenericHibernateDAO;
+import com.message.utils.spring.SpringHibernateUtils;
+
+public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	private static final Logger log = LoggerFactory.getLogger(SpringHibernateUtils.class);
 	private HibernateTemplate hibernateTemplate;
 
@@ -30,28 +28,36 @@ public class SpringHibernateUtils {
 	}
 
 	/**
-	 * 根据hql和参数list对象获取数值.
+	 * 根据hql和参数list对象获取数值<br/>
+	 * 原来直接用this.hibernateTemplate.getSessionFactory.getCurrentSession.createQuery()
+	 * 这样报错是因为此时的session由hibernate管理，并没有交给spring管理
+	 * 而hibernate管理session是在一个事务transaction中的，这里并没有transaction，所以报错
+	 * 改为用HibernateCallback!
 	 * @param hql
 	 * @param params
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List findByHQL(String hql, List params){
-		Query query = null;
+	public List findByHQL(final String hql, final List params){
 		List result = null;
 		try{
-			query = this.hibernateTemplate.getSessionFactory().getCurrentSession().createQuery(hql);
-			if(CollectionUtils.isNotEmpty(params)) {
-				for(int i = 0; i < params.size(); i++) {
-					query.setParameter(i, params.get(i));
+			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
+				Query query = null;
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					query = session.createQuery(hql);
+					if(CollectionUtils.isNotEmpty(params)) {
+						for(int i = 0; i < params.size(); i++) {
+							query.setParameter(i, params.get(i));
+						}
+					}
+					return query.list();
 				}
-			}
-			result = query.list();
+			});
 		} catch(Exception e){
 			e.printStackTrace();
 			log.error(e.getMessage(), e);
 		}
-		
 		return result;
 	}
 	
@@ -96,6 +102,4 @@ public class SpringHibernateUtils {
 	public void updateObject(Object entity){
 		this.hibernateTemplate.update(entity);
 	}
-	
-	
 }

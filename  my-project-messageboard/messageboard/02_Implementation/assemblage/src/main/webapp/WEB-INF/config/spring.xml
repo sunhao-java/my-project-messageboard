@@ -13,7 +13,7 @@
            		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
     
     <!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
-	<bean id="springHibernateUtils" class="com.message.utils.spring.SpringHibernateUtils">
+	<bean id="genericHibernateDAOImpl" class="com.message.utils.base.utils.impl.GenericHibernateDAOImpl">
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
     
@@ -57,13 +57,12 @@
 		</property>
 	</bean>
 	
-	<!-- 代替了注入hibernateTemplate -->
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
 	<aop:config>
-		<aop:pointcut expression="execution(public * com.message.main.*.dao.impl.*.*(..))" id="myPointcut"/>
+		<aop:pointcut expression="execution(public * com.message.*.*.*.impl.*.*(..))" id="myPointcut"/>
 		<aop:advisor advice-ref="advice" pointcut-ref="myPointcut"/>
 	</aop:config>
 	
@@ -72,12 +71,13 @@
 			<tx:method name="find*" read-only="true"/>
 			<tx:method name="list*" read-only="true"/>
 			<tx:method name="get*" read-only="true"/>
-			<tx:method name="*" read-only="false" propagation="REQUIRED"/>
+			<tx:method name="*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="nestedTransactionAllowed" value="true"/>
 	</bean>
 	<!-- 整合hibernate 结束 -->
 	

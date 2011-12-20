@@ -11,14 +11,14 @@ import org.slf4j.LoggerFactory;
 
 import com.message.main.admin.dao.AdminDAO;
 import com.message.main.admin.pojo.Admin;
+import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 import com.message.utils.resource.ResourceType;
-import com.message.utils.spring.SpringHibernateUtils;
 
 /**
  * 对管理员的数据库持久化操作的DAO
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class AdminDAOImpl extends SpringHibernateUtils implements AdminDAO {
+public class AdminDAOImpl extends GenericHibernateDAOImpl implements AdminDAO {
 	private static final Logger log = LoggerFactory.getLogger(AdminDAOImpl.class);
 
 	public boolean deleteAdminByPkId(Long pkId) {

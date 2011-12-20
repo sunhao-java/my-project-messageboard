@@ -23,7 +23,7 @@
   
   <body class="easyui-layout" style="">
     <div region="north" border="false" style="height:69px;overflow: hidden;">
-    	<img src="image/logo.jpg"/>
+    	<img src="../image/logo.jpg"/>
     	<div class="title" style=""></div>
     	<div class="tool">
             <a class="t3" title="个人首页" href="javaScript:linkFun('mainPage');"></a>

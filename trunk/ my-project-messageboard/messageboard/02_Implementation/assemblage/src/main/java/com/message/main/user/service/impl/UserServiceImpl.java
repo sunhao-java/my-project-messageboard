@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.DigestUtil;
 
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -33,6 +34,20 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		return false;
+	}
+
+	public int userLogin(User user) throws Exception {
+		User dbUser = this.userDAO.getUserByName(user.getUsername());
+		String loginPsw = DigestUtil.MD5Encode(user.getPassword());
+		if(dbUser == null){
+			return 1;		//用户名错误
+		} else {
+			if(loginPsw.equals(dbUser.getPassword())){
+				return 0;	//正确
+			} else {
+				return 2;	//密码错误
+			}
+		}
 	}
 	
 }

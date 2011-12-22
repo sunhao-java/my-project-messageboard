@@ -10,4 +10,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	boolean registerUser(User user) throws Exception;
+	
+	/**
+	 * 用户登录
+	 * @param user
+	 * @return 0:成功	1:用户名错误		2:密码错误
+	 * @throws Exception
+	 */
+	int userLogin(User user) throws Exception;
 }

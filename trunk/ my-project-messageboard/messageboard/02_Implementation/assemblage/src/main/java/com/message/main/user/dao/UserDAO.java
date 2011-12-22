@@ -15,4 +15,12 @@ public interface UserDAO {
 	 */
 	Long registerUser(User user) throws Exception;
 	
+	/**
+	 * 根据用户名获取用户
+	 * @param username
+	 * @return
+	 * @throws Exception
+	 */
+	User getUserByName(String username) throws Exception;
+	
 }

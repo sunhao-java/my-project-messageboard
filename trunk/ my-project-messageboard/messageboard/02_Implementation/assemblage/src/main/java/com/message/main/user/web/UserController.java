@@ -1,5 +1,8 @@
 package com.message.main.user.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,7 +35,28 @@ public class UserController extends MultiActionController {
 	}
 	
 	public ModelAndView userLogin(HttpServletRequest request, HttpServletResponse response, User user){
-		return new ModelAndView("");
+		int status = 0;
+		try {
+			status = this.userService.userLogin(user);
+			if(status == 0){
+				//TODO:by sunhao 正确登录之后跳转的页面
+			} else if(status == 1){
+				request.setAttribute("message", "用户名错误");
+				request.setAttribute("status", status);
+				return this.inLoginJsp(request, response);
+			} else if(status == 2){
+				request.setAttribute("message", "密码错误");
+				request.setAttribute("status", status);
+				return this.inLoginJsp(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			status = 3;		//网络有错误
+			logger.error(e.getMessage(), e);
+			request.setAttribute("status", status);
+			return this.inLoginJsp(request, response);
+		}
+		return null;
 	}
 
 }

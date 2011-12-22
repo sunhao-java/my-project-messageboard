@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.user.pojo.User" table="t_message_user">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_USER</param>
+			</generator>
+		</id>
+		<property name="username" type="java.lang.String">
+			<column name="USER_NAME" length="255">
+				<comment>用户名</comment>
+			</column>
+		</property>
+		<property name="password" type="java.lang.String">
+			<column name="PASSWORD" length="255">
+				<comment>密码(MD5加密)</comment>
+			</column>
+		</property>
+		<property name="ceateDate" type="java.util.Date">
+			<column name="CREATE_DATE">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="emial" type="java.lang.String">
+			<column name="EMAIL" length="255">
+				<comment>邮箱地址</comment>
+			</column>
+		</property>
+		<property name="phoneNum" type="java.lang.String">
+			<column name="PHONE_NUM" length="255">
+				<comment>电话号码</comment>
+			</column>
+		</property>
+		<property name="qq" type="java.lang.String">
+			<column name="QQ" length="20">
+				<comment>QQ号码</comment>
+			</column>
+		</property>
+		<property name="headImage" type="java.lang.String">
+			<column name="HEAD_IMAGE" length="255">
+				<comment>注册用户的头像(记录头像图片的路径)</comment>
+			</column>
+		</property>
+		<property name="address" type="java.lang.String">
+			<column name="ADDRESS" length="255">
+				<comment>地址</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Long">
+			<column name="DELETE_FLAG" length="10">
+				<comment>软删除，0未删除，1已删除</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

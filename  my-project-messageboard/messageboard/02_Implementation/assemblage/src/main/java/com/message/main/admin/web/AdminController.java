@@ -14,8 +14,6 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.message.main.admin.pojo.Admin;
 import com.message.main.admin.service.AdminService;
-import com.message.utils.WebInput;
-import com.message.utils.WebOutput;
 
 public class AdminController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -33,7 +31,7 @@ public class AdminController extends MultiActionController {
 	 * @param admin
 	 * @return
 	 */
-	public ModelAndView inListAdminJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView inListAdminJsp(HttpServletRequest request, HttpServletResponse response, Admin admin){
 		Map<String, Object> params = new HashMap<String, Object>();
 		List<Admin> admins = null;
 		try {
@@ -44,6 +42,18 @@ public class AdminController extends MultiActionController {
 		}
 		params.put("admins", admins);
 		return new ModelAndView("message.list.admin", params);
+	}
+	
+	/**
+	 * 进入编辑管理员的页面
+	 * @param request
+	 * @param response
+	 * @param admin
+	 * @return
+	 */
+	public ModelAndView inEditAdminJsp(HttpServletRequest request, HttpServletResponse response, Admin admin) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		return new ModelAndView("", params);
 	}
 
 }

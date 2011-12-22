@@ -23,6 +23,7 @@
     <import resource="message/spring-message.xml"/>
     <import resource="reply/spring-reply.xml"/>
     <import resource="user/spring-user.xml"/>
+    <!--<import resource="spring-home.xml"/>-->
 
 	<!-- 整合hibernate 开始 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -44,6 +45,7 @@
 			<list>
 				<!-- 配置hibernate的映射文件 -->
 				<value>com/message/main/admin/pojo/Admin.hbm.xml</value>
+				<value>com/message/main/user/pojo/User.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -82,7 +84,15 @@
 	<!-- 整合hibernate 结束 -->
 	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="defaultHandler" ref="adminController"/>
+		<property name="mappings">
+			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+				<property name="location">
+					<value>
+						classpath:message_controllers.properties
+					</value>
+				</property>
+			</bean>
+		</property>
 	</bean>
 	
 	<!-- 配置tiles页面解析器--> 
@@ -99,8 +109,8 @@
 				<value>/WEB-INF/tiles-defs/admin/tiles-def.xml</value>
 				<!--<value>/WEB-INF/tiles-defs/info/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/message/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/reply/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>-->
+				<value>/WEB-INF/tiles-defs/reply/tiles-def.xml</value>-->
+				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
 			</list>
 		</property>
 	</bean>

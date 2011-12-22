@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
+    <bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>
+    
+    <bean id="userService" class="com.message.main.user.service.impl.UserServiceImpl">
+    	<property name="userDAO" ref="userDAO"/>
+    </bean>
+    
+    <bean id="userController" class="com.message.main.user.web.UserController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/user/inLogin.do">inLoginJsp</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="userService" ref="userService"/>
+    </bean>
     
 </beans>

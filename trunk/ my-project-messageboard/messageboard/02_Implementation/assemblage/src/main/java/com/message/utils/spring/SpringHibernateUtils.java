@@ -20,6 +20,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * 封装spring的hibernateTemplate
  * 错误的类！不要用
  * @author sunhao(sunhao.java@gmail.com)
+ * @deprecated
  */
 public class SpringHibernateUtils {
 	private static final Logger log = LoggerFactory.getLogger(SpringHibernateUtils.class);

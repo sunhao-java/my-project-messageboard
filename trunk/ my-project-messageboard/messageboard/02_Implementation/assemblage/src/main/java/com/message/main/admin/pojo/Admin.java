@@ -15,6 +15,9 @@ public class Admin implements Serializable {
 	private String password; 	// 登录密码，MD5加密
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 
+	/**
+	 * 默认构造方法
+	 */
 	public Admin() {
 	}
 

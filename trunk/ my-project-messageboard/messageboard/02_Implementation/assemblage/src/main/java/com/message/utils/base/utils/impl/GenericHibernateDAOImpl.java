@@ -17,10 +17,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.message.utils.base.utils.GenericHibernateDAO;
-import com.message.utils.spring.SpringHibernateUtils;
 
 public class GenericHibernateDAOImpl implements GenericHibernateDAO {
-	private static final Logger log = LoggerFactory.getLogger(SpringHibernateUtils.class);
+	private static final Logger log = LoggerFactory.getLogger(GenericHibernateDAOImpl.class);
 	private HibernateTemplate hibernateTemplate;
 
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {

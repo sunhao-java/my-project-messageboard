@@ -1,5 +1,9 @@
 package com.message.main.user.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +24,18 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 			logger.error(e.getMessage(), e);
 			return null;
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public User getUserByName(String username) throws Exception {
+		String hql = "from User where username = ?";
+		List<Object> params = new ArrayList<Object>();
+		params.add(username);
+		List list = this.findByHQL(hql, params);
+		if(CollectionUtils.isNotEmpty(list)){
+			return (User) list.get(0);
+		}
+		return null;
 	}
 
 }

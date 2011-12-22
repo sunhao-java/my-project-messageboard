@@ -13,6 +13,7 @@
     			<property name="mappings">
     				<props>
     					<prop key="/user/inLogin.do">inLoginJsp</prop>
+    					<prop key="/user/login.do">userLogin</prop>
     				</props>
     			</property>
     		</bean>

@@ -1,5 +1,5 @@
 prompt PL/SQL Developer import file
-prompt Created on 2011Äê12ÔÂ22ÈÕ by sunhao
+prompt Created on 2011å¹´12æœˆ22æ—¥ by sunhao
 set feedback off
 set define off
 prompt Dropping T_MESSAGE_ADMIN...
@@ -25,11 +25,11 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_ADMIN.USERNAME
-  is '¹ÜÀíÔ±ÓÃ»§Ãû';
+  is 'ç®¡ç†å‘˜ç”¨æˆ·å';
 comment on column T_MESSAGE_ADMIN.PASSWORD
-  is '¹ÜÀíÔ±ÃÜÂë';
+  is 'ç®¡ç†å‘˜å¯†ç ';
 comment on column T_MESSAGE_ADMIN.DELETE_FLAG
-  is 'ÈíÉ¾³ı±ê¼Ç£¬0Î´É¾³ı£¬1ÒÑÉ¾³ı';
+  is 'è½¯åˆ é™¤æ ‡è®°ï¼Œ0æœªåˆ é™¤ï¼Œ1å·²åˆ é™¤';
 alter table T_MESSAGE_ADMIN
   add primary key (PK_ID)
   using index 
@@ -69,23 +69,23 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_USER.USER_NAME
-  is 'ÓÃ»§Ãû';
+  is 'ç”¨æˆ·å';
 comment on column T_MESSAGE_USER.PASSWORD
-  is 'ÃÜÂë(MD5¼ÓÃÜ)';
+  is 'å¯†ç (MD5åŠ å¯†)';
 comment on column T_MESSAGE_USER.CREATE_DATE
-  is '´´½¨Ê±¼ä';
+  is 'åˆ›å»ºæ—¶é—´';
 comment on column T_MESSAGE_USER.EMAIL
-  is 'ÓÊÏäµØÖ·';
+  is 'é‚®ç®±åœ°å€';
 comment on column T_MESSAGE_USER.PHONE_NUM
-  is 'µç»°ºÅÂë';
+  is 'ç”µè¯å·ç ';
 comment on column T_MESSAGE_USER.QQ
-  is 'QQºÅÂë';
+  is 'QQå·ç ';
 comment on column T_MESSAGE_USER.HEAD_IMAGE
-  is '×¢²áÓÃ»§µÄÍ·Ïñ(¼ÇÂ¼Í·ÏñÍ¼Æ¬µÄÂ·¾¶)';
+  is 'æ³¨å†Œç”¨æˆ·çš„å¤´åƒ(è®°å½•å¤´åƒå›¾ç‰‡çš„è·¯å¾„)';
 comment on column T_MESSAGE_USER.ADDRESS
-  is 'µØÖ·';
+  is 'åœ°å€';
 comment on column T_MESSAGE_USER.DELETE_FLAG
-  is 'ÈíÉ¾³ı£¬0Î´É¾³ı£¬1ÒÑÉ¾³ı';
+  is 'è½¯åˆ é™¤ï¼Œ0æœªåˆ é™¤ï¼Œ1å·²åˆ é™¤';
 alter table T_MESSAGE_USER
   add primary key (PK_ID)
   using index 

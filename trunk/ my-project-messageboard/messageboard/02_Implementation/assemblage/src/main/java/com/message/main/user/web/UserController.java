@@ -1,8 +1,5 @@
 package com.message.main.user.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,7 +21,7 @@ public class UserController extends MultiActionController {
 	}
 	
 	/**
-	 * 进入管理员列表页面
+	 * 进入用户登录页面
 	 * @param in
 	 * @param out
 	 * @param admin
@@ -34,19 +31,30 @@ public class UserController extends MultiActionController {
 		return new ModelAndView("user.login");
 	}
 	
+	/**
+	 * 用户登录
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
 	public ModelAndView userLogin(HttpServletRequest request, HttpServletResponse response, User user){
 		int status = 0;
 		try {
 			status = this.userService.userLogin(user);
 			if(status == 0){
 				//TODO:by sunhao 正确登录之后跳转的页面
-			} else if(status == 1){
-				request.setAttribute("message", "用户名错误");
-				request.setAttribute("status", status);
-				return this.inLoginJsp(request, response);
-			} else if(status == 2){
-				request.setAttribute("message", "密码错误");
-				request.setAttribute("status", status);
+			} else {
+				if(status == 1){
+					request.setAttribute("message", "用户名错误");
+					request.setAttribute("status", status);
+				} else if(status == 2){
+					request.setAttribute("message", "密码错误");
+					request.setAttribute("status", status);
+				} else if(status == 3){
+					request.setAttribute("message", "用户名密码必填");
+					request.setAttribute("status", status);
+				}
 				return this.inLoginJsp(request, response);
 			}
 		} catch (Exception e) {

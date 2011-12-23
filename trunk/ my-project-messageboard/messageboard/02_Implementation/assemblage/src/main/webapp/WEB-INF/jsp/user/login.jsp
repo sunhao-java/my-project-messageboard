@@ -16,19 +16,6 @@
 		<msg:css href="themes/default/easyui.css"/>
 		<msg:css href="themes/icon.css"/>
 		
-		<script language="javascript">
-			function login(){
-				var flag = Validator.Validate(document.getElementById("dataFrm"), 3);
-				if (flag) {
-					$("#dataFrm").submit();
-				}
-			}
-			
-			function reset(){
-				window.location.href = '${contextPath}/user/inLogin.do';
-			}
-		</script>
-		
 		<style type="text/css">
 			.AlrtTbl{
 				font-size: 12px;
@@ -143,7 +130,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td width="311" background="${contextPath}/image/wiseduimg/wiscom_index_05.jpg" style="background-repeat: no-repeat;">
+							<td width="311" height="70" background="${contextPath}/image/wiseduimg/wiscom_index_05.jpg" style="background-repeat: no-repeat;">
 								&nbsp;
 							</td>
 						</tr>

@@ -63,7 +63,9 @@
 	</div>
 	<div region="center" title="留言板" style="position:relative;">
 		<%--<iframe src="mainPage" scrolling="auto" frameborder="0" height="100%" width="100%" id="main" src="" name="main"></iframe>--%>
-		<tiles:insertAttribute name="content"/>
+		<div style="padding-top: 10px; padding-left: 10px;">
+			<tiles:insertAttribute name="content"/>
+		</div>
 	</div>
   </body>
 </html>

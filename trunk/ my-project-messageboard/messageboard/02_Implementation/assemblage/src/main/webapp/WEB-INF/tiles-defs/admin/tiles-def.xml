@@ -3,7 +3,7 @@
         PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-	<definition name="message.list.admin" template="/WEB-INF/jsp/main/index.jsp">
+	<definition name="message.list.admin" extends="message.template">
 		<put-attribute name="content" value="/WEB-INF/jsp/admin/listAdmin.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

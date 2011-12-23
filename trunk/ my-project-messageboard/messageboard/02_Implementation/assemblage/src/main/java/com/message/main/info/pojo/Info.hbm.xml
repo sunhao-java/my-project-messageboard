@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.info.pojo.Info" table="t_message_info">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">T_MESSAGE_INFO</param>
+			</generator>
+		</id>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" length="4000">
+				<comment>留言板描述</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

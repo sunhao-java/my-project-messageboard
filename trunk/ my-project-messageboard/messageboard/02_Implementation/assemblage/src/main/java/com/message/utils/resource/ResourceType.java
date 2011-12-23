@@ -10,4 +10,7 @@ public final class ResourceType {
 	
 	//已删除
 	public static final Long DELETE_YES = 1L;
+	
+	//每页显示的条数
+	public static final int PAGE_NUM = 10;
 }

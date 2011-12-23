@@ -18,4 +18,12 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	int userLogin(User user) throws Exception;
+	
+	/**
+	 * 通过ID获取用户
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	User getUserById(Long userId) throws Exception;
 }

@@ -15,6 +15,10 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.admin.pojo.Admin;
 import com.message.main.admin.service.AdminService;
 
+/**
+ * 管理员操作的controller
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class AdminController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	

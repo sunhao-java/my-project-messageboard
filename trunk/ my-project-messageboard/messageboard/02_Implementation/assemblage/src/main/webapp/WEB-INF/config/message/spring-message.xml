@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
+    <bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAOImpl"/>
     
+    <bean id="messageService" class="com.message.main.message.service.impl.MessageServiceImpl">
+    	<property name="messageDAO" ref="messageDAO"/>
+    	<property name="userService" ref="userService"/>
+    </bean>
+    
+    <bean id="messageController" class="com.message.main.message.web.MessageController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/message/listMessage.do">listMessage</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="messageService" ref="messageService"/>
+    </bean>
 </beans>

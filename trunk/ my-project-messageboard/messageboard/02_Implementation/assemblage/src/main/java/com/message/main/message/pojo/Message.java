@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.message.main.reply.pojo.Reply;
+import com.message.main.user.pojo.User;
 
 /**
  * 留言实体
@@ -22,6 +23,9 @@ public class Message implements Serializable {
 	private Set<Reply> replys = new HashSet<Reply>();	//对应的回复
 	private Long createUserId;							//对应的留言者ID
 	private Long deleteFlag;							//删除标识0未删除1已删除
+	
+	//VO Field
+	private User createUser;							//VO字段，发表留言者
 
 	public Long getPkId() {
 		return pkId;
@@ -85,6 +89,14 @@ public class Message implements Serializable {
 
 	public void setDeleteFlag(Long deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public User getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
 	}
 
 }

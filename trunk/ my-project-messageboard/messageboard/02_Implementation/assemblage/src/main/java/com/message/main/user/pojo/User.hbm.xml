@@ -25,6 +25,11 @@
 				<comment>创建时间</comment>
 			</column>
 		</property>
+		<property name="sex" type="java.lang.Long">
+			<column name="SEX" length="10">
+				<comment>性别0:不男不女;1: 男;2:女</comment>
+			</column>
+		</property>
 		<property name="emial" type="java.lang.String">
 			<column name="EMAIL" length="255">
 				<comment>邮箱地址</comment>

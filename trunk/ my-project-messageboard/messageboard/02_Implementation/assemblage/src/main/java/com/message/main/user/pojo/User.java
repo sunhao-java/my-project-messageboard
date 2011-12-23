@@ -14,6 +14,7 @@ public class User implements Serializable{
 	private String username;	//用户名
 	private String password;	//密码，MD5加密
 	private Date ceateDate;		//用户创建时间
+	private Long sex;			//性别0:不男不女;1: 男;2:女
 	private String emial;		//用户注册邮箱
 	private String phoneNum;	//用户注册手机号码
 	private String qq;			//注册用户的QQ号码
@@ -53,6 +54,14 @@ public class User implements Serializable{
 
 	public Date getCeateDate() {
 		return ceateDate;
+	}
+
+	public Long getSex() {
+		return sex;
+	}
+
+	public void setSex(Long sex) {
+		this.sex = sex;
 	}
 
 	public void setCeateDate(Date ceateDate) {

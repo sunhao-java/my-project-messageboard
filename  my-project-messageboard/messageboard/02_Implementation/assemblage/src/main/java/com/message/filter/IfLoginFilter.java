@@ -24,9 +24,15 @@ public class IfLoginFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpSession session = request.getSession(true);
 		String url = request.getServletPath();
+		if(url.indexOf(".do") != -1){
+			System.out.println("----------start----------");
+			System.out.println("url:" + url);
+			System.out.println("port:" + request.getServerPort());
+			System.out.println("client:" + request.getRemoteAddr());
+			System.out.println("-----------end-----------");
+		}
 		
-		
-		
+		chain.doFilter(req, res);
 	}
 
 	public void init(FilterConfig config) throws ServletException {

@@ -10,7 +10,7 @@
 	</welcome-file-list>
 	
 	<!-- 配置拦截器，拦截未登录的请求 -->
-	<!--<filter>
+	<filter>
 		<filter-name>ifLoginFilter</filter-name>
 		<filter-class>com.message.filter.IfLoginFilter</filter-class>
 	</filter>
@@ -18,7 +18,7 @@
 	<filter-mapping>
 		<filter-name>ifLoginFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>-->
+	</filter-mapping>
 	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

@@ -101,4 +101,52 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	public void updateObject(Object entity){
 		this.hibernateTemplate.update(entity);
 	}
+	
+	/**
+	 * 通过分页来获取对象的list集合
+	 * @param hql		查询HQL
+	 * @param start		开始记录
+	 * @param num		总共查出的记录
+	 * @param params	参数
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List getBeanPaginationSupport(final String hql, final int start, final int num, final Map params) {
+		List result = null;
+		try{
+			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
+				public Object doInHibernate(Session session)
+						throws HibernateException, SQLException {
+					Query query = session.createQuery(hql);
+					query.setFetchSize(start);
+					query.setMaxResults(num);
+					
+					Iterator it = params.entrySet().iterator();
+					while(it.hasNext()){
+						Entry en = (Entry) it.next();
+						query.setParameter((String)en.getKey(), en.getValue());
+					}
+					
+					return query.list();
+				}
+			});
+		}catch(Exception e){
+			e.printStackTrace();
+			log.error(e.getMessage(), e);
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 根据主键获取对象
+	 * @param clazz		类名
+	 * @param id		主键
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Object loadObject(Class clazz, Long id){
+		return this.hibernateTemplate.get(clazz, id);
+	}
+	
 }

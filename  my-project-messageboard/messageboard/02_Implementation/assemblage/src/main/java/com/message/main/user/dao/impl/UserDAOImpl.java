@@ -38,4 +38,8 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 		return null;
 	}
 
+	public User getUserById(Long userId) throws Exception {
+		return (User) this.loadObject(User.class, userId);
+	}
+
 }

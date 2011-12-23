@@ -11,6 +11,10 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 
+/**
+ * 用户操作的controller
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class UserController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
@@ -45,6 +49,8 @@ public class UserController extends MultiActionController {
 			status = this.userService.userLogin(user);
 			if(status == 0){
 				//TODO:by sunhao 正确登录之后跳转的页面
+				//跳转到另外一个controller
+				return new ModelAndView("redirect:/rentHouse.htm?method=display");
 			} else {
 				if(status == 1){
 					request.setAttribute("message", "用户名错误");
@@ -65,7 +71,6 @@ public class UserController extends MultiActionController {
 			request.setAttribute("status", status);
 			return this.inLoginJsp(request, response);
 		}
-		return null;
 	}
 
 }

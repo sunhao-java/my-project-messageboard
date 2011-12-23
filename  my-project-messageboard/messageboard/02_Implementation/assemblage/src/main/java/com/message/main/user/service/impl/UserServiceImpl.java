@@ -53,5 +53,9 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 	}
+
+	public User getUserById(Long userId) throws Exception {
+		return this.userDAO.getUserById(userId);
+	}
 	
 }

@@ -23,4 +23,12 @@ public interface UserDAO {
 	 */
 	User getUserByName(String username) throws Exception;
 	
+	/**
+	 * 通过ID获取用户
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	User getUserById(Long userId) throws Exception;
+	
 }

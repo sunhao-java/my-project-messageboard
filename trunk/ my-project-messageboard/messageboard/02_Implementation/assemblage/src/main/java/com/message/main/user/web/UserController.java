@@ -39,6 +39,7 @@ public class UserController extends MultiActionController {
 	 * @return
 	 */
 	public ModelAndView userLogin(HttpServletRequest request, HttpServletResponse response, User user){
+		logger.debug("用户名是" + user.getUsername());
 		int status = 0;
 		try {
 			status = this.userService.userLogin(user);

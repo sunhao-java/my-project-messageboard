@@ -1,5 +1,6 @@
 package com.message.main.user.service.impl;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,6 +38,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public int userLogin(User user) throws Exception {
+		if(StringUtils.isEmpty(user.getUsername())){
+			return 3;		//用户名为空
+		}
 		User dbUser = this.userDAO.getUserByName(user.getUsername());
 		String loginPsw = DigestUtil.MD5Encode(user.getPassword());
 		if(dbUser == null){

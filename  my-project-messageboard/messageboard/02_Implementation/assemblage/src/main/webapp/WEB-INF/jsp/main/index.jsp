@@ -36,22 +36,18 @@
 	<div region="west" title="标题" style="width:150px;background-color: #F7F7F7;overflow-x:hidden;overflow-y:auto;">
 		<div id="menu20">
         	<ul id="module">
-				<li><a href="javaScript:linkFun('mainPage');">本站首页</a></li>
-				<li><a href="javaScript:linkFun('introduceMe');">个人介绍 </a></li>
-				<li><a href="javaScript:linkFun('showLetter');">一封信 </a></li>
-				<li><a href="javaScript:linkFun('showYou');">美丽的女孩 </a></li>
-				<li><a href="javaScript:linkFun('showBtn');">童话之心 </a></li>
 				<li><a href="javaScript:linkFun('message/listMessage');">查看留言</a></li>
 				<li><a href="javaScript:linkFun('message/inLyJsp');">发表留言</a></li>
 				<li><a href="javaScript:linkFun('admin/inLoginJsp');">留言管理</a></li>
 				<li><a href="javaScript:linkFun('down/afterDown');">源码共享</a></li>
+				<li><a href="">管理员登录</a></li>
 			</ul>
 		</div>
 	</div>
 	<div region="south" border="false" style="height:60px;background:#F7F7F7;overflow: hidden;">
 		<div id="tailTab">
 			<p>
-				<span class="ipbackup">皖ICP备020540号</span><span class="STYLE8">
+				<span class="ipbackup">皖ICP备XXXXXX号</span><span class="STYLE8">
 					版权所有 &copy; 2011 孙昊</span>
 			</p>
 			<p>

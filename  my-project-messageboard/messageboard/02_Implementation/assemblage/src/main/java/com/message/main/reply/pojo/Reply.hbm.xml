@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.reply.pojo.Reply" table="T_MESSAGE_REPLY">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_REPLY</param>
+			</generator>
+		</id>
+		<property name="title" type="java.lang.String">
+			<column name="TITLE" length="255">
+				<comment>标题</comment>
+			</column>
+		</property>
+		<property name="replyContent" type="java.lang.String">
+			<column name="REPLY_CONTENT" length="4000">
+				<comment>回复内容</comment>
+			</column>
+		</property>
+		<property name="replyDate" type="java.util.Date">
+			<column name="REPLY_DATE">
+				<comment>回复时间</comment>
+			</column>
+		</property>
+		<property name="replyUserId" type="java.lang.Long">
+			<column name="REPLY_USERID" precision="10" scale="0">
+				<comment>回复者ID</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Long">
+			<column name="DELETE_FLAG" length="10">
+				<comment>删除标识0未删除1已删除</comment>
+			</column>
+		</property>
+		<many-to-one name="message" class="com.message.main.message.pojo.Message">
+			<column name="MESSAGE_ID" precision="10" scale="0">
+				<comment>所回复的留言ID</comment>
+			</column>
+		</many-to-one>
+	</class>
+</hibernate-mapping>

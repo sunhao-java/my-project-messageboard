@@ -11,10 +11,15 @@
 
 		<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 		<msg:js src="js/jquery/jquery.easyui.min.js"/>
-		<msg:js src="js/validate.js"/>
 
 		<msg:css href="themes/default/easyui.css"/>
 		<msg:css href="themes/icon.css"/>
+		
+		<script type="text/javascript">
+			function login(){
+				$("#dataFrm").submit();
+			}
+		</script>
 		
 		<style type="text/css">
 			.AlrtTbl{

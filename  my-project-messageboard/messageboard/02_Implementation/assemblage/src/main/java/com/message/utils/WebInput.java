@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -238,6 +239,10 @@ public class WebInput {
 		}
 		
 		return null;
+	}
+	
+	public HttpSession getSession(){
+		return this.request.getSession();
 	}
 	
 	public String getClientIP(){

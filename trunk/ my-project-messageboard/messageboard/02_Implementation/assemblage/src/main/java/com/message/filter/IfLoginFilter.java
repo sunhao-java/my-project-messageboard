@@ -18,6 +18,7 @@ public class IfLoginFilter implements Filter {
 		
 	}
 
+	@SuppressWarnings("unused")
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -25,13 +26,24 @@ public class IfLoginFilter implements Filter {
 		HttpSession session = request.getSession(true);
 		String url = request.getServletPath();
 		if(url.indexOf(".do") != -1){
-			System.out.println("----------start----------");
-			System.out.println("url:" + url);
-			System.out.println("port:" + request.getServerPort());
-			System.out.println("client:" + request.getRemoteAddr());
-			System.out.println("-----------end-----------");
+			System.out.println("request process info:");
+			System.out.println("begin-----------------");
+			System.out.println("url=[" + url + "]");
+			System.out.println("port=[" + request.getServerPort() + "]");
+			System.out.println("client=[" + request.getRemoteAddr() + "]");
+			System.out.println("method=[" + request.getMethod() + "]");
+			System.out.println("end-------------------");
 		}
-		
+		/*User user = (User) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(!"/index.jsp".equals(url)){
+			if(user != null){
+				response.sendRedirect(request.getContextPath() + ResourceType.LOGIN_PAGE_URL);
+			} else {
+				chain.doFilter(req, res);
+			}
+		} else {
+			chain.doFilter(req, res);
+		}*/
 		chain.doFilter(req, res);
 	}
 

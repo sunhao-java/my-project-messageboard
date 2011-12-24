@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+body{  
+	background: url("../image/wiseduimg/module/top_bg.png") repeat scroll 0 0 #FFFFFF;
+    color: #000000;
+    font: 12px/1.5 'lucida grande',tahoma,arial,'bitstream vera sans',helvetica,sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    margin: 0;
+    font-size: 80%;
+}
+
+.tool{ position:absolute; right:15px; top:3px; height:16px;}
+.tool a{ display:inline-block; width:16px; height:16px; background:url(../image/wiseduimg/tool.png); margin-left:15px; outline:none;}
+.tool .t2 { background-position:-16px 0}
+.tool .t3 { background-position:-32px 0}
+.tool .t4 { background-position:-48px 0}
+.tool .t5 { background-position:-64px 0}
+.tool .t6 { background-position:-80px 0}
+
+.title{
+	background-image: url("../image/wiseduimg/banner.png");
+	background-repeat: no-repeat;
+	width: 494px;
+	height: 100%;
+	right: 0px;
+	position:absolute;
+	z-index: -1;
+}
+
+.welcomeUser{
+	float: left;
+	padding-bottom: 0px;
+	margin-left: 155px;
+	margin-top: 39px;
+	background-image: url('../image/main_05.gif');
+	width: 800px;
+	z-index: 1000;
+	position:absolute;
+}
+
+body table{
+	width: 100%;
+	text-align: center;
+	height: 30;
+}
+
+body table tr{
+}
+
+body table tr td{
+}
+
+body table tr td span{
+	text-align: center;
+	font-size: 12px;
+	color: #FFFFFF
+}
+
+body table tr td span img{
+	height: 16px;
+	width: 16px;
+	vertical-align: middle;
+}

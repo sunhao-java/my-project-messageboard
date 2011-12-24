@@ -32,7 +32,9 @@ ul {
 	background-repeat: no-repeat;
 	width: 494px;
 	height: 100%;
-	float: right;
+	right: 0px;
+	position:absolute;
+	z-index: -1;
 }
 
 #menu20 {

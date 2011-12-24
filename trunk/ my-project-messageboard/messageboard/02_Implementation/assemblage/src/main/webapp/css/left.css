@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+body{
+	margin: 0;
+}
+.left{ background: url(../image/wiseduimg/left_bg.png) no-repeat; background-attachment:fixed;}
+.left .tabmenu{ padding-top:1px}
+.left .tabheader{ background:url(../image/wiseduimg/menu.png); height:26px;}
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+input, img {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+a img {
+	width: 16px;
+	height: 16px;
+	border: 0px;
+}

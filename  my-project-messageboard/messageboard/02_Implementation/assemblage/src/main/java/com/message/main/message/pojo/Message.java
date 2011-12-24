@@ -19,7 +19,7 @@ public class Message implements Serializable {
 	private String title;								//标题
 	private String ip;									//IP地址
 	private String content;								//留言内容
-	private Date crateDate;								//留言时间
+	private Date createDate;							//留言时间
 	private Set<Reply> replys = new HashSet<Reply>();	//对应的回复
 	private Long createUserId;							//对应的留言者ID
 	private Long deleteFlag;							//删除标识0未删除1已删除
@@ -59,12 +59,12 @@ public class Message implements Serializable {
 		this.content = content;
 	}
 
-	public Date getCrateDate() {
-		return crateDate;
+	public Date getCreateDate() {
+		return createDate;
 	}
 
-	public void setCrateDate(Date crateDate) {
-		this.crateDate = crateDate;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
 
 	public Set<Reply> getReplys() {

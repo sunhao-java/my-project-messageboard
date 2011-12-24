@@ -13,13 +13,14 @@ public class User implements Serializable{
 	private Long pkId;			//主键，唯一标识
 	private String username;	//用户名
 	private String password;	//密码，MD5加密
-	private Date ceateDate;		//用户创建时间
+	private Date createDate;	//用户创建时间
 	private Long sex;			//性别0:不男不女;1: 男;2:女
-	private String emial;		//用户注册邮箱
+	private String email;		//用户注册邮箱
 	private String phoneNum;	//用户注册手机号码
 	private String qq;			//注册用户的QQ号码
 	private String headImage;	//注册用户的头像(记录头像图片的路径)
 	private String address; 	//注册用户的地址
+	private String homePage;	//注册用户的主页
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 	
 	/**
@@ -52,10 +53,6 @@ public class User implements Serializable{
 		this.password = password;
 	}
 
-	public Date getCeateDate() {
-		return ceateDate;
-	}
-
 	public Long getSex() {
 		return sex;
 	}
@@ -63,19 +60,7 @@ public class User implements Serializable{
 	public void setSex(Long sex) {
 		this.sex = sex;
 	}
-
-	public void setCeateDate(Date ceateDate) {
-		this.ceateDate = ceateDate;
-	}
-
-	public String getEmial() {
-		return emial;
-	}
-
-	public void setEmial(String emial) {
-		this.emial = emial;
-	}
-
+	
 	public String getPhoneNum() {
 		return phoneNum;
 	}
@@ -114,6 +99,30 @@ public class User implements Serializable{
 
 	public void setDeleteFlag(Long deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getHomePage() {
+		return homePage;
+	}
+
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
 	}
 
 }

@@ -20,7 +20,7 @@
 				<comment>标题</comment>
 			</column>
 		</property>
-		<property name="crateDate" type="java.util.Date">
+		<property name="createDate" type="java.util.Date">
 			<column name="CREATE_DATE">
 				<comment>留言时间</comment>
 			</column>

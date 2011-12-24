@@ -50,7 +50,7 @@ public class UserController extends MultiActionController {
 			if(status == 0){
 				//TODO:by sunhao 正确登录之后跳转的页面
 				//跳转到另外一个controller
-				return new ModelAndView("redirect:/rentHouse.htm?method=display");
+				return new ModelAndView("redirect:/home/inMessageIndex.do");
 			} else {
 				if(status == 1){
 					request.setAttribute("message", "用户名错误");

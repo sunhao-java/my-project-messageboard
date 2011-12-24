@@ -26,13 +26,13 @@
 				<span style="float:right">位置：${message.ip }</span>
 			</div>
 			<div class="msgTime" >
-				<fmt:formatDate value="${message.crateDate }" pattern="yyyy-MM-dd HH:mm"/>
+				<fmt:formatDate value="${message.createDate }" pattern="yyyy-MM-dd HH:mm"/>
 			</div>
 			<div class="userContact">
 				<img class="imgLink" src="${contextPath }/image/contact/homepage_grey.gif" alt="" />
 				<c:choose>
-					<c:when test="${not empty message.createUser.emial }">
-						<a href="mailto:${message.createUser.emial }" title="发送邮件">
+					<c:when test="${not empty message.createUser.email }">
+						<a href="mailto:${message.createUser.email }" title="发送邮件">
 							<img class="imgLink" src="${contextPath }/image/contact/email.gif"/>
 						</a>
 					</c:when>

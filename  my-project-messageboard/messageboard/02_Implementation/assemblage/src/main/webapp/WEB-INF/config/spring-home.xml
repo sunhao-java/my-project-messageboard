@@ -6,7 +6,11 @@
 			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 				<property name="mappings">
 					<props>
-						<prop key="/home/inLoginJsp.do">inLoginJsp</prop>
+						<prop key="/home/index.do">index</prop>
+						<prop key="/home/left.do">left</prop>
+						<prop key="/home/top.do">top</prop>
+						<prop key="/home/tail.do">tail</prop>
+						<prop key="/home/inMessageIndex.do">inMessageIndex</prop>
 					</props>
 				</property>
 			</bean>

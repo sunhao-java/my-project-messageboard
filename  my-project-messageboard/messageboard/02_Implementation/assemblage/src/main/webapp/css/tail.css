@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+body{
+   	margin-top: 10px;
+   	background: url("../image/wiseduimg/module/bottom_1_bg.png") repeat scroll 0 0 transparent;
+}
+#tailTab{
+	color: #000000;
+    font-family: "Arial","Helvetica","sans-serif";
+    font-size: 12px;
+    line-height: 10px;
+    border-width: 0px;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+#tailTab p a:link,a:active,a:VISITED {
+	text-decoration: none;
+}
+
+.ipbackup {
+	color: gray;
+}

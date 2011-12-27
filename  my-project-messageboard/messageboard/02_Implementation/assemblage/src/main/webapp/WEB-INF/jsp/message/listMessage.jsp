@@ -29,7 +29,16 @@
 				<fmt:formatDate value="${message.createDate }" pattern="yyyy-MM-dd HH:mm"/>
 			</div>
 			<div class="userContact">
-				<img class="imgLink" src="${contextPath }/image/contact/homepage_grey.gif" alt="" />
+				<c:choose>
+					<c:when test="${not empty message.createUser.homePage}">
+						<a href="${message.createUser.homePage }" target="_blank">
+							<img class="imgLink" src="${contextPath }/image/contact/homepage.gif" title="主页"/>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<img class="imgLink" src="${contextPath }/image/contact/homepage_grey.gif"/>
+					</c:otherwise>
+				</c:choose>
 				<c:choose>
 					<c:when test="${not empty message.createUser.email }">
 						<a href="mailto:${message.createUser.email }" title="发送邮件">

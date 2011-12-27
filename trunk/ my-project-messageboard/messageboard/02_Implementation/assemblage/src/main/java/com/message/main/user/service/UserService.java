@@ -26,4 +26,13 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	User getUserById(Long userId) throws Exception;
+	
+	/**
+	 * 判断用户名是否存在
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	boolean checkUser(User user) throws Exception;
+	
 }

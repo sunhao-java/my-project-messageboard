@@ -1,5 +1,7 @@
 package com.message.main.user.service.impl;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +10,7 @@ import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.DigestUtil;
+import com.message.utils.resource.ResourceType;
 
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -22,6 +25,11 @@ public class UserServiceImpl implements UserService{
 		if(user != null){
 			Long pkId = null;
 			try {
+				if(StringUtils.isNotEmpty(user.getPassword())){
+					user.setPassword(DigestUtil.MD5Encode(user.getPassword()));
+				}
+				user.setCreateDate(new Date());
+				user.setDeleteFlag(ResourceType.DELETE_NO);
 				pkId = this.userDAO.registerUser(user);
 				if(pkId != null){
 					return true;
@@ -56,6 +64,15 @@ public class UserServiceImpl implements UserService{
 
 	public User getUserById(Long userId) throws Exception {
 		return this.userDAO.getUserById(userId);
+	}
+
+	public boolean checkUser(User user) throws Exception {
+		String name = user.getUsername();
+		User dbUser = null;
+		if(StringUtils.isNotEmpty(name)){
+			dbUser = this.userDAO.getUserByName(name);
+		}
+		return dbUser == null ? true : false;
 	}
 	
 }

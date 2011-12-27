@@ -3,6 +3,8 @@ package com.message.main.user.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.WebInput;
+import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
 
 /**
@@ -21,6 +24,7 @@ public class UserController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private static WebInput in = null;
+	private static WebOutput out = null;
 	
 	private UserService userService;
 
@@ -84,6 +88,54 @@ public class UserController extends MultiActionController {
 			request.setAttribute("status", status);
 			return this.inLoginJsp(request, response);
 		}
+	}
+	
+	/**
+	 * 注册用户
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView saveUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		JSONObject params = new JSONObject();
+		try {
+			boolean status = this.userService.registerUser(user);
+			if(status){
+				params.put("status", 1);
+			} else {
+				params.put("status", 0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 判断注册的用户是否已存在
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView checkUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		JSONObject obj = new JSONObject();
+		String status = "";
+		try {
+			status = this.userService.checkUser(user) ? "1" : "0";
+			obj.put("status", status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		out.toJson(obj);
+		return null;
 	}
 
 }

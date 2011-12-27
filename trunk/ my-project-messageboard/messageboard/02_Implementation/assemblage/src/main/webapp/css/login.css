@@ -1,0 +1,111 @@
+@CHARSET "UTF-8";
+body{
+	
+}
+
+.AlrtTbl{
+	font-size: 12px;
+	background-color: #FFFFCC;
+    border: 1px solid #E1E1A7;
+    padding: 7px 15px;
+}
+
+.AlrtMsgTxt a:link,a:active,a:visited{
+	color: #003399;
+	text-decoration: none;
+}
+
+.AlrtMsgTxt a:hover{
+	color: red;
+	text-decoration: underline;
+}
+
+.AlrtErrTxt{
+	color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.AlrtMsgTxt{
+	color: #000000;
+	padding-top: 6px;
+	text-align: left;
+}
+
+.registerDiv{
+	left: 340px; 
+	top: 54px;
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 3px solid #B7916A;
+    float: left;
+    font-size: 12px;
+    position: absolute;
+    width: 620px;
+    z-index: 200;
+    display: none;
+}
+
+.titleDiv{
+	background: none repeat scroll 0 0 #B7916A;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
+}
+
+.titleDiv img{
+	border-color: #B7916A #B7916A #B7916A -moz-use-text-color;
+    border-style: solid solid solid none;
+    border-width: 3px 1px 1px medium;
+    float: right;
+}
+
+.titleDiv p{
+	margin: 0;
+    padding: 3px 0;
+    font-weight: bold;
+}
+
+TABLE.tableform {
+	margin: 0;
+	padding: 0;
+	font-size: 9pt;
+	font-family: "Tahoma", "宋体";
+	border-collapse: collapse;
+}
+
+.tableform td.fb_result_head {
+	background: #ddeff5;
+	color: #000;
+	font-weight: bold;
+	text-align: center;
+	height: 22px;
+	font-family: "Tahoma", "楷体";
+	font-size: 13px;
+	
+}
+
+.tableform td {
+	border: 1px solid #a9bce6;
+	height: 28px;
+	padding-left: 5px;
+	text-align: left;
+}
+
+.tableform td .f_text{
+	font-size: 9pt;
+	font-family: "Tahoma", "楷体";
+	border: 1px solid #999999;
+	padding: 1px;
+	width: 250px;
+	height: 24px;
+	margin: 2px;
+}
+
+.formFunctiondiv{
+	text-align: center; 
+	margin: 10px 0 10px 0;
+}

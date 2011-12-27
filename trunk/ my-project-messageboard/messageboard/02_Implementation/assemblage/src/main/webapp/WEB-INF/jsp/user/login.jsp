@@ -68,20 +68,25 @@
 			
 			function checkUser(input){
 				var name = input.value;
-				var requestURL = "${contextPath}/user/check.do";
-				$C.asyncRequest("POST", requestURL, {
-					success : function(o){
-						var _e = eval("(" + o.responseText + ")");
-						if(_e.status == '1'){
-							alert('可以注册');
-						} else {
-							alert('不可注册');
+				var requestURL = "${contextPath}/user/check.do?username=" + name;
+				if(name != ''){
+					$C.asyncRequest("POST", requestURL, {
+						success : function(o){
+							var _e = eval("(" + o.responseText + ")");
+							if(_e.status == '1'){
+								$D.get('regNo').style.display = 'none';
+								$D.get('reg').style.display = '';
+								$D.get('username').fouce;
+							} else {
+								$D.get('reg').style.display = 'none';
+								$D.get('regNo').style.display = '';
+							}
+						},
+						failure : function(o){
+							alert(o);
 						}
-					},
-					failure : function(o){
-						alert(o);
-					}
-				});
+					});
+				}
 			}
 		</script>
 
@@ -197,6 +202,8 @@
 				                <td align="left" style="width: 80%">
 									<input type="text" name="username" id="username" class="f_text" dataType="Limit" 
 											require="true" max="100" min="1" msg="不能为空,且不超过50字符" onblur="checkUser(this);"/>
+									<label id="reg" style="color: green;display: none;">*可以注册</label>
+									<label id="regNo" style="color: red;display: none;">*不可注册</label>
 								</td>
 	              			</tr>
 	              			<tr>

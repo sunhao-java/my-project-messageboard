@@ -352,7 +352,7 @@
 	              			</tr>
 						</table>
 						<div class="formFunctiondiv">
-							<jsp:include page="/WEB-INF/jsp/base/linkbutton.jsp">
+							<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
 								<jsp:param value="注册" name="save"/>
 								<jsp:param value="重置" name="reset"/>
 							</jsp:include>

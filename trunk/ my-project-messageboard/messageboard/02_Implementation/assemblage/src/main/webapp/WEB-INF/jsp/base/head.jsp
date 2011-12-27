@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/base/includes.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 <msg:css href="css/head.css"/>
 <div id="header">
 	<span style="float:left">

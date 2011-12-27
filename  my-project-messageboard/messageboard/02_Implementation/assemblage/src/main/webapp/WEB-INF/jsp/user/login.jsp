@@ -11,44 +11,79 @@
 
 		<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 		<msg:js src="js/jquery/jquery.easyui.min.js"/>
+		<msg:js src="js/validate.js"/>
 
 		<msg:css href="themes/default/easyui.css"/>
 		<msg:css href="themes/icon.css"/>
 		
+		<msg:css href="css/login.css"/>
+		
+		<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
+		
 		<script type="text/javascript">
+			var $C = YAHOO.util.Connect;
+   	 		var $D = YAHOO.util.Dom;
+   	 		var event = YAHOO.util.Event;
+   	 		
 			function login(){
-				$("#dataFrm").submit();
+				$D.get("dataFrm").submit();
+			}
+			
+			function closeDiv(){
+				$("#registerDiv").hide("slow");
+				reset();
+			}
+			
+			function showRegister(){
+				$("#registerDiv").show("slow"); 
+			}
+			
+			function save(){
+				var registerFrm = $D.get("registerFrm");
+				var action = registerFrm.action;
+				$C.setForm(registerFrm);
+				var flag = Validator.Validate(registerFrm, 3);
+				if(flag){
+					$C.asyncRequest("POST", action, {
+						success : function(o){
+							var _e = eval("(" + o.responseText + ")");
+							if(_e.status == '1'){
+								$.messager.alert('提示','注册成功！','info');
+								closeDiv();
+								reset();
+							} else {
+								$.messager.alert('提示','注册失败！','info');
+							}
+						},
+						failure : function(o){
+							alert(o);
+						}
+					});
+				}
+			}
+			
+			function reset(){
+				$D.get("registerFrm").reset();
+			}
+			
+			function checkUser(input){
+				var name = input.value;
+				var requestURL = "${contextPath}/user/check.do";
+				$C.asyncRequest("POST", requestURL, {
+					success : function(o){
+						var _e = eval("(" + o.responseText + ")");
+						if(_e.status == '1'){
+							alert('可以注册');
+						} else {
+							alert('不可注册');
+						}
+					},
+					failure : function(o){
+						alert(o);
+					}
+				});
 			}
 		</script>
-		
-		<style type="text/css">
-			.AlrtTbl{
-				font-size: 12px;
-				background-color: #FFFFCC;
-			    border: 1px solid #E1E1A7;
-			    padding: 7px 15px;
-			}
-			a:link,a:active,a:visited{
-				color: #003399;
-				text-decoration: none;
-			}
-			a:hover{
-				color: red;
-				text-decoration: underline;
-			}
-			.AlrtErrTxt{
-				color: #000000;
-			    font-size: 14px;
-			    font-weight: bold;
-			    text-align: center;
-			    vertical-align: middle;
-			}
-			.AlrtMsgTxt{
-				color: #000000;
-				padding-top: 6px;
-				text-align: left;
-			}
-		</style>
 
 	</head>
 
@@ -120,7 +155,7 @@
 															${message }
                 											<p>
                 												<a href="${contextPath}">重新登录</a>
-                												<a href="${contextPath}">我要注册</a>
+                												<a href="javaScript:showRegister();">我要注册</a>
                 											</p>
 														</div>
                 									</td>
@@ -143,6 +178,181 @@
 				</td>
 			</tr>
 		</table>
-
+		<div id="registerDiv" class="registerDiv">
+			<div id="titleDiv" class="titleDiv">
+				<a id="turnoff" title="关闭" href="javaScript:closeDiv();">
+					<img src="${contextPath }/image/register/turnoff.jpg">
+				</a>
+				<p>用户注册</p>
+			</div>
+			<div>
+				<img src="${contextPath}/image/register/register-back.jpg">
+				<center>
+					<form action="${contextPath}/user/register.do" id="registerFrm" method="post">
+						<table width="100%" class="tableform">
+							<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				姓名<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="username" id="username" class="f_text" dataType="Limit" 
+											require="true" max="100" min="1" msg="不能为空,且不超过50字符" onblur="checkUser(this);"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				密码<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="password" id="password" class="f_text" 
+										dataType="SafeString" msg="密码不符合安全规则"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				确认密码<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="password_" id="password_" class="f_text" 
+										dataType="Repeat" to="password" msg="两次输入的密码不一致"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				性别
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="radio" value="0" name="sex" id="0" checked="checked"><label for="0">不男不女</label>
+									<input type="radio" value="1" name="sex" id="1"><label for="1">男</label>
+									<input type="radio" value="2" name="sex" id="2"><label for="2">女</label>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				头像
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<select name="headImage" id="pci"
+										onChange="document.images['imgs'].src='${contextPath }/' + options[selectedIndex].value;" class="f_text">
+										<option value="image/pic1.gif" selected="selected">
+											pic1
+										</option>
+										<option value="image/pic2.gif">
+											pic2
+										</option>
+										<option value="image/pic3.gif">
+											pic3
+										</option>
+										<option value="image/pic4.gif">
+											pic4
+										</option>
+										<option value="image/pic5.gif">
+											pic5
+										</option>
+										<option value="image/pic6.gif">
+											pic6
+										</option>
+										<option value="image/pic7.gif">
+											pic7
+										</option>
+										<option value="image/pic8.gif">
+											pic8
+										</option>
+										<option value="image/pic9.gif">
+											pic9
+										</option>
+										<option value="image/pic10.gif">
+											pic10
+										</option>
+										<option value="image/pic11.gif">
+											pic11
+										</option>
+										<option value="image/pic12.gif">
+											pic12
+										</option>
+										<option value="image/pic13.gif">
+											pic13
+										</option>
+										<option value="image/pic14.gif">
+											pic14
+										</option>
+										<option value="image/pic15.gif">
+											pic15
+										</option>
+										<option value="image/pic16.gif">
+											pic16
+										</option>
+										<option value="image/pic17.gif">
+											pic17
+										</option>
+										<option value="image/pic18.gif">
+											pic18
+										</option>
+										<option value="image/pic19.gif">
+											pic19
+										</option>
+										<option value="image/pic20.gif">
+											pic20
+										</option>
+									</select>
+									<img src="${contextPath }/image/pic1.gif" width="90" height="90" id="imgs" />
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				邮箱<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="email" id="email" class="f_text"
+										require="true" dataType="Email" msg="信箱不能为空且格式要正确"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				电话号码<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="phoneNum" id="phoneNum" class="f_text"
+										require="true" dataType="Phone" msg="电话号码不能为空且格式 要正确"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				QQ
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="qq" id="qq" class="f_text"
+										require="false" dataType="QQ" msg="QQ号码不存在"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				地址
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="address" id="address" class="f_text" 
+										 dataType="Limit" max="100" min="0" msg="不超过50字符"/>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				个人主页
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="homePage" id="homePage" class="f_text"
+										require="false" dataType="Url" msg="非法的Url"/>
+								</td>
+	              			</tr>
+						</table>
+						<div class="formFunctiondiv">
+							<jsp:include page="/WEB-INF/jsp/base/linkbutton.jsp">
+								<jsp:param value="注册" name="save"/>
+								<jsp:param value="重置" name="reset"/>
+							</jsp:include>
+						</div>
+					</form>
+				</center>
+			</div>
+		</div>
 	</body>
 </html>

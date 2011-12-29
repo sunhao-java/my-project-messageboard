@@ -35,11 +35,23 @@
 	function save(){
 		var dataFrm = dom.get("dataFrm");
 		var oEditor = FCKeditorAPI.GetInstance("content");
-        dataFrm.content.value = oEditor.GetXHTML(true);
+		var fckstr = oEditor.GetXHTML(true);
+        dataFrm.content.value = fckstr.substring(0, fckstr.length - 6);
         $C.setForm(dataFrm);
         var flag = Validator.Validate(dataFrm, 3);
         if(flag){
-        	alert('ok');
+        	var requestURL = "${contextPath}/message/saveMessage.do";
+        	$C.asyncRequest("POST", requestURL, {
+        		success : function(o){
+        			var _e = eval("(" + o.responseText + ")");
+        			if(_e.status == "0"){
+        				alert('发表留言失败，请稍候再试！');
+        			} else if(_e.status == "1"){
+        				alert('发表留言成功');
+        				window.location.href = '${contextPath}/message/listMessage.do';
+        			}
+        		}
+        	});
         }
 	}
 </script>
@@ -50,6 +62,7 @@
 
 <div id="listDiv">
 	<form id="dataFrm" action="" method="post">
+		<input type="hidden" name="user_id" value="${loginUser.pkId}"/>
 		<table width="85%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="15%">
@@ -117,8 +130,8 @@
 					留言内容<span style="color: red">*</span>
 				</td>
 				<td colspan="3">
-					<textarea rows="4" cols="60" name="content" id="content" dataType="Limit" require="true" max="1000" min="1" 
-						msg="不能为空,且不超过1000字符"></textarea>
+					<textarea rows="4" cols="60" name="content" id="content"
+						dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符"></textarea>
 				</td>
 			</tr>
 		</table>

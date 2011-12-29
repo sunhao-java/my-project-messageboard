@@ -15,4 +15,13 @@ public interface MessageDAO {
 	 * @throws Exception
 	 */
 	List<Message> getAllMessages(int start, int num, Message message) throws Exception;
+	
+	/**
+	 * 保存留言
+	 * @param message
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	Long saveMessage(Message message) throws Exception;
 }

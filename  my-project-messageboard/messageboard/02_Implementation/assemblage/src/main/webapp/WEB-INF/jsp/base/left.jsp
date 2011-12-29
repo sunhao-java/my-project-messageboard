@@ -184,7 +184,7 @@
 			     					<tbody>
 			     						<tr>
 			     							<td align="left" onclick="javascript:nav('')" style="">
-			     								<a href="javascript:nav('')">
+			     								<a href="javascript:nav('/user/userInfo.do')">
 			     									&nbsp;&nbsp;<img alt="" 
 			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">我的信息</span>

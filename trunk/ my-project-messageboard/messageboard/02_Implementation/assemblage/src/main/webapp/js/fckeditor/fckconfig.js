@@ -15,7 +15,6 @@ FCKConfig.ToolbarSets["Font"] = [
  	['Bold','Italic','Underline','StrikeThrough','-'],
  	['TextColor','BGColor'],['Smiley'],
  	['Style','FontSize'],
- 	'/',
  	['FontName','FontFormat'],
 ] ;
 

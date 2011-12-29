@@ -16,6 +16,7 @@
     					<prop key="/user/login.do">userLogin</prop>
     					<prop key="/user/register.do">saveUser</prop>
     					<prop key="/user/check.do">checkUser</prop>
+    					<prop key="/user/userInfo.do">showUserInfo</prop>
     				</props>
     			</property>
     		</bean>

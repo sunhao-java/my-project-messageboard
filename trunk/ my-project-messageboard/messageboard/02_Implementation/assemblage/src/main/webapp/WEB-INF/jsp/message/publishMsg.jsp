@@ -63,7 +63,7 @@
 <div id="listDiv">
 	<form id="dataFrm" action="" method="post">
 		<input type="hidden" name="user_id" value="${loginUser.pkId}"/>
-		<table width="85%" border="1" class="tableform">
+		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="15%">
 					姓名

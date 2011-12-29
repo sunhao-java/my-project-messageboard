@@ -1,5 +1,8 @@
 package com.message.main.user.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -136,6 +139,22 @@ public class UserController extends MultiActionController {
 		}
 		out.toJson(obj);
 		return null;
+	}
+	
+	/**
+	 * 进入用户信息界面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView showUserInfo(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(user != null){
+			params.put("user", user);
+		}
+		return new ModelAndView("user.info", params);
 	}
 
 }

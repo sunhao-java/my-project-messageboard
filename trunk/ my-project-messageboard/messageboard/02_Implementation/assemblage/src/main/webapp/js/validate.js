@@ -5,34 +5,36 @@
  *************************************************/
 Validator = {
 	Require : /.+/,
-	Email : /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-	Phone : /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/,
-	Mobile : /^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/,
-	Url : /^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,
-	IdCard : "this.IsIdCard(value)",
-	Currency : /^\d+(\.\d+)?$/,
-	Number : /^\d+$/,
-	Zip : /^[1-9]\d{5}$/,
-	QQ : /^[1-9]\d{4,8}$/,
-	Integer : /^[-\+]?\d+$/,
-	Double : /^[-\+]?\d+(\.\d+)?$/,
-	English : /^[A-Za-z]+$/,
-	Chinese : /^[\u0391-\uFFE5]+$/,
-	Username : /^[a-z]\w{3,}$/i,
-	UnSafe : /^(([A-Z]*|[a-z]*|\d*|[-_\~!@#\$%\^&\*\.\(\)\[\]\{\}<>\?\\\/\'\"]*)|.{0,5})$|\s/,
-	IsSafe : function(str) {
-		return !this.UnSafe.test(str);
-	},
-	SafeString : "this.IsSafe(value)",
-	Filter : "this.DoFilter(value, getAttribute('accept'))",
-	Limit : "this.limit(value.length,getAttribute('min'),  getAttribute('max'))",
-	LimitB : "this.limit(this.LenB(value), getAttribute('min'), getAttribute('max'))",
-	Date : "this.IsDate(value, getAttribute('min'), getAttribute('format'))",
-	Repeat : "value == document.getElementsByName(getAttribute('to'))[0].value",
-	Range : "getAttribute('min') < (value|0) && (value|0) < getAttribute('max')",
-	Compare : "this.compare(value,getAttribute('operator'),getAttribute('to'))",
-	Custom : "this.Exec(value, getAttribute('regexp'))",
-	Group : "this.MustChecked(getAttribute('name'), getAttribute('min'), getAttribute('max'))",
+    Email : /\w{1,}[@][\w\-]{1,}([.]([\w\-]{1,})){1,3}$/,
+    Phone : /(^(\d{3,4}-)?\d{7,8})$|(^0{0,1}(1[358][0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$)/,
+    Mobile : /^((\(\d{2,3}\))|(\d{3}\-))?13\d{9}$/,
+    Url : /^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,
+    IdCard : "this.IsIdCard(value)",
+    Currency : /^\d+(\.\d+)?$/,
+    Number : /^\d+$/,
+    Zip : /^[1-9]\d{5}$/,
+    QQ : /^[1-9]\d{4,8}$/,
+    Integer : /^[-\+]?\d+$/,
+    positiveInteger : /^[0-9]*[1-9][0-9]*$/,
+    Double : /^[-\+]?\d+(\.\d+)?$/,
+    English : /^[A-Za-z]+$/,
+    Chinese :  /^[\u0391-\uFFE5]+$/,
+    Username : /^[a-z]\w{3,}$/i,
+    UnSafe : /^(([A-Z]*|[a-z]*|\d*|[-_\~!@#\$%\^&\*\.\(\)\[\]\{\}<>\?\\\/\'\"]*)|.{0,5})$|\s/,
+    Ip : /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/,
+    IsSafe : function(str) {
+        return !this.UnSafe.test(str);
+    },
+    SafeString : "this.IsSafe(value)",
+    Filter : "this.DoFilter(value, getAttribute('accept'))",
+    Limit : "this.limit(value.length,getAttribute('min'),  getAttribute('max'))",
+    LimitB : "this.limit(this.LenB(value), getAttribute('min'), getAttribute('max'))",
+    Date : "this.IsDate(value, getAttribute('min'), getAttribute('format'))",
+    Repeat : "value == document.getElementsByName(getAttribute('to'))[0].value",
+    Range : "getAttribute('min') < (value|0) && (value|0) < getAttribute('max')",
+    Compare : "this.compare(value,getAttribute('operator'),getAttribute('to'))",
+    Custom : "this.Exec(value, getAttribute('regexp'))",
+    Group : "this.MustChecked(getAttribute('name'), getAttribute('min'), getAttribute('max'))",
 	ErrorItem : [ document.forms[0] ],
 	ErrorMessage : [ "以下原因导致提交失败：\t\t\t\t" ],
 	Validate : function(theForm, mode) {
@@ -48,6 +50,7 @@ Validator = {
 						|| typeof (this[_dataType]) == "undefined")
 					continue;
 				this.ClearState(obj.elements[i]);
+				value=YAHOO.lang.trim(value);
 				if (getAttribute("require") == "false" && value == "")
 					continue;
 				switch (_dataType) {
@@ -80,7 +83,7 @@ Validator = {
 			switch (mode) {
 			case 2:
 				for ( var i = 1; i < errCount; i++)
-					this.ErrorItem[i].style.color = "red";
+					this.ErrorItem[i].style.color = "#c00";
 			case 1:
 				alert(this.ErrorMessage.join("\n"));
 				this.ErrorItem[1].focus();
@@ -90,7 +93,7 @@ Validator = {
 					try {
 						var span = document.createElement("SPAN");
 						span.id = "__ErrorMessagePanel";
-						span.style.color = "red";
+						span.style.color = "#c00";
 						this.ErrorItem[i].parentNode.appendChild(span);
 						span.innerHTML = this.ErrorMessage[i].replace(/\d+:/,
 								"*");
@@ -114,11 +117,13 @@ Validator = {
 		return min <= len && len <= max;
 	},
 	LenB : function(str) {
+		// 去除前后空格后技术长度
+        str = YAHOO.lang.trim(str);
 		return str.replace(/[^\x00-\xff]/g, "**").length;
 	},
 	ClearState : function(elem) {
 		with (elem) {
-			if (style.color == "red")
+			if (style.color == "#c00")
 				style.color = "";
 			var lastNode = parentNode.childNodes[parentNode.childNodes.length - 1];
 			if (lastNode.id == "__ErrorMessagePanel")

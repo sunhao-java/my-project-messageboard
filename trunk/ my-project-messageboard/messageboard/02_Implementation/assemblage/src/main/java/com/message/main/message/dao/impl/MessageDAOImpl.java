@@ -25,4 +25,8 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		return messages;
 	}
 
+	public Long saveMessage(Message message) throws Exception {
+		return ((Message)this.saveObject(message)).getPkId();
+	}
+
 }

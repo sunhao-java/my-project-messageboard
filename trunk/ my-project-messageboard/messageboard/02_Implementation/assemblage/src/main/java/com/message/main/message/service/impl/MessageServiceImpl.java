@@ -1,5 +1,6 @@
 package com.message.main.message.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.message.main.message.dao.MessageDAO;
@@ -7,6 +8,7 @@ import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.resource.ResourceType;
 
 /**
  * 留言操作的service 
@@ -35,6 +37,15 @@ public class MessageServiceImpl implements MessageService {
 			}
 		}
 		return messages;
+	}
+
+	public Long saveMessage(Message message, Long userPkId) throws Exception {
+		if(userPkId != null && message != null){
+			message.setCreateUserId(userPkId);
+			message.setCreateDate(new Date());
+			message.setDeleteFlag(ResourceType.DELETE_NO);
+		}
+		return this.messageDAO.saveMessage(message);
 	}
 
 }

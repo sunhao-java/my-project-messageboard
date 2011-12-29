@@ -9,66 +9,70 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 对文本显示处理的标签
+ * 切割姓名字符串的自定义标签
+ * @author sunhao(haosun@wisedu.com.cn)
+ *
  */
 public class CutWordTag extends TagSupport {
-    private static final long serialVersionUID = 1L;
-    private String cutString;
-    private int len;
-    private String endString = "...";
+	private static final long serialVersionUID = 1L;
 
-    public void setCutString(String cutString) throws JspTagException {
-        this.cutString = cutString;
-    }
+	//需要进行切割处理的字符串
+	private String cutString;
+	//截取前length个名字
+	private int length;
+	//剩余字符以endString替代
+	private String endString = "...";
+	
+	public String getCutString() {
+		return cutString;
+	}
 
-    public void setLen(int len) {
-        this.len = len;
-    }
+	public void setCutString(String cutString) {
+		this.cutString = cutString;
+	}
 
-    public void setEndString(String endString) {
-        this.endString = endString;
-    }
+	public int getLength() {
+		return length;
+	}
 
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public String getEndString() {
+		return endString;
+	}
+
+	public void setEndString(String endString) {
+		this.endString = endString;
+	}
+	
+	
 	public int doEndTag() throws JspException {
-        String out;
-
-
-        if (StringUtils.isBlank(cutString)) {
-            out = "...";
-        } else {
-            out = cutString;
-
-            if (len >= 1 && out.length() >= (len / 2)) {
-                StringBuffer ret = new StringBuffer(len + 3);
-                int count = 0;
-
-                for (int i = 0; i < out.length(); i++) {
-                    count++;
-                    char c = out.charAt(i);
-
-                    if (c < 0 || c > 128) {
-                        count++;
-                    }
-
-                    if (count > len) {
-                        ret.append(endString);
-                        break;
-                    }
-
-                    ret.append(c);
-                }
-
-                out = ret.toString();
-            }
-
-        }
-        print(out);
+        String out = "";
+        String linkOut = "";
+        
+    	if(StringUtils.isBlank(cutString)) {
+    		out = StringUtils.EMPTY;
+    	} else {
+    		if(cutString.length() <= length) {
+    			out = cutString;
+    			linkOut = out;
+    		} else {
+    			out = cutString.substring(0, length);
+    			linkOut = "<div class='showUser' style='display:inline'>" +
+						"<span title=\"" + cutString + "\" style=\"cursor: text;\">" +
+						out + endString + "</a></div>";
+    		}
+    	}
+        
+        print(linkOut);
         return EVAL_PAGE;
     }
 
-    private void print(String out) throws JspTagException {
+    private void print(String linkOut) throws JspTagException {
         try {
-            pageContext.getOut().print(out);
+            pageContext.getOut().print(linkOut);
         } catch (IOException ioe) {
             throw new JspTagException(ioe.toString(), ioe);
         }
@@ -76,7 +80,7 @@ public class CutWordTag extends TagSupport {
 
     public void release() {
         cutString = null;
-        len = 0;
-        endString = "...";
+        length = 0;
     }
+	
 }

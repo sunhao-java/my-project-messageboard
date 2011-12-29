@@ -14,10 +14,12 @@
     			<property name="mappings">
     				<props>
     					<prop key="/message/listMessage.do">listMessage</prop>
+    					<prop key="/message/inPublishMessageJsp.do">inPublishMessageJsp</prop>
     				</props>
     			</property>
     		</bean>
     	</property>
     	<property name="messageService" ref="messageService"/>
+    	<property name="userService" ref="userService"/>
     </bean>
 </beans>

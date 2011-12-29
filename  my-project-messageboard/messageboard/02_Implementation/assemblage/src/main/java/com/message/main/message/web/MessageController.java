@@ -14,6 +14,8 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
+import com.message.main.user.pojo.User;
+import com.message.main.user.service.UserService;
 import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
 
@@ -24,12 +26,14 @@ public class MessageController extends MultiActionController {
 	
 	private MessageService messageService;
 	
-	public MessageService getMessageService() {
-		return messageService;
-	}
-
+	private UserService userService;
+	
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**
@@ -52,6 +56,21 @@ public class MessageController extends MultiActionController {
 		}
 		params.put("messages", messages);
 		return new ModelAndView("message.list", params);
+	}
+	
+	/**
+	 * 进入发表留言的页面
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public ModelAndView inPublishMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message){
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		params.put("loginUser", user);
+		return new ModelAndView("message.publish", params);
 	}
 
 }

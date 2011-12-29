@@ -59,3 +59,7 @@ function setMainPage(main){
 function linkFun(url){
 	$("#main").attr('src', url);
 }
+
+function showUser(color,width,wrap){
+	$(".showUser span").colorTip({color:color,width:width,wrap:wrap});
+}

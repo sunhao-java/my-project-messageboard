@@ -4,3 +4,4 @@
 <msg:js src="js/yui/event-min.js"/>
 <msg:js src="js/yui/dom-min.js"/>
 <msg:js src="js/yui/connection-min.js"/>
+<msg:js src="js/commfunction.js"/>

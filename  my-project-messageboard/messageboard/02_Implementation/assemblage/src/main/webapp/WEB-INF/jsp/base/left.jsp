@@ -157,7 +157,7 @@
 			     					<tbody>
 			     						<tr>
 			     							<td align="left" onclick="javascript:nav('')" style="">
-			     								<a href="javascript:nav('')">
+			     								<a href="javascript:nav('/message/inPublishMessageJsp.do')">
 			     									&nbsp;&nbsp;<img alt="" 
 			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">发表留言</span>

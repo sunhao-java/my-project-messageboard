@@ -74,5 +74,13 @@ public class UserServiceImpl implements UserService{
 		}
 		return dbUser == null ? true : false;
 	}
+
+	public User getUserByName(String username) throws Exception {
+		User dbUser = null;
+		if(StringUtils.isNotEmpty(username)){
+			dbUser = this.userDAO.getUserByName(username);
+		}
+		return dbUser;
+	}
 	
 }

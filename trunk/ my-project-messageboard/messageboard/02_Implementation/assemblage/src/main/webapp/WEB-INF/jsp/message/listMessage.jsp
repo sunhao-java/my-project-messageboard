@@ -15,7 +15,7 @@
 		<div class="msgArea-left">
 			<ul >
 				<li class="userFace">
-					<img class="face-normal" src="${contextPath }/${message.createUser.headImage}" alt="市八中" />
+					<img class="face-normal" src="${contextPath }/${message.createUser.headImage}" title="${message.createUser.username }"/>
 				</li>
 				<li class="userName">${message.createUser.username }</li>
 			</ul>

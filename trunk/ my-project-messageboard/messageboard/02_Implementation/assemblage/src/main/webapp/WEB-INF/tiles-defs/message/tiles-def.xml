@@ -6,4 +6,8 @@
 	<definition name="message.list" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/message/listMessage.jsp"/>
 	</definition>
+	
+	<definition name="message.publish" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/publishMsg.jsp"/>
+	</definition>
 </tiles-definitions>        

@@ -2,13 +2,14 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://sunhao.wiscom.com.cn/message" prefix="msg" %>
 <html>
+	<!-- 貌似没用 -->
   <head>
     <title>留言板</title>
 	
 	<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 	<msg:js src="js/jquery/jquery.easyui.min.js"/>
 	
-	<msg:js src="js/commfunction.js"/>
+	<msg:js src="js/base/commfunction.js"/>
 	
 	<msg:css href="themes/default/easyui.css"/>
 	<msg:css href="themes/icon.css"/>

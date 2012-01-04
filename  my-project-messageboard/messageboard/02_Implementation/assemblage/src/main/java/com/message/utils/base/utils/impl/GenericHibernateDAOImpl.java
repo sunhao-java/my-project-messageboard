@@ -18,6 +18,10 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.message.utils.base.utils.GenericHibernateDAO;
 
+/**
+ * hibernate主要方法的封装的实现
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	private static final Logger log = LoggerFactory.getLogger(GenericHibernateDAOImpl.class);
 	private HibernateTemplate hibernateTemplate;

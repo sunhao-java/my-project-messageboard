@@ -9,8 +9,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * 引用javascript的标签
- * 
+ * JS的自定义标签，为了在引入JS时避免重复加上contextPath
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class JSTag extends TagSupport {

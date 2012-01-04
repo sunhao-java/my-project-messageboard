@@ -4,6 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 对date类型的操作
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class GenericDateFormat {
 	SimpleDateFormat dateFormat;
 	

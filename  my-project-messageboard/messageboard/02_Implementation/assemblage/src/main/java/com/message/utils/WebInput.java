@@ -11,6 +11,10 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * 封装HttpServletRequest
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class WebInput {
 	private static final Log log = LogFactory.getLog(WebInput.class);
 	public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";

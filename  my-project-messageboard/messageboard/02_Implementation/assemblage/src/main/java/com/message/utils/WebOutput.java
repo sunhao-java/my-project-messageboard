@@ -9,6 +9,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 封装HttpServletResponse
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 @SuppressWarnings("unchecked")
 public class WebOutput {
 	private HttpServletResponse response;

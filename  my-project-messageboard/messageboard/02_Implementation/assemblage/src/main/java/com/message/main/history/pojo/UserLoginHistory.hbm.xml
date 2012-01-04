@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.history.pojo.UserLoginHistory" table="t_login_history">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_LOGINHISTORY</param>
+			</generator>
+		</id>
+		<property name="loginUserPkId" type="java.lang.Long">
+			<column name="LOGIN_USER_ID" precision="10" scale="0">
+				<comment>登录者ID</comment>
+			</column>
+		</property>
+		<property name="loginIP" type="java.lang.String">
+			<column name="LOGIN_IP" length="255">
+				<comment>登录地IP</comment>
+			</column>
+		</property>
+		<property name="loginTime" type="java.util.Date">
+			<column name="LOGIN_TIME">
+				<comment>登录时间</comment>
+			</column>
+		</property>
+		<property name="browser" type="java.lang.String">
+			<column name="BROWSER" length="255">
+				<comment>登录所使用浏览器</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

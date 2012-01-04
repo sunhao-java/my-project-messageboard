@@ -5,6 +5,7 @@
     
     <bean id="userService" class="com.message.main.user.service.impl.UserServiceImpl">
     	<property name="userDAO" ref="userDAO"/>
+    	<property name="historyService" ref="historyService"/>
     </bean>
     
     <bean id="userController" class="com.message.main.user.web.UserController">

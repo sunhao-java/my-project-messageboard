@@ -48,4 +48,12 @@ public interface UserService {
 	 */
 	User getUserByName(String username) throws Exception;
 	
+	/**
+	 * 往登录用户中添加历史登录信息
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	User addLoginInfo(User user) throws Exception;
+	
 }

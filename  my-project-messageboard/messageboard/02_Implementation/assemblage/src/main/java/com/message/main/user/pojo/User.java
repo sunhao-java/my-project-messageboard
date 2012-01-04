@@ -23,6 +23,10 @@ public class User implements Serializable{
 	private String homePage;	//注册用户的主页
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 	
+	//VO fileds
+	private Date lastLoginTime;	//上次登录的时间
+	private int loginCount;
+	
 	/**
 	 * 默认构造方法
 	 */
@@ -123,6 +127,22 @@ public class User implements Serializable{
 
 	public void setHomePage(String homePage) {
 		this.homePage = homePage;
+	}
+
+	public Date getLastLoginTime() {
+		return lastLoginTime;
+	}
+
+	public void setLastLoginTime(Date lastLoginTime) {
+		this.lastLoginTime = lastLoginTime;
+	}
+
+	public int getLoginCount() {
+		return loginCount;
+	}
+
+	public void setLoginCount(int loginCount) {
+		this.loginCount = loginCount;
 	}
 
 }

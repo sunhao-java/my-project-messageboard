@@ -15,5 +15,6 @@
 				</property>
 			</bean>
 		</property>
+		<property name="historyService" ref="historyService"/>
 	</bean>
 </beans>

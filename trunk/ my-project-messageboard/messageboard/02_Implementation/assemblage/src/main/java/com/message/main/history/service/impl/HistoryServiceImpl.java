@@ -30,4 +30,12 @@ public class HistoryServiceImpl implements HistoryService {
 		}
 	}
 
+	public int getLoginCount(Long userPkId) throws Exception {
+		return this.historyDAO.getLoginCount(userPkId);
+	}
+
+	public Date getLastLoginTime(Long userPkId) throws Exception {
+		return this.historyDAO.getLastLoginTime(userPkId);
+	}
+
 }

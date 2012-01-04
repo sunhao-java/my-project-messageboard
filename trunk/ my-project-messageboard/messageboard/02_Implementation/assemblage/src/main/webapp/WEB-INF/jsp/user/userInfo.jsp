@@ -86,13 +86,13 @@
 					上次登录时间
 				</td>
 				<td>
-					<%=new Date() %>
+					<fmt:formatDate value="${user.lastLoginTime}" pattern="yyyy年MM月dd日  HH时mm分"/>
 				</td>
 				<td class="fb_result_head" width="15%">
 					登录次数
 				</td>
 				<td>
-					55555
+					<c:out value="${user.loginCount}"/>
 				</td>
 			</tr>
 			<tr>

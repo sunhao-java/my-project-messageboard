@@ -90,5 +90,13 @@ public class UserServiceImpl implements UserService{
 		}
 		return dbUser;
 	}
+
+	public User addLoginInfo(User user) throws Exception {
+		if(user != null){
+			user.setLastLoginTime(this.historyService.getLastLoginTime(user.getPkId()));
+			user.setLoginCount(this.historyService.getLoginCount(user.getPkId()));
+		}
+		return user;
+	}
 	
 }

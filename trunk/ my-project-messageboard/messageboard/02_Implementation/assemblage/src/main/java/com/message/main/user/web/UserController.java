@@ -136,6 +136,7 @@ public class UserController extends MultiActionController {
 			obj.put("status", status);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		out.toJson(obj);
 		return null;
@@ -152,6 +153,12 @@ public class UserController extends MultiActionController {
 		in = new WebInput(request);
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(user != null){
+			try {
+				user = this.userService.addLoginInfo(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+			}
 			params.put("user", user);
 		}
 		return new ModelAndView("user.info", params);

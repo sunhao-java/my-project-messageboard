@@ -1,5 +1,7 @@
 package com.message.main.history.service;
 
+import java.util.Date;
+
 import com.message.main.user.pojo.User;
 import com.message.utils.WebInput;
 
@@ -14,4 +16,20 @@ public interface HistoryService {
 	 * @throws Exception
 	 */
 	public void saveLoginHistory(WebInput in, User user) throws Exception;
+	
+	/**
+	 * 获取某个用户登录的次数
+	 * @param userPkId
+	 * @return
+	 * @throws Exception
+	 */
+	public int getLoginCount(Long userPkId) throws Exception;
+	
+	/**
+	 * 获取某个用户上次登录的时间
+	 * @param userPkId
+	 * @return
+	 * @throws Exception
+	 */
+	public Date getLastLoginTime(Long userPkId) throws Exception;
 }

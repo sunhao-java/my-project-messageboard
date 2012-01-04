@@ -6,19 +6,26 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.message.main.history.service.HistoryService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.DigestUtil;
+import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
 
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private UserDAO userDAO;
-
+	private HistoryService historyService;
+	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	public void setHistoryService(HistoryService historyService) {
+		this.historyService = historyService;
 	}
 
 	public boolean registerUser(User user) throws Exception {
@@ -45,7 +52,7 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	public int userLogin(User user) throws Exception {
+	public int userLogin(User user, WebInput in) throws Exception {
 		if(StringUtils.isEmpty(user.getUsername())){
 			return 3;		//用户名为空
 		}
@@ -55,6 +62,7 @@ public class UserServiceImpl implements UserService{
 			return 1;		//用户名错误
 		} else {
 			if(loginPsw.equals(dbUser.getPassword())){
+				this.historyService.saveLoginHistory(in, dbUser);
 				return 0;	//正确
 			} else {
 				return 2;	//密码错误

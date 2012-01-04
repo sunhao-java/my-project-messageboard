@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
+<beans>
+    <bean id="historyDAO" class="com.message.main.history.dao.impl.HistoryDAOImpl" parent="genericHibernateDAOImpl"/>
+    
+    <bean id="historyService" class="com.message.main.history.service.impl.HistoryServiceImpl">
+    	<property name="historyDAO" ref="historyDAO"/>
+    </bean>
+</beans>

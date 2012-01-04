@@ -66,7 +66,7 @@ public class UserController extends MultiActionController {
 		logger.debug("用户名是" + user.getUsername());
 		int status = 0;
 		try {
-			status = this.userService.userLogin(user);
+			status = this.userService.userLogin(user, in);
 			if(status == 0){
 				//跳转到另外一个controller
 				in.getSession().setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, this.userService.getUserByName(user.getUsername()));

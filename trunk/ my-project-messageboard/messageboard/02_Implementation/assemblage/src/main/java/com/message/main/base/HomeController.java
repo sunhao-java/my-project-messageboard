@@ -1,4 +1,4 @@
-package com.message.main;
+package com.message.main.base;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

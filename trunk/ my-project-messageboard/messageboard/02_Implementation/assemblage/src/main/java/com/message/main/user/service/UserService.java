@@ -1,6 +1,7 @@
 package com.message.main.user.service;
 
 import com.message.main.user.pojo.User;
+import com.message.utils.WebInput;
 
 /**
  * 用户操作的service 
@@ -21,7 +22,7 @@ public interface UserService {
 	 * @return 0:成功	1:用户名错误		2:密码错误
 	 * @throws Exception
 	 */
-	int userLogin(User user) throws Exception;
+	int userLogin(User user, WebInput in) throws Exception;
 	
 	/**
 	 * 通过ID获取用户

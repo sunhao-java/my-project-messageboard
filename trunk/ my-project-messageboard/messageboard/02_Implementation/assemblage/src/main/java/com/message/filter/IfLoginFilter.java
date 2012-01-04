@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 判断是否登录的filter，拦截一些未登录的非法URL
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class IfLoginFilter implements Filter {
 
 	public void destroy() {

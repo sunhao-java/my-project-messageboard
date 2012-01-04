@@ -3,6 +3,10 @@ package com.message.utils.base.utils;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * hibernate主要方法的封装
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 @SuppressWarnings("unchecked")
 public interface GenericHibernateDAO {
 	/**

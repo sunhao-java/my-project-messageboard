@@ -24,4 +24,12 @@ public interface MessageDAO {
 	 * @throws Exception
 	 */
 	Long saveMessage(Message message) throws Exception;
+	
+	/**
+	 * 获取某个用户的留言条数
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	int getLoginUserMessageCount(Long pkId) throws Exception;
 }

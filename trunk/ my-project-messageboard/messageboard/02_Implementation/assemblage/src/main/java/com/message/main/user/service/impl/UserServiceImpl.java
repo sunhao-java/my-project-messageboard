@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.main.history.service.HistoryService;
+import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService{
 	
 	private UserDAO userDAO;
 	private HistoryService historyService;
+	private MessageService messageService;
 	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -26,6 +28,10 @@ public class UserServiceImpl implements UserService{
 
 	public void setHistoryService(HistoryService historyService) {
 		this.historyService = historyService;
+	}
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 	public boolean registerUser(User user) throws Exception {
@@ -95,8 +101,28 @@ public class UserServiceImpl implements UserService{
 		if(user != null){
 			user.setLastLoginTime(this.historyService.getLastLoginTime(user.getPkId()));
 			user.setLoginCount(this.historyService.getLoginCount(user.getPkId()));
+			user.setMessageCount(this.messageService.getLoginUserMessageCount(user.getPkId()));
 		}
 		return user;
+	}
+
+	public void saveEdit(User user) throws Exception {
+		User dbUser = null;
+		if(user != null){
+			if(user.getPkId() != null){
+				dbUser = this.userDAO.getUserById(user.getPkId());
+				if(dbUser != null){
+					//TODO by sunhao: 头像是可以修改的，暂时这样
+					dbUser.setAddress(user.getAddress());
+					dbUser.setPhoneNum(user.getPhoneNum());
+					dbUser.setEmail(user.getEmail());
+					dbUser.setQq(user.getQq());
+					dbUser.setHomePage(user.getHomePage());
+					
+					this.userDAO.updateUser(dbUser);
+				}
+			}
+		}
 	}
 	
 }

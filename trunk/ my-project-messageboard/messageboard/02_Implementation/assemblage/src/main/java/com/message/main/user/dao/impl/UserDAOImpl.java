@@ -42,4 +42,8 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 		return (User) this.loadObject(User.class, userId);
 	}
 
+	public void updateUser(User user) throws Exception {
+		this.updateObject(user);
+	}
+
 }

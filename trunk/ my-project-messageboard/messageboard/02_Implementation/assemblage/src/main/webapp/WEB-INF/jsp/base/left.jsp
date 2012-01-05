@@ -201,9 +201,8 @@
 			     					<tbody>
 			     						<tr>
 			     							<td align="left" onclick="javascript:nav('')" style="">
-			     								<a href="javascript:nav('')">
-			     									&nbsp;&nbsp;<img alt="" 
-			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     								<a href="javascript:nav('/user/editUserInfo.do')">
+			     									&nbsp;&nbsp;<img alt="" src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">修改信息</span>
 			     								</a>
 			     							</td>

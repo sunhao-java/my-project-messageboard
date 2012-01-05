@@ -56,4 +56,11 @@ public interface UserService {
 	 */
 	User addLoginInfo(User user) throws Exception;
 	
+	/**
+	 * 编辑修改的用户
+	 * @param user
+	 * @throws Exception
+	 */
+	void saveEdit(User user) throws Exception;
+	
 }

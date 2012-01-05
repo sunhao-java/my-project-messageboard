@@ -6,6 +6,7 @@
     <bean id="userService" class="com.message.main.user.service.impl.UserServiceImpl">
     	<property name="userDAO" ref="userDAO"/>
     	<property name="historyService" ref="historyService"/>
+    	<property name="messageService" ref="messageService"/>
     </bean>
     
     <bean id="userController" class="com.message.main.user.web.UserController">
@@ -18,6 +19,8 @@
     					<prop key="/user/register.do">saveUser</prop>
     					<prop key="/user/check.do">checkUser</prop>
     					<prop key="/user/userInfo.do">showUserInfo</prop>
+    					<prop key="/user/editUserInfo.do">inEditUserInfoJsp</prop>
+    					<prop key="/user/saveUser.do">saveEdit</prop>
     				</props>
     			</property>
     		</bean>

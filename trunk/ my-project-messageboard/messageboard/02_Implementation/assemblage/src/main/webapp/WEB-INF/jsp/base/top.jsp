@@ -52,14 +52,27 @@
    						</td>
    						<td>
    							<span>
-   							这是您第<c:out value="${loginCount }"/>次登录本系统</span>
+   							这是您第
+   								<c:if test="${not empty loginCount}">
+   									${loginCount}
+   								</c:if>
+   								<c:if test="${empty loginCount}">
+   									首
+   								</c:if>
+   							次登录本系统</span>
    						</td>
    						<td>
    							&nbsp;&nbsp;&nbsp;
    						</td>
    						<td>
    							<span>
-   								您上次登录是<fmt:formatDate value="${lastLoginTime}" pattern="yyyy年MM月dd日  HH时mm分"/>
+   								您上次登录是
+   								<c:if test="${not empty lastLoginTime}">
+   									<fmt:formatDate value="${lastLoginTime}" pattern="yyyy年MM月dd日  HH时mm分"/>
+   								</c:if>
+   								<c:if test="${empty lastLoginTime}">
+   									无
+   								</c:if>
    							</span>
    						</td>
    						<td>

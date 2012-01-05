@@ -1,9 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
-<%
-	request.setAttribute("contextPath", request.getContextPath());
-%>
+
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/jquery.easyui.min.js"/>
 <msg:js src="js/validate.js"/>

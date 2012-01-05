@@ -31,4 +31,11 @@ public interface UserDAO {
 	 */
 	User getUserById(Long userId) throws Exception;
 	
+	/**
+	 * 更新用户
+	 * @param user
+	 * @throws Exception
+	 */
+	void updateUser(User user) throws Exception;
+	
 }

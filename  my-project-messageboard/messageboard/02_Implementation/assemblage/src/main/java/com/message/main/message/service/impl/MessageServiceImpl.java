@@ -48,4 +48,8 @@ public class MessageServiceImpl implements MessageService {
 		return this.messageDAO.saveMessage(message);
 	}
 
+	public int getLoginUserMessageCount(Long pkId) throws Exception {
+		return this.messageDAO.getLoginUserMessageCount(pkId);
+	}
+
 }

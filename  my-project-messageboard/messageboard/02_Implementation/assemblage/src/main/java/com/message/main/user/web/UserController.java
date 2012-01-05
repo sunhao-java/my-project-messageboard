@@ -154,6 +154,7 @@ public class UserController extends MultiActionController {
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(user != null){
 			try {
+				user = this.userService.getUserById(user.getPkId());
 				user = this.userService.addLoginInfo(user);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -162,6 +163,48 @@ public class UserController extends MultiActionController {
 			params.put("user", user);
 		}
 		return new ModelAndView("user.info", params);
+	}
+	
+	/**
+	 * 进入编辑用户信息界面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView inEditUserInfoJsp(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(user != null){
+			try {
+				params.put("user", this.userService.getUserById(user.getPkId()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return new ModelAndView("user.edit.info", params);
+	}
+	
+	/**
+	 * 保存修改后的用户
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView saveEdit(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		JSONObject obj = new JSONObject();
+		try {
+			this.userService.saveEdit(user);
+			obj.put("status", 1);
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj.put("status", 0);
+			logger.error(e.getMessage(), e);
+		}
+		out.toJson(obj);
+		return null;
 	}
 
 }

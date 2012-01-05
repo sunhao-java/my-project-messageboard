@@ -1,9 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
-<%
-	request.setAttribute("contextPath", request.getContextPath());
-%>
 
 <msg:css href="css/publish.css"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
@@ -20,6 +17,10 @@
 		//调用公共JS自动提示组件
 		showUser('yellow','300px','wrap');
 	});
+	
+	function edit(){
+		window.location.href = '${contextPath}/user/editUserInfo.do';
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -83,6 +84,14 @@
 			</tr>
 			<tr>
 				<td class="fb_result_head" width="15%">
+					地址
+				</td>
+				<td colspan="3">
+					<c:out value="${user.address }"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="fb_result_head" width="15%">
 					上次登录时间
 				</td>
 				<td>
@@ -100,13 +109,13 @@
 					留言数目
 				</td>
 				<td>
-					555
+					${user.messageCount}
 				</td>
 				<td class="fb_result_head" width="15%">
 					积分
 				</td>
 				<td>
-					55555
+					<c:out value="${user.messageCount*2 + user.loginCount*1 }分"/>	
 				</td>
 			</tr>
 		</table>

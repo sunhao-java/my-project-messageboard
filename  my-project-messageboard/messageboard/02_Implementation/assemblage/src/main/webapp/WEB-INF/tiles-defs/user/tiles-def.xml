@@ -9,4 +9,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/userInfo.jsp"/>
 	</definition>
 	
+	<definition name="user.edit.info" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/userInfoEdit.jsp"/>
+	</definition>
+	
 </tiles-definitions>

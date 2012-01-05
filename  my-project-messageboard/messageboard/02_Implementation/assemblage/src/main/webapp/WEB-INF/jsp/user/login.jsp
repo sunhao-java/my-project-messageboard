@@ -56,7 +56,7 @@
 							}
 						},
 						failure : function(o){
-							alert(o);
+							alert('错误代码:' + o.status);
 						}
 					});
 				}
@@ -83,7 +83,7 @@
 							}
 						},
 						failure : function(o){
-							alert(o);
+							alert('错误代码:' + o.status);
 						}
 					});
 				}

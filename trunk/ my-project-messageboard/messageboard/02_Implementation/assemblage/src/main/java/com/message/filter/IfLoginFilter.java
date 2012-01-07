@@ -39,7 +39,8 @@ public class IfLoginFilter implements Filter {
 			System.out.println("method=[" + request.getMethod() + "]");
 			System.out.println("end-------------------");
 		}
-		if(url.indexOf(".do") != -1 && !url.equals("/user/inLogin.do") && !url.equals("/user/login.do")){
+		if(url.indexOf(".do") != -1 && !url.equals("/user/inLogin.do") && !url.equals("/user/login.do") && !url.equals("/user/check.do") &&
+				!url.equals("/user/register.do")){
 			if(session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION) == null){
 				response.sendRedirect(request.getContextPath() + "/user/inLogin.do");
 			} else {

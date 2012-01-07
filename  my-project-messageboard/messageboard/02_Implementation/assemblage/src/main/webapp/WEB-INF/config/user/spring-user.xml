@@ -21,6 +21,10 @@
     					<prop key="/user/userInfo.do">showUserInfo</prop>
     					<prop key="/user/editUserInfo.do">inEditUserInfoJsp</prop>
     					<prop key="/user/saveUser.do">saveEdit</prop>
+    					<prop key="/user/changePsw.do">inChangePswJsp</prop>
+    					<prop key="/user/checkPsw.do">checkPsw</prop>
+    					<prop key="/user/savePassword.do">savePassword</prop>
+    					<prop key="/user/logout.do">logout</prop>
     				</props>
     			</property>
     		</bean>

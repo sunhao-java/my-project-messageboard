@@ -47,7 +47,7 @@
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
-	<jsp:param value="我的信息" name="title"/>
+	<jsp:param value="修改我的信息" name="title"/>
 </jsp:include>
 
 <div id="listDiv">
@@ -82,7 +82,7 @@
 					真实姓名
 				</td>
 				<td>
-					孙昊<span style="color: red">（注册后不可修改）</span>
+					${user.truename}<span style="color: red">（注册后不可修改）</span>
 				</td>
 				<td class="fb_result_head">
 					邮箱<span style="color: red">*</span>

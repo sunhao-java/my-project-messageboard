@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.MD5Utils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
@@ -203,6 +205,93 @@ public class UserController extends MultiActionController {
 			obj.put("status", 0);
 			logger.error(e.getMessage(), e);
 		}
+		out.toJson(obj);
+		return null;
+	}
+	
+	/**
+	 * 进入修改密码页面
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	public ModelAndView inChangePswJsp(HttpServletRequest request, HttpServletResponse response){
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		User userSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		params.put("user", userSession);
+		return new ModelAndView("user.password.change", params);
+	}
+	
+	/**
+	 * 检查原密码是否正确
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView checkPsw(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		String oldPassword = in.getString("oldPassword", StringUtils.EMPTY);
+		JSONObject obj = new JSONObject();
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(userInSession != null){
+			String md5OldPsw = MD5Utils.MD5Encode(oldPassword);
+			if(md5OldPsw.equals(userInSession.getPassword())){
+				obj.put("status", 1);
+			} else {
+				obj.put("status", 0);
+			}
+		} else {
+			obj.put("status", 0);
+		}
+		out.toJson(obj);
+		return null;
+	}
+	
+	/**
+	 * 保存新密码
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView savePassword(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		JSONObject obj = new JSONObject();
+		if(user != null){
+			try {
+				obj.put("status", this.userService.savePassword(user) ? 1 : 0);
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+				obj.put("status", 0);
+			}
+		}
+		out.toJson(obj);
+		return null;
+	}
+	
+	/**
+	 * 登出系统
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject obj = new JSONObject();
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(userInSession != null){
+			in.getSession().removeAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		}
+		obj.put("status", 1);
 		out.toJson(obj);
 		return null;
 	}

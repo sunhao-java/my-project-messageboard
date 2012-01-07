@@ -11,7 +11,7 @@ import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.DigestUtil;
+import com.message.utils.MD5Utils;
 import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
 
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
 			Long pkId = null;
 			try {
 				if(StringUtils.isNotEmpty(user.getPassword())){
-					user.setPassword(DigestUtil.MD5Encode(user.getPassword()));
+					user.setPassword(MD5Utils.MD5Encode(user.getPassword()));
 				}
 				user.setCreateDate(new Date());
 				user.setDeleteFlag(ResourceType.DELETE_NO);
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService{
 			return 3;		//用户名为空
 		}
 		User dbUser = this.userDAO.getUserByName(user.getUsername());
-		String loginPsw = DigestUtil.MD5Encode(user.getPassword());
+		String loginPsw = MD5Utils.MD5Encode(user.getPassword());
 		if(dbUser == null){
 			return 1;		//用户名错误
 		} else {
@@ -123,6 +123,20 @@ public class UserServiceImpl implements UserService{
 				}
 			}
 		}
+	}
+
+	public boolean savePassword(User user) throws Exception {
+		if(StringUtils.isNotEmpty(user.getPassword()) && user.getPkId() != null){
+			User dbUser = this.userDAO.getUserById(user.getPkId());
+			if(dbUser != null){
+				dbUser.setPassword(MD5Utils.MD5Encode(user.getPassword()));
+				this.userDAO.updateUser(dbUser);
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
 	}
 	
 }

@@ -6,7 +6,7 @@ import java.security.MessageDigest;
  * 为密码加密的类，MD5加密
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class DigestUtil {
+public class MD5Utils {
 	private final static String[] hexDigits = { "0", "1", "2", "3", "4", "5",
 			"6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
 

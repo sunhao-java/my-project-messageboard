@@ -63,4 +63,12 @@ public interface UserService {
 	 */
 	void saveEdit(User user) throws Exception;
 	
+	/**
+	 * 保存密码
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	boolean savePassword(User user) throws Exception;
+	
 }

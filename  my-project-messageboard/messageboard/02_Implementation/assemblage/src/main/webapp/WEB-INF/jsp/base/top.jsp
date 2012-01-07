@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
+<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 <%
 	request.setAttribute("contextPath", request.getContextPath());
 %>
@@ -7,6 +8,15 @@
 	<head>
 		<title></title>
 		<msg:css href="css/top.css"/>
+		
+		<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+		<msg:js src="js/jquery/jquery.easyui.min.js"/>
+		
+		<msg:css href="themes/default/easyui.css"/>
+		<msg:css href="themes/icon.css"/>
+				
+		<msg:css href="css/colortip-1.0-jquery.css"/>
+		<msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 		
 		<script type="text/javascript">
 			//获取当前时间
@@ -34,6 +44,11 @@
 			}
 			
 			get_time();
+			
+			$(document).ready(function(){
+				//调用公共JS自动提示组件
+				showUser('yellow','300px','wrap');
+			});
 		</script>
 	</head>
 	<body>
@@ -44,7 +59,7 @@
    						<td>
 							<span>
 	   							<img src="../image/wiseduimg/module/clock.png">
-								欢迎您，孙昊
+								欢迎您，<msg:cutWord length="6" endString="..." cutString="${user.username}"/>
 							</span>
    						</td>
    						<td>
@@ -68,7 +83,7 @@
    							<span>
    								您上次登录是
    								<c:if test="${not empty lastLoginTime}">
-   									<fmt:formatDate value="${lastLoginTime}" pattern="yyyy年MM月dd日  HH时mm分"/>
+   									<fmt:formatDate value="${lastLoginTime}" pattern="yyyy-MM-dd  HH:mm"/>
    								</c:if>
    								<c:if test="${empty lastLoginTime}">
    									无
@@ -88,11 +103,11 @@
 			</div>
 	    	<div class="title" style=""></div>
 	    	<div class="tool">
-	            <a class="t3" title="个人首页" href="javaScript:linkFun('mainPage');"></a>
+	            <a class="t3" title="个人首页" href="javaScript:linkFun('${contextPath}/user/userInfo.do');"></a>
 	            <a class="t1" title="个性设置"></a>
 	            <a class="t2" title="收藏夹" href="javaScript:addBookmark();"></a>
 	            <a class="t4" title="系统帮助"></a>
-	            <a id="logout" class="t5" title="退出系统"></a>
+	            <a class="t5" title="退出系统" href="javaScript:logout('${contextPath}');"></a>
 	        </div>
 		</div>
 	</body>

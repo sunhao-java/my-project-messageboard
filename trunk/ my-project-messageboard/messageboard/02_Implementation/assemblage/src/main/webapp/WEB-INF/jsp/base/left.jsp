@@ -139,10 +139,9 @@
 			     				<table width="100%" cellpadding="0" cellspacing="4">
 			     					<tbody>
 			     						<tr>
-			     							<td align="left" onclick="javascript:nav('')" style="">
+			     							<td align="left" style="">
 			     								<a href="javascript:nav('/message/listMessage.do')">
-			     									&nbsp;&nbsp;<img alt="" 
-			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">查看留言</span>
 			     								</a>
 			     							</td>
@@ -156,10 +155,9 @@
 			     				<table width="100%" cellpadding="0" cellspacing="4">
 			     					<tbody>
 			     						<tr>
-			     							<td align="left" onclick="javascript:nav('')" style="">
+			     							<td align="left" style="">
 			     								<a href="javascript:nav('/message/inPublishMessageJsp.do')">
-			     									&nbsp;&nbsp;<img alt="" 
-			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">发表留言</span>
 			     								</a>
 			     							</td>
@@ -183,10 +181,9 @@
 			     				<table width="100%" cellpadding="0" cellspacing="4">
 			     					<tbody>
 			     						<tr>
-			     							<td align="left" onclick="javascript:nav('')" style="">
+			     							<td align="left" style="">
 			     								<a href="javascript:nav('/user/userInfo.do')">
-			     									&nbsp;&nbsp;<img alt="" 
-			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">我的信息</span>
 			     								</a>
 			     							</td>
@@ -200,9 +197,9 @@
 			     				<table width="100%" cellpadding="0" cellspacing="4">
 			     					<tbody>
 			     						<tr>
-			     							<td align="left" onclick="javascript:nav('')" style="">
+			     							<td align="left" style="">
 			     								<a href="javascript:nav('/user/editUserInfo.do')">
-			     									&nbsp;&nbsp;<img alt="" src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">修改信息</span>
 			     								</a>
 			     							</td>
@@ -216,10 +213,9 @@
 			     				<table width="100%" cellpadding="0" cellspacing="4">
 			     					<tbody>
 			     						<tr>
-			     							<td align="left" onclick="javascript:nav('')" style="">
-			     								<a href="javascript:nav('')">
-			     									&nbsp;&nbsp;<img alt="" 
-			     									src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     							<td align="left" style="">
+			     								<a href="javascript:nav('/user/changePsw.do')">
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">修改密码</span>
 			     								</a>
 			     							</td>

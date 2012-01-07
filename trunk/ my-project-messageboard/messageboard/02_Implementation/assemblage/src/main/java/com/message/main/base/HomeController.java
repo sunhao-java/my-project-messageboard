@@ -61,6 +61,7 @@ public class HomeController extends MultiActionController {
 				lastLoginTime = this.historyService.getLastLoginTime(user.getPkId());
 				params.put("lastLoginTime", lastLoginTime);
 				params.put("loginCount", loginCount);
+				params.put("user", user);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

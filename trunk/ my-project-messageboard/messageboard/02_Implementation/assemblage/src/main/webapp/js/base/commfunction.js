@@ -22,42 +22,24 @@ function addFavorite(url,title) {
 /**
  * 登出系统
  */
-function logout(){
-	$.messager.confirm('系统提示', '你确定要退出?', function(r){
-		if (r){
-			$("#main").attr('src', '/love/admin/logout');
-			var module = $("ul li");
-			var length = module.length;
-			for(var i = 9; i < length; i++) {
-				//暂时是隐藏起来，后期进行处理，最好是remove掉
-				$("ul li:eq(" + i + ")").attr("style","display: none;");
+function logout(contextPath){
+	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+	var requestURL = contextPath + '/user/logout.do';
+	$C.asyncRequest("POST", requestURL, {
+		success : function(o){
+			var _e = eval("(" + o.responseText + ")");
+			if(_e.status == 1){
+				parent.location.href = contextPath + '/user/inLogin.do';
 			}
-			$("#logout").removeAttr("href");
 		}
 	});
 }
 
 /**
- * 关闭窗口
- */
-function closeWin(){
-	window.close();
-}
-
-/**
- * 设置主页
- */
-function setMainPage(main){
-	var url = top.location.href;
-	main.style.behavior='url(#default#homepage)';
-	main.setHomePage(url)
-}
-
-/**
  * 链接动作
  */
-function linkFun(url){
-	$("#main").attr('src', url);
+function linkFun(targetUrl){
+	parent.frames['main'].location.href = targetUrl;
 }
 
 function showUser(color,width,wrap){

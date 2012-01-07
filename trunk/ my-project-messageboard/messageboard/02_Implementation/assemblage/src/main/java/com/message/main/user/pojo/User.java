@@ -12,6 +12,7 @@ public class User implements Serializable{
 	
 	private Long pkId;			//主键，唯一标识
 	private String username;	//用户名
+	private String truename;	//真实姓名
 	private String password;	//密码，MD5加密
 	private Date createDate;	//用户创建时间
 	private Long sex;			//性别0:不男不女;1: 男;2:女
@@ -48,6 +49,14 @@ public class User implements Serializable{
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getTruename() {
+		return truename;
+	}
+
+	public void setTruename(String truename) {
+		this.truename = truename;
 	}
 
 	public String getPassword() {

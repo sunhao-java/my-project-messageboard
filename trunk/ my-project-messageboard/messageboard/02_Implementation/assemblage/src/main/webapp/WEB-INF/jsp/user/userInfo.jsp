@@ -38,6 +38,14 @@
 					<c:out value="${user.username}"/>              
 				</td>
 				<td class="fb_result_head" width="15%">
+					真实姓名
+				</td>
+				<td width="40%">
+					<c:out value="${user.truename}"/>              
+				</td>
+			</tr>
+			<tr>
+				<td class="fb_result_head" width="15%">
 					性别
 				</td>
 				<td width="30%">
@@ -51,14 +59,6 @@
 						<c:out value="女"/>
 					</c:if>
 				</td>
-			</tr>
-			<tr>
-				<td class="fb_result_head" width="15%">
-					邮箱
-				</td>
-				<td>
-					<c:out value="${user.email}"/>
-				</td>
 				<td class="fb_result_head" width="15%">
 					电话号码
 				</td>
@@ -68,17 +68,25 @@
 			</tr>
 			<tr>
 				<td class="fb_result_head" width="15%">
+					邮箱
+				</td>
+				<td>
+					<c:out value="${user.email}"/>
+				</td>
+				<td class="fb_result_head" width="15%">
 					QQ
 				</td>
 				<td>
 					<c:out value="${user.qq}"/>
 				</td>
+			</tr>
+			<tr>
 				<td class="fb_result_head" width="15%">
 					主页
 				</td>
-				<td>
+				<td colspan="3">
 					<a href="${user.homePage}" target="_blank">
-						<msg:cutWord length="30" endString="..." cutString="${user.homePage}"/>
+						<msg:cutWord length="50" endString="..." cutString="${user.homePage}"/>
 					</a>
 				</td>
 			</tr>

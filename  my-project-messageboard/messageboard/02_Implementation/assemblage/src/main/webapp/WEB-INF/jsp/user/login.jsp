@@ -197,13 +197,22 @@
 						<table width="100%" class="tableform">
 							<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				姓名<span style="color: red">*</span>
+	                 				登录名<span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="username" id="username" class="f_text" dataType="Limit" 
 											require="true" max="100" min="1" msg="不能为空,且不超过50字符" onblur="checkUser(this);"/>
 									<label id="reg" style="color: green;display: none;">*可以注册</label>
 									<label id="regNo" style="color: red;display: none;">*不可注册</label>
+								</td>
+	              			</tr>
+	              			<tr>
+	                 			<td class="fb_result_head" style="width: 25%">
+	                 				真实姓名<span style="color: red">*</span>
+	                 			</td>
+				                <td align="left" style="width: 80%">
+									<input type="text" name="truename" id="truename" class="f_text" dataType="Limit" 
+											require="true" max="100" min="1" msg="不能为空,且不超过50字符"/>
 								</td>
 	              			</tr>
 	              			<tr>

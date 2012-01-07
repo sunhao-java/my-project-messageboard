@@ -41,11 +41,11 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		params.add(userPkId);
 		
 		List list = this.findByHQL(hql, params);
-		if(list.size() >= 1){
+		if(list.size() >= 2){
 			return (Date) list.get(1);
 		}
 		
-		return new Date();
+		return null;
 	}
 
 }

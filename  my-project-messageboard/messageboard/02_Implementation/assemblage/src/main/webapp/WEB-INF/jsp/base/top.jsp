@@ -59,7 +59,7 @@
    						<td>
 							<span>
 	   							<img src="../image/wiseduimg/module/clock.png">
-								欢迎您，<msg:cutWord length="6" endString="..." cutString="${user.username}"/>
+								欢迎您，<msg:cutWord length="6" endString="..." cutString="${user.truename}"/>
 							</span>
    						</td>
    						<td>

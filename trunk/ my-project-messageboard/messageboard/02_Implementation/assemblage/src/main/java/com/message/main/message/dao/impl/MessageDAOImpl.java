@@ -21,7 +21,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 	@SuppressWarnings("unchecked")
 	public List<Message> getAllMessages(int start, int num, Message message)
 			throws Exception {
-		String hql = "from Message where deleteFlag = :deleteFlag ";
+		String hql = "from Message where deleteFlag = :deleteFlag order by pkId desc";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		List<Message> messages = this.getBeanPaginationSupport(hql, start, num, params);

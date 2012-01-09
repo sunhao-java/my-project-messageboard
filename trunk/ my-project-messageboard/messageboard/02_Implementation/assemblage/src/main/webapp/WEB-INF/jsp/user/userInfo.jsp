@@ -12,6 +12,8 @@
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 
+<msg:js src="js/base/commfunction.js"/>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		//调用公共JS自动提示组件

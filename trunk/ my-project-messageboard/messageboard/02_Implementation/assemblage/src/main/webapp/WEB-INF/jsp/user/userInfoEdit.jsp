@@ -16,10 +16,6 @@
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
-	$(document).ready(function(){
-		//调用公共JS自动提示组件
-		showUser('yellow','300px','wrap');
-	});
 	
 	function save(){
 		var dataFrm = dom.get('dataFrm');
@@ -31,9 +27,25 @@
 				success : function(o){
 					var _e = eval("(" + o.responseText + ")");
 					if(_e.status == '1'){
-						$.messager.alert('提示','修改成功！','info', function(){
-							window.location.href = '${contextPath}/user/userInfo.do';
+						var handleOK = function() {
+							this.cancel();
+						};
+						
+						var oPanel3 = new YAHOO.widget.SimpleDialog("panel-3", {
+							modal: true,
+							icon: YAHOO.widget.SimpleDialog.ICON_INFO,
+							visible: false,
+							fixedcenter: true,
+							constraintoviewport: true,
+							width: "300px",
+							role: "alertdialog",
+							buttons: [ { text:"OK", handler:handleOK, isDefault:false } ],
+							text: "Your changes have been saved."
 						});
+						
+						oPanel3.setHeader("Info");
+						oPanel3.render(document.body);
+						oPanel3.show();
 					} else {
 						$.messager.alert('提示','修改失败！','info');
 					}

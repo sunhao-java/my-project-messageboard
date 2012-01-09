@@ -3,6 +3,13 @@
 <%
 	request.setAttribute("contextPath", request.getContextPath());
 %>
-<center>
-</center>
-	<tiles:insertAttribute name="content"/>
+<html>
+	<head>
+		<title></title>
+		<msg:css href="js/yui/css/container.css"/>
+		<msg:css href="js/yui/css/fonts-min.css"/>
+	</head>
+	<body class="yui-skin-sam">
+		<tiles:insertAttribute name="content"/>
+	</body>
+</html>

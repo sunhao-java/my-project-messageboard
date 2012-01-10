@@ -12,6 +12,8 @@
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 
+<msg:js src="js/base/app-dialog.js"/>
+
 <msg:js src="js/validate.js"/>
 
 <script type="text/javascript">
@@ -27,34 +29,29 @@
 				success : function(o){
 					var _e = eval("(" + o.responseText + ")");
 					if(_e.status == '1'){
-						var handleOK = function() {
-							this.cancel();
-						};
-						
-						var oPanel3 = new YAHOO.widget.SimpleDialog("panel-3", {
-							modal: true,
-							icon: YAHOO.widget.SimpleDialog.ICON_INFO,
-							visible: false,
-							fixedcenter: true,
-							constraintoviewport: true,
-							width: "300px",
-							role: "alertdialog",
-							buttons: [ { text:"OK", handler:handleOK, isDefault:false } ],
-							text: "Your changes have been saved."
-						});
-						
-						oPanel3.setHeader("Info");
-						oPanel3.render(document.body);
-						oPanel3.show();
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改信息成功！',
+							'confirmFunction':function(){
+								window.location.href = '${contextPath}/user/userInfo.do';
+							}});
 					} else {
-						$.messager.alert('提示','修改失败！','info');
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改信息失败！',
+							'confirmFunction':function(){
+								this.cancel();
+							}});
 					}
 				},
 				failure : function(o){
-					alert('错误代码:' + o.status);
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status,
+							'confirmFunction':function(){
+								this.cancel();
+							}});
 				}
 			});
 		}
+	}
+	
+	function successFun(){
+		window.location.href = '${contextPath}/user/userInfo.do';
 	}
 </script>
 
@@ -71,7 +68,7 @@
 					姓名
 				</td>
 				<td width="42%">
-					<c:out value="${user.username}"/><span style="color: red">（注册后不可修改）</span>              
+					<c:out value="${user.username}"/><span style="color: red;visibility: hidden">（注册后不可修改）</span>              
 				</td>
 				<td class="fb_result_head" width="6%">
 					性别

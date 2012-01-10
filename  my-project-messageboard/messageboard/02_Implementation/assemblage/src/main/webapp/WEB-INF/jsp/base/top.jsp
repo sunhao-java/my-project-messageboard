@@ -18,6 +18,8 @@
 		<msg:css href="css/colortip-1.0-jquery.css"/>
 		<msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 		
+		<msg:js src="js/base/commfunction.js"/>
+		
 		<script type="text/javascript">
 			//获取当前时间
 			function refresh_timer(){

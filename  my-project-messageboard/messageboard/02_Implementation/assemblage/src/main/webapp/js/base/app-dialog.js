@@ -33,6 +33,8 @@ YAHOO.app.dialog = function(){
 			var alertMsg_ = args.alertMsg;							//弹窗显示内容（与reqUrl不能同时为空）
 			var reqUrl_ = args.reqUrl;								//请求的URL（与alertMsg不能同时为空）
 			
+			var zIndex_ = args.zIndex || 4;						//对于CSS属性值z-index,默认是4
+			
 			if($L.isString(modal_)){
                 modal_ = (modal_ == _true);
             }
@@ -58,14 +60,14 @@ YAHOO.app.dialog = function(){
 					if($L.isFunction(confirmFunction_)){
 						buttons_.push({text:'确定',handler:confirmFunction_});
 					} else {
-						buttons_.push({text:'确定'});
+						buttons_.push({text:'确定',handler:defaultConfirmFunction});
 					}
 				}
 				if(cancelButton_){
 					if($L.isFunction(cancelFuncion_)){
 						buttons_.push({text:'取消',handler:cancelFuncion_});
 					} else {
-						buttons_.push({text:'取消'});
+						buttons_.push({text:'取消',handler:defaultCancelFunction});
 					}
 				}
 					
@@ -83,6 +85,14 @@ YAHOO.app.dialog = function(){
 				}
 			}
 			
+			function defaultConfirmFunction(){
+				this.cancel();
+			}
+			
+			function defaultCancelFunction(){
+				this.cancel();
+			}
+			
 			//begin
 			if(alertMsg_){
 				alertDialog = new YAHOO.widget.SimpleDialog("panel-3", {
@@ -97,7 +107,8 @@ YAHOO.app.dialog = function(){
 					close : closeIcon_,
 					buttons: buttons_,	
 					text: alertMsg_,
-					draggable : draggable_
+					draggable : draggable_,
+					zIndex : zIndex_
 				});
 			}
 			

@@ -16,9 +16,13 @@
 		<msg:css href="themes/default/easyui.css"/>
 		<msg:css href="themes/icon.css"/>
 		
+		<msg:css href="js/yui/css/container.css"/>
+		<msg:css href="js/yui/css/fonts-min.css"/>
 		<msg:css href="css/login.css"/>
-		
 		<%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
+		
+		<msg:js src="js/base/app-dialog.js"/>
+		
 		
 		<script type="text/javascript">
 			var $C = YAHOO.util.Connect;
@@ -48,15 +52,18 @@
 						success : function(o){
 							var _e = eval("(" + o.responseText + ")");
 							if(_e.status == '1'){
-								$.messager.alert('提示','注册成功！','info');
-								closeDiv();
-								reset();
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册成功！',
+									'confirmFunction':function(){
+										this.cancel();
+										closeDiv();
+										reset();
+									}});
 							} else {
-								$.messager.alert('提示','注册失败！','info');
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册失败！'});
 							}
 						},
 						failure : function(o){
-							alert('错误代码:' + o.status);
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 						}
 					});
 				}
@@ -68,8 +75,10 @@
 			
 			function checkUser(input){
 				var name = input.value;
-				var requestURL = "${contextPath}/user/check.do?username=" + name;
+				var requestURL = "${contextPath}/user/check.do";
+				var dataFrm = $D.get('registerFrm');
 				if(name != ''){
+					$C.setForm(dataFrm);
 					$C.asyncRequest("POST", requestURL, {
 						success : function(o){
 							var _e = eval("(" + o.responseText + ")");
@@ -83,7 +92,7 @@
 							}
 						},
 						failure : function(o){
-							alert('错误代码:' + o.status);
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 						}
 					});
 				}
@@ -92,7 +101,7 @@
 
 	</head>
 
-	<body>
+	<body class="yui-skin-sam">
 		<table width="100%" border="0" height="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td bgcolor="#165286">
@@ -220,7 +229,7 @@
 	                 				密码<span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="text" name="password" id="password" class="f_text" 
+									<input type="password" name="password" id="password" class="f_text" 
 										dataType="SafeString" msg="密码不符合安全规则"/>
 								</td>
 	              			</tr>
@@ -229,7 +238,7 @@
 	                 				确认密码<span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="text" name="password_" id="password_" class="f_text" 
+									<input type="password" name="password_" id="password_" class="f_text" 
 										dataType="Repeat" to="password" msg="两次输入的密码不一致"/>
 								</td>
 	              			</tr>

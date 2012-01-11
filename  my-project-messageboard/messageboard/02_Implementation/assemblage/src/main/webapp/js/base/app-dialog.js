@@ -33,7 +33,7 @@ YAHOO.app.dialog = function(){
 			var alertMsg_ = args.alertMsg;							//弹窗显示内容（与reqUrl不能同时为空）
 			var reqUrl_ = args.reqUrl;								//请求的URL（与alertMsg不能同时为空）
 			
-			var zIndex_ = args.zIndex || 4;						//对于CSS属性值z-index,默认是4
+			var zIndex_ = args.zIndex || 4;							//对于CSS属性值z-index,默认是4
 			
 			if($L.isString(modal_)){
                 modal_ = (modal_ == _true);

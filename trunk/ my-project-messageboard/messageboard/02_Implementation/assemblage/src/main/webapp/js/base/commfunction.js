@@ -2,7 +2,7 @@
  * 添加书签
  */
 function addBookmark(){
-	var title = "孙昊的LOVE";
+	var title = "孙昊的幸福家园留言板";
     var url = top.location.href;
     addFavorite(url,title);
 }

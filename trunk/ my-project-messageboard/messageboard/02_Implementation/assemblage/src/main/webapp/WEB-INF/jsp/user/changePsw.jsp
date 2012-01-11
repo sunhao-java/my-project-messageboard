@@ -9,6 +9,10 @@
 <msg:css href="themes/default/easyui.css"/>
 <msg:css href="themes/icon.css"/>
 
+<msg:js src="js/base/app-dialog.js"/>
+
+<msg:js src="js/base/commfunction.js"/>
+
 <msg:js src="js/validate.js"/>
 
 <script type="text/javascript">
@@ -35,7 +39,7 @@
 					}
 				},
 				failure : function(o){
-					alert('错误代码:' + o.status);
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 				}
 			});
 		}
@@ -46,22 +50,26 @@
 		var flag = Validator.Validate(dataFrm, 3);
 		var requestURL = '${contextPath }/user/savePassword.do';
 		if(flag){
-			$C.setForm(dataFrm);
-			$C.asyncRequest("POST", requestURL, {
-				success : function(o){
-					var _e = eval("(" + o.responseText + ")");
-					if(_e.status == '1'){
-						$.messager.alert('提示','修改成功！','info', function(){
-							window.location.href = '${contextPath}/user/userInfo.do';
-						});
-					} else {
-						$.messager.alert('提示','修改失败！','info');
-					}
-				},
-				failure : function(o){
-					alert('错误代码:' + o.status);
-				}
-			});
+			YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要修改密码吗？',
+				'confirmFunction':function(){
+					$C.setForm(dataFrm);
+					$C.asyncRequest("POST", requestURL, {
+						success : function(o){
+							var _e = eval("(" + o.responseText + ")");
+							if(_e.status == '1'){
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改密码成功！请重新登录！',
+									'confirmFunction':function(){
+										logout('${contextPath}');
+									}});
+							} else {
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改密码失败！'});
+							}
+						},
+						failure : function(o){
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+						}
+					});
+				}});
 		}
 	}
 </script>
@@ -95,7 +103,7 @@
 					原密码
 				</td>
 				<td width="42%">
-					<input type="text" value="" class="f_text" name="oldpassword" id="oldpassword" onblur="checkPsw(this);"
+					<input type="password" value="" class="f_text" name="oldpassword" id="oldpassword" onblur="checkPsw(this);"
 						require="true" dataType="Limit" max="100" min="1" msg="原密码必填"/>     
 					<span id="rightSpan" style="color: green;display: none;"><img src="${contextPath}/image/register/check_right.gif">原密码正确</span>
 					<span id="wrongSpan" style="color: red;display: none;"><img src="${contextPath}/image/register/check_error.gif">原密码错误</span>       
@@ -106,7 +114,7 @@
 					新密码
 				</td>
 				<td width="42%">
-					<input type="text" name="password" id="password" class="f_text" 
+					<input type="password" name="password" id="password" class="f_text" 
 										dataType="SafeString" msg="密码不符合安全规则"/>        
 				</td>
 			</tr>
@@ -115,7 +123,7 @@
 					确认新密码
 				</td>
 				<td width="42%">
-					<input type="text" name="password_" id="password_" class="f_text" 
+					<input type="password" name="password_" id="password_" class="f_text" 
 										dataType="Repeat" to="password" msg="两次输入的密码不一致"/>        
 				</td>
 			</tr>

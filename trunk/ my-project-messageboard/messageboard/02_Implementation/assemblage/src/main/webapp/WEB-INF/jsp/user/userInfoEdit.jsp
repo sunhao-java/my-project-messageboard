@@ -34,17 +34,11 @@
 								window.location.href = '${contextPath}/user/userInfo.do';
 							}});
 					} else {
-						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改信息失败！',
-							'confirmFunction':function(){
-								this.cancel();
-							}});
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'修改信息失败！'});
 					}
 				},
 				failure : function(o){
-					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status,
-							'confirmFunction':function(){
-								this.cancel();
-							}});
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 				}
 			});
 		}

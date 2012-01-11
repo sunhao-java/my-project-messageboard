@@ -121,14 +121,15 @@
 		</property>
 	</bean>
 	
-	<!--
-	资源文件进行注入
+	
+	<!-- 资源文件进行注入 -->
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
+				<value>/WEB-INF/i18n/loginJsp</value>
 				<value>/WEB-INF/i18n/message</value>
 			</list>
 		</property>
 	</bean>
-	-->
+	
 </beans>

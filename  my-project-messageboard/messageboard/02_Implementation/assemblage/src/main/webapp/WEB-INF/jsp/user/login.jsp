@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://sunhao.wiscom.com.cn/message" prefix="msg" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%
 	String path = request.getContextPath();
 	request.setAttribute("contextPath", path);
@@ -163,13 +164,17 @@
 														<div class="AlrtErrTxt"> 
 								                			<img name="Login.AlertImage" src="${contextPath}/image/wiseduimg/error_large.gif" alt="Error" 
 								                					height="21" width="21" />
-								               				 验证失败。
+								               				<spring:message code="message.login.failure"/>
 								               			</div>
 								                		<div class="AlrtMsgTxt">
 															${message }
                 											<p>
-                												<a href="${contextPath}">重新登录</a>
-                												<a href="javaScript:showRegister();">我要注册</a>
+                												<a href="${contextPath}">
+                													<spring:message code="message.login.again"/>
+                												</a>
+                												<a href="javaScript:showRegister();">
+                													<spring:message code="message.register"/>
+                												</a>
                 											</p>
 														</div>
                 									</td>
@@ -197,7 +202,7 @@
 				<a id="turnoff" title="关闭" href="javaScript:closeDiv();">
 					<img src="${contextPath }/image/register/turnoff.jpg">
 				</a>
-				<p>用户注册</p>
+				<p><spring:message code="message.user.register"/></p>
 			</div>
 			<div>
 				<img src="${contextPath}/image/register/register-back.jpg">
@@ -206,18 +211,18 @@
 						<table width="100%" class="tableform">
 							<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				登录名<span style="color: red">*</span>
+	                 				<spring:message code="message.username"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="username" id="username" class="f_text" dataType="Limit" 
 											require="true" max="100" min="1" msg="不能为空,且不超过50字符" onblur="checkUser(this);"/>
-									<label id="reg" style="color: green;display: none;">*可以注册</label>
-									<label id="regNo" style="color: red;display: none;">*不可注册</label>
+									<label id="reg" style="color: green;display: none;">*<spring:message code="message.register.ok"/></label>
+									<label id="regNo" style="color: red;display: none;">*<spring:message code="message.register.no"/></label>
 								</td>
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				真实姓名<span style="color: red">*</span>
+	                 				<spring:message code="message.truename"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="truename" id="truename" class="f_text" dataType="Limit" 
@@ -226,7 +231,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				密码<span style="color: red">*</span>
+	                 				<spring:message code="message.password"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="password" name="password" id="password" class="f_text" 
@@ -235,7 +240,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				确认密码<span style="color: red">*</span>
+	                 				<spring:message code="message.password.again"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="password" name="password_" id="password_" class="f_text" 
@@ -244,17 +249,17 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				性别
+	                 				<spring:message code="message.sex"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="radio" value="0" name="sex" id="0" checked="checked"><label for="0">不男不女</label>
-									<input type="radio" value="1" name="sex" id="1"><label for="1">男</label>
-									<input type="radio" value="2" name="sex" id="2"><label for="2">女</label>
+									<input type="radio" value="0" name="sex" id="0" checked="checked"><label for="0"><spring:message code="message.sex.no"/></label>
+									<input type="radio" value="1" name="sex" id="1"><label for="1"><spring:message code="message.sex.man"/></label>
+									<input type="radio" value="2" name="sex" id="2"><label for="2"><spring:message code="message.sex.woman"/></label>
 								</td>
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				头像
+	                 				<spring:message code="message.head.image"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<select name="headImage" id="pci"
@@ -325,7 +330,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				邮箱<span style="color: red">*</span>
+	                 				<spring:message code="message.email"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="email" id="email" class="f_text"
@@ -334,7 +339,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				电话号码<span style="color: red">*</span>
+	                 				<spring:message code="message.phonenum"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="phoneNum" id="phoneNum" class="f_text"
@@ -352,7 +357,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				地址
+	                 				<spring:message code="message.address"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="address" id="address" class="f_text" 
@@ -361,7 +366,7 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				个人主页
+	                 				<spring:message code="message.homePage"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="homePage" id="homePage" class="f_text"

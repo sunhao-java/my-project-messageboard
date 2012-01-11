@@ -224,6 +224,22 @@
 			     				</table>
 			     			</td>
 			     		</tr>
+			     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+			     			<td align="center">
+			     				<table width="100%" cellpadding="0" cellspacing="4">
+			     					<tbody>
+			     						<tr>
+			     							<td align="left" style="">
+			     								<a href="#">
+			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+			     									<span style="font-size: 12px;">隐私设置</span>
+			     								</a>
+			     							</td>
+			     						</tr>
+			     					</tbody>
+			     				</table>
+			     			</td>
+			     		</tr>
 			     	</tbody>
 		     </table>
 	     </div>       

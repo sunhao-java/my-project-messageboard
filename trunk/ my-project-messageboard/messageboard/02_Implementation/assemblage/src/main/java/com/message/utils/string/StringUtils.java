@@ -25,7 +25,7 @@ public class StringUtils extends BaseStringUtils {
 	 * @return
 	 */
 	public static boolean isNotEmpty(String str){
-		return !isNotEmpty(str);
+		return !isEmpty(str);
 	}
 	
 	/**

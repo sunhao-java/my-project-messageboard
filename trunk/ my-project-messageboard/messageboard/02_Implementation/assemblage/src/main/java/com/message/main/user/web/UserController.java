@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +19,7 @@ import com.message.utils.MD5Utils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
+import com.message.utils.string.StringUtils;
 
 /**
  * 用户操作的controller

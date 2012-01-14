@@ -1,6 +1,7 @@
 package com.message.main.history.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import com.message.main.history.pojo.UserLoginHistory;
 
@@ -32,4 +33,12 @@ public interface HistoryDAO {
 	 * @throws Exception
 	 */
 	public Date getLastLoginTime(Long userPkId) throws Exception;
+	
+	/**
+	 * 获取某个用户登录历史的list集合
+	 * @param userPkId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UserLoginHistory> getHistoryByUserId(Long userPkId) throws Exception;
 }

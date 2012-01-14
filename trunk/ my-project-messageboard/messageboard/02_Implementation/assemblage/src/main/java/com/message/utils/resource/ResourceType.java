@@ -53,8 +53,4 @@ public final class ResourceType {
 	 * 标准的日期格式
 	 */
 	public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm";
-	/**
-	 * 中文的日期格式
-	 */
-	public static final String CHINESE_DATE_FORMAT = "yyyy年MM月dd日 HH时mm分";
 }

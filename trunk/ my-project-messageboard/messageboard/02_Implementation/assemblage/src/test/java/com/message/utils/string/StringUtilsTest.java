@@ -1,5 +1,7 @@
 package com.message.utils.string;
 
+import com.message.utils.StringUtils;
+
 
 public class StringUtilsTest {
 

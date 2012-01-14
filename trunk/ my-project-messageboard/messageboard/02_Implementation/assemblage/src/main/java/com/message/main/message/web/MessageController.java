@@ -17,10 +17,10 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
+import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
-import com.message.utils.string.StringUtils;
 
 public class MessageController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);

@@ -16,10 +16,10 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
+import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
-import com.message.utils.string.StringUtils;
 
 /**
  * 用户操作的controller

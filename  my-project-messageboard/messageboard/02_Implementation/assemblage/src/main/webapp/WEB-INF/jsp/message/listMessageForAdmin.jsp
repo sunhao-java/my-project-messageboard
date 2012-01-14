@@ -85,7 +85,7 @@
 					${message.createUser.truename }
 				</td>
 				<td>
-					<fmt:formatDate value="${message.createDate }" pattern="yyyy年MM月dd日 HH时mm分"/>
+					<msg:formatDate value="${message.createDate }"/>
 				</td>
 				<td>
 					${message.ip }

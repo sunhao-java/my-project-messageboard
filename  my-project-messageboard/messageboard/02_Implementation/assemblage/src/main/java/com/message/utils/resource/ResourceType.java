@@ -48,4 +48,13 @@ public final class ResourceType {
 	 * ajax请求失败
 	 */
 	public static final String AJAX_FAILURE = "0";
+	
+	/**
+	 * 标准的日期格式
+	 */
+	public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm";
+	/**
+	 * 中文的日期格式
+	 */
+	public static final String CHINESE_DATE_FORMAT = "yyyy年MM月dd日 HH时mm分";
 }

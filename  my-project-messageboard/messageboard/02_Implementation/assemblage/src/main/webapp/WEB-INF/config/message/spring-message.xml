@@ -6,6 +6,7 @@
     <bean id="messageService" class="com.message.main.message.service.impl.MessageServiceImpl">
     	<property name="messageDAO" ref="messageDAO"/>
     	<property name="userService" ref="userService"/>
+    	<property name="replyService" ref="replyService"/>
     </bean>
     
     <bean id="messageController" class="com.message.main.message.web.MessageController">

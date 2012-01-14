@@ -40,13 +40,5 @@
 				<comment>删除标识0未删除1已删除</comment>
 			</column>
 		</property>
-		<set name="replys" lazy="false">
-			<key>
-				<column name="MESSAGE_ID" precision="10" scale="0">
-					<comment>留言的ID(一对多)</comment>
-				</column>
-			</key>
-			<one-to-many class="com.message.main.reply.pojo.Reply"/>
-		</set>
 	</class>
 </hibernate-mapping>

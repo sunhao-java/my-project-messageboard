@@ -65,7 +65,31 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	}
 	
 	/**
-	 * 执行纯正的SQL语句
+	 * 根据hql和参数map对象获取数值
+	 * @param hql
+	 * @param params
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List findByHQL(final String hql, final Map params){
+		return this.hibernateTemplate.execute(new HibernateCallback(){
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				Query query = session.createQuery(hql);
+				
+				Iterator iterator = params.entrySet().iterator();
+				while(iterator.hasNext()){
+					Entry entry = (Entry) iterator.next();
+					query.setParameter((String)entry.getKey(), entry.getValue());
+				}
+				
+				return query.list();
+			}
+		});
+	}
+	
+	/**
+	 * 执行纯正的SQL语句(update)
 	 * @param sql
 	 * @param params
 	 * @return 表中受影响的数据条数
@@ -84,6 +108,29 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 				}
 				
 				return sqlQuery.executeUpdate();
+			}
+		});
+	}
+	
+	/**
+	 * 根据SQL进行查询，返回的是一个数组的list集合
+	 * @param sql
+	 * @param params
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List queryByNativeSQL(final String sql, final Map params){
+		return this.hibernateTemplate.execute(new HibernateCallback(){
+			public Object doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				SQLQuery sqlQuery = session.createSQLQuery(sql);
+				
+				Iterator it = params.entrySet().iterator();
+				while(it.hasNext()){
+					Entry entry = (Entry) it.next();
+					sqlQuery.setParameter((String)entry.getKey(), entry.getValue());
+				}
+				return sqlQuery.list();
 			}
 		});
 	}

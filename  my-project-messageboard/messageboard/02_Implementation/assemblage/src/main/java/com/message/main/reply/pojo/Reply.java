@@ -18,11 +18,12 @@ public class Reply implements Serializable{
 	private String replyContent;	//回复内容
 	private Date replyDate;			//回复时间
 	private Long replyUserId;		//回复者ID
-	private Message message;		//回复的留言
 	private Long deleteFlag; 		//删除标识0未删除1已删除
+	private Long messageId;			//此条回复对应的留言ID
 	
 	//VO Fileds
 	private User replyUser;			//回复的用户
+	private Message message;		//此条回复对应的留言实体
 
 	public Long getPkId() {
 		return pkId;
@@ -86,6 +87,14 @@ public class Reply implements Serializable{
 
 	public void setReplyUser(User replyUser) {
 		this.replyUser = replyUser;
+	}
+
+	public Long getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(Long messageId) {
+		this.messageId = messageId;
 	}
 
 }

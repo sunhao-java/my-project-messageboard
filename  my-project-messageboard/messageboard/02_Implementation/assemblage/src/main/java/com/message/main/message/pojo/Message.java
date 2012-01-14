@@ -2,8 +2,7 @@ package com.message.main.message.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import com.message.main.reply.pojo.Reply;
 import com.message.main.user.pojo.User;
@@ -20,12 +19,12 @@ public class Message implements Serializable {
 	private String ip;									//IP地址
 	private String content;								//留言内容
 	private Date createDate;							//留言时间
-	private Set<Reply> replys = new HashSet<Reply>();	//对应的回复
 	private Long createUserId;							//对应的留言者ID
 	private Long deleteFlag;							//删除标识0未删除1已删除
 	
 	//VO Field
 	private User createUser;							//VO字段，发表留言者
+	private List<Reply> replys;							//VO字段，此条留言的回复
 
 	public Long getPkId() {
 		return pkId;
@@ -67,11 +66,11 @@ public class Message implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public Set<Reply> getReplys() {
+	public List<Reply> getReplys() {
 		return replys;
 	}
 
-	public void setReplys(Set<Reply> replys) {
+	public void setReplys(List<Reply> replys) {
 		this.replys = replys;
 	}
 

@@ -47,5 +47,5 @@ public interface MessageService {
 	 * @throws Exception
 	 */
 	void deleteMessage(String pkIds) throws Exception;
-
+	
 }

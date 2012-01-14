@@ -5,6 +5,7 @@
     
     <bean id="replyService" class="com.message.main.reply.service.impl.ReplyServiceImpl">
     	<property name="replyDAO" ref="replyDAO"/>
+    	<property name="userService" ref="userService"/>
     </bean>
     
     <bean id="replyController" class="com.message.main.reply.web.ReplyController">

@@ -35,10 +35,10 @@
 				<comment>删除标识0未删除1已删除</comment>
 			</column>
 		</property>
-		<many-to-one name="message" class="com.message.main.message.pojo.Message">
+		<property name="messageId" type="java.lang.Long">
 			<column name="MESSAGE_ID" precision="10" scale="0">
-				<comment>所回复的留言ID</comment>
+				<comment>此条回复对应的留言ID</comment>
 			</column>
-		</many-to-one>
+		</property>
 	</class>
 </hibernate-mapping>

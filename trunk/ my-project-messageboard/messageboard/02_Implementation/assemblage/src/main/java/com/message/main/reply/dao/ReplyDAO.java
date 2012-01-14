@@ -1,5 +1,7 @@
 package com.message.main.reply.dao;
 
+import java.util.List;
+
 import com.message.main.reply.pojo.Reply;
 
 /**
@@ -21,4 +23,12 @@ public interface ReplyDAO {
 	 * @throws Exception
 	 */
 	public Reply getReplyByPkId(Long pkId) throws Exception;
+	
+	/**
+	 * 根据留言id获取回复
+	 * @param messageId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Reply> getReplysByMessageId(Long messageId) throws Exception;
 }

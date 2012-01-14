@@ -10,6 +10,8 @@
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 <msg:js src="js/base/commfunction.js"/>
+<msg:js src="js/base/app-dialog.js"/>
+
 <msg:css href="css/publish.css"/>
 
 <style type="text/css">
@@ -19,6 +21,8 @@
 </style>
 
 <script type="text/javascript">
+	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+	
 	function showReply(id, count){
 		$("#replyTr").show();
 		$("#image" + id).hide();
@@ -35,6 +39,11 @@
 		//调用公共JS自动提示组件
 		showUser('yellow','300px','wrap');
 	});
+	
+	function deleteReply(pkId){
+		var requestURL = '${contextPath}/reply/deleteReply.do?replyPkId=' + pkId;
+		deleteOne(requestURL, '', true);
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -115,7 +124,7 @@
 				   						<fmt:formatDate pattern="yyyy年MM月dd日 HH时mm分" value="${reply.replyDate }" />
 				   					</td>
 				   					<td width="3%">
-				   						<a href="#">
+				   						<a href="javaScript:deleteReply('${reply.pkId}');">
 											<img src="${contextPath}/image/wiseduimg/delete.gif" title="删除">
 										</a>
 				   					</td>

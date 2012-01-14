@@ -33,7 +33,7 @@
 	function deleteMessage(pkId){
 		var requestURL = '${contextPath }/message/deleteMessage.do?pkIds=' + pkId;
 		var responseURL = '${contextPath}/message/listMessageAdmin.do';
-		deleteOne(requestURL, responseURL);
+		deleteOne(requestURL, responseURL, '');
 	}
 	
 	function deleteFunction(){

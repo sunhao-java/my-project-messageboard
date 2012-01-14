@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
+    <bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl"/>
     
+    <bean id="replyService" class="com.message.main.reply.service.impl.ReplyServiceImpl">
+    	<property name="replyDAO" ref="replyDAO"/>
+    </bean>
+    
+    <bean id="replyController" class="com.message.main.reply.web.ReplyController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/reply/deleteReply.do">deleteReply</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="replyService" ref="replyService"/>
+    </bean>
 </beans>

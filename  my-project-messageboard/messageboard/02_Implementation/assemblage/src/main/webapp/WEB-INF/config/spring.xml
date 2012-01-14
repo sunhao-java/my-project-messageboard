@@ -132,4 +132,7 @@
 		</property>
 	</bean>
 	
+	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
+	<bean class="com.message.utils.ApplicationContextUtil"/>
+	
 </beans>

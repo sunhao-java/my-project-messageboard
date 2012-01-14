@@ -23,7 +23,7 @@
 				<span style="float:right">位置：${message.ip }</span>
 			</div>
 			<div class="msgTime" >
-				<fmt:formatDate value="${message.createDate }" pattern="yyyy-MM-dd HH:mm"/>
+				<msg:formatDate value="${message.createDate }"/>
 			</div>
 			<div class="userContact">
 				<c:choose>

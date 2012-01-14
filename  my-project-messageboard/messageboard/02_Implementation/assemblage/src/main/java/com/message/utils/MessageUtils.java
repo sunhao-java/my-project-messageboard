@@ -69,6 +69,36 @@ public class MessageUtils {
 	}
 	
 	/**
+	 * 获取国际化资源(指定code和参数)
+	 * @param code
+	 * @param args
+	 * @return
+	 */
+	public static String getMessage(String code, Object[] args){
+		return getMessage(code, args, null, null);
+	}
+	
+	/**
+	 * 获取国际化资源(指定code和参数，并且如果查询失败返回默认值)
+	 * @param code
+	 * @param args
+	 * @return
+	 */
+	public static String getMessage(String code, Object[] args, String defaultMessage){
+		return getMessage(code, args, defaultMessage, null);
+	}
+	
+	/**
+	 * 获取国际化资源(指定code和参数、locale)
+	 * @param code
+	 * @param args
+	 * @return
+	 */
+	public static String getMessage(String code, Object[] args, Locale locale){
+		return getMessage(code, args, null, locale);
+	}
+	
+	/**
 	 * 获取国际化资源MessageSource
 	 * @return
 	 */

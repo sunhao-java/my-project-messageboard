@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
+import com.message.utils.MessageUtils;
 import com.message.utils.resource.ResourceType;
 
 /**
@@ -46,7 +47,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 			if(dateType == 1){
 				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 			} else {
-				format.applyPattern(ResourceType.CHINESE_DATE_FORMAT);
+				format.applyPattern(MessageUtils.getMessage("dateformat.chinese.format"));
 			}
 			
 			out = format.format(value);
@@ -60,17 +61,17 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 			int minutes = value.getMinutes();
 			String time = "";
 			if(hours < 6){
-				time = "凌晨";
+				time = MessageUtils.getMessage("dateformat.morning");
 			} else if(hours < 12) {
-				time = "上午";
+				time = MessageUtils.getMessage("dateformat.am");
 			} else if(hours < 18){
-				time = "下午";
+				time = MessageUtils.getMessage("dateformat.pm");
 				hours -= 12;
 			} else if(hours < 24){
-				time = "晚上";
+				time = MessageUtils.getMessage("dateformat.night");
 				hours -= 12;
 			}
-			out = "昨天" + time + hours + "时" + minutes + "分";
+			out = MessageUtils.getMessage("dateformat.date.format",new Object[]{time, hours, minutes});
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -78,27 +79,27 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		//显示多少小时之前
 		if(mm > 1*60*60*1000){
 			String hours = String.valueOf((int) mm/(1000*60*60));
-			out = hours + "小时前";
+			out = hours + MessageUtils.getMessage("dateformat.beforH");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示多少分钟之前
 		if(mm > 1*60*1000){
 			String minutes = String.valueOf((int) mm/(1000*60));
-			out = minutes + "分钟前";
+			out = minutes + MessageUtils.getMessage("dateformat.beforM");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示多少秒之前
 		if(mm > 1000){
 			String seconds = String.valueOf((int) mm/(1000));
-			out = seconds + "秒前";
+			out = seconds + MessageUtils.getMessage("dateformat.beforS");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示1秒前
 		if(mm <= 1000){
-			out = "1秒前";
+			out = "1" + MessageUtils.getMessage("dateformat.beforS");
 			print(out);
 			return EVAL_PAGE;
 		}

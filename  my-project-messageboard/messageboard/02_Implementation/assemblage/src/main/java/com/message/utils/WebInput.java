@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * 封装HttpServletRequest
  * @author sunhao(sunhao.java@gmail.com)

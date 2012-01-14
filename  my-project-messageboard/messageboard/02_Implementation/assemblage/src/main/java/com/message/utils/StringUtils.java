@@ -6,6 +6,10 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.codec.binary.Base64;
 
+/**
+ * 对字符串进行处理的工具类
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 @SuppressWarnings("unchecked")
 public class StringUtils extends org.apache.commons.lang.StringUtils {
 	

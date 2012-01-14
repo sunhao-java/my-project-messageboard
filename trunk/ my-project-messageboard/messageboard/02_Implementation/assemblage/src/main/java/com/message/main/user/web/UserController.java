@@ -109,9 +109,9 @@ public class UserController extends MultiActionController {
 		try {
 			boolean status = this.userService.registerUser(user);
 			if(status){
-				params.put("status", 1);
+				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 			} else {
-				params.put("status", 0);
+				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,8 +134,8 @@ public class UserController extends MultiActionController {
 		JSONObject obj = new JSONObject();
 		String status = "";
 		try {
-			status = this.userService.checkUser(user) ? "1" : "0";
-			obj.put("status", status);
+			status = this.userService.checkUser(user) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE;
+			obj.put(ResourceType.AJAX_STATUS, status);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
@@ -199,10 +199,10 @@ public class UserController extends MultiActionController {
 		JSONObject obj = new JSONObject();
 		try {
 			this.userService.saveEdit(user);
-			obj.put("status", 1);
+			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
-			obj.put("status", 0);
+			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 			logger.error(e.getMessage(), e);
 		}
 		out.toJson(obj);
@@ -241,12 +241,12 @@ public class UserController extends MultiActionController {
 		if(userInSession != null){
 			String md5OldPsw = MD5Utils.MD5Encode(oldPassword);
 			if(md5OldPsw.equals(userInSession.getPassword())){
-				obj.put("status", 1);
+				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 			} else {
-				obj.put("status", 0);
+				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 			}
 		} else {
-			obj.put("status", 0);
+			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 		}
 		out.toJson(obj);
 		return null;
@@ -265,11 +265,11 @@ public class UserController extends MultiActionController {
 		JSONObject obj = new JSONObject();
 		if(user != null){
 			try {
-				obj.put("status", this.userService.savePassword(user) ? 1 : 0);
+				obj.put(ResourceType.AJAX_STATUS, this.userService.savePassword(user) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(e.getMessage(), e);
-				obj.put("status", 0);
+				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 			}
 		}
 		out.toJson(obj);
@@ -291,7 +291,7 @@ public class UserController extends MultiActionController {
 		if(userInSession != null){
 			in.getSession().removeAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		}
-		obj.put("status", 1);
+		obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(obj);
 		return null;
 	}

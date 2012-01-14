@@ -16,6 +16,9 @@
     					<prop key="/message/listMessage.do">listMessage</prop>
     					<prop key="/message/inPublishMessageJsp.do">inPublishMessageJsp</prop>
     					<prop key="/message/saveMessage.do">saveMessage</prop>
+    					<prop key="/message/listMessageAdmin.do">listMessageForAdmin</prop>
+    					<prop key="/message/viewMessage.do">viewMessage</prop>
+    					<prop key="/message/deleteMessage.do">deleteMessage</prop>
     				</props>
     			</property>
     		</bean>

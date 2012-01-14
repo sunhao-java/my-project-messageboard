@@ -20,6 +20,7 @@ import com.message.main.user.pojo.User;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
+import com.message.utils.string.StringUtils;
 
 public class MessageController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
@@ -88,11 +89,80 @@ public class MessageController extends MultiActionController {
 		Long pkId = null;
 		try {
 			pkId = this.messageService.saveMessage(message, user_pkId);
-			params.put("status", pkId == null ? "0" : "1");
+			params.put(ResourceType.AJAX_STATUS, pkId == null ? ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
-			params.put("status", "0");
+			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+		}
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 为管理员列出所有留言(简洁版的留言)
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 */
+	public ModelAndView listMessageForAdmin(HttpServletRequest request, HttpServletResponse response, Message message){
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		int start = in.getInt("start", 0);
+		int num = ResourceType.PAGE_NUM;
+		List<Message> messages = null;
+		try {
+			messages = this.messageService.getAllMessages(start, num, message);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
+		params.put("messages", messages);
+		return new ModelAndView("message.listMsg.forAdmin", params);
+	}
+	
+	/**
+	 * 查看单条留言
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public ModelAndView viewMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+		Map<String, Object> params = new HashMap<String, Object>();
+		if(message.getPkId() != null){
+			try {
+				params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
+			} catch (Exception e) {
+				logger.error(e.getMessage(), e);
+				e.printStackTrace();
+			}
+		}
+		return new ModelAndView("message.viewMessage", params);
+	}
+	
+	/**
+	 * 删除留言（可以删除一条也可批量删除）
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView deleteMessage(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception{
+		JSONObject params = new JSONObject();
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		String pkIds = in.getString("pkIds", StringUtils.EMPTY);
+		try {
+			this.messageService.deleteMessage(pkIds);
+			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+			e.printStackTrace();
 		}
 		out.toJson(params);
 		return null;

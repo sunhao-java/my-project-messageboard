@@ -39,7 +39,13 @@ public class HomeController extends MultiActionController {
 	 * @return
 	 */
 	public ModelAndView left(HttpServletRequest request, HttpServletResponse response){
-		return new ModelAndView("message.left");
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		if(user != null){
+			params.put("user", user);
+		}
+		return new ModelAndView("message.left", params);
 	}
 	
 	/**

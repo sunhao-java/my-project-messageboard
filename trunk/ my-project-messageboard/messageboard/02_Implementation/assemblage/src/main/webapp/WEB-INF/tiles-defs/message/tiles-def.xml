@@ -10,4 +10,12 @@
 	<definition name="message.publish" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/message/publishMsg.jsp"/>
 	</definition>
+	
+	<definition name="message.listMsg.forAdmin" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/listMessageForAdmin.jsp"/>
+	</definition>
+	
+	<definition name="message.viewMessage" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/viewMessage.jsp"/>
+	</definition>
 </tiles-definitions>        

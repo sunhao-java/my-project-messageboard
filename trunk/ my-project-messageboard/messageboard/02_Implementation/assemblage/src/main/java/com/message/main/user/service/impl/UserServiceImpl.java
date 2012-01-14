@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService{
 				}
 				user.setCreateDate(new Date());
 				user.setDeleteFlag(ResourceType.DELETE_NO);
+				user.setIsAdmin(ResourceType.IS_ADMIN_NO);
 				pkId = this.userDAO.registerUser(user);
 				if(pkId != null){
 					return true;

@@ -79,27 +79,27 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		//显示多少小时之前
 		if(mm > 1*60*60*1000){
 			String hours = String.valueOf((int) mm/(1000*60*60));
-			out = hours + MessageUtils.getMessage("dateformat.beforH");
+			out = hours + MessageUtils.getMessage("dateformat.beforeH");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示多少分钟之前
 		if(mm > 1*60*1000){
 			String minutes = String.valueOf((int) mm/(1000*60));
-			out = minutes + MessageUtils.getMessage("dateformat.beforM");
+			out = minutes + MessageUtils.getMessage("dateformat.beforeM");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示多少秒之前
 		if(mm > 1000){
 			String seconds = String.valueOf((int) mm/(1000));
-			out = seconds + MessageUtils.getMessage("dateformat.beforS");
+			out = seconds + MessageUtils.getMessage("dateformat.beforeS");
 			print(out);
 			return EVAL_PAGE;
 		}
 		//显示1秒前
 		if(mm <= 1000){
-			out = "1" + MessageUtils.getMessage("dateformat.beforS");
+			out = "1" + MessageUtils.getMessage("dateformat.beforeS");
 			print(out);
 			return EVAL_PAGE;
 		}

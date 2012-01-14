@@ -11,6 +11,9 @@ public class UserLoginHistory implements Serializable {
 	private String loginIP;			//登录地IP
 	private Date loginTime;			//登录时间
 	private String browser;			//登录所使用浏览器
+	
+	//VO Fields
+	private String browserStr;		//登录所使用的浏览器
 
 	public Long getPkId() {
 		return pkId;
@@ -50,5 +53,13 @@ public class UserLoginHistory implements Serializable {
 
 	public void setBrowser(String browser) {
 		this.browser = browser;
+	}
+
+	public String getBrowserStr() {
+		return browserStr;
+	}
+
+	public void setBrowserStr(String browserStr) {
+		this.browserStr = browserStr;
 	}
 }

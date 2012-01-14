@@ -2,7 +2,9 @@ package com.message.main.history.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -46,6 +48,18 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		}
 		
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<UserLoginHistory> getHistoryByUserId(Long userPkId)
+			throws Exception {
+		String hql = "from UserLoginHistory t where t.loginUserPkId = :userId order by t.loginTime desc ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", userPkId);
+		
+		List list = this.getBeanPaginationSupport(hql, 0, 10, params);
+		
+		return list;
 	}
 
 }

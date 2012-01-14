@@ -17,4 +17,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/changePsw.jsp"/>
 	</definition>
 	
+	<definition name="user.login.history.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/loginHistory.jsp"/>
+	</definition>
+	
 </tiles-definitions>

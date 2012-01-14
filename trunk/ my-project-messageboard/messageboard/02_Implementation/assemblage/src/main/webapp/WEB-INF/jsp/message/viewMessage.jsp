@@ -64,7 +64,7 @@
 					留言时间
 				</td>
 				<td width="40%">
-					<fmt:formatDate value="${message.createDate }" pattern="yyyy年MM月dd日 HH时mm分"/>
+					<msg:formatDate value="${message.createDate }"/>
 				</td>
 			</tr>
 			<tr>
@@ -121,7 +121,7 @@
 				   						<span style="font-weight: bold;">回复时间:</span>
 				   					</td>
 				   					<td width="25%">
-				   						<fmt:formatDate pattern="yyyy年MM月dd日 HH时mm分" value="${reply.replyDate }" />
+				   						<msg:formatDate value="${reply.replyDate }"/>
 				   					</td>
 				   					<td width="3%">
 				   						<a href="javaScript:deleteReply('${reply.pkId}');">

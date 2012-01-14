@@ -26,7 +26,7 @@ public class MessageController extends MultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	private WebInput in = null;
-	private static WebOutput out = null;
+	private WebOutput out = null;
 	
 	private MessageService messageService;
 	

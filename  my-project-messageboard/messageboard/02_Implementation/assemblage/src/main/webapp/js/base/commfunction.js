@@ -120,10 +120,14 @@ function deleteMore(boxId, requestURL, responseURL){
 
 /**
  * 删除单条
- * @param {Object} requestURL	请求URL
+ * @param {Object} requestURL 	请求URL
  * @param {Object} responseURL	响应URL
+ * @param {Object} refresh		是否刷新
  */
-function deleteOne(requestURL, responseURL){
+function deleteOne(requestURL, responseURL, refresh){
+	if(refresh == ''){
+		refresh = false;
+	}
 	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要要删除此条留言吗？','confirmFunction':function(){
 		$C.asyncRequest('POST', requestURL, {
 			success : function(o){
@@ -131,7 +135,11 @@ function deleteOne(requestURL, responseURL){
 				if(_e.status == '1'){
 					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'删除成功！',
 						'confirmFunction':function(){
-							window.location.href = responseURL;
+							if(refresh){
+								window.location.reload(true);
+							} else {
+								window.location.href = responseURL;
+							}
 						}});
 				} else {
 					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'删除失败！'});

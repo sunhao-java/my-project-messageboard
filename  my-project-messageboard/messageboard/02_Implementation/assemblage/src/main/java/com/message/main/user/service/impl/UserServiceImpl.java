@@ -11,9 +11,9 @@ import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
+import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
-import com.message.utils.string.StringUtils;
 
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);

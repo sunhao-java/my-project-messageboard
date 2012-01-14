@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.message.main.message.pojo.Message;
+import com.message.main.user.pojo.User;
 
 /**
  * 回复实体
@@ -19,6 +20,9 @@ public class Reply implements Serializable{
 	private Long replyUserId;		//回复者ID
 	private Message message;		//回复的留言
 	private Long deleteFlag; 		//删除标识0未删除1已删除
+	
+	//VO Fileds
+	private User replyUser;			//回复的用户
 
 	public Long getPkId() {
 		return pkId;
@@ -74,6 +78,14 @@ public class Reply implements Serializable{
 
 	public void setDeleteFlag(Long deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public User getReplyUser() {
+		return replyUser;
+	}
+
+	public void setReplyUser(User replyUser) {
+		this.replyUser = replyUser;
 	}
 
 }

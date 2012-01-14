@@ -32,4 +32,18 @@ public interface MessageDAO {
 	 * @throws Exception
 	 */
 	int getLoginUserMessageCount(Long pkId) throws Exception;
+	
+	/**
+	 * 根据ID获取某个留言
+	 * @param pkId
+	 * @return
+	 */
+	Message getMessageByPkId(Long pkId) throws Exception;
+	
+	/**
+	 * 更新留言
+	 * @param message
+	 * @throws Exception
+	 */
+	void updateMessage(Message message) throws Exception;
 }

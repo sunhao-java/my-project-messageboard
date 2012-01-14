@@ -166,6 +166,24 @@
 			     				</table>
 			     			</td>
 			     		</tr>
+			     		<c:if test="${user.isAdmin eq '1'}">
+			     			<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+				     			<td align="center">
+				     				<table width="100%" cellpadding="0" cellspacing="4">
+				     					<tbody>
+				     						<tr>
+				     							<td align="left" style="">
+				     								<a href="javascript:nav('/message/listMessageAdmin.do')">
+				     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+				     									<span style="font-size: 12px;">管理留言</span>
+				     								</a>
+				     							</td>
+				     						</tr>
+				     					</tbody>
+				     				</table>
+				     			</td>
+				     		</tr>
+			     		</c:if>
 			     	</tbody>
 		     </table>
 		     <table width="120%" cellpadding="0" cellspacing="0" id="manager" flag="1">
@@ -173,7 +191,7 @@
 			     		<tr onclick="OpenMenu('manager');">
 			     			<td colspan="2" style="cursor:pointer" class="tabheader">
 			     				&nbsp;&nbsp;
-			     				<span style="font-size: 13px;">用户信息管理</span>
+			     				<span style="font-size: 13px;">个人信息管理</span>
 			     			</td>
 			     		</tr>
 			     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
@@ -242,6 +260,90 @@
 			     		</tr>
 			     	</tbody>
 		     </table>
+		     <c:if test="${user.isAdmin eq '1'}">
+		     	<table width="120%" cellpadding="0" cellspacing="0" id="userManager" flag="1">
+		     		<tr onclick="OpenMenu('userManager');">
+		     			<td colspan="2" style="cursor:pointer" class="tabheader">
+		     				&nbsp;&nbsp;
+		     				<span style="font-size: 13px;">系统用户管理</span>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/listMessage.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">查看所有用户</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/inPublishMessageJsp.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">用户权限分配</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     	</table>
+		     </c:if>
+		     <c:if test="${user.isAdmin eq '1'}">
+		     	<table width="120%" cellpadding="0" cellspacing="0" id="messageInfo" flag="1">
+		     		<tr onclick="OpenMenu('messageInfo');">
+		     			<td colspan="2" style="cursor:pointer" class="tabheader">
+		     				&nbsp;&nbsp;
+		     				<span style="font-size: 13px;">留言板管理</span>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/listMessage.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">查看留言板信息</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/inPublishMessageJsp.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">编辑留言板信息</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     	</table>
+		     </c:if>
 	     </div>       
 	</div>
   </body>

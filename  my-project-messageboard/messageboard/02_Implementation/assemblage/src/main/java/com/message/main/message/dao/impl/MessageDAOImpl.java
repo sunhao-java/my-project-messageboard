@@ -46,4 +46,13 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		}
 	}
 
+	public Message getMessageByPkId(Long pkId) throws Exception {
+		Message message = (Message) this.loadObject(Message.class, pkId);
+		return message;
+	}
+
+	public void updateMessage(Message message) throws Exception {
+		this.updateObject(message);
+	}
+
 }

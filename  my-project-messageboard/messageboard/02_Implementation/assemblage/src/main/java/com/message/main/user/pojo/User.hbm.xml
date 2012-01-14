@@ -70,5 +70,10 @@
 				<comment>软删除，0未删除，1已删除</comment>
 			</column>
 		</property>
+		<property name="isAdmin" type="java.lang.Long">
+			<column name="IS_ADMIN" precision="10" scale="0">
+				<comment>是否是管理员的标识, 0不是管理员，1是管理员</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

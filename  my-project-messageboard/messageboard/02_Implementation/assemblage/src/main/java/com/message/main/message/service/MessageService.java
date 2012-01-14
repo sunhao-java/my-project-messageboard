@@ -33,5 +33,19 @@ public interface MessageService {
 	 * @throws Exception
 	 */
 	int getLoginUserMessageCount(Long pkId) throws Exception;
+	
+	/**
+	 * 根据ID获取某个留言
+	 * @param pkId
+	 * @return
+	 */
+	Message getMessageByPkId(Long pkId) throws Exception;
+	
+	/**
+	 * 根据pkId的集合批量删除留言
+	 * @param pkIds
+	 * @throws Exception
+	 */
+	void deleteMessage(String pkIds) throws Exception;
 
 }

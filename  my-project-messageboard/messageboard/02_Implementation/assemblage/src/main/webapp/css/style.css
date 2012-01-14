@@ -1,10 +1,9 @@
 body,html {
 	padding: 0px;
 	margin-top: 5px;
-	margin-left: 0px;
 	margin-right: 0px;
 	margin-bottom: 0px;
-	font-family: ËÎÌå, Arial, Helvetica, sans-serif;
+	font-family: ï¿½ï¿½ï¿½ï¿½, Arial, Helvetica, sans-serif;
 	font-size: 12px;
 	line-height: 1.4;
 	color: #505050;
@@ -24,7 +23,7 @@ img.imgLink {width: 15px; height: 15px;}
 table {font-size: 12px; table-layout:fixed;}
 td{word-break: break-all;}
 
-.msgArea {				/* ÁôÑÔÏÔÊ¾ÈÝÆ÷ */
+.msgArea {				/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ */
 	clear:both;
 	width: 620px;
 	position:relative;
@@ -33,7 +32,7 @@ td{word-break: break-all;}
 	border:#D56000 3px solid;
 }
 
-.msgArea-left {			/* Í·Ïñ¡¢³Æºô */
+.msgArea-left {			/* Í·ï¿½ñ¡¢³Æºï¿½ */
 	float: left;
 	margin: 0px 0px 0px 3px;
 	padding: 2px;
@@ -74,7 +73,7 @@ td{word-break: break-all;}
 }
 
 
-.msgArea-right {	/* ±êÌâ¡¢Ê±¼ä¡¢ÁôÑÔÄÚÈÝ¡¢»Ø¸´ */
+.msgArea-right {	/* ï¿½ï¿½ï¿½â¡¢Ê±ï¿½ä¡¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½Ø¸ï¿½ */
 	float: right;
 	width: 490px;
 	margin: 0px 5px 10px 5px;

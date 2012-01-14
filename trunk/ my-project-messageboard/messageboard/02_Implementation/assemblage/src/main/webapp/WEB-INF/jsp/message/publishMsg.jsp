@@ -12,6 +12,8 @@
 <msg:js src="js/fckeditor/myFCKEditor.js"/>
 <msg:css href="css/publish.css"/>
 
+<msg:js src="js/base/commfunction.js"/>
+
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
 

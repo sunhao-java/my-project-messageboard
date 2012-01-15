@@ -54,7 +54,7 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num)
 			throws Exception {
 		String hql = "from UserLoginHistory t where t.loginUserPkId = :userId order by t.loginTime desc ";
-		String countHql = "select count(*) from UserLoginHistory";
+		String countHql = "select count(*) from UserLoginHistory t where t.loginUserPkId = :userId";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userPkId);
 		

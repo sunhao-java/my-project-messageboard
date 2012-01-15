@@ -1,7 +1,6 @@
 package com.message.main.message.web;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +16,8 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
+import com.message.utils.PaginationSupport;
+import com.message.utils.SqlUtils;
 import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
@@ -43,16 +44,16 @@ public class MessageController extends MultiActionController {
 	public ModelAndView listMessage(HttpServletRequest request, HttpServletResponse response, Message message){
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
-		int start = in.getInt("start", 0);
-		int num = ResourceType.PAGE_NUM;
-		List<Message> messages = null;
+		int num = in.getInt("num", 5);
+		int start = SqlUtils.getStartNum(in, num);
+		PaginationSupport paginationSupport = null;
 		try {
-			messages = this.messageService.getAllMessages(start, num, message);
+			paginationSupport = this.messageService.getAllMessages(start, num, message);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 		}
-		params.put("messages", messages);
+		params.put("paginationSupport", paginationSupport);
 		return new ModelAndView("message.list", params);
 	}
 	
@@ -110,16 +111,16 @@ public class MessageController extends MultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		int start = in.getInt("start", 0);
-		int num = ResourceType.PAGE_NUM;
-		List<Message> messages = null;
+		int num = in.getInt("num", ResourceType.PAGE_NUM);
+		int start = SqlUtils.getStartNum(in, num);
+		PaginationSupport paginationSupport = null;
 		try {
-			messages = this.messageService.getAllMessages(start, num, message);
+			paginationSupport = this.messageService.getAllMessages(start, num, message);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
-		params.put("messages", messages);
+		params.put("paginationSupport", paginationSupport);
 		return new ModelAndView("message.listMsg.forAdmin", params);
 	}
 	

@@ -18,7 +18,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.message.utils.PaginationSupport;
 import com.message.utils.PaginationUtils;
-import com.message.utils.SqlUtils;
 import com.message.utils.base.utils.GenericHibernateDAO;
 
 /**
@@ -173,7 +172,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 				public Object doInHibernate(Session session)
 						throws HibernateException, SQLException {
 					Query query = session.createQuery(hql);
-					Query query2 = session.createQuery(countHql == null ? SqlUtils.getCountSql(hql) : countHql);
+					Query query2 = session.createQuery(countHql);
 					query.setFirstResult(start);
 					query.setMaxResults(num);
 					
@@ -181,6 +180,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 					while(it.hasNext()){
 						Entry en = (Entry) it.next();
 						query.setParameter((String)en.getKey(), en.getValue());
+						query2.setParameter((String)en.getKey(), en.getValue());
 					}
 					
 					List items = query.list();

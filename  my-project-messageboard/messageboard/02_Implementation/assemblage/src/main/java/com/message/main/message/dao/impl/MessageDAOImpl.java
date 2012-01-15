@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
+import com.message.utils.PaginationSupport;
 import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 import com.message.utils.resource.ResourceType;
 
@@ -18,14 +19,14 @@ import com.message.utils.resource.ResourceType;
  */
 public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDAO {
 	
-	@SuppressWarnings("unchecked")
-	public List<Message> getAllMessages(int start, int num, Message message)
+	public PaginationSupport getAllMessages(int start, int num, Message message)
 			throws Exception {
 		String hql = "from Message where deleteFlag = :deleteFlag order by pkId desc";
+		String countHql = "select count(*) from Message where deleteFlag = :deleteFlag";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("deleteFlag", ResourceType.DELETE_NO);
-		List<Message> messages = this.findByHQL(hql, params);
-		return messages;
+		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		return paginationSupport;
 	}
 
 	public Long saveMessage(Message message) throws Exception {

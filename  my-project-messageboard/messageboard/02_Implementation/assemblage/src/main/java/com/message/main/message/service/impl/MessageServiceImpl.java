@@ -12,6 +12,7 @@ import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.PaginationSupport;
 import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
 
@@ -39,8 +40,10 @@ public class MessageServiceImpl implements MessageService {
 		this.replyService = replyService;
 	}
 
-	public List<Message> getAllMessages(int start, int num, Message message) throws Exception {
-		List<Message> messages = this.messageDAO.getAllMessages(start, num, message);
+	@SuppressWarnings("unchecked")
+	public PaginationSupport getAllMessages(int start, int num, Message message) throws Exception {
+		PaginationSupport paginationSupport = this.messageDAO.getAllMessages(start, num, message);
+		List<Message> messages = paginationSupport.getItems();
 		for(Message msg : messages){
 			User user = this.userService.getUserById(msg.getCreateUserId());
 			List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
@@ -48,7 +51,7 @@ public class MessageServiceImpl implements MessageService {
 			msg.setCreateUser(user);
 			msg.setReplys(replys);
 		}
-		return messages;
+		return paginationSupport;
 	}
 
 	public Long saveMessage(Message message, Long userPkId) throws Exception {

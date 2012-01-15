@@ -7,7 +7,7 @@
 	<jsp:param value="查看所有留言" name="title"/>
 </jsp:include>
 
-<c:forEach items="${messages }" var="message">
+<c:forEach items="${paginationSupport.items }" var="message">
 	<div class="msgArea">
 		<div class="msgArea-left">
 			<ul >
@@ -71,3 +71,6 @@
 		<div class="msgArea-clear"></div>
 	</div>
 </c:forEach>
+
+<c:url var="paginationAction" value="message/listMessage.do"/>
+<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

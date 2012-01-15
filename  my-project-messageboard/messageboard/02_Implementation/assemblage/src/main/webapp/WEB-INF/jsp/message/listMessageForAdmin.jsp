@@ -73,7 +73,7 @@
 				管理
 			</th>
 		</tr>
-		<c:forEach items="${messages}" var="message">
+		<c:forEach items="${paginationSupport.items}" var="message">
 			<tr>
 				<td>
 					<input type="checkbox" name="pkId" id="pkId" value="${message.pkId}">
@@ -106,3 +106,6 @@
 		</c:forEach>
 	</table>
 </div>
+
+<c:url var="paginationAction" value="message/listMessageAdmin.do"/>
+<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

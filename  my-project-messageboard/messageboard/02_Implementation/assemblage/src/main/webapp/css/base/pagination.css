@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+.paginationDiv{
+	margin: 1.5em 0;
+    text-align: center;
+    border-top: 1px solid #CCCCCC;
+    padding-top: 10px;
+}
+
+.paginationDiv a{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    margin: 0 2px;
+    padding: 1px 4px;
+}
+
+.paginationDiv strong{
+	padding: 1px 4px;
+	font-weight: bold;
+}
+
+.paginationDiv a:link,a:active,a:visited{
+	color: #003399;
+	text-decoration: none;
+}
+
+.paginationDiv a:hover{
+	background: none repeat scroll 0 0 #0066CC;
+    color: #FFFFFF;
+    text-decoration: none;
+}

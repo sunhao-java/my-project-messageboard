@@ -10,6 +10,7 @@ import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.user.pojo.User;
 import com.message.utils.MessageUtils;
+import com.message.utils.PaginationSupport;
 import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 
@@ -43,9 +44,11 @@ public class HistoryServiceImpl implements HistoryService {
 		return this.historyDAO.getLastLoginTime(userPkId);
 	}
 
-	public List<UserLoginHistory> getHistoryByUserId(Long userPkId)
+	@SuppressWarnings("unchecked")
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num)
 			throws Exception {
-		List<UserLoginHistory> historys = this.historyDAO.getHistoryByUserId(userPkId);
+		PaginationSupport paginationSupport = this.historyDAO.getHistoryByUserId(userPkId, start, num);
+		List<UserLoginHistory> historys = paginationSupport.getItems();
 		if(CollectionUtils.isNotEmpty(historys)){
 			for(UserLoginHistory history : historys){
 				if(StringUtils.isNotEmpty(history.getBrowser())){
@@ -68,7 +71,7 @@ public class HistoryServiceImpl implements HistoryService {
 				}
 			}
 		}
-		return historys;
+		return paginationSupport;
 	}
 
 }

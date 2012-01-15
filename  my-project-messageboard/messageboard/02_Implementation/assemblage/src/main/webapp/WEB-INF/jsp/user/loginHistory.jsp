@@ -31,7 +31,7 @@
 				登录浏览器
 			</th>
 		</tr>
-		<c:forEach items="${historys}" var="history">
+		<c:forEach items="${paginationSupport.items}" var="history">
 			<tr>
 				<td>
 					${history.loginIP}
@@ -46,3 +46,6 @@
 		</c:forEach>
 	</table>
 </div>
+
+<c:url var="paginationAction" value="history/listLoginHistory.do"/>
+<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

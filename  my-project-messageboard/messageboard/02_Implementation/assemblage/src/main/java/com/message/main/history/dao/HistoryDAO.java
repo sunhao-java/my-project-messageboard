@@ -1,9 +1,9 @@
 package com.message.main.history.dao;
 
 import java.util.Date;
-import java.util.List;
 
 import com.message.main.history.pojo.UserLoginHistory;
+import com.message.utils.PaginationSupport;
 
 /**
  * 登录历史操作的DAO
@@ -40,5 +40,5 @@ public interface HistoryDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<UserLoginHistory> getHistoryByUserId(Long userPkId) throws Exception;
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
 }

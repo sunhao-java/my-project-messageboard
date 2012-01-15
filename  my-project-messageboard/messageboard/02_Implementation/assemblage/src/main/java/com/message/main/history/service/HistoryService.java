@@ -1,10 +1,9 @@
 package com.message.main.history.service;
 
 import java.util.Date;
-import java.util.List;
 
-import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.user.pojo.User;
+import com.message.utils.PaginationSupport;
 import com.message.utils.WebInput;
 
 /**
@@ -38,8 +37,10 @@ public interface HistoryService {
 	/**
 	 * 获取某个用户登录历史的list集合
 	 * @param userPkId
+	 * @param start
+	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	public List<UserLoginHistory> getHistoryByUserId(Long userPkId) throws Exception;
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
 }

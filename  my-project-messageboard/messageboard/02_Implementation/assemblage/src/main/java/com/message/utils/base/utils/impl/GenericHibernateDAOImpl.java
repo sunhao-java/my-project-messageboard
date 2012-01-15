@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import com.message.utils.PaginationSupport;
+import com.message.utils.PaginationUtils;
+import com.message.utils.SqlUtils;
 import com.message.utils.base.utils.GenericHibernateDAO;
 
 /**
@@ -156,20 +159,22 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	/**
 	 * 通过分页来获取对象的list集合
 	 * @param hql		查询HQL
+	 * @param countHql	查询数据库中总的条数的HQL
 	 * @param start		开始记录
 	 * @param num		总共查出的记录
 	 * @param params	参数
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public List getBeanPaginationSupport(final String hql, final int start, final int num, final Map params) {
-		List result = null;
+	public PaginationSupport getBeanPaginationSupport(final String hql, final String countHql, final int start, final int num, final Map params) {
+		PaginationSupport result = null;
 		try{
 			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
 				public Object doInHibernate(Session session)
 						throws HibernateException, SQLException {
 					Query query = session.createQuery(hql);
-					query.setFetchSize(start);
+					Query query2 = session.createQuery(countHql == null ? SqlUtils.getCountSql(hql) : countHql);
+					query.setFirstResult(start);
 					query.setMaxResults(num);
 					
 					Iterator it = params.entrySet().iterator();
@@ -178,7 +183,10 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 						query.setParameter((String)en.getKey(), en.getValue());
 					}
 					
-					return query.list();
+					List items = query.list();
+					int pageCount = Integer.valueOf(query2.uniqueResult().toString());
+					
+					return PaginationUtils.makePagination(items, pageCount, num, start);
 				}
 			});
 		}catch(Exception e){

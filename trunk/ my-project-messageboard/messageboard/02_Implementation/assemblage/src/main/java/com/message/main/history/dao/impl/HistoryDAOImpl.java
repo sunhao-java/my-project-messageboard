@@ -10,6 +10,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.pojo.UserLoginHistory;
+import com.message.utils.PaginationSupport;
 import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 
 /**
@@ -50,16 +51,16 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<UserLoginHistory> getHistoryByUserId(Long userPkId)
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num)
 			throws Exception {
 		String hql = "from UserLoginHistory t where t.loginUserPkId = :userId order by t.loginTime desc ";
+		String countHql = "select count(*) from UserLoginHistory";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userPkId);
 		
-		List list = this.getBeanPaginationSupport(hql, 0, 10, params);
+		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
 		
-		return list;
+		return paginationSupport;
 	}
 
 }

@@ -23,7 +23,6 @@ public class PaginationSupport implements Serializable {
 	/**
 	 * 构造器
 	 * @param items				要显示的内容
-	 * @param start				开始页数
 	 * @param num				每页显示条数
 	 * @param pageSize			总的页数
 	 * @param currentIndex		当前页数
@@ -103,6 +102,10 @@ public class PaginationSupport implements Serializable {
 		this.startIndex = startIndex;
 	}
 
+	/**
+	 * 计算起始页
+	 * @return
+	 */
 	public int getStartIndexOnShow() {
 		if (currentIndex < 10 / 2 + 1)
 			return 1;
@@ -113,6 +116,10 @@ public class PaginationSupport implements Serializable {
 			return currentIndex - 10 / 2;
 	}
 
+	/**
+	 * 计算结束页
+	 * @return
+	 */
 	public int getEndIndexOnShow() {
 		if (currentIndex < 10 / 2 + 1)
 			if (endIndex > 10)

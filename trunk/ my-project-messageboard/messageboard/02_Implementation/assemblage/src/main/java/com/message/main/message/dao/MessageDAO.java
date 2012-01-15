@@ -1,8 +1,7 @@
 package com.message.main.message.dao;
 
-import java.util.List;
-
 import com.message.main.message.pojo.Message;
+import com.message.utils.PaginationSupport;
 
 /**
  * 留言操作的DAO
@@ -14,7 +13,7 @@ public interface MessageDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Message> getAllMessages(int start, int num, Message message) throws Exception;
+	PaginationSupport getAllMessages(int start, int num, Message message) throws Exception;
 	
 	/**
 	 * 保存留言

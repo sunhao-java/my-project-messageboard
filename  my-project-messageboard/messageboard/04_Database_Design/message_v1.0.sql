@@ -1,5 +1,5 @@
 prompt PL/SQL Developer import file
-prompt Created on 2012Äê1ÔÂ7ÈÕ by sunhao
+prompt Created on 2012å¹´1æœˆ7æ—¥ by sunhao
 set feedback off
 set define off
 prompt Dropping T_LOGIN_HISTORY...
@@ -34,13 +34,13 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_LOGIN_HISTORY.LOGIN_USER_ID
-  is 'µÇÂ¼ÕßID';
+  is 'ç™»å½•è€…ID';
 comment on column T_LOGIN_HISTORY.LOGIN_IP
-  is 'µÇÂ¼µØIP';
+  is 'ç™»å½•åœ°IP';
 comment on column T_LOGIN_HISTORY.LOGIN_TIME
-  is 'µÇÂ¼Ê±¼ä';
+  is 'ç™»å½•æ—¶é—´';
 comment on column T_LOGIN_HISTORY.BROWSER
-  is 'µÇÂ¼ËùÊ¹ÓÃä¯ÀÀÆ÷';
+  is 'ç™»å½•æ‰€ä½¿ç”¨æµè§ˆå™¨';
 alter table T_LOGIN_HISTORY
   add primary key (PK_ID)
   using index 
@@ -74,11 +74,11 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_ADMIN.USERNAME
-  is '¹ÜÀíÔ±ÓÃ»§Ãû';
+  is 'ç®¡ç†å‘˜ç”¨æˆ·å';
 comment on column T_MESSAGE_ADMIN.PASSWORD
-  is '¹ÜÀíÔ±ÃÜÂë';
+  is 'ç®¡ç†å‘˜å¯†ç ';
 comment on column T_MESSAGE_ADMIN.DELETE_FLAG
-  is 'ÈíÉ¾³ı±ê¼Ç£¬0Î´É¾³ı£¬1ÒÑÉ¾³ı';
+  is 'è½¯åˆ é™¤æ ‡è®°ï¼Œ0æœªåˆ é™¤ï¼Œ1å·²åˆ é™¤';
 alter table T_MESSAGE_ADMIN
   add primary key (PK_ID)
   using index 
@@ -110,7 +110,7 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_INFO.DESCRIPTION
-  is 'ÁôÑÔ°åÃèÊö';
+  is 'ç•™è¨€æ¿æè¿°';
 alter table T_MESSAGE_INFO
   add primary key (PK_ID)
   using index 
@@ -147,17 +147,17 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_MSG.CONTENT
-  is 'ÁôÑÔÄÚÈİ';
+  is 'ç•™è¨€å†…å®¹';
 comment on column T_MESSAGE_MSG.TITLE
-  is '±êÌâ';
+  is 'æ ‡é¢˜';
 comment on column T_MESSAGE_MSG.CREATE_DATE
-  is 'ÁôÑÔÊ±¼ä';
+  is 'ç•™è¨€æ—¶é—´';
 comment on column T_MESSAGE_MSG.IP
-  is 'ÁôÑÔÕßIPµØÖ·';
+  is 'ç•™è¨€è€…IPåœ°å€';
 comment on column T_MESSAGE_MSG.CREATE_USERID
-  is 'ÁôÑÔÕßID';
+  is 'ç•™è¨€è€…ID';
 comment on column T_MESSAGE_MSG.DELETE_FLAG
-  is 'É¾³ı±êÊ¶0Î´É¾³ı1ÒÑÉ¾³ı';
+  is 'åˆ é™¤æ ‡è¯†0æœªåˆ é™¤1å·²åˆ é™¤';
 alter table T_MESSAGE_MSG
   add primary key (PK_ID)
   using index 
@@ -194,17 +194,17 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_REPLY.TITLE
-  is '±êÌâ';
+  is 'æ ‡é¢˜';
 comment on column T_MESSAGE_REPLY.REPLY_CONTENT
-  is '»Ø¸´ÄÚÈİ';
+  is 'å›å¤å†…å®¹';
 comment on column T_MESSAGE_REPLY.REPLY_DATE
-  is '»Ø¸´Ê±¼ä';
+  is 'å›å¤æ—¶é—´';
 comment on column T_MESSAGE_REPLY.REPLY_USERID
-  is '»Ø¸´ÕßID';
+  is 'å›å¤è€…ID';
 comment on column T_MESSAGE_REPLY.DELETE_FLAG
-  is 'É¾³ı±êÊ¶0Î´É¾³ı1ÒÑÉ¾³ı';
+  is 'åˆ é™¤æ ‡è¯†0æœªåˆ é™¤1å·²åˆ é™¤';
 comment on column T_MESSAGE_REPLY.MESSAGE_ID
-  is 'Ëù»Ø¸´µÄÁôÑÔID';
+  is 'æ‰€å›å¤çš„ç•™è¨€ID';
 alter table T_MESSAGE_REPLY
   add primary key (PK_ID)
   using index 
@@ -250,29 +250,29 @@ tablespace USERS
     maxextents unlimited
   );
 comment on column T_MESSAGE_USER.USER_NAME
-  is 'ÓÃ»§Ãû';
+  is 'ç”¨æˆ·å';
 comment on column T_MESSAGE_USER.PASSWORD
-  is 'ÃÜÂë(MD5¼ÓÃÜ)';
+  is 'å¯†ç (MD5åŠ å¯†)';
 comment on column T_MESSAGE_USER.CREATE_DATE
-  is '´´½¨Ê±¼ä';
+  is 'åˆ›å»ºæ—¶é—´';
 comment on column T_MESSAGE_USER.EMAIL
-  is 'ÓÊÏäµØÖ·';
+  is 'é‚®ç®±åœ°å€';
 comment on column T_MESSAGE_USER.PHONE_NUM
-  is 'µç»°ºÅÂë';
+  is 'ç”µè¯å·ç ';
 comment on column T_MESSAGE_USER.QQ
-  is 'QQºÅÂë';
+  is 'QQå·ç ';
 comment on column T_MESSAGE_USER.HEAD_IMAGE
-  is '×¢²áÓÃ»§µÄÍ·Ïñ(¼ÇÂ¼Í·ÏñÍ¼Æ¬µÄÂ·¾¶)';
+  is 'æ³¨å†Œç”¨æˆ·çš„å¤´åƒ(è®°å½•å¤´åƒå›¾ç‰‡çš„è·¯å¾„)';
 comment on column T_MESSAGE_USER.ADDRESS
-  is 'µØÖ·';
+  is 'åœ°å€';
 comment on column T_MESSAGE_USER.DELETE_FLAG
-  is 'ÈíÉ¾³ı£¬0Î´É¾³ı£¬1ÒÑÉ¾³ı';
+  is 'è½¯åˆ é™¤ï¼Œ0æœªåˆ é™¤ï¼Œ1å·²åˆ é™¤';
 comment on column T_MESSAGE_USER.SEX
-  is 'ĞÔ±ğ0:²»ÄĞ²»Å®;1: ÄĞ;2:Å®';
+  is 'æ€§åˆ«0:ä¸ç”·ä¸å¥³;1: ç”·;2:å¥³';
 comment on column T_MESSAGE_USER.HOME_PAGE
-  is '×¢²áÓÃ»§µÄÖ÷Ò³';
+  is 'æ³¨å†Œç”¨æˆ·çš„ä¸»é¡µ';
 comment on column T_MESSAGE_USER.TRUE_NAME
-  is 'ÕæÊµĞÕÃû';
+  is 'çœŸå®å§“å';
 alter table T_MESSAGE_USER
   add primary key (PK_ID)
   using index 
@@ -396,32 +396,32 @@ prompt Loading T_MESSAGE_INFO...
 prompt Table is empty
 prompt Loading T_MESSAGE_MSG...
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (21, 'hahahahahahhahahahaha', 'ÎÒÊÇËïê»', to_timestamp('07-01-2012 22:39:07.750000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (21, 'hahahahahahhahahahaha', 'æˆ‘æ˜¯å­™æ˜Š', to_timestamp('07-01-2012 22:39:07.750000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
 values (22, 'dscaca', 'ceshi', to_timestamp('07-01-2012 22:56:14.265000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
 values (23, 'dsdscds', 'cds', to_timestamp('07-01-2012 23:00:19.468000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 61, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (2, 'µÚÒ»´Î' || chr(10) || '<h2>·¢±íÁôÑÔ<img src="http://sunhao.wiscom.com.cn:8089/message/fckeditor/editor/images/smiley/jp/em04.gif" alt="" /', '·¢±íÁôÑÔ', to_timestamp('29-12-2011 22:49:55.703000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (2, 'ç¬¬ä¸€æ¬¡' || chr(10) || '<h2>å‘è¡¨ç•™è¨€<img src="http://sunhao.wiscom.com.cn:8089/message/fckeditor/editor/images/smiley/jp/em04.gif" alt="" /', 'å‘è¡¨ç•™è¨€', to_timestamp('29-12-2011 22:49:55.703000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (3, '<h3 style="color: Red;">·¢±íÁôÑÔ</h3>' || chr(10) || '<h3 style="color: Red;">·¢±íÁôÑÔ<img src="http://sunhao.wiscom.com.cn:8089/message/fckeditor/editor/images/smiley/qq/11.gif" alt="" /', '·¢±íÁôÑÔ', to_timestamp('29-12-2011 22:51:11.968000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (3, '<h3 style="color: Red;">å‘è¡¨ç•™è¨€</h3>' || chr(10) || '<h3 style="color: Red;">å‘è¡¨ç•™è¨€<img src="http://sunhao.wiscom.com.cn:8089/message/fckeditor/editor/images/smiley/qq/11.gif" alt="" /', 'å‘è¡¨ç•™è¨€', to_timestamp('29-12-2011 22:51:11.968000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (4, 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', to_timestamp('29-12-2011 22:53:00.500000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (4, 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', to_timestamp('29-12-2011 22:53:00.500000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (5, 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', to_timestamp('29-12-2011 22:53:38.453000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (5, 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', to_timestamp('29-12-2011 22:53:38.453000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 insert into T_MESSAGE_MSG (PK_ID, CONTENT, TITLE, CREATE_DATE, IP, CREATE_USERID, DELETE_FLAG)
-values (6, 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', 'alert(''·¢±íÁôÑÔÊ§°Ü£¬ÇëÉÔºòÔÙÊÔ£¡'');', to_timestamp('29-12-2011 22:53:46.718000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
+values (6, 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', 'alert(''å‘è¡¨ç•™è¨€å¤±è´¥ï¼Œè¯·ç¨å€™å†è¯•ï¼'');', to_timestamp('29-12-2011 22:53:46.718000', 'dd-mm-yyyy hh24:mi:ss.ff'), '127.0.0.1', 41, 0);
 commit;
 prompt 8 records loaded
 prompt Loading T_MESSAGE_REPLY...
 prompt Table is empty
 prompt Loading T_MESSAGE_USER...
 insert into T_MESSAGE_USER (PK_ID, USER_NAME, PASSWORD, CREATE_DATE, EMAIL, PHONE_NUM, QQ, HEAD_IMAGE, ADDRESS, DELETE_FLAG, SEX, HOME_PAGE, TRUE_NAME)
-values (81, 'jingtian', '8f73a641a3d0e0d616caea21ff7bebce', to_timestamp('07-01-2012 23:14:58.187000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'jingtian@sunhao.com', '13956465120', null, 'image/pic12.gif', null, 0, 2, null, '¾°Ìğ');
+values (81, 'jingtian', '8f73a641a3d0e0d616caea21ff7bebce', to_timestamp('07-01-2012 23:14:58.187000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'jingtian@sunhao.com', '13956465120', null, 'image/pic12.gif', null, 0, 2, null, 'æ™¯ç”œ');
 insert into T_MESSAGE_USER (PK_ID, USER_NAME, PASSWORD, CREATE_DATE, EMAIL, PHONE_NUM, QQ, HEAD_IMAGE, ADDRESS, DELETE_FLAG, SEX, HOME_PAGE, TRUE_NAME)
-values (61, 'Ëïê»', '5847bcb4b355bac2a2b048f9d1722e86', to_timestamp('05-01-2012 23:28:06.015000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'sunhao.java@gmail.com', '13956465120', '139511111', 'image/pic5.gif', null, 0, 1, null, 'Ëïê»');
+values (61, 'å­™æ˜Š', '5847bcb4b355bac2a2b048f9d1722e86', to_timestamp('05-01-2012 23:28:06.015000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'sunhao.java@gmail.com', '13956465120', '139511111', 'image/pic5.gif', null, 0, 1, null, 'å­™æ˜Š');
 insert into T_MESSAGE_USER (PK_ID, USER_NAME, PASSWORD, CREATE_DATE, EMAIL, PHONE_NUM, QQ, HEAD_IMAGE, ADDRESS, DELETE_FLAG, SEX, HOME_PAGE, TRUE_NAME)
-values (41, 'sunhao', '4529e6dfac9d308b2924840935b016c7', to_timestamp('27-12-2011 21:13:21.906000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'sunhao0550@163.com', '15161472714', '867885140', 'image/pic5.gif', '½­ËÕÊ¡ÄÏ¾©ÊĞ½­ÄşÇø½«¾ü´óµÀ', 0, 1, 'http://sunhao.wiscom.com.cn:8089/message/', 'Ëïê»');
+values (41, 'sunhao', '4529e6dfac9d308b2924840935b016c7', to_timestamp('27-12-2011 21:13:21.906000', 'dd-mm-yyyy hh24:mi:ss.ff'), 'sunhao0550@163.com', '15161472714', '867885140', 'image/pic5.gif', 'æ±Ÿè‹çœå—äº¬å¸‚æ±Ÿå®åŒºå°†å†›å¤§é“', 0, 1, 'http://sunhao.wiscom.com.cn:8089/message/', 'å­™æ˜Š');
 commit;
 prompt 3 records loaded
 prompt Enabling foreign key constraints for T_MESSAGE_REPLY...

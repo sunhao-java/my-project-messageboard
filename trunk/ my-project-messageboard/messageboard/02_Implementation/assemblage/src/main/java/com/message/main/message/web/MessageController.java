@@ -44,7 +44,7 @@ public class MessageController extends MultiActionController {
 	public ModelAndView listMessage(HttpServletRequest request, HttpServletResponse response, Message message){
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
-		int num = in.getInt("num", 5);
+		int num = in.getInt("num", 3);
 		int start = SqlUtils.getStartNum(in, num);
 		PaginationSupport paginationSupport = null;
 		try {

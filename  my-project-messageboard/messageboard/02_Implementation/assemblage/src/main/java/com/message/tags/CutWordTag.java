@@ -18,7 +18,7 @@ public class CutWordTag extends TagSupport {
 
 	//需要进行切割处理的字符串
 	private String cutString;
-	//截取前length个名字
+	//截取前length个字符
 	private int length;
 	//剩余字符以endString替代
 	private String endString = "...";

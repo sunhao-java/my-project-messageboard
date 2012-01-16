@@ -31,4 +31,11 @@ public interface ReplyDAO {
 	 * @throws Exception
 	 */
 	public List<Reply> getReplysByMessageId(Long messageId) throws Exception;
+	
+	/**
+	 * 保存回复
+	 * @param reply
+	 * @throws Exception
+	 */
+	public void saveReply(Reply reply) throws Exception;
 }

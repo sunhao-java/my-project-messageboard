@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
@@ -48,6 +49,32 @@ public class ReplyController extends MultiActionController {
 		}
 		out.toJson(params);
 		
+		return null;
+	}
+	
+	/**
+	 * 发表回复
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView replyMessage(HttpServletRequest request, HttpServletResponse response, Reply reply) throws Exception{
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		JSONObject params = new JSONObject();
+		
+		if(reply != null){
+			try {
+				this.replyService.saveReply(reply);
+				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+			} catch (Exception e) {
+				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+				logger.error(e.getMessage(), e);
+				e.printStackTrace();
+			}
+		}
+		out.toJson(params);
 		return null;
 	}
 }

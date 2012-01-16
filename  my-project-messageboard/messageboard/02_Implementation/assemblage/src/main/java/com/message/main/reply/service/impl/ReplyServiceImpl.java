@@ -1,5 +1,6 @@
 package com.message.main.reply.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -49,6 +50,15 @@ public class ReplyServiceImpl implements ReplyService {
 			}
 		}
 		return replys;
+	}
+
+	public void saveReply(Reply reply) throws Exception {
+		if(reply != null){
+			reply.setDeleteFlag(ResourceType.DELETE_NO);
+			reply.setReplyDate(new Date());
+			
+			this.replyDAO.saveReply(reply);
+		}
 	}
 
 }

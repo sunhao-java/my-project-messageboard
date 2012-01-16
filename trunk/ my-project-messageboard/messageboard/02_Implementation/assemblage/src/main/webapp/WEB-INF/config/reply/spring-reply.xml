@@ -14,6 +14,7 @@
     			<property name="mappings">
     				<props>
     					<prop key="/reply/deleteReply.do">deleteReply</prop>
+    					<prop key="/reply/replyMessage.do">replyMessage</prop>
     				</props>
     			</property>
     		</bean>

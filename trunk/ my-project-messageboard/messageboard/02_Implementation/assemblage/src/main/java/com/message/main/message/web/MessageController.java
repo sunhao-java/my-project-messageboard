@@ -49,6 +49,8 @@ public class MessageController extends MultiActionController {
 		PaginationSupport paginationSupport = null;
 		try {
 			paginationSupport = this.messageService.getAllMessages(start, num, message);
+			User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+			params.put("loginUser", user);
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);

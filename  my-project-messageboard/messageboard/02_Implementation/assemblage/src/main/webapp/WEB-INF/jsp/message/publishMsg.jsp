@@ -36,7 +36,11 @@
 		var dataFrm = dom.get("dataFrm");
 		var oEditor = FCKeditorAPI.GetInstance("content");
 		var fckstr = oEditor.GetXHTML(true);
-        dataFrm.content.value = fckstr.substring(0, fckstr.length - 6);
+		if(fckstr == '<br />'){
+			dataFrm.content.value = '';
+		} else {
+	        dataFrm.content.value = fckstr;
+		}
         $C.setForm(dataFrm);
         var flag = Validator.Validate(dataFrm, 3);
         if(flag){

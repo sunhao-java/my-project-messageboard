@@ -65,7 +65,11 @@ public class WebInput {
 	
 	public Integer getInt(String name){
 		try {
-			return Integer.valueOf(this.request.getParameter(name));
+			if(this.request.getParameter(name) == null){
+				return 0;
+			} else {
+				return Integer.parseInt(this.request.getParameter(name));
+			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}

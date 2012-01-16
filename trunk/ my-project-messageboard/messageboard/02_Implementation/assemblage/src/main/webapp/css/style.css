@@ -2,17 +2,17 @@ html body{
 	font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
 }
 
-a{
+html body a{
 	outline: medium none;
 }
 
-a:link, a:visited{
-	color: #0066CC;
-	text-decoration: none;
+a:link, a:visited, a:active{
+	color: #0066CC !important;
+	text-decoration: none !important;
 }
 
 a:hover{
-	text-decoration: underline;
+	text-decoration: underline !important;
 }
 
 .list:after {
@@ -120,11 +120,19 @@ a:hover{
 .replyDiv .contentDiv{
 	background: none repeat scroll 0 0 #EBF3F7;
     width: 450px;
-    height: 84px;
+    height: 100px;
+    padding-top: 5px;
+}
+
+.replyDiv .titleDiv{
+	background: none repeat scroll 0 0 #EBF3F7;
+    width: 450px;
+    height: 50px;
+    padding-top: 5px; 
 }
 
 .replyText{
-	width: 360px;
+	width: 350px;
 	border: 1px solid black;
     color: black;
     height: 40px;
@@ -182,4 +190,11 @@ a:hover{
 img.imgLink {
 	width: 15px; 
 	height: 15px;
+}
+
+.f_text{
+	width: 350px;
+	border: 1px solid black;
+	height: 25px;
+	font-size: 12px;
 }

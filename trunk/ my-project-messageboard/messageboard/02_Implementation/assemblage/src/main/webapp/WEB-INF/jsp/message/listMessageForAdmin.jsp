@@ -79,7 +79,9 @@
 					<input type="checkbox" name="pkId" id="pkId" value="${message.pkId}">
 				</td>
 				<td>
-					<msg:cutWord length="30" endString="..." cutString="${message.title }"/>
+					<a href="javaScript:viewMessage('${message.pkId}');">
+						<msg:cutWord length="30" endString="..." cutString="${message.title }"/>
+					</a>
 				</td>
 				<td>
 					${message.createUser.truename }

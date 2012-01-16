@@ -8,6 +8,12 @@
 		<title></title>
 		<msg:css href="js/yui/css/container.css"/>
 		<msg:css href="js/yui/css/fonts-min.css"/>
+		<style type="text/css">
+			a:link, a:visited, a:active{
+				color: #0066CC;
+				text-decoration: none;
+			}
+		</style>
 	</head>
 	<body class="yui-skin-sam">
 		<tiles:insertAttribute name="content"/>

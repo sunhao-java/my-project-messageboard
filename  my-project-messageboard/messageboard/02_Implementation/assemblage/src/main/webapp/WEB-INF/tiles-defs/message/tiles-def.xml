@@ -18,4 +18,8 @@
 	<definition name="message.viewMessage" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/message/viewMessage.jsp"/>
 	</definition>
+	
+	<definition name="message.detail.jsp" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/messageDetail.jsp"/>
+	</definition>
 </tiles-definitions>        

@@ -170,5 +170,25 @@ public class MessageController extends MultiActionController {
 		out.toJson(params);
 		return null;
 	}
+	
+	/**
+	 * 登录用户查看留言详情
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public ModelAndView inDetailJsp(HttpServletRequest request, HttpServletResponse response, Message message){
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		try {
+			params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
+			params.put("loginUser", (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
+		return new ModelAndView("message.detail.jsp", params);
+	}
 
 }

@@ -69,7 +69,7 @@
 					</p>
 					<div class="head">
 						<h4>
-							<a href="http://www.baidu.com">
+							<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}">
 								${message.title }
 							</a>
 						</h4>
@@ -124,7 +124,7 @@
 						<p>
 							<msg:text endText="..." length="100" text="${message.content }" escapeHtml="true"/>
 						</p>
-						<a href="#">阅读全文</a>
+						<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}">阅读全文</a>
 					</div>
 					<div class="replyDiv" id="replyDiv${message.pkId }" style="display: none;">
 						<p class="replyimage">

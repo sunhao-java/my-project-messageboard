@@ -69,7 +69,7 @@
 					</p>
 					<div class="head">
 						<h4>
-							<a href="#">
+							<a href="http://www.baidu.com">
 								${message.title }
 							</a>
 						</h4>

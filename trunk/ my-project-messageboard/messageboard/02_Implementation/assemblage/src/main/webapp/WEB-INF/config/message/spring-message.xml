@@ -20,6 +20,7 @@
     					<prop key="/message/listMessageAdmin.do">listMessageForAdmin</prop>
     					<prop key="/message/viewMessage.do">viewMessage</prop>
     					<prop key="/message/deleteMessage.do">deleteMessage</prop>
+    					<prop key="/message/inDetailJsp.do">inDetailJsp</prop>
     				</props>
     			</property>
     		</bean>

@@ -1,0 +1,253 @@
+@CHARSET "UTF-8";
+body{
+	font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+}
+
+.content{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #ADADAD;
+    overflow: visible;
+    top: -1px;
+    word-wrap: break-word;
+    margin: 1 5 0 5;
+}
+
+.content a:link,a:visited,a:active{
+	color: #0066CC !important;
+	text-decoration: none !important;
+}
+
+.content a:hover{
+	text-decoration: underline !important;
+}
+
+.header{
+	position: relative;
+    z-index: 100;
+}
+
+.header .image {
+    left: 15px;
+    position: absolute;
+    margin-top: 5px;
+}
+
+.header img {
+    vertical-align: middle;
+    border: 0 none;
+    width: 48px;
+    height: 48px;
+}
+
+.header h2 {
+	margin-top: 0px;
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 5px 0 0 75px;
+}
+
+.header h2 em {
+    font-style: normal;
+    font-weight: normal;
+}
+
+.header .actions {
+    padding: 3px 0 3px 75px;
+}
+
+.header .toc {
+    background: none repeat scroll 0 0 transparent;
+    padding-top: 0;
+    position: relative;
+}
+
+.pipe{
+	color: #999999;
+    font-family: Arial,Helvetica,sans-serif;
+    margin: 0 0.4em;
+}
+
+.toc .bar {
+    background: none repeat scroll 0 0 #FFFFFF;
+    line-height: 30px;
+    padding: 3px 0 0 20px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.ui-t2:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.ui-t2 {
+    background: none repeat-y scroll 780px 0 #FFFFFF;
+    border-top: 1px solid #CCCCCC;
+    height: auto !important;
+    min-height: 601px;
+    overflow: visible;
+}
+
+.ui-t2 .ui-gf, .ui-group-out .ui-gf {
+    float: left;
+    overflow: hidden;
+    padding: 10px 0 10px 15px;
+    width: 752px;
+}
+
+.na {
+    min-height: 0;
+    padding-left: 0;
+    position: static;
+}
+
+.blog-entry .info {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #2782D6;
+    color: #666666;
+    padding: 0px 5px 2px 8px;
+    font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    margin: 0;
+}
+
+.blog-entry .info h4 {
+	margin-top: 5px;
+	margin-bottom: 5px;
+    color: #333333;
+    font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: bold;
+}
+
+.blog-entry .content {
+    font-size: 14px;
+    line-height: 150%;
+    margin: 8px 5px 5px 8px;
+    border-width: 0px;
+}
+
+.blog-cmts{
+	margin-top: 20px;
+	border-top: 1px solid #CCCCCC;
+}
+
+.blog-li{
+	background-color: rgb(255, 255, 255); 
+	opacity: 1;
+    list-style: none outside none;
+    overflow: hidden;
+    left: 10px;
+}
+
+.post:after, .post .info:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.post {
+    min-height: 60px;
+    overflow: hidden;
+    padding-left: 60px;
+    position: relative;
+}
+
+.post .image {
+    left: 0;
+    position: absolute;
+    top: 0;
+    margin-top: 0px;
+}
+
+.post .image img{
+	width: 48px;
+	height: 48px;
+}
+
+.post .info {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #2782D6;
+    color: #666666;
+    line-height: 180%;
+    padding: 0 5px 0 8px;
+    text-align: right;
+}
+
+.post .info .author{
+	float: left;
+    margin-right: 0.5em;
+    color: #666666;
+    line-height: 180%;
+    text-align: right;
+}
+
+.post .info .time{
+	color: #999999;
+	float: left;
+    margin-right: 0.5em;
+    line-height: 180%;
+    text-align: right;
+}
+
+.post .content {
+    padding: 5px 5px 5px 8px;
+    border-width: 0px;
+}
+
+.comment-post {
+    margin-top: 10px;
+    width: 650px;
+    padding: 5 10 5 10;
+    height: 180px;
+}
+
+.blog-cmts textarea {
+    width: 430px;
+    height: 100px;
+    overflow: auto;
+    border-color: #7C7C7C #CCCCCC #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+}
+
+.act{
+	margin-right: 212px; 
+	margin-top: 5px;
+}
+
+.act input{
+	border-color: #DDDDDD #264F6E #264F6E #DDDDDD;
+	border-width: 1px;
+	border-style: solid;
+	background: none repeat scroll 0 0 #2782D6;
+	color: #FFFFFF;
+	line-height: 17px;
+	height: 21px;
+	letter-spacing: 1px;
+	padding: 1px 10px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.f_text{
+	width: 400px;
+	border-color: #7C7C7C #CCCCCC #DDDDDD;
+	border-width: 1px;
+	border-style: solid;
+	height: 25px;
+	font-size: 12px;
+}

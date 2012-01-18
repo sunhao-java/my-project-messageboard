@@ -19,6 +19,10 @@
 		<a href="javaScript:save();" class="easyui-linkbutton" iconCls="icon-save">${param.save }</a>
 	</c:if>
 	
+	<c:if test="${not empty param.search}">
+		<a href="javaScript:search();" class="easyui-linkbutton" iconCls="icon-search">${param.search }</a>
+	</c:if>
+	
 	<c:if test="${not empty param.reset}">
 		<a href="javaScript:reset();" class="easyui-linkbutton" iconCls="icon-reload">${param.reset }</a>
 	</c:if>
@@ -31,5 +35,3 @@
 		<a href="javaScript:back();" class="easyui-linkbutton" iconCls="icon-back">${param.back }</a>
 	</c:if>
 	
-	
-

@@ -5,15 +5,12 @@
 	position: relative;
 }
 
-body table{
-	margin: 0;
-	padding: 0;
-	border-collapse: collapse;
-}
-
 .tableform{
 	font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
     font-size: 10pt;
+    margin: 0;
+	padding: 0;
+	border-collapse: collapse;
 }
 
 .tableform tr{

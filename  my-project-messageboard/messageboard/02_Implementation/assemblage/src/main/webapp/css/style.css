@@ -192,8 +192,8 @@ img.imgLink {
 	height: 15px;
 }
 
-.f_text{
-	width: 350px;
+.replyDiv .f_text{
+	width: 350px !important;
 	border: 1px solid black;
 	height: 25px;
 	font-size: 12px;

@@ -23,4 +23,16 @@ public class SqlUtils {
         
         return page*num;
 	}
+	
+	/**
+	 * 组装sql中like后的字符串(%...%)
+	 * @param likeString
+	 * @return
+	 */
+	public static String makeLikeString(String likeString){
+		if(StringUtils.isNotEmpty(StringUtils.trim(likeString))){
+			likeString = "%" + StringUtils.trim(likeString) + "%";
+		}
+		return likeString;
+	}
 }

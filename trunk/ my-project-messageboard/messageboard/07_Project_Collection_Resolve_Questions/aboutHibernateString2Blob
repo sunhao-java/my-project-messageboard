@@ -1,0 +1,20 @@
+hibernate映射oracle中的blob类型到Java类中的String类型：
+1、在spring的配置文件spring.xml中加上下面这样的
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"/>
+	
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
+	</bean>
+	
+	然后在配置sessionFactory的bean中加上property：
+	<property name="lobHandler">
+		<ref bean="oracleLobHandler"/>
+	</property>
+	
+2、在映射类的XXX.hbm.xml这样配置(比如说要映射content字段，content字段为string类型)
+	<property name="content" type="org.springframework.orm.hibernate3.support.ClobStringType">
+		<column name="CONTENT" length="2000000000">
+			<comment>留言内容</comment>
+		</column>
+	</property>
+	其实我觉得length不需要设置了，既然是blob类型了，类型已经没有意义了！

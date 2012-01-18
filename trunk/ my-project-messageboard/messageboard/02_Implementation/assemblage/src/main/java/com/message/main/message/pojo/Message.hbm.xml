@@ -10,8 +10,8 @@
 				<param name="sequence">SEQ_MESSAGE_MSG</param>
 			</generator>
 		</id>
-		<property name="content" type="java.lang.String">
-			<column name="CONTENT" length="4000">
+		<property name="content" type="org.springframework.orm.hibernate3.support.ClobStringType">
+			<column name="CONTENT" length="2000000000">
 				<comment>留言内容</comment>
 			</column>
 		</property>

@@ -1,0 +1,7 @@
+有时我们需要在项目中进行读取国际化资源文件，按照spring的方法，我们是从applicationContext上下文中获取一个叫messageSource的bean
+但每次都得这么取，太麻烦了，所以我新建了一个叫MessageUtils这个类
+
+这个类中有getMessage这个静态方法，根据传入的参数个数和类型，能根据不同的需要获取国际化资源文件中的各个key对应的value，可以随时随地随心所欲的进行
+国际化！
+
+多么方便快捷啊

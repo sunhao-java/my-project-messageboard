@@ -1,0 +1,25 @@
+普通Java类获取Spring的ApplicationContext在web应用中，某些情况我们需要在类中来获得spring所管理的bean
+可以使用ApplicationContext context = new ClassPathXmlApplicationContext("classpath:**.xml")来获取
+ 但是每次都得创建，比较繁琐也会耗资源
+ 所以就有了下面这个工具类
+ 创建一个类并让其实现org.springframework.context.ApplicationContextAware接口来让Spring在启动的时候为我们注入ApplicationContext对象.
+ 
+ 1、Java代码：
+ 	public class ApplicationContextUtil implements ApplicationContextAware {
+		private static ApplicationContext applicationContext;//声明一个静态变量保存   
+	
+		@SuppressWarnings("static-access")
+		public void setApplicationContext(ApplicationContext applicationContext)
+				throws BeansException {
+			this.applicationContext = applicationContext;
+		}
+		
+		public static ApplicationContext getContext(){  
+			return applicationContext;  
+		}   
+	
+	}
+
+2、XML中配置：
+	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
+	<bean class="com.message.utils.ApplicationContextUtil"/>

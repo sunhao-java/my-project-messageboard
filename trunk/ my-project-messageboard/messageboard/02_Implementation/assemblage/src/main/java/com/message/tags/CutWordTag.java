@@ -61,7 +61,7 @@ public class CutWordTag extends TagSupport {
     		} else {
     			out = cutString.substring(0, length);
     			linkOut = "<div class='showUser' style='display:inline'>" +
-						"<span title=\"" + cutString + "\" style=\"cursor: text;\">" +
+						"<span title=\"" + cutString + "\">" +
 						out + endString + "</a></div>";
     		}
     	}

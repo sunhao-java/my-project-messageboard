@@ -38,6 +38,7 @@ table{
 }
 
 .fb_result td a:link,a:active,a:hover,a:visited{
+	color: #0066CC;
 	text-decoration: none;
 }
 

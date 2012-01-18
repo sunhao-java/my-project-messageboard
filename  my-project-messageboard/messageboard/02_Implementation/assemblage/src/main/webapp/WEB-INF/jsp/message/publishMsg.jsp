@@ -135,7 +135,7 @@
 				</td>
 				<td colspan="3">
 					<textarea rows="4" cols="60" name="content" id="content"
-						dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符"></textarea>
+						></textarea>
 				</td>
 			</tr>
 		</table>

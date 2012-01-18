@@ -58,10 +58,19 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>
+		<property name="lobHandler">
+			<ref bean="oracleLobHandler"/>
+		</property>
+	</bean>
+	
+	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"/>
+	
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
 	</bean>
 	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">

@@ -9,6 +9,9 @@
 		<msg:css href="js/yui/css/container.css"/>
 		<msg:css href="js/yui/css/fonts-min.css"/>
 		<style type="text/css">
+			img{
+				border-width: 0px !important;
+			}
 		</style>
 	</head>
 	<body class="yui-skin-sam">

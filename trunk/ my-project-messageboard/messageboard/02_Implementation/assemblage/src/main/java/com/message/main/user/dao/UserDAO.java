@@ -1,7 +1,7 @@
 package com.message.main.user.dao;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.user.pojo.User;
-import com.message.utils.PaginationSupport;
 
 /**
  * 用户实体的操作DAO

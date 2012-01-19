@@ -10,10 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.base.web.WebInput;
+import com.message.base.web.WebOutput;
 import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
-import com.message.utils.WebInput;
-import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
 
 public class ReplyController extends MultiActionController {

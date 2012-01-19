@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
@@ -12,7 +13,6 @@ import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.PaginationSupport;
 import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
 

@@ -5,15 +5,15 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.message.base.pagination.PaginationSupport;
+import com.message.base.web.WebInput;
 import com.message.main.history.service.HistoryService;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
-import com.message.utils.PaginationSupport;
 import com.message.utils.StringUtils;
-import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
 
 public class UserServiceImpl implements UserService{

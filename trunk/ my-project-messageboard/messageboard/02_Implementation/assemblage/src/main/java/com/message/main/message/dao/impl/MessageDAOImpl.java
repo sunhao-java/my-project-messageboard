@@ -7,10 +7,10 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
-import com.message.utils.PaginationSupport;
-import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 import com.message.utils.resource.ResourceType;
 
 /**

@@ -1,8 +1,8 @@
 package com.message.main.user.service;
 
+import com.message.base.pagination.PaginationSupport;
+import com.message.base.web.WebInput;
 import com.message.main.user.pojo.User;
-import com.message.utils.PaginationSupport;
-import com.message.utils.WebInput;
 
 /**
  * 用户操作的service 

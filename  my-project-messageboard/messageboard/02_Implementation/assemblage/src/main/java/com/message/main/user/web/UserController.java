@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.base.web.WebInput;
+import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
 import com.message.utils.SqlUtils;
 import com.message.utils.StringUtils;
-import com.message.utils.WebInput;
-import com.message.utils.WebOutput;
 import com.message.utils.resource.ResourceType;
 
 /**

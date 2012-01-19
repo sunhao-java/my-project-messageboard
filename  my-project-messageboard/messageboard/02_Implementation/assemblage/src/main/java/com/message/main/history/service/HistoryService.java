@@ -2,9 +2,9 @@ package com.message.main.history.service;
 
 import java.util.Date;
 
+import com.message.base.pagination.PaginationSupport;
+import com.message.base.web.WebInput;
 import com.message.main.user.pojo.User;
-import com.message.utils.PaginationSupport;
-import com.message.utils.WebInput;
 
 /**
  * 登录历史操作的DAO

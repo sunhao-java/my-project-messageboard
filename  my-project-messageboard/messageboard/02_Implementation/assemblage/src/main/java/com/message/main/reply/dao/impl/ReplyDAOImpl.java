@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.main.reply.dao.ReplyDAO;
 import com.message.main.reply.pojo.Reply;
-import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 import com.message.utils.resource.ResourceType;
 
 /**

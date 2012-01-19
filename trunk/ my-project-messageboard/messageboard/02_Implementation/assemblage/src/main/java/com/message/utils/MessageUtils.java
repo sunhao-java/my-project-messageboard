@@ -13,6 +13,31 @@ public class MessageUtils {
 	private static MessageSource messageSource = null;
 	
 	/**
+	 * 获取国际化资源MessageSource
+	 * @return
+	 */
+	private static MessageSource getMessageSource(){
+		messageSource = (MessageSource) ApplicationContextUtil.getContext().getBean("messageSource");
+		return messageSource;
+	}
+	
+	/**
+	 * 获取国际化资源
+	 * @param code
+	 * @param args array of arguments that will be filled in for params within
+	 * @param defaultMessage String to return if the lookup fails
+	 * @param locale
+	 * @return
+	 */
+	public static String getMessage(String code, Object[] args, String defaultMessage, Locale locale){
+		if(locale == null){
+			locale = Locale.CHINA;
+		}
+		
+		return getMessageSource().getMessage(code, args, defaultMessage, locale);
+	}
+	
+	/**
 	 * 获取国际化资源(指定key和locale)
 	 * @param key
 	 * @param locale
@@ -53,22 +78,6 @@ public class MessageUtils {
 	}
 	
 	/**
-	 * 获取国际化资源
-	 * @param code
-	 * @param args array of arguments that will be filled in for params within
-	 * @param defaultMessage String to return if the lookup fails
-	 * @param locale
-	 * @return
-	 */
-	public static String getMessage(String code, Object[] args, String defaultMessage, Locale locale){
-		if(locale == null){
-			locale = Locale.CHINA;
-		}
-		
-		return getMessageSource().getMessage(code, args, defaultMessage, locale);
-	}
-	
-	/**
 	 * 获取国际化资源(指定code和参数)
 	 * @param code
 	 * @param args
@@ -96,15 +105,6 @@ public class MessageUtils {
 	 */
 	public static String getMessage(String code, Object[] args, Locale locale){
 		return getMessage(code, args, null, locale);
-	}
-	
-	/**
-	 * 获取国际化资源MessageSource
-	 * @return
-	 */
-	private static MessageSource getMessageSource(){
-		messageSource = (MessageSource) ApplicationContextUtil.getContext().getBean("messageSource");
-		return messageSource;
 	}
 	
 }

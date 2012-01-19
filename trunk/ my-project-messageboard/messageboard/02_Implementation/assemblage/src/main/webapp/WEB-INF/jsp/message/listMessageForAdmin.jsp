@@ -26,7 +26,8 @@
 	});
 	
 	function viewMessage(pkId){
-		var requestURL = '${contextPath}/message/viewMessage.do?pkId=' + pkId;
+		//var requestURL = '${contextPath}/message/viewMessage.do?pkId=' + pkId;
+		var requestURL = '${contextPath}/message/inDetailJsp.do?pkId=' + pkId + '&flag=admin';
 		window.location.href = requestURL;
 	}
 	

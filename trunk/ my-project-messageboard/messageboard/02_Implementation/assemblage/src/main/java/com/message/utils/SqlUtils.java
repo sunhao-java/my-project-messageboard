@@ -2,6 +2,8 @@ package com.message.utils;
 
 import org.apache.commons.lang.math.NumberUtils;
 
+import com.message.base.web.WebInput;
+
 /**
  * 对sql/hql语句的处理类
  * @author sunhao(sunhao.java@gmail.com)

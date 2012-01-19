@@ -1,4 +1,4 @@
-package com.message.utils;
+package com.message.base;
 
 import java.util.Locale;
 

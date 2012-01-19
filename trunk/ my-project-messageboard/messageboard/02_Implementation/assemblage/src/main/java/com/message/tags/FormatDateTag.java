@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
-import com.message.utils.MessageUtils;
+import com.message.base.MessageUtils;
 import com.message.utils.resource.ResourceType;
 
 /**

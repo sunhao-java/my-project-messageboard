@@ -58,7 +58,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
 				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>
@@ -142,6 +142,6 @@
 	</bean>
 	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
-	<bean class="com.message.utils.ApplicationContextUtil"/>
+	<bean class="com.message.base.ApplicationContextUtil"/>
 	
 </beans>

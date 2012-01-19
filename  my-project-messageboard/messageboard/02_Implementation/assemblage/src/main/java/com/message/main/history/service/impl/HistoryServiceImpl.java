@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.user.pojo.User;
-import com.message.utils.MessageUtils;
 import com.message.utils.StringUtils;
 
 /**

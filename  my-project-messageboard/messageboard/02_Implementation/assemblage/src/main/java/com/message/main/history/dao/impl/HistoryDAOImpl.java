@@ -8,10 +8,10 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.pojo.UserLoginHistory;
-import com.message.utils.PaginationSupport;
-import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
 
 /**
  * 登录历史操作的DAO的实现

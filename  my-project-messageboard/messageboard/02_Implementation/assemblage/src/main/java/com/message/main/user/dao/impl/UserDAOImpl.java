@@ -1,7 +1,9 @@
 package com.message.main.user.dao.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
@@ -9,7 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
+import com.message.utils.PaginationSupport;
 import com.message.utils.base.utils.impl.GenericHibernateDAOImpl;
+import com.message.utils.resource.ResourceType;
 
 public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 	private Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
@@ -44,6 +48,15 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 
 	public void updateUser(User user) throws Exception {
 		this.updateObject(user);
+	}
+
+	public PaginationSupport listAllUser(int start, int num, User user)
+			throws Exception {
+		String hql = "from User u where u.deleteFlag = :deleteFlag order by u.pkId desc ";
+		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag order by u.pkId desc ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		return this.getBeanPaginationSupport(hql, countHql, start, num, params);
 	}
 
 }

@@ -21,4 +21,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/loginHistory.jsp"/>
 	</definition>
 	
+	<definition name="user.list.alluser" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/listAllUser.jsp"/>
+	</definition>
+	
 </tiles-definitions>

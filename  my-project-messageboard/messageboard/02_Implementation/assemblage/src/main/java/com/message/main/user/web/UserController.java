@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
+import com.message.utils.SqlUtils;
 import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.WebOutput;
@@ -292,6 +293,53 @@ public class UserController extends MultiActionController {
 			in.getSession().removeAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		}
 		obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		out.toJson(obj);
+		return null;
+	}
+	
+	/**
+	 * 列出所有的用户
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView listAllUser(HttpServletRequest request, HttpServletResponse response, User user){
+		in = new WebInput(request);
+		int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		Map<String, Object> params = new HashMap<String, Object>();
+		try {
+			params.put("paginationSupport", this.userService.listAllUser(start, num, user));
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+			e.printStackTrace();
+		}
+		return new ModelAndView("user.list.alluser", params);
+	}
+	
+	/**
+	 * 删除用户(软删除)（可以删除一条也可批量删除）
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView deleteUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject obj = new JSONObject();
+		String pkids = in.getString("pkIds", StringUtils.EMPTY);
+		if(StringUtils.isNotEmpty(pkids)){
+			try {
+				obj.put(ResourceType.AJAX_STATUS, this.userService.deleteUser(pkids) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE );
+			} catch (Exception e) {
+				e.printStackTrace();
+				logger.error(e.getMessage(), e);
+			}
+		} else {
+			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+		}
 		out.toJson(obj);
 		return null;
 	}

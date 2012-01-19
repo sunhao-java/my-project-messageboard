@@ -97,8 +97,8 @@ body{
 .ui-t2 .ui-gf, .ui-group-out .ui-gf {
     float: left;
     overflow: hidden;
-    padding: 10px 0 10px 15px;
-    width: 752px;
+    padding: 10px 0 10px 5px;
+    width: 99%;
 }
 
 .na {

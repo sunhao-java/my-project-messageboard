@@ -6,6 +6,8 @@
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/validate.js"/>
+<msg:js src="js/base/commfunction.js"/>
+<msg:js src="js/base/app-dialog.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect;
@@ -35,6 +37,11 @@
 				}
 			});
 		}
+	}
+	
+	function deleteReply(pkId){
+		var requestURL = '${contextPath}/reply/deleteReply.do?replyPkId=' + pkId;
+		deleteOne(requestURL, '', true);
 	}
 </script>
 
@@ -116,6 +123,13 @@
 									<span class="time">
 										<c:out value="${reply.title}"/>
 									</span>
+									<c:if test="${flag eq 'admin'}">
+										<span>
+											<a href="javaScript:deleteReply('${reply.pkId}');">
+												<img src="${contextPath}/image/wiseduimg/delete.gif" title="删除">
+											</a>
+										</span>
+									</c:if>
 								</div>
 								<div style="margin: 0 0 0 0;" class="content">
 									${reply.replyContent}

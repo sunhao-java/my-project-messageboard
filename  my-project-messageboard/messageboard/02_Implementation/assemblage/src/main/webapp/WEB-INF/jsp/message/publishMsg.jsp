@@ -13,6 +13,7 @@
 <msg:css href="css/publish.css"/>
 
 <msg:js src="js/base/commfunction.js"/>
+<msg:js src="js/base/app-dialog.js"/>
 
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
@@ -49,10 +50,12 @@
         		success : function(o){
         			var _e = eval("(" + o.responseText + ")");
         			if(_e.status == "0"){
-        				alert('发表留言失败，请稍候再试！');
+        				YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发表留言失败，请稍候再试！'});
         			} else if(_e.status == "1"){
-        				alert('发表留言成功');
-        				window.location.href = '${contextPath}/message/listMessage.do';
+        				YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发表留言成功！',
+								'confirmFunction':function(){
+									window.location.href = '${contextPath}/message/listMessage.do';
+								}});
         			}
         		}
         	});

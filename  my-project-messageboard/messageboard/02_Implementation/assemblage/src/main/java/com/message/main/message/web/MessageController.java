@@ -181,9 +181,11 @@ public class MessageController extends MultiActionController {
 	public ModelAndView inDetailJsp(HttpServletRequest request, HttpServletResponse response, Message message){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
+		String flag = in.getString("flag", StringUtils.EMPTY);
 		try {
 			params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
 			params.put("loginUser", (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION));
+			params.put("flag", flag);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			e.printStackTrace();

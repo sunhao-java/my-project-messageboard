@@ -11,6 +11,7 @@ import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.utils.MD5Utils;
+import com.message.utils.PaginationSupport;
 import com.message.utils.StringUtils;
 import com.message.utils.WebInput;
 import com.message.utils.resource.ResourceType;
@@ -137,6 +138,29 @@ public class UserServiceImpl implements UserService{
 				return false;
 			}
 		}
+		return false;
+	}
+
+	public PaginationSupport listAllUser(int start, int num, User user)
+			throws Exception {
+		PaginationSupport paginationSupport = this.userDAO.listAllUser(start, num, user);
+		return paginationSupport;
+	}
+
+	public boolean deleteUser(String pkids) throws Exception {
+		String[] pkIds = pkids.split(",");
+		if(pkIds != null && pkIds.length > 0){
+			for(String pkId : pkIds){
+				User dbUser = this.userDAO.getUserById(Long.valueOf(pkId));
+				
+				if(dbUser != null){
+					dbUser.setDeleteFlag(ResourceType.DELETE_YES);
+					this.userDAO.updateUser(dbUser);
+				}
+			}
+			return true;
+		} 
+		
 		return false;
 	}
 	

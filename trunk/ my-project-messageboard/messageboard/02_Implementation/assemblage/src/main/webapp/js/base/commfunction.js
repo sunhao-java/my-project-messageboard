@@ -125,10 +125,12 @@ function deleteMore(boxId, requestURL, responseURL){
  * @param {Object} refresh		是否刷新
  */
 function deleteOne(requestURL, responseURL, refresh){
-	if(refresh == ''){
+	if(refresh == 'true'){
+		refresh = true;
+	} else if(refresh == 'false') {
 		refresh = false;
 	}
-	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要要删除此条留言吗？','confirmFunction':function(){
+	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要要删除选中的项吗？','confirmFunction':function(){
 		$C.asyncRequest('POST', requestURL, {
 			success : function(o){
 				var _e = eval("(" + o.responseText + ")");

@@ -1,6 +1,7 @@
 package com.message.main.user.service;
 
 import com.message.main.user.pojo.User;
+import com.message.utils.PaginationSupport;
 import com.message.utils.WebInput;
 
 /**
@@ -70,5 +71,22 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	boolean savePassword(User user) throws Exception;
+	
+	/**
+	 * 获取所有用户
+	 * @param start
+	 * @param num
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport listAllUser(int start, int num, User user) throws Exception;
+	
+	/**
+	 * 删除用户(软删除)
+	 * @param pkids
+	 * @return
+	 */
+	boolean deleteUser(String pkids) throws Exception;
 	
 }

@@ -25,6 +25,8 @@
     					<prop key="/user/checkPsw.do">checkPsw</prop>
     					<prop key="/user/savePassword.do">savePassword</prop>
     					<prop key="/user/logout.do">logout</prop>
+    					<prop key="/user/listAllUser.do">listAllUser</prop>
+    					<prop key="/user/deleteUser.do">deleteUser</prop>
     				</props>
     			</property>
     		</bean>

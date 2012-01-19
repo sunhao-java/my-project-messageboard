@@ -1,6 +1,7 @@
 package com.message.main.user.dao;
 
 import com.message.main.user.pojo.User;
+import com.message.utils.PaginationSupport;
 
 /**
  * 用户实体的操作DAO
@@ -37,5 +38,15 @@ public interface UserDAO {
 	 * @throws Exception
 	 */
 	void updateUser(User user) throws Exception;
+	
+	/**
+	 * 获取所有用户
+	 * @param start
+	 * @param num
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport listAllUser(int start, int num, User user) throws Exception;
 	
 }

@@ -2,8 +2,8 @@ package com.message.main.history.dao;
 
 import java.util.Date;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.history.pojo.UserLoginHistory;
-import com.message.utils.PaginationSupport;
 
 /**
  * 登录历史操作的DAO

@@ -307,13 +307,17 @@ public class UserController extends MultiActionController {
 		in = new WebInput(request);
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
+		String permission = in.getString("permission", StringUtils.EMPTY);
 		Map<String, Object> params = new HashMap<String, Object>();
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		try {
 			params.put("paginationSupport", this.userService.listAllUser(start, num, user));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
+		params.put("permission", permission);
+		params.put("loginUser", userInSession);
 		return new ModelAndView("user.list.alluser", params);
 	}
 	
@@ -338,6 +342,32 @@ public class UserController extends MultiActionController {
 				logger.error(e.getMessage(), e);
 			}
 		} else {
+			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+		}
+		out.toJson(obj);
+		return null;
+	}
+	
+	/**
+	 * 管理员设置用户权限
+	 * @param request
+	 * @param response
+	 * @param user
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView managerPerm(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject obj = new JSONObject();
+		Long pkId = in.getLong("userPkId", 0L);
+		boolean opertion = in.getBoolean("opertion", Boolean.FALSE);
+		try {
+			obj.put(ResourceType.AJAX_STATUS, this.userService.managerPerm(pkId, opertion) ? 
+							ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 		}
 		out.toJson(obj);

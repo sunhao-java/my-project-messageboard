@@ -306,7 +306,7 @@
 		     					<tbody>
 		     						<tr>
 		     							<td align="left" style="">
-		     								<a href="javascript:nav('/message/inPublishMessageJsp.do')">
+		     								<a href="javascript:nav('/user/listAllUser.do?permission=true')">
 		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 		     									<span style="font-size: 12px;">用户权限分配</span>
 		     								</a>

@@ -163,5 +163,18 @@ public class UserServiceImpl implements UserService{
 		
 		return false;
 	}
+
+	public boolean managerPerm(long pkId, boolean opertion) throws Exception {
+		User dbUser = this.userDAO.getUserById(pkId);
+		if(dbUser != null){
+			dbUser.setIsAdmin(opertion ? ResourceType.IS_ADMIN_YES : ResourceType.IS_ADMIN_NO);
+			
+			this.userDAO.updateUser(dbUser);
+			
+			return true;
+		}
+		return false;
+	}
+	
 	
 }

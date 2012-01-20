@@ -130,7 +130,7 @@ function deleteOne(requestURL, responseURL, refresh){
 	} else if(refresh == 'false') {
 		refresh = false;
 	}
-	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要要删除选中的项吗？','confirmFunction':function(){
+	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要删除选中的项吗？','confirmFunction':function(){
 		$C.asyncRequest('POST', requestURL, {
 			success : function(o){
 				var _e = eval("(" + o.responseText + ")");
@@ -145,6 +145,37 @@ function deleteOne(requestURL, responseURL, refresh){
 						}});
 				} else {
 					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'删除失败！'});
+				}
+			}, 
+			failure : function(o){
+				YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+			}
+		});
+	}});
+}
+
+/**
+ * 更新操作的公共JS方法
+ * @param {Object} requestURL
+ * @param {Object} responseURL
+ * @param {Object} alertMsg
+ */
+function updateObject(requestURL, responseURL, alertMsg){
+	if(alertMsg == ''){
+		alertMsg = '更新成功！';
+	}
+	
+	YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要提交你的操作吗？','confirmFunction':function(){
+		$C.asyncRequest('POST', requestURL, {
+			success : function(o){
+				var _e = eval("(" + o.responseText + ")");
+				if(_e.status == '1'){
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':alertMsg,
+						'confirmFunction':function(){
+							window.location.href = responseURL;
+						}});
+				} else {
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'操作失败！'});
 				}
 			}, 
 			failure : function(o){

@@ -40,10 +40,12 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		}
 		SimpleDateFormat format = new SimpleDateFormat();
 		
-		long mm = Math.abs(nowDate.getTime() - value.getTime());
+		long mm = Math.abs(nowDate.getTime() - value.getTime());	//计算间隔的时间（微秒）
+		int dd = Math.abs(nowDate.getDay() - value.getDay());		//计算间隔的天数
+		int m = Math.abs(nowDate.getMonth() - value.getMonth());	//计算间隔的月份数
 		
 		//显示完整时间
-		if(mm > 2*24*60*60*1000){
+		if(dd >= 2 && (m == 0 || m > 1)){
 			if(dateType == 1){
 				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 			} else {
@@ -55,8 +57,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 			return EVAL_PAGE;
 		}
 		
-		//显示昨天XX时XX分
-		if(mm >= 1*24*60*60*1000){
+		if(dd == 1 && m == 0){
 			int hours = value.getHours();
 			int minutes = value.getMinutes();
 			String time = "";

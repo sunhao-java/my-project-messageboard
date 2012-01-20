@@ -41,7 +41,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		SimpleDateFormat format = new SimpleDateFormat();
 		
 		long mm = Math.abs(nowDate.getTime() - value.getTime());	//计算间隔的时间（微秒）
-		int dd = Math.abs(nowDate.getDay() - value.getDay());		//计算间隔的天数
+		int dd = Math.abs(nowDate.getDate() - value.getDate());		//计算间隔的天数
 		int m = Math.abs(nowDate.getMonth() - value.getMonth());	//计算间隔的月份数
 		
 		//显示完整时间

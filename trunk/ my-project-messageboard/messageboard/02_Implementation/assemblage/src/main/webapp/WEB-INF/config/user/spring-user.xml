@@ -27,6 +27,7 @@
     					<prop key="/user/logout.do">logout</prop>
     					<prop key="/user/listAllUser.do">listAllUser</prop>
     					<prop key="/user/deleteUser.do">deleteUser</prop>
+    					<prop key="/user/managerPerm.do">managerPerm</prop>
     				</props>
     			</property>
     		</bean>

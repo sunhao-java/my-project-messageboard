@@ -89,4 +89,13 @@ public interface UserService {
 	 */
 	boolean deleteUser(String pkids) throws Exception;
 	
+	/**
+	 * 设置用户权限
+	 * @param pkId
+	 * @param opertion
+	 * @return
+	 * @throws Exception
+	 */
+	boolean managerPerm(long pkId, boolean opertion) throws Exception;
+	
 }

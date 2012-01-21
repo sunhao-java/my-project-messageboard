@@ -25,9 +25,18 @@
 	}
 </script>
 
-<jsp:include page="/WEB-INF/jsp/base/head.jsp">
-	<jsp:param value="我的信息" name="title"/>
-</jsp:include>
+<c:choose>
+	<c:when test="${empty customer}">
+		<jsp:include page="/WEB-INF/jsp/base/head.jsp">
+			<jsp:param value="我的信息" name="title"/>
+		</jsp:include>
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/WEB-INF/jsp/base/head.jsp">
+			<jsp:param value="${viewwhoname}的信息" name="title"/>
+		</jsp:include>
+	</c:otherwise>
+</c:choose>
 
 <div id="listDiv">
 	<form id="dataFrm" action="" method="post">
@@ -131,8 +140,20 @@
 		</table>
 	</form>
 	<div class="formFunctiondiv">
-		<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
-			<jsp:param value="修改我的信息" name="edit"/>
-		</jsp:include>
+		<c:choose>
+			<c:when test="${empty customer}">
+				<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
+					<jsp:param value="修改我的信息" name="edit"/>
+				</jsp:include>
+			</c:when>
+			<c:otherwise>
+				<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
+					<jsp:param value="返回" name="back"/>
+				</jsp:include>
+			</c:otherwise>
+		</c:choose>
 	</div>
+	<c:if test="${empty customer}">
+		
+	</c:if>
 </div>	

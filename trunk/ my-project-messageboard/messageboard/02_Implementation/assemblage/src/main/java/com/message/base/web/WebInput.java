@@ -103,13 +103,8 @@ public class WebInput {
 	}
 	
 	public Long getLong(String name){
-		try {
-			return Long.valueOf(this.request.getParameter(name));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		
-		return null;
+		String paramStr = this.request.getParameter(name);
+		return paramStr == null ? null : Long.valueOf(paramStr);
 	}
 	
 	public double getDouble(String name, double defaultValue){

@@ -21,10 +21,12 @@
     					<prop key="/message/viewMessage.do">viewMessage</prop>
     					<prop key="/message/deleteMessage.do">deleteMessage</prop>
     					<prop key="/message/inDetailJsp.do">inDetailJsp</prop>
+    					<prop key="/message/inListMyMessageJsp.do">inListMyMessageJsp</prop>
     				</props>
     			</property>
     		</bean>
     	</property>
     	<property name="messageService" ref="messageService"/>
+    	<property name="userService" ref="userService"/>
     </bean>
 </beans>

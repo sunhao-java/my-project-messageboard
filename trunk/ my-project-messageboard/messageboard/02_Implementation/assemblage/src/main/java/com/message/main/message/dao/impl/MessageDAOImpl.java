@@ -11,6 +11,7 @@ import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
+import com.message.main.user.pojo.User;
 import com.message.utils.resource.ResourceType;
 
 /**
@@ -54,6 +55,16 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 
 	public void updateMessage(Message message) throws Exception {
 		this.updateObject(message);
+	}
+
+	public PaginationSupport getMyMessages(int start, int num, User user) throws Exception {
+		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag order by m.pkId desc ";
+		String countHql = "select count(*) " + hql;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		params.put("createUserId", user.getPkId());
+		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		return paginationSupport;
 	}
 
 }

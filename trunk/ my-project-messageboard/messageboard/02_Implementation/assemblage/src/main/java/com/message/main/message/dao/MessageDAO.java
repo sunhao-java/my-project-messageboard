@@ -2,6 +2,7 @@ package com.message.main.message.dao;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.pojo.Message;
+import com.message.main.user.pojo.User;
 
 /**
  * 留言操作的DAO
@@ -45,4 +46,14 @@ public interface MessageDAO {
 	 * @throws Exception
 	 */
 	void updateMessage(Message message) throws Exception;
+	
+	/**
+	 * 获取我的留言
+	 * @param start
+	 * @param num
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getMyMessages(int start, int num, User user) throws Exception;
 }

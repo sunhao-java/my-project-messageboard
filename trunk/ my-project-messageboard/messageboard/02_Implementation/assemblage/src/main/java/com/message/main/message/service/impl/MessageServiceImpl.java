@@ -92,4 +92,20 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public PaginationSupport getMyMessages(int start, int num, User user) throws Exception {
+		PaginationSupport paginationSupport = this.messageDAO.getMyMessages(start, num, user);
+		List<Message> messages = paginationSupport.getItems();
+		if(CollectionUtils.isNotEmpty(messages)){
+			for(Message msg : messages){
+				User dbuser = this.userService.getUserById(msg.getCreateUserId());
+				List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+				
+				msg.setCreateUser(dbuser);
+				msg.setReplys(replys);
+			}
+		}
+		return paginationSupport;
+	}
+
 }

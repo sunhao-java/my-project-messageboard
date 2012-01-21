@@ -19,6 +19,7 @@ import com.message.base.web.WebOutput;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
+import com.message.main.user.service.UserService;
 import com.message.utils.SqlUtils;
 import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
@@ -31,8 +32,14 @@ public class MessageController extends MultiActionController {
 	
 	private MessageService messageService;
 	
+	private UserService userService;
+	
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**
@@ -183,14 +190,44 @@ public class MessageController extends MultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String flag = in.getString("flag", StringUtils.EMPTY);
 		try {
-			params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
+			Message dbMessage = this.messageService.getMessageByPkId(message.getPkId());
+			params.put("message", dbMessage);
 			params.put("loginUser", (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION));
 			params.put("flag", flag);
+			params.put("messageCount", this.messageService.getLoginUserMessageCount(dbMessage.getCreateUserId()));
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 			e.printStackTrace();
 		}
 		return new ModelAndView("message.detail.jsp", params);
+	}
+	
+	/**
+	 * 列出我的留言
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView inListMyMessageJsp(HttpServletRequest request, HttpServletResponse response){
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		int num = in.getInt("num", ResourceType.PAGE_NUM);
+		int start = SqlUtils.getStartNum(in, num);
+		Long viewWhoId = in.getLong("viewWhoId");
+		try {
+			if(viewWhoId != null){
+				user = new User(viewWhoId);
+				params.put("customer", "true");
+				params.put("viewwhoname", this.userService.getUserById(viewWhoId).getTruename());
+			}
+			PaginationSupport paginationSupport = this.messageService.getMyMessages(start, num, user);
+			params.put("paginationSupport", paginationSupport);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return new ModelAndView("message.list.mine", params);
 	}
 
 }

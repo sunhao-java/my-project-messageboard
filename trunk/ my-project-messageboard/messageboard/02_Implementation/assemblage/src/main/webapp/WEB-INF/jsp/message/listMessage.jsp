@@ -74,9 +74,18 @@
 							</a>
 						</h4>
 						<span class="author">
-							<a href="#">
-								${message.createUser.truename }
-							</a>
+							<c:choose>
+								<c:when test="${loginUser.pkId eq message.createUserId}">
+									<a href="${contextPath}/user/userInfo.do">
+										${message.createUser.truename }
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${contextPath}/user/userInfo.do?viewUserId=${message.createUserId}">
+										${message.createUser.truename }
+									</a>
+								</c:otherwise>
+							</c:choose>
 						</span>
 						<span class="info">
 							<msg:formatDate value="${message.createDate }"/>

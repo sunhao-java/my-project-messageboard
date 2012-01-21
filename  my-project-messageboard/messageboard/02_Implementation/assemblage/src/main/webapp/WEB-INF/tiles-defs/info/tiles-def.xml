@@ -2,3 +2,16 @@
 <!DOCTYPE tiles-definitions
         PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
         "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="message.view.info" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/boardinfo/viewInfo.jsp"/>
+	</definition>
+	
+	<definition name="message.edit.info" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/boardinfo/editInfo.jsp"/>
+	</definition>
+	
+	<definition name="message.list.info.history" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/boardinfo/listInfoHistory.jsp"/>
+	</definition>
+</tiles-definitions>

@@ -7,12 +7,27 @@
 		<id name="pkId" type="java.lang.Long">
 			<column name="PK_ID" precision="10" scale="0"/>
 			<generator class="sequence">
-				<param name="sequence">T_MESSAGE_INFO</param>
+				<param name="sequence">SEQ_MESSAGE_INFO</param>
 			</generator>
 		</id>
-		<property name="description" type="java.lang.String">
+		<property name="description" type="org.springframework.orm.hibernate3.support.ClobStringType">
 			<column name="DESCRIPTION" length="4000">
 				<comment>留言板描述</comment>
+			</column>
+		</property>
+		<property name="modifyUserId" type="java.lang.Long">
+			<column name="MODIFY_USERID" precision="10" scale="0">
+				<comment>修改的用户的ID</comment>
+			</column>
+		</property>
+		<property name="modifyUserName" type="java.lang.String">
+			<column name="MODIFY_USERNAME">
+				<comment>修改的用户的truename</comment>
+			</column>
+		</property>
+		<property name="modifyDate" type="java.util.Date">
+			<column name="MODIFY_DATE">
+				<comment>修改的时间</comment>
 			</column>
 		</property>
 	</class>

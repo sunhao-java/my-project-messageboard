@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
-    
+	<bean id="infoDAO" class="com.message.main.info.dao.impl.InfoDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="infoService" class="com.message.main.info.service.impl.InfoServiceImpl">
+		<property name="infoDAO" ref="infoDAO"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+
+    <bean id="infoController" class="com.message.main.info.web.InfoController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/info/inViewInfoJsp.do">inViewInfoJsp</prop>
+    					<prop key="/info/inEditInfoJsp.do">inEditInfoJsp</prop>
+    					<prop key="/info/saveInfo.do">saveInfo</prop>
+    					<prop key="/info/inListInfoHistoryJsp.do">inListInfoHistoryJsp</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="infoService" ref="infoService"/>
+    </bean>
 </beans>

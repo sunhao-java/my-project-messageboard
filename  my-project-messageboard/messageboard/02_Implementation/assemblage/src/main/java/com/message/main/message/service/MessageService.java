@@ -2,6 +2,7 @@ package com.message.main.message.service;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.pojo.Message;
+import com.message.main.user.pojo.User;
 
 /**
  * 留言操作的service 
@@ -46,5 +47,15 @@ public interface MessageService {
 	 * @throws Exception
 	 */
 	void deleteMessage(String pkIds) throws Exception;
+	
+	/**
+	 * 获取我的留言
+	 * @param start
+	 * @param num
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getMyMessages(int start, int num, User user) throws Exception;
 	
 }

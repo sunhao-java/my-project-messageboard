@@ -155,8 +155,14 @@ public class UserController extends MultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		Long viewUserId = in.getLong("viewUserId");
 		if(user != null){
 			try {
+				if(viewUserId != null){
+					user = new User(viewUserId);
+					params.put("customer", "true");
+					params.put("viewwhoname", this.userService.getUserById(viewUserId).getTruename());
+				}
 				user = this.userService.getUserById(user.getPkId());
 				user = this.userService.addLoginInfo(user);
 			} catch (Exception e) {

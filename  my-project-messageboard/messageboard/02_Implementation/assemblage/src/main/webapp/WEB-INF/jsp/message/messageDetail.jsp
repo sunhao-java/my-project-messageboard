@@ -62,9 +62,20 @@
 		</h2>
 		<div class="toc">
 			<p class="bar">
-				共1篇记事
+				共${messageCount }篇记事
 				<span class="pipe">|</span>
-				<a href="#">去${message.createUser.truename }的所有留言列表</a>
+				<c:choose>
+					<c:when test="${loginUser.pkId eq message.createUserId}">
+						<a href="${contextPath}/message/inListMyMessageJsp.do">
+							去我的所有留言列表
+						</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${contextPath}/message/inListMyMessageJsp.do?viewWhoId=${message.createUserId}">
+							去${message.createUser.truename }的所有留言列表
+						</a>
+					</c:otherwise>
+				</c:choose>
 			</p>
 		</div>
 	</div>

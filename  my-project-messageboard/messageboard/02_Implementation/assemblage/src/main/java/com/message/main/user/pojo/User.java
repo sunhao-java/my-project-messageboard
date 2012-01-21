@@ -35,6 +35,10 @@ public class User implements Serializable{
 	 */
 	public User(){
 	}
+	
+	public User(Long pkId){
+		this.pkId = pkId;
+	}
 
 	public Long getPkId() {
 		return pkId;

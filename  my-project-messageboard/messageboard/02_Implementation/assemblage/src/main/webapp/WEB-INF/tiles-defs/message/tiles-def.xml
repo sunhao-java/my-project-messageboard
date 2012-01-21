@@ -22,4 +22,8 @@
 	<definition name="message.detail.jsp" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/message/messageDetail.jsp"/>
 	</definition>
+	
+	<definition name="message.list.mine" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/listMyMessage.jsp"/>
+	</definition>
 </tiles-definitions>        

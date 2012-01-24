@@ -1,4 +1,4 @@
-package com.message.main.base;
+package com.message.main.home.web;
 
 import java.util.Date;
 import java.util.HashMap;

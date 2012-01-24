@@ -58,7 +58,7 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", userPkId);
 		
-		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		
 		return paginationSupport;
 	}

@@ -32,7 +32,7 @@ public class InfoDAOImpl extends GenericHibernateDAOImpl implements InfoDAO {
 		String hql = "from Info i order by i.pkId desc ";
 		String countHql = "select count(*) " + hql;
 		Map<String, Object> params = new HashMap<String, Object>();
-		return this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}
 
 }

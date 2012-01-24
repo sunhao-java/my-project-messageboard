@@ -6,6 +6,7 @@
 	<bean id="infoService" class="com.message.main.info.service.impl.InfoServiceImpl">
 		<property name="infoDAO" ref="infoDAO"/>
 		<property name="userService" ref="userService"/>
+		<property name="eventService" ref="eventService"/>
 	</bean>
 
     <bean id="infoController" class="com.message.main.info.web.InfoController">

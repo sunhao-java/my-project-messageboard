@@ -29,6 +29,7 @@ public class User implements Serializable{
 	private Date lastLoginTime;	//上次登录的时间
 	private int loginCount;		//登录次数
 	private int messageCount;	//留言数目
+	private String loginIP;		//登录地的IP
 	
 	/**
 	 * 默认构造方法
@@ -174,6 +175,14 @@ public class User implements Serializable{
 
 	public void setIsAdmin(Long isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public String getLoginIP() {
+		return loginIP;
+	}
+
+	public void setLoginIP(String loginIP) {
+		this.loginIP = loginIP;
 	}
 
 }

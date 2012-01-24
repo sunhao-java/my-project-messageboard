@@ -60,17 +60,19 @@ public interface UserService {
 	/**
 	 * 编辑修改的用户
 	 * @param user
+	 * @param sessionUser
 	 * @throws Exception
 	 */
-	void saveEdit(User user) throws Exception;
+	void saveEdit(User user, User sessionUser) throws Exception;
 	
 	/**
 	 * 保存密码
 	 * @param user
+	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	boolean savePassword(User user) throws Exception;
+	boolean savePassword(User user, User sessionUser) throws Exception;
 	
 	/**
 	 * 获取所有用户
@@ -85,17 +87,20 @@ public interface UserService {
 	/**
 	 * 删除用户(软删除)
 	 * @param pkids
+	 * @param sessionUser
 	 * @return
+	 * @throws Exception
 	 */
-	boolean deleteUser(String pkids) throws Exception;
+	boolean deleteUser(String pkids, User sessionUser) throws Exception;
 	
 	/**
 	 * 设置用户权限
 	 * @param pkId
 	 * @param opertion
+	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	boolean managerPerm(long pkId, boolean opertion) throws Exception;
+	boolean managerPerm(long pkId, boolean opertion, User sessionUser) throws Exception;
 	
 }

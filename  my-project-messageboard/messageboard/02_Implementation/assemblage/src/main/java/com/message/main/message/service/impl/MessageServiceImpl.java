@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.MessageUtils;
+import com.message.base.event.pojo.BaseEvent;
+import com.message.base.event.service.EventService;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
@@ -27,6 +30,8 @@ public class MessageServiceImpl implements MessageService {
 	private UserService userService;
 	
 	private ReplyService replyService;
+	
+	private EventService eventService;
 
 	public void setMessageDAO(MessageDAO messageDAO) {
 		this.messageDAO = messageDAO;
@@ -38,6 +43,10 @@ public class MessageServiceImpl implements MessageService {
 
 	public void setReplyService(ReplyService replyService) {
 		this.replyService = replyService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,13 +63,20 @@ public class MessageServiceImpl implements MessageService {
 		return paginationSupport;
 	}
 
-	public Long saveMessage(Message message, Long userPkId) throws Exception {
-		if(userPkId != null && message != null){
-			message.setCreateUserId(userPkId);
+	public Long saveMessage(Message message, User user) throws Exception {
+		if(user != null && message != null){
+			message.setCreateUserId(user.getPkId());
 			message.setCreateDate(new Date());
 			message.setDeleteFlag(ResourceType.DELETE_NO);
 		}
-		return this.messageDAO.saveMessage(message);
+		
+		Long messageId = this.messageDAO.saveMessage(message);
+		
+		String eventMsg = MessageUtils.getMessage("event.message.add", new Object[]{message.getTitle(), messageId});
+		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_ADD, user.getPkId(), ResourceType.MESSAGE_TYPE, 
+				messageId, user.getLoginIP(), eventMsg));
+		
+		return messageId;
 	}
 
 	public int getLoginUserMessageCount(Long pkId) throws Exception {
@@ -79,7 +95,7 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
-	public void deleteMessage(String pkIds) throws Exception {
+	public void deleteMessage(String pkIds, User user) throws Exception {
 		if(StringUtils.isNotEmpty(pkIds)){
 			String[] pkIdArr = pkIds.split(",");
 			for(String pkId : pkIdArr){
@@ -87,6 +103,10 @@ public class MessageServiceImpl implements MessageService {
 				if(dbMessage != null){
 					dbMessage.setDeleteFlag(ResourceType.DELETE_YES);
 					this.messageDAO.updateMessage(dbMessage);
+					
+					String eventMsg = MessageUtils.getMessage("event.message.delete", new Object[]{dbMessage.getTitle(), Long.valueOf(pkId)});
+					this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_DELETE, dbMessage.getCreateUserId(), 
+							ResourceType.MESSAGE_TYPE, Long.valueOf(pkId), user.getLoginIP(), eventMsg));
 				}
 			}
 		}

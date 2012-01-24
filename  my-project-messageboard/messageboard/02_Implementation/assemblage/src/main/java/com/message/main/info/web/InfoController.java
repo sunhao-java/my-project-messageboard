@@ -81,9 +81,11 @@ public class InfoController extends MultiActionController {
 	 */
 	public ModelAndView saveInfo(HttpServletRequest request, HttpServletResponse response, Info info) throws Exception{
 		out = new WebOutput(request, response);
+		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		try {
-			obj.put(ResourceType.AJAX_STATUS, this.infoService.saveInfo(info) == null ? 
+			obj.put(ResourceType.AJAX_STATUS, this.infoService.saveInfo(info, user) == null ? 
 						ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();

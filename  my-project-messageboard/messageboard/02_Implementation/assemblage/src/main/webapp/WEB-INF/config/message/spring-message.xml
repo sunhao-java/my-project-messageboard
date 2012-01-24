@@ -7,6 +7,7 @@
     	<property name="messageDAO" ref="messageDAO"/>
     	<property name="userService" ref="userService"/>
     	<property name="replyService" ref="replyService"/>
+    	<property name="eventService" ref="eventService"/>
     </bean>
     
     <bean id="messageController" class="com.message.main.message.web.MessageController">

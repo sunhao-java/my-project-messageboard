@@ -53,4 +53,37 @@ public final class ResourceType {
 	 * 标准的日期格式
 	 */
 	public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm";
+	
+	//下面是操作类型的标识
+	/**
+	 * 增加
+	 */
+	public static final Long EVENT_ADD = 1L;
+	/**
+	 * 删除
+	 */
+	public static final Long EVENT_DELETE = 2L;
+	/**
+	 * 编辑
+	 */
+	public static final Long EVENT_EDIT = 3L;
+	
+	//下面是模块的标识
+	/**
+	 * 留言模块
+	 */
+	public static final int MESSAGE_TYPE = 1;
+	/**
+	 * 用户模块
+	 */
+	public static final int USER_TYPE = 2;
+	/**
+	 * 留言板信息模块
+	 */
+	public static final int INFO_TYPE = 3;
+	/**
+	 * 回复模块
+	 */
+	public static final int REPLY_TYPE = 4;
+	
 }

@@ -20,11 +20,11 @@ public interface MessageService {
 	/**
 	 * 保存留言
 	 * @param message
-	 * @param userPkId
+	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
-	Long saveMessage(Message message, Long userPkId) throws Exception;
+	Long saveMessage(Message message, User user) throws Exception;
 	
 	/**
 	 * 获取某个用户的留言条数
@@ -44,9 +44,10 @@ public interface MessageService {
 	/**
 	 * 根据pkId的集合批量删除留言
 	 * @param pkIds
+	 * @param user
 	 * @throws Exception
 	 */
-	void deleteMessage(String pkIds) throws Exception;
+	void deleteMessage(String pkIds, User user) throws Exception;
 	
 	/**
 	 * 获取我的留言

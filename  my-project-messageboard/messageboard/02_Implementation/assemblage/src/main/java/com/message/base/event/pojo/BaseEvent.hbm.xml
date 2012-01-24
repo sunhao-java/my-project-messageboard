@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.base.event.pojo.BaseEvent" table="t_message_event">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_EVENT</param>				
+			</generator>
+		</id>
+		<property name="operationType" type="java.lang.Long">
+			<column name="OPERATION_TYPE" length="10">
+				<comment>操作类型</comment>
+			</column>
+		</property>
+		<property name="operatorId" type="java.lang.Long">
+			<column name="OPERATOR_ID" precision="10" scale="0">
+				<comment>操作者ID</comment>
+			</column>
+		</property>
+		<property name="ownerId" type="java.lang.Long">
+			<column name="OWNER_ID" precision="10" scale="0">
+				<comment>拥有者ID</comment>
+			</column>
+		</property>
+		<property name="resourceType" type="java.lang.Integer">
+			<column name="RESOURCE_TYPE" length="10">
+				<comment>事件类型标识</comment>
+			</column>
+		</property>
+		<property name="resourceId" type="java.lang.Long">
+			<column name="RESOURCE_ID" precision="10" scale="0">
+				<comment>被操作对象的ID</comment>
+			</column>
+		</property>
+		<property name="operationTime" type="java.util.Date">
+			<column name="OPERATION_TIME">
+				<comment>操作发生时间</comment>
+			</column>
+		</property>
+		<property name="operationIP" type="java.lang.String">
+			<column name="OPERATION_IP" length="255">
+				<comment>操作发生地IP</comment>
+			</column>
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" length="4000">
+				<comment>操作事件的描述</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -33,8 +33,8 @@ public class ReplyDAOImpl extends GenericHibernateDAOImpl implements ReplyDAO {
 		return this.findByHQL(hql, params);
 	}
 
-	public void saveReply(Reply reply) throws Exception {
-		this.saveObject(reply);
+	public Long saveReply(Reply reply) throws Exception {
+		return ((Reply) this.saveObject(reply)).getPkId();
 	}
 
 }

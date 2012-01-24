@@ -5,6 +5,9 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.message.base.MessageUtils;
+import com.message.base.event.pojo.BaseEvent;
+import com.message.base.event.service.EventService;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
 import com.message.main.history.service.HistoryService;
@@ -16,12 +19,17 @@ import com.message.utils.MD5Utils;
 import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
 
+/**
+ * 用户操作的service 实现
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
 	private UserDAO userDAO;
 	private HistoryService historyService;
 	private MessageService messageService;
+	private EventService eventService;
 	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -33,6 +41,10 @@ public class UserServiceImpl implements UserService{
 
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 
 	public boolean registerUser(User user) throws Exception {
@@ -108,7 +120,7 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	public void saveEdit(User user) throws Exception {
+	public void saveEdit(User user, User sessionUser) throws Exception {
 		User dbUser = null;
 		if(user != null){
 			if(user.getPkId() != null){
@@ -122,17 +134,24 @@ public class UserServiceImpl implements UserService{
 					dbUser.setHomePage(user.getHomePage());
 					
 					this.userDAO.updateUser(dbUser);
+					String eventMsg = MessageUtils.getMessage("event.message.user.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
+							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 				}
 			}
 		}
 	}
 
-	public boolean savePassword(User user) throws Exception {
+	public boolean savePassword(User user, User sessionUser) throws Exception {
 		if(StringUtils.isNotEmpty(user.getPassword()) && user.getPkId() != null){
 			User dbUser = this.userDAO.getUserById(user.getPkId());
 			if(dbUser != null){
 				dbUser.setPassword(MD5Utils.MD5Encode(user.getPassword()));
 				this.userDAO.updateUser(dbUser);
+				
+				String eventMsg = MessageUtils.getMessage("event.message.psw.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+				this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
+						ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 				return true;
 			} else {
 				return false;
@@ -147,7 +166,7 @@ public class UserServiceImpl implements UserService{
 		return paginationSupport;
 	}
 
-	public boolean deleteUser(String pkids) throws Exception {
+	public boolean deleteUser(String pkids, User sessionUser) throws Exception {
 		String[] pkIds = pkids.split(",");
 		if(pkIds != null && pkIds.length > 0){
 			for(String pkId : pkIds){
@@ -155,6 +174,9 @@ public class UserServiceImpl implements UserService{
 				
 				if(dbUser != null){
 					dbUser.setDeleteFlag(ResourceType.DELETE_YES);
+					String eventMsg = MessageUtils.getMessage("event.message.user.delete", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_DELETE, dbUser.getPkId(), 
+							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 					this.userDAO.updateUser(dbUser);
 				}
 			}
@@ -164,13 +186,14 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	public boolean managerPerm(long pkId, boolean opertion) throws Exception {
+	public boolean managerPerm(long pkId, boolean opertion, User sessionUser) throws Exception {
 		User dbUser = this.userDAO.getUserById(pkId);
 		if(dbUser != null){
 			dbUser.setIsAdmin(opertion ? ResourceType.IS_ADMIN_YES : ResourceType.IS_ADMIN_NO);
-			
 			this.userDAO.updateUser(dbUser);
-			
+			String eventMsg = MessageUtils.getMessage("event.message.userPerm", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+			this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, dbUser.getPkId(), 
+					ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 			return true;
 		}
 		return false;

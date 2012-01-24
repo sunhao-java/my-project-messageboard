@@ -24,10 +24,10 @@
 			<th width="10%" class="fb_result_head">
 				修改人
 			</th>
-			<th width="75%" class="fb_result_head">
+			<th width="73%" class="fb_result_head">
 				描述内容
 			</th>
-			<th width="15%" class="fb_result_head">
+			<th width="17%" class="fb_result_head">
 				修改时间
 			</th>
 		</tr>

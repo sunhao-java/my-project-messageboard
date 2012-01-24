@@ -56,7 +56,7 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag order by u.pkId desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("deleteFlag", ResourceType.DELETE_NO);
-		return this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}
 
 }

@@ -91,7 +91,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	}
 	
 	/**
-	 * 执行纯正的SQL语句(update)
+	 * 执行纯正的SQL语句(update) 返回表中受影响的数据条数
 	 * @param sql
 	 * @param params
 	 * @return 表中受影响的数据条数
@@ -165,7 +165,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public PaginationSupport getBeanPaginationSupport(final String hql, final String countHql, final int start, final int num, final Map params) {
+	public PaginationSupport getPaginationSupport(final String hql, final String countHql, final int start, final int num, final Map params) {
 		PaginationSupport result = null;
 		try{
 			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {

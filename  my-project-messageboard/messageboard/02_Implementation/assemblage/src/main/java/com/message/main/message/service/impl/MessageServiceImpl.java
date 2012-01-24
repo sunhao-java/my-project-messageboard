@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.MessageUtils;
-import com.message.base.event.pojo.BaseEvent;
-import com.message.base.event.service.EventService;
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.event.pojo.BaseEvent;
+import com.message.main.event.service.EventService;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;

@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.MessageUtils;
-import com.message.base.event.pojo.BaseEvent;
-import com.message.base.event.service.EventService;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
+import com.message.main.event.pojo.BaseEvent;
+import com.message.main.event.service.EventService;
 import com.message.main.history.service.HistoryService;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;

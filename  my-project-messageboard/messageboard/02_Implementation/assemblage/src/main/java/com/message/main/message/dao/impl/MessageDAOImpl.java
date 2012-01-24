@@ -26,7 +26,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		String countHql = "select count(*) from Message where deleteFlag = :deleteFlag";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("deleteFlag", ResourceType.DELETE_NO);
-		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;
 	}
 
@@ -63,7 +63,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		params.put("createUserId", user.getPkId());
-		PaginationSupport paginationSupport = this.getBeanPaginationSupport(hql, countHql, start, num, params);
+		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;
 	}
 

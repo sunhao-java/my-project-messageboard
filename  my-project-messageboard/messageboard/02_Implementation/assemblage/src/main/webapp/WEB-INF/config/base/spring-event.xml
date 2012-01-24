@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
-	<bean id="eventDAO" class="com.message.base.event.dao.impl.EventDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="eventDAO" class="com.message.main.event.dao.impl.EventDAOImpl" parent="genericHibernateDAOImpl"/>
 	
-	<bean id="eventService" class="com.message.base.event.service.impl.EventServiceImpl">
+	<bean id="eventService" class="com.message.main.event.service.impl.EventServiceImpl">
 		<property name="eventDAO" ref="eventDAO"/>
 		<property name="userService" ref="userService"/>
 	</bean>
 	
-	<bean id="eventController" class="com.message.base.event.web.EventController">
+	<bean id="eventController" class="com.message.main.event.web.EventController">
 		<property name="methodNameResolver">
 			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 				<property name="mappings">

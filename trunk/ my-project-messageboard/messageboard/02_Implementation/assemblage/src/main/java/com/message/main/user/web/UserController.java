@@ -72,7 +72,9 @@ public class UserController extends MultiActionController {
 			status = this.userService.userLogin(user, in);
 			if(status == 0){
 				//跳转到另外一个controller
-				in.getSession().setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, this.userService.getUserByName(user.getUsername()));
+				User dbUser = this.userService.getUserByName(user.getUsername());
+				dbUser.setLoginIP(in.getClientIP());
+				in.getSession().setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
 				return new ModelAndView("redirect:/home/inMessageIndex.do");
 			} else {
 				if(status == 1){
@@ -202,10 +204,12 @@ public class UserController extends MultiActionController {
 	 * @throws Exception 
 	 */
 	public ModelAndView saveEdit(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+		in = new WebInput(request);
 		out = new WebOutput(request, response);
 		JSONObject obj = new JSONObject();
+		User sessionUser = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		try {
-			this.userService.saveEdit(user);
+			this.userService.saveEdit(user, sessionUser);
 			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -269,10 +273,13 @@ public class UserController extends MultiActionController {
 	 */
 	public ModelAndView savePassword(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
 		out = new WebOutput(request, response);
+		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(user != null){
 			try {
-				obj.put(ResourceType.AJAX_STATUS, this.userService.savePassword(user) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+				obj.put(ResourceType.AJAX_STATUS, this.userService.savePassword(user, userInSession) ? 
+									ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(e.getMessage(), e);
@@ -340,9 +347,11 @@ public class UserController extends MultiActionController {
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
 		String pkids = in.getString("pkIds", StringUtils.EMPTY);
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(StringUtils.isNotEmpty(pkids)){
 			try {
-				obj.put(ResourceType.AJAX_STATUS, this.userService.deleteUser(pkids) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE );
+				obj.put(ResourceType.AJAX_STATUS, this.userService.deleteUser(pkids, userInSession) ? 
+							ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE );
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(e.getMessage(), e);
@@ -367,9 +376,10 @@ public class UserController extends MultiActionController {
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
 		Long pkId = in.getLong("userPkId", 0L);
+		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		boolean opertion = in.getBoolean("opertion", Boolean.FALSE);
 		try {
-			obj.put(ResourceType.AJAX_STATUS, this.userService.managerPerm(pkId, opertion) ? 
+			obj.put(ResourceType.AJAX_STATUS, this.userService.managerPerm(pkId, opertion, userInSession) ? 
 							ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		} catch (Exception e) {
 			e.printStackTrace();

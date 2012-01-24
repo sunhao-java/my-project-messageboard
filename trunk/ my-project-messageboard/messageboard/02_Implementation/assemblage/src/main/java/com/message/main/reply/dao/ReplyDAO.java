@@ -35,7 +35,8 @@ public interface ReplyDAO {
 	/**
 	 * 保存回复
 	 * @param reply
+	 * @return
 	 * @throws Exception
 	 */
-	public void saveReply(Reply reply) throws Exception;
+	public Long saveReply(Reply reply) throws Exception;
 }

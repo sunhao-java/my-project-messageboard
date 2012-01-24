@@ -94,11 +94,13 @@ public class MessageController extends MultiActionController {
 		out = new WebOutput(request, response);
 		JSONObject params = new JSONObject();
 		Long user_pkId = in.getLong("user_id", 0L);
+		User user = this.userService.getUserById(user_pkId);
 		String ip = in.getClientIP();
 		message.setIp(ip);
+		user.setLoginIP(ip);
 		Long pkId = null;
 		try {
-			pkId = this.messageService.saveMessage(message, user_pkId);
+			pkId = this.messageService.saveMessage(message, user);
 			params.put(ResourceType.AJAX_STATUS, pkId == null ? ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -165,9 +167,11 @@ public class MessageController extends MultiActionController {
 		JSONObject params = new JSONObject();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		String pkIds = in.getString("pkIds", StringUtils.EMPTY);
+		user.setLoginIP(in.getClientIP());
 		try {
-			this.messageService.deleteMessage(pkIds);
+			this.messageService.deleteMessage(pkIds, user);
 			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);

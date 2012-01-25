@@ -39,10 +39,10 @@
 			<th width="15%" class="fb_result_head">
 				影响者
 			</th>
-			<th width="15%" class="fb_result_head">
+			<th width="18%" class="fb_result_head">
 				发生时间
 			</th>
-			<th width="15%" class="fb_result_head">
+			<th width="12%" class="fb_result_head">
 				发生地IP
 			</th>
 			<th width="20%" class="fb_result_head">

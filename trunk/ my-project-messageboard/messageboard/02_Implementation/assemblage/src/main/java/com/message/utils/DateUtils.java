@@ -9,6 +9,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+/**
+ * 时间的工具类
+ * @see org.apache.commons.lang.time.DateUtils
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	
 	/**

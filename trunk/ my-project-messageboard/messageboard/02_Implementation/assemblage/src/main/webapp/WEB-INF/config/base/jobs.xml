@@ -22,10 +22,28 @@
 		<!--<property name="cronExpression" value="0 0 4 * * ?"/>-->  
 	</bean>
 	
+	<bean id="cleanLoginHistoryJob" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.JobDetailBean">
+				<property name="jobClass" value="com.message.main.history.job.CleanLoginHistoryJob"/>
+				<property name="description" value="定时清除一个月前的登录日志"/>
+				<property name="jobDataAsMap">
+					<map>
+						<entry key="historyService" value-ref="historyService"/>
+					</map>
+				</property>
+			</bean>
+		</property>
+		
+		<!-- 每10分钟清除一次 10*60*1000-->
+		<property name="repeatInterval" value="600000"/>
+	</bean>
+	
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="cleanEventJob"/>
+				<ref bean="cleanLoginHistoryJob"/>
 			</list>
 		</property>
 	</bean>

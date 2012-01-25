@@ -8,6 +8,10 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import com.message.main.event.service.EventService;
 
+/**
+ * 定时清除操作日志的job
+ * @author sunhao(sunhao.java@gmail.com)
+ */
 public class CleanEventJob extends QuartzJobBean {
 	private static final Logger logger = LoggerFactory.getLogger(CleanEventJob.class);
 

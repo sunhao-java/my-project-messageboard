@@ -43,4 +43,10 @@ public interface HistoryService {
 	 * @throws Exception
 	 */
 	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
+	
+	/**
+	 * 定时清除一个月前的登录日志
+	 * @throws Exception
+	 */
+	public void cleanLoginHistory() throws Exception;
 }

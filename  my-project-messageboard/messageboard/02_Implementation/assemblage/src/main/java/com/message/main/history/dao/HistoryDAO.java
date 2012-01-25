@@ -1,6 +1,7 @@
 package com.message.main.history.dao;
 
 import java.util.Date;
+import java.util.List;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.history.pojo.UserLoginHistory;
@@ -35,10 +36,24 @@ public interface HistoryDAO {
 	public Date getLastLoginTime(Long userPkId) throws Exception;
 	
 	/**
-	 * 获取某个用户登录历史的list集合
+	 * 获取某个用户登录历史的分页对象
 	 * @param userPkId
 	 * @return
 	 * @throws Exception
 	 */
 	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
+	
+	/**
+	 * 获取所有的登录历史
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UserLoginHistory> getAllHistory() throws Exception;
+	
+	/**
+	 * 删除指定登录历史
+	 * @param history
+	 * @throws Exception
+	 */
+	public void deleteHistory(UserLoginHistory history) throws Exception;
 }

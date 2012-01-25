@@ -74,4 +74,8 @@ public class HistoryServiceImpl implements HistoryService {
 		return paginationSupport;
 	}
 
+	public void cleanLoginHistory() throws Exception {
+		//TODO 写实现
+	}
+
 }

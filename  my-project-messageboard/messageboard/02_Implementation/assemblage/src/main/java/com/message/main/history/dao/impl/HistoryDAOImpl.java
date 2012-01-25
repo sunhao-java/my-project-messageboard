@@ -63,4 +63,14 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		return paginationSupport;
 	}
 
+	public void deleteHistory(UserLoginHistory history) throws Exception {
+		// TODO 写实现
+		
+	}
+
+	public List<UserLoginHistory> getAllHistory() throws Exception {
+		// TODO 写实现
+		return null;
+	}
+
 }

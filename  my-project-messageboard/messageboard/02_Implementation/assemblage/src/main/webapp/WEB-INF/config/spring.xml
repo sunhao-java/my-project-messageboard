@@ -25,6 +25,9 @@
     <import resource="history/spring-history.xml"/>
     <import resource="base/spring-home.xml"/>
     <import resource="base/spring-event.xml"/>
+    
+    <!-- job的配置文件 -->
+    <import resource="base/jobs.xml"/>
 
 	<!-- 整合hibernate 开始 -->
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -50,7 +53,7 @@
 				<value>com/message/main/reply/pojo/Reply.hbm.xml</value>
 				<value>com/message/main/info/pojo/Info.hbm.xml</value>
 				<value>com/message/main/history/pojo/UserLoginHistory.hbm.xml</value>
-				<value>com/message/base/event/pojo/BaseEvent.hbm.xml</value>
+				<value>com/message/main/event/pojo/BaseEvent.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -1,6 +1,7 @@
 package com.message.main.event.dao.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
@@ -23,6 +24,17 @@ public class EventDAOImpl extends GenericHibernateDAOImpl implements EventDAO {
 		String countHql = "select count(*) " + hql;
 		Map<String, Object> params = new HashMap<String, Object>();
 		return this.getPaginationSupport(hql, countHql, start, num, params);
+	}
+
+	public void deleteEvent(BaseEvent baseEvent) throws Exception {
+		this.deleteObject(baseEvent);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<BaseEvent> getAllEvent() throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from BaseEvent order by pkId desc ";
+		return this.findByHQL(hql, params);
 	}
 
 }

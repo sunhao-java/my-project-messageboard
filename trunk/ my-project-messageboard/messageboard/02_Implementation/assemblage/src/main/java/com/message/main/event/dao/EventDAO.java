@@ -1,5 +1,7 @@
 package com.message.main.event.dao;
 
+import java.util.List;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.event.pojo.BaseEvent;
 
@@ -24,4 +26,18 @@ public interface EventDAO {
 	 * @throws Exception
 	 */
 	PaginationSupport getEvents(int start, int num) throws Exception;
+	
+	/**
+	 * 获得所有的baseEvent
+	 * @return
+	 * @throws Exception
+	 */
+	List<BaseEvent> getAllEvent() throws Exception;
+	
+	/**
+	 * 删除指定的baseEvent
+	 * @param baseEvent
+	 * @throws Exception
+	 */
+	void deleteEvent(BaseEvent baseEvent) throws Exception;
 }

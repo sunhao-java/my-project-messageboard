@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<!-- <bean id="cleanEventJob" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+	<bean id="cleanEventJob" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.JobDetailBean">
+				<property name="jobClass" value="com.message.main.event.job.CleanEventJob"/>
+				<property name="description" value="定时检查清除一个星期之前的操作日志"/>
+				<property name="jobDataAsMap">
+					<map>
+						<entry key="eventService" value-ref="eventService"/>
+					</map>
+				</property>
+			</bean>
+		</property>
+		
+		<!-- 每10分钟清除一次 10*60*1000-->
+		<property name="repeatInterval" value="600000"/>
+		
+		<!-- 每天清除一次，每天的凌晨4点 -->
+		<!--<property name="cronExpression" value="0 0 4 * * ?"/>-->  
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cleanEventJob"/>
+			</list>
+		</property>
+	</bean>
+</beans>

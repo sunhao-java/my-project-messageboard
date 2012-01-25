@@ -3,17 +3,28 @@ package com.message.main.event.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.event.dao.EventDAO;
+import com.message.main.event.job.CleanEventJob;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.user.service.UserService;
+import com.message.utils.DateUtils;
 
 /**
  * 事件service实现
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class EventServiceImpl implements EventService {
+	private static final Logger logger = LoggerFactory.getLogger(CleanEventJob.class);
+	
+	/**
+	 * 一周的分钟数
+	 */
+	private static final long WEEK_AGO_MINUTES = 1 * 7 * 24 * 60;
 	
 	private EventDAO eventDAO;
 	
@@ -45,6 +56,16 @@ public class EventServiceImpl implements EventService {
 			}
 		}
 		return paginationSupport;
+	}
+
+	public void cleanEventWeekAgo() throws Exception {
+		List<BaseEvent> events = this.eventDAO.getAllEvent();
+		for(BaseEvent event : events){
+			if(DateUtils.getMinuteBewteenDates(event.getOperationTime(), new Date()) >= WEEK_AGO_MINUTES){
+				logger.debug("delete an event entity, id is {}", event.getPkId());
+				this.eventDAO.deleteEvent(event);
+			}
+		}
 	}
 
 }

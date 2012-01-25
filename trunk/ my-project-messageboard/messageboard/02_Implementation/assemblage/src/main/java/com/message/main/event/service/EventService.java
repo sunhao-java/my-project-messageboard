@@ -24,4 +24,10 @@ public interface EventService {
 	 * @throws Exception
 	 */
 	PaginationSupport getEvents(int start, int num) throws Exception;
+	
+	/**
+	 * 定时清空一个星期之前的操作日志
+	 * @throws Exception
+	 */
+	void cleanEventWeekAgo() throws Exception;
 }

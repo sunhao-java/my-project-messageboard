@@ -37,4 +37,10 @@ public interface GenericHibernateDAO {
 	 * @param entity
 	 */
 	public void updateObject(Object entity);
+	
+	/**
+	 * 删除一个实体
+	 * @param entity
+	 */
+	public void deleteObject(Object entity);
 }

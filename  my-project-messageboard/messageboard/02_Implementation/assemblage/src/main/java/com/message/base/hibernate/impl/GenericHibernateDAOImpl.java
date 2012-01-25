@@ -207,5 +207,13 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	public Object loadObject(Class clazz, Long id){
 		return this.hibernateTemplate.get(clazz, id);
 	}
+
+	/**
+	 * 删除一个实体
+	 * @param entity
+	 */
+	public void deleteObject(Object entity) {
+		this.hibernateTemplate.delete(entity);
+	}
 	
 }

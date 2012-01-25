@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.message.base.event.pojo.BaseEvent" table="t_message_event">
+	<class name="com.message.main.event.pojo.BaseEvent" table="t_message_event">
 		<id name="pkId" type="java.lang.Long">
 			<column name="PK_ID" precision="10" scale="0"/>
 			<generator class="sequence">

@@ -4,14 +4,18 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.message.base.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
+import com.message.main.event.job.CleanEventJob;
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.user.pojo.User;
+import com.message.utils.DateUtils;
 import com.message.utils.StringUtils;
 
 /**
@@ -19,6 +23,12 @@ import com.message.utils.StringUtils;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class HistoryServiceImpl implements HistoryService {
+	private static final Logger logger = LoggerFactory.getLogger(CleanEventJob.class);
+	
+	/**
+	 * 31天的分钟数
+	 */
+	private static final long MONTH_AGO_MINUTES = 31 * 24 * 60;
 	private HistoryDAO historyDAO;
 
 	public void setHistoryDAO(HistoryDAO historyDAO) {
@@ -75,7 +85,13 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	public void cleanLoginHistory() throws Exception {
-		//TODO 写实现
+		List<UserLoginHistory> histories = this.historyDAO.getAllHistory();
+		for(UserLoginHistory history : histories){
+			if(DateUtils.getMinuteBewteenDates(history.getLoginTime(), new Date()) > MONTH_AGO_MINUTES){
+				logger.debug("delete an history entity, id is {}", history.getPkId());
+				this.historyDAO.deleteHistory(history);
+			}
+		}
 	}
 
 }

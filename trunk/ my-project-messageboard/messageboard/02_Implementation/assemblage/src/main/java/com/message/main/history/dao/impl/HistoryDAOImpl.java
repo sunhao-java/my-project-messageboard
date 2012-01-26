@@ -64,13 +64,14 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 	}
 
 	public void deleteHistory(UserLoginHistory history) throws Exception {
-		// TODO 写实现
-		
+		this.deleteObject(history);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<UserLoginHistory> getAllHistory() throws Exception {
-		// TODO 写实现
-		return null;
+		String hql = "from UserLoginHistory order by pkId desc ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		return this.findByHQL(hql, params);
 	}
 
 }

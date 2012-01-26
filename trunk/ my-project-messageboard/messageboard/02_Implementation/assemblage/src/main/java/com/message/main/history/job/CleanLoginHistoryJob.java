@@ -17,7 +17,7 @@ public class CleanLoginHistoryJob extends QuartzJobBean {
 
 	protected void executeInternal(JobExecutionContext context)
 			throws JobExecutionException {
-		logger.debug("clean event job start...");
+		logger.debug("clean login history job start...");
 		final HistoryService historyService = (HistoryService) context.getJobDetail().getJobDataMap().get("historyService");
 		try {
 			historyService.cleanLoginHistory();
@@ -25,8 +25,7 @@ public class CleanLoginHistoryJob extends QuartzJobBean {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);
 		}
-		//TODO 写实现
-		logger.debug("clean event job end...");
+		logger.debug("clean login history job end...");
 	}
 
 }

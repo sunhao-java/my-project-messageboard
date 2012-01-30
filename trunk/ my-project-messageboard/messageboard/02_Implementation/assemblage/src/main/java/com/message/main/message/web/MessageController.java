@@ -1,5 +1,7 @@
 package com.message.main.message.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,8 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
@@ -125,6 +129,7 @@ public class MessageController extends MultiActionController {
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
 		PaginationSupport paginationSupport = null;
+		
 		try {
 			paginationSupport = this.messageService.getAllMessages(start, num, message);
 		} catch (Exception e) {
@@ -132,6 +137,7 @@ public class MessageController extends MultiActionController {
 			e.printStackTrace();
 		}
 		params.put("paginationSupport", paginationSupport);
+		params.put("truename", in.getString("createUser.truename", StringUtils.EMPTY));
 		return new ModelAndView("message.listMsg.forAdmin", params);
 	}
 	
@@ -233,5 +239,18 @@ public class MessageController extends MultiActionController {
 		}
 		return new ModelAndView("message.list.mine", params);
 	}
+	
+	/**
+	 * TODO :寻求更好的解决方案
+	 * 提交form时，表单中的beginTime和endTime是string类型的，而message这个bean中的两个字段是date类型的<br/>
+	 * spring进行字段绑定的时候会报错，无法绑定这两个字段<br/>
+	 * 解决办法暂时是重写父类此方法，注册一个customerEditor，用来进行日期类型转换
+	 * @param request
+	 * @param binder
+	 */
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ResourceType.SIMPLE_DATE_FORMAT);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
 }

@@ -35,6 +35,11 @@
 				<comment>留言者ID</comment>
 			</column>
 		</property>
+		<property name="createUsername" type="java.lang.String">
+			<column name="CREATE_USERNAME" length="255">
+				<comment>对应的留言者Name</comment>
+			</column>
+		</property>
 		<property name="deleteFlag" type="java.lang.Long">
 			<column name="DELETE_FLAG" length="10">
 				<comment>删除标识0未删除1已删除</comment>

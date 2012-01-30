@@ -78,7 +78,7 @@
 	<jsp:param value="修改我的密码" name="title"/>
 </jsp:include>
 
-<div id="listDiv">
+<div id="listFrm">
 	<form id="dataFrm" action="" method="post">
 		<input type="hidden" name="pkId" value="${user.pkId }"/>
 		<table width="70%" class="tableform">

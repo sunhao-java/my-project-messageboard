@@ -50,7 +50,7 @@
 	<jsp:param value="查看留言" name="title"/>
 </jsp:include>
 
-<div id="listDiv">
+<div id="listFrm">
 	<form id="dataFrm" action="" method="post">
 		<table width="100%" border="1" class="tableform">
 			<tr>

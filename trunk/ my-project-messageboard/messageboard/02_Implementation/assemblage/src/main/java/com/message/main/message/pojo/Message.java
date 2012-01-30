@@ -20,11 +20,14 @@ public class Message implements Serializable {
 	private String content;								//留言内容
 	private Date createDate;							//留言时间
 	private Long createUserId;							//对应的留言者ID
+	private String createUsername;						//对应的留言者Name
 	private Long deleteFlag;							//删除标识0未删除1已删除
 	
 	//VO Field
 	private User createUser;							//VO字段，发表留言者
 	private List<Reply> replys;							//VO字段，此条留言的回复
+	private Date beginTime;
+	private Date endTime;
 
 	public Long getPkId() {
 		return pkId;
@@ -82,6 +85,14 @@ public class Message implements Serializable {
 		this.createUserId = createUserId;
 	}
 
+	public String getCreateUsername() {
+		return createUsername;
+	}
+
+	public void setCreateUsername(String createUsername) {
+		this.createUsername = createUsername;
+	}
+
 	public Long getDeleteFlag() {
 		return deleteFlag;
 	}
@@ -96,6 +107,22 @@ public class Message implements Serializable {
 
 	public void setCreateUser(User createUser) {
 		this.createUser = createUser;
+	}
+
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 }

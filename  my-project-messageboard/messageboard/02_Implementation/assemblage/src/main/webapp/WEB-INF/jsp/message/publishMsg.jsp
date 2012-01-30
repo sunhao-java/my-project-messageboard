@@ -67,7 +67,7 @@
 	<jsp:param value="发表留言" name="title"/>
 </jsp:include>
 
-<div id="listDiv">
+<div id="listFrm">
 	<form id="dataFrm" action="" method="post">
 		<input type="hidden" name="user_id" value="${loginUser.pkId}"/>
 		<table width="100%" border="1" class="tableform">

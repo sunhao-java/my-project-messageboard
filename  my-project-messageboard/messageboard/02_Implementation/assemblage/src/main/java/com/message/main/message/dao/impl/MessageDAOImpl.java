@@ -12,6 +12,8 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.user.pojo.User;
+import com.message.utils.SqlUtils;
+import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
 
 /**
@@ -22,9 +24,28 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 	
 	public PaginationSupport getAllMessages(int start, int num, Message message)
 			throws Exception {
-		String hql = "from Message where deleteFlag = :deleteFlag order by pkId desc";
-		String countHql = "select count(*) from Message where deleteFlag = :deleteFlag";
 		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from Message where deleteFlag = :deleteFlag ";
+		if(message != null){
+			if(StringUtils.isNotEmpty(message.getTitle())) {
+				hql += " and title like :title";
+				params.put("title", SqlUtils.makeLikeString(StringUtils.trim(message.getTitle())));
+			}
+			if(message.getCreateUser() != null && StringUtils.isNotEmpty(message.getCreateUser().getTruename())){
+				hql += " and createUsername like :createUsername ";
+				params.put("createUsername", SqlUtils.makeLikeString(StringUtils.trim(message.getCreateUser().getTruename())));
+			}
+			if(message.getBeginTime() != null){
+				hql += " and createDate >= :beginTime ";
+				params.put("beginTime", message.getBeginTime());
+			}
+			if(message.getEndTime() != null){
+				hql += " and createDate <= :endTime ";
+				params.put("endTime", message.getEndTime());
+			}
+		}
+		hql += " order by pkId desc";
+		String countHql = "select count(*) " + hql;
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;

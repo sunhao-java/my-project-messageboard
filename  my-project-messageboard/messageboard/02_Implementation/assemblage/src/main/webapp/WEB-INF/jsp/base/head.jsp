@@ -19,7 +19,7 @@
 	<h2>&nbsp;&nbsp;<%=request.getParameter("title") %></h2>
 </div>
 
-<p class="actions" style="margin: 0px;border:0px solid">
+<p class="actions" style="margin: 5px;border:0px solid">
 	<c:if test="${param.delete eq 'true'}">
 		<input class="buttonlist" type="button" onclick="deleteFunction();" value="批量删除" 
 			style="background:url(${contextPath}/image/wiseduimg/module/button_del.gif) no-repeat left;cursor:pointer;"/>

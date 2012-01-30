@@ -1,0 +1,51 @@
+.f-button{
+	border-color: #DDDDDD #264F6E #264F6E #DDDDDD;
+	border-width: 1px;
+	border-style: solid;
+	background: none repeat scroll 0 0 #2782D6;
+	color: #FFFFFF;
+	line-height: 17px;
+	height: 21px;
+	letter-spacing: 1px;
+	padding: 1px 10px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.month{
+	width: 15px !important;
+	padding-left: 2px;
+}
+
+.calendarTab{
+	margin-top: 10px;
+	border-collapse: collapse;
+    border-spacing: 0;
+    font: 100% sans-serif;
+    text-align: center;
+}
+
+.calendarTab td{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    height: 1.6em;
+    line-height: 1.6em;
+    padding: 1px;
+    text-align: center;
+    white-space: nowrap;
+    
+    border-collapse: collapse;
+    font-family: "Tahoma","����";
+    font-size: 9pt;
+    margin: 0;
+}
+
+.selectDateDiv{
+	padding: 5px 3px;
+	text-align: center;
+}
+
+#calendarPanel{
+	 padding: 5px;
+	 background-color: #F2F2F2;
+}

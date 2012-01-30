@@ -789,14 +789,14 @@ function Calendar(beginYear, endYear, lang, dateFormatStyle) {
   this.second = this.date.getSeconds();
 
   this.colors = {
-  "cur_word"      : "#FFFFFF",  //当日日期文字颜色
+  "cur_word"      : "#0066CC",  //当日日期文字颜色
   "cur_bg"        : "#00FF00",  //当日日期单元格背影色
-  "sel_bg"        : "#FFCCCC",  //已被选择的日期单元格背影色 2006-12-03 添加  
-  "sun_word"      : "#FF0000",  //星期天文字颜色  
-  "sat_word"      : "#0000FF",  //星期六文字颜色  
-  "td_word_light" : "#333333",  //单元格文字颜色  
+  "sel_bg"        : "#B3D4FF",  //已被选择的日期单元格背影色 2006-12-03 添加  
+  "sun_word"      : "#0066CC",  //星期天文字颜色  
+  "sat_word"      : "#0066CC",  //星期六文字颜色  
+  "td_word_light" : "#0066CC",  //单元格文字颜色  
   "td_word_dark"  : "#CCCCCC",  //单元格文字暗色  
-  "td_bg_out"     : "#EFEFEF",  //单元格背影色
+  "td_bg_out"     : "#FFFFFF",  //单元格背影色
   "td_bg_over"    : "#FFCC00",  //单元格背影色
   "tr_word"       : "#FFFFFF",  //日历头文字颜色  
   "tr_bg"         : "#666666",  //日历头背影色
@@ -840,23 +840,23 @@ Calendar.prototype.draw = function() {
   mvAry[mvAry.length]  = '  <div name="calendarForm" style="margin: 0px;">';
   mvAry[mvAry.length]  = '    <table width="100%" border="0" cellpadding="0" cellspacing="1" style="font-size:12px;">';
   mvAry[mvAry.length]  = '      <tr>';
-  mvAry[mvAry.length]  = '        <th align="left" width="1%"><input style="border: 1px solid ' + calendar.colors["input_border"] + ';background-color:' + calendar.colors["input_bg"] + ';width:16px;height:20px;';
+  mvAry[mvAry.length]  = '        <th align="left" width="1%"><input style="';
   if(calendar.DateMode > pickMode["month"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到年时隐藏“月”
-  mvAry[mvAry.length]  ='" name="prevMonth" type="button" id="prevMonth" value="&lt;" /></th>';
-  mvAry[mvAry.length]  = '        <th align="center" width="98%" nowrap="nowrap"><select name="calendarYear" id="calendarYear" style="font-size:12px;"></select><select name="calendarMonth" id="calendarMonth" style="font-size:12px;';
+  mvAry[mvAry.length]  ='" name="prevMonth" type="button" id="prevMonth" value="<" class="f-button month"/></th>';
+  mvAry[mvAry.length]  = '        <th align="center" width="98%" nowrap="nowrap"><select name="calendarYear" id="calendarYear" style="font-size:12px;"></select>&nbsp;<select name="calendarMonth" id="calendarMonth" style="font-size:12px;';
   if(calendar.DateMode > pickMode["month"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到年时隐藏“月”
   mvAry[mvAry.length]  = '"></select></th>';
-  mvAry[mvAry.length]  = '        <th align="right" width="1%"><input style="border: 1px solid ' + calendar.colors["input_border"] + ';background-color:' + calendar.colors["input_bg"] + ';width:16px;height:20px;';
+  mvAry[mvAry.length]  = '        <th align="right" width="1%"><input style="';
   if(calendar.DateMode > pickMode["month"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到年时隐藏“月”
-  mvAry[mvAry.length]  ='" name="nextMonth" type="button" id="nextMonth" value="&gt;" /></th>';
+  mvAry[mvAry.length]  ='" name="nextMonth" type="button" id="nextMonth" value=">" class="f-button month"/></th>';
   mvAry[mvAry.length]  = '      </tr>';
   mvAry[mvAry.length]  = '    </table>';
-  mvAry[mvAry.length]  = '    <table id="calendarTable" width="100%" style="border:0px solid #CCCCCC;background-color:#FFFFFF;font-size:12px;';
+  mvAry[mvAry.length]  = '    <table id="calendarTable" width="100%" class="calendarTab"';
   if(calendar.DateMode >= pickMode["month"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到年、月时隐藏“天”
-  mvAry[mvAry.length]  = '" border="0" cellpadding="3" cellspacing="1">';
+  mvAry[mvAry.length]  = '>';
   mvAry[mvAry.length]  = '      <tr>';
   for(var i = 0; i < 7; i++) {
-    mvAry[mvAry.length]  = '      <th style="font-weight:normal;background-color:' + calendar.colors["tr_bg"] + ';color:' + calendar.colors["tr_word"] + ';">' + Calendar.language["weeks"][this.lang][i] + '</th>';
+    mvAry[mvAry.length]  = '      <th>' + Calendar.language["weeks"][this.lang][i] + '</th>';
   }
   mvAry[mvAry.length]  = '      </tr>';
   for(var i = 0; i < 6;i++){
@@ -872,28 +872,29 @@ Calendar.prototype.draw = function() {
     }
     mvAry[mvAry.length]  = '    </tr>';
   }
+  mvAry[mvAry.length]  = '    </table>';
 
 //2009-03-03 添加的代码，放置时间的行
-  mvAry[mvAry.length]  = '      <tr style="';
-    if(calendar.DateMode >= pickMode["day"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到时日隐藏“时间”
-    mvAry[mvAry.length]  = '"><td align="center" colspan="7">';
-  mvAry[mvAry.length]  = '      <select name="calendarHour" id="calendarHour" style="font-size:12px;"></select>' + Calendar.language["hour"][this.lang];
+  mvAry[mvAry.length]  = '    <div class="selectDateDiv">';
+   mvAry[mvAry.length]  = '      <select name="calendarHour" id="calendarHour" style="font-size:12px;"></select>&nbsp;' + Calendar.language["hour"][this.lang] + '&nbsp;';
   mvAry[mvAry.length]  = '<span style="'
     if(calendar.DateMode >= pickMode["hour"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到小时时隐藏“分”
-  mvAry[mvAry.length]  = '"><select name="calendarMinute" id="calendarMinute" style="font-size:12px;"></select>' + Calendar.language["minute"][this.lang]+'</span>';
+  mvAry[mvAry.length]  = '"><select name="calendarMinute" id="calendarMinute" style="font-size:12px;"></select>&nbsp;' + Calendar.language["minute"][this.lang]+'</span>';
     mvAry[mvAry.length]  = '<span style="'
     if(calendar.DateMode >= pickMode["minute"]){mvAry[mvAry.length]  = 'display:none;';}//pickMode 精确到小时、分时隐藏“秒”
    mvAry[mvAry.length]  = '"><select name="calendarSecond" id="calendarSecond" style="font-size:12px;"></select>'+ Calendar.language["second"][this.lang]+'</span>';
-  mvAry[mvAry.length]  = '      </td></tr>';
+  mvAry[mvAry.length]  = '  ';
   
-  mvAry[mvAry.length]  = '    </table>';
+  mvAry[mvAry.length]  = '    </div>';
+  
+  
   //mvAry[mvAry.length]  = '  </from>';
-  mvAry[mvAry.length]  = '      <div align="center" style="padding:4px 4px 4px 4px;background-color:' + calendar.colors["input_bg"] + ';">';
-  mvAry[mvAry.length]  = '        <input name="calendarClear" type="button" id="calendarClear" value="' + Calendar.language["clear"][this.lang] + '" style="border: 1px solid ' + calendar.colors["input_border"] + ';background-color:' + calendar.colors["input_bg"] + ';width:40px;height:20px;font-size:12px;cursor:pointer;"/>';
+  mvAry[mvAry.length]  = '      <div align="center" style="padding:4px 4px 4px 4px;">';
   mvAry[mvAry.length]  = '        <input name="calendarToday" type="button" id="calendarToday" value="' 
   mvAry[mvAry.length]  = (calendar.DateMode == pickMode["day"]) ? Calendar.language["today"][this.lang] : Calendar.language["pickTxt"][this.lang];
-  mvAry[mvAry.length]  = '" style="border: 1px solid ' + calendar.colors["input_border"] + ';background-color:' + calendar.colors["input_bg"] + ';width:60px;height:20px;font-size:12px;cursor:pointer"/>';
-  mvAry[mvAry.length]  = '        <input name="calendarClose" type="button" id="calendarClose" value="' + Calendar.language["close"][this.lang] + '" style="border: 1px solid ' + calendar.colors["input_border"] + ';background-color:' + calendar.colors["input_bg"] + ';width:40px;height:20px;font-size:12px;cursor:pointer"/>';
+  mvAry[mvAry.length]  = '" class="f-button"/>';
+  mvAry[mvAry.length]  = '        <input name="calendarClear" type="button" id="calendarClear" value="' + Calendar.language["clear"][this.lang] + '" class="f-button" style="display:none"/>';
+  mvAry[mvAry.length]  = '        <input name="calendarClose" type="button" id="calendarClose" value="' + Calendar.language["close"][this.lang] + '" class="f-button" style="display:none"/>';
   mvAry[mvAry.length]  = '      </div>';
   
   mvAry[mvAry.length]  = '  </div>';
@@ -993,9 +994,10 @@ Calendar.prototype.bindMinute = function() {
   if(cM.length > 0){return;}//2009-03-03 不需要重新绑定，提高性能
   //cM.length = 0;
   var M;
-  for (var i = 0; i < 60; i++){
+  for (var i = 0; i < 60; ){
     M = ("00" + i +"").substr(("" + i).length);
     cM.options[cM.length] = new Option(M, M);
+    i += 5;
   }
 }
 
@@ -1072,7 +1074,9 @@ Calendar.prototype.bindData = function () {
   var dateArray = this.getMonthViewArray(this.date.getFullYear(), this.date.getMonth());
  var tds = this.getElementById("calendarTable").getElementsByTagName("td");
   for(var i = 0; i < tds.length; i++) {
+	  //#FFFFFF
   tds[i].style.backgroundColor = calendar.colors["td_bg_out"];
+  tds[i].style.color = "#0066CC";
     tds[i].onclick = function () {return;}
     tds[i].onmouseover = function () {return;}
     tds[i].onmouseout = function () {return;}
@@ -1118,10 +1122,12 @@ Calendar.prototype.bindData = function () {
           }
       tds[i].style.cursor ="pointer"; //2007-08-06 由添加，鼠标变成手指状
       tds[i].onmouseover = function () {
+    	  //TODO
         this.style.backgroundColor = calendar.colors["td_bg_over"];
       }
       tds[i].onmouseout = function () {
         if(calendar.selectedDayTD != this) {
+        	//TODO
         this.style.backgroundColor = calendar.colors[this.bgColorTxt];}
       }
       tds[i].onblur = function () {calendar.onblur();}
@@ -1246,7 +1252,7 @@ Calendar.prototype.onblur = function() {
 //以下由 2007-07-26 修改 → 确保日历容器节点在 body 最后，否则 FireFox 中不能出现在最上方
 function InitContainerPanel() //初始化容器
 {
- var str = '<div id="calendarPanel" style="position: absolute;display: none;z-index:9999; background-color: #FFFFFF;border: 1px solid #CCCCCC;width:175px;font-size:12px;"></div>';
+ var str = '<div id="calendarPanel" style="position: absolute;display: none;z-index:9999; border: 1px solid #CCCCCC;width:175px;font-size:12px;"></div>';
  if(document.all)
  {
   str += '<iframe style="position:absolute;z-index:2000;width:expression(this.previousSibling.offsetWidth);';

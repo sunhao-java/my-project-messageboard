@@ -8,7 +8,7 @@
 <msg:css href="themes/default/easyui.css"/>
 <msg:css href="themes/icon.css"/>
 <msg:js src="fckeditor/fckeditor.js"/>
-<msg:js src="js/fckeditor/myFCKEditor.js"/>
+<msg:js src="js/base/app-fckeditor.js"/>
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 

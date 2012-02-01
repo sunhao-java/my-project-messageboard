@@ -68,6 +68,7 @@ public class MessageServiceImpl implements MessageService {
 			message.setCreateUserId(user.getPkId());
 			message.setCreateDate(new Date());
 			message.setDeleteFlag(ResourceType.DELETE_NO);
+			message.setCreateUsername(user.getTruename());
 		}
 		
 		Long messageId = this.messageDAO.saveMessage(message);

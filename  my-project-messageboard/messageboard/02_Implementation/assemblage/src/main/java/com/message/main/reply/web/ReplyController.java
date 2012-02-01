@@ -8,8 +8,8 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.reply.pojo.Reply;
@@ -17,7 +17,7 @@ import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.utils.resource.ResourceType;
 
-public class ReplyController extends MultiActionController {
+public class ReplyController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	
 	private WebInput in = null;

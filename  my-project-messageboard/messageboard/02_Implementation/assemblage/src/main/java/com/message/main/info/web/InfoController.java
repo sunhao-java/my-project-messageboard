@@ -11,8 +11,8 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.info.pojo.Info;
@@ -25,7 +25,7 @@ import com.message.utils.resource.ResourceType;
  * 留言板描述的controller
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class InfoController extends MultiActionController {
+public class InfoController extends ExtMultiActionController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	

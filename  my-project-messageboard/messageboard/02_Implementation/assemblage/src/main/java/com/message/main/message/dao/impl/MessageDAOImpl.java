@@ -31,9 +31,9 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 				hql += " and title like :title";
 				params.put("title", SqlUtils.makeLikeString(StringUtils.trim(message.getTitle())));
 			}
-			if(message.getCreateUser() != null && StringUtils.isNotEmpty(message.getCreateUser().getTruename())){
+			if(StringUtils.isNotEmpty(message.getCreateUsername())){
 				hql += " and createUsername like :createUsername ";
-				params.put("createUsername", SqlUtils.makeLikeString(StringUtils.trim(message.getCreateUser().getTruename())));
+				params.put("createUsername", SqlUtils.makeLikeString(StringUtils.trim(message.getCreateUsername())));
 			}
 			if(message.getBeginTime() != null){
 				hql += " and createDate >= :beginTime ";

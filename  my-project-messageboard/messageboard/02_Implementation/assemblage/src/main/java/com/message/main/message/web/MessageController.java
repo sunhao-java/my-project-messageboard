@@ -1,7 +1,5 @@
 package com.message.main.message.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +10,10 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.message.pojo.Message;
@@ -28,7 +24,7 @@ import com.message.utils.SqlUtils;
 import com.message.utils.StringUtils;
 import com.message.utils.resource.ResourceType;
 
-public class MessageController extends MultiActionController {
+public class MessageController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	private WebInput in = null;
@@ -119,7 +115,7 @@ public class MessageController extends MultiActionController {
 	 * 为管理员列出所有留言(简洁版的留言)
 	 * @param request
 	 * @param response
-	 * @param user
+	 * @param message
 	 * @return
 	 */
 	public ModelAndView listMessageForAdmin(HttpServletRequest request, HttpServletResponse response, Message message){
@@ -240,17 +236,4 @@ public class MessageController extends MultiActionController {
 		return new ModelAndView("message.list.mine", params);
 	}
 	
-	/**
-	 * TODO :寻求更好的解决方案
-	 * 提交form时，表单中的beginTime和endTime是string类型的，而message这个bean中的两个字段是date类型的<br/>
-	 * spring进行字段绑定的时候会报错，无法绑定这两个字段<br/>
-	 * 解决办法暂时是重写父类此方法，注册一个customerEditor，用来进行日期类型转换
-	 * @param request
-	 * @param binder
-	 */
-	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(ResourceType.SIMPLE_DATE_FORMAT);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
 }

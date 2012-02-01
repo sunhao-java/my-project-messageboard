@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
+import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.main.event.service.EventService;
 import com.message.main.message.web.MessageController;
@@ -21,7 +21,7 @@ import com.message.utils.resource.ResourceType;
  * 时间controller
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class EventController extends MultiActionController {
+public class EventController extends ExtMultiActionController {
 private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	private WebInput in = null;

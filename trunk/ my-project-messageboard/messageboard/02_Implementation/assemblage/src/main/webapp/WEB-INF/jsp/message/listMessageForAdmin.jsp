@@ -78,7 +78,7 @@
 					姓名<span style="color: red">（真实姓名）</span>
 				</td>
 				<td width="40%">
-					<input type="text" class="f_text" name="createUser.truename" value="${truename}">                 
+					<input type="text" class="f_text" name="createUsername" value="${param.createUsername}">                 
 				</td>
 			</tr>
 			<tr>
@@ -165,6 +165,6 @@
 	<c:param name="beginTime" value="${param.beginTime}"/>
 	<c:param name="endTime" value="${param.endTime}"/>
 	<c:param name="title" value="${param.title}"/>
-	<c:param name="createUser.truename" value="${truename}"/>
+	<c:param name="createUsername" value="${param.createUsername}"/>
 </c:url>
 <%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

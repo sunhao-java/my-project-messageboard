@@ -11,6 +11,13 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.message.utils.resource.ResourceType;
 
+/**
+ * 继承<code>MultiActionController</code>,重写<code>initBinder</code>方法<br>
+ * spring绑定date类型字段时需要
+ * 
+ * @author sunhao(sunhao.java@gmail.com)
+ * @see MultiActionController
+ */
 public class ExtMultiActionController extends MultiActionController {
 	/**
 	 * 提交form时，表单中的beginTime和endTime是string类型的，而message这个bean中的两个字段是date类型的<br/>

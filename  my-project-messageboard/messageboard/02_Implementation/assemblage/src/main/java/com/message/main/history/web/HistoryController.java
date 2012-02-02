@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
+import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.message.web.MessageController;
 import com.message.main.user.pojo.User;
@@ -34,9 +35,10 @@ public class HistoryController extends ExtMultiActionController {
 	 * 列出登录者的登录历史
 	 * @param request
 	 * @param response
+	 * @param history
 	 * @return
 	 */
-	public ModelAndView listLoginHistory(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView listLoginHistory(HttpServletRequest request, HttpServletResponse response, UserLoginHistory history){
 		in = new WebInput(request);
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -45,7 +47,7 @@ public class HistoryController extends ExtMultiActionController {
 		
 		if(user != null){
 			try {
-				params.put("paginationSupport", this.historyService.getHistoryByUserId(user.getPkId(), start, num));
+				params.put("paginationSupport", this.historyService.getHistoryByUserId(user.getPkId(), start, num, history));
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(e.getMessage(), e);

@@ -41,7 +41,7 @@ public interface HistoryDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num, UserLoginHistory history) throws Exception;
 	
 	/**
 	 * 获取所有的登录历史

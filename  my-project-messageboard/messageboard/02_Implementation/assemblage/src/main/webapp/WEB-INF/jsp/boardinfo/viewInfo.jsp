@@ -40,8 +40,17 @@
 </div>
 
 <div class="formFunctiondiv">
-	<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
-		<jsp:param value="编辑" name="edit"/>
-		<jsp:param value="返回" name="back"/>
-	</jsp:include>
+	<c:choose>
+		<c:when test="${isAdmin eq '1'}">
+			<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
+				<jsp:param value="编辑" name="edit"/>
+				<jsp:param value="返回" name="back"/>
+			</jsp:include>
+		</c:when>
+		<c:otherwise>
+			<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
+				<jsp:param value="返回" name="back"/>
+			</jsp:include>
+		</c:otherwise>
+	</c:choose>
 </div>

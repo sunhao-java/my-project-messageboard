@@ -55,9 +55,9 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num)
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num, UserLoginHistory history1)
 			throws Exception {
-		PaginationSupport paginationSupport = this.historyDAO.getHistoryByUserId(userPkId, start, num);
+		PaginationSupport paginationSupport = this.historyDAO.getHistoryByUserId(userPkId, start, num, history1);
 		List<UserLoginHistory> historys = paginationSupport.getItems();
 		if(CollectionUtils.isNotEmpty(historys)){
 			for(UserLoginHistory history : historys){

@@ -214,7 +214,7 @@ public class MessageController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inListMyMessageJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView inListMyMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
@@ -226,8 +226,9 @@ public class MessageController extends ExtMultiActionController {
 				user = new User(viewWhoId);
 				params.put("customer", "true");
 				params.put("viewwhoname", this.userService.getUserById(viewWhoId).getTruename());
+				params.put("viewWhoId", viewWhoId);
 			}
-			PaginationSupport paginationSupport = this.messageService.getMyMessages(start, num, user);
+			PaginationSupport paginationSupport = this.messageService.getMyMessages(start, num, user, message);
 			params.put("paginationSupport", paginationSupport);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -78,10 +78,31 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		this.updateObject(message);
 	}
 
-	public PaginationSupport getMyMessages(int start, int num, User user) throws Exception {
-		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag order by m.pkId desc ";
-		String countHql = "select count(*) " + hql;
+	public PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag ";
+		if(message != null){
+			if(StringUtils.isNotEmpty(message.getTitle())){
+				hql += " and m.title like :title ";
+				params.put("title", SqlUtils.makeLikeString(StringUtils.trim(message.getTitle())));
+			}
+			if(StringUtils.isNotEmpty(message.getIp())){
+				hql += " and m.ip like :ip ";
+				params.put("ip", SqlUtils.makeLikeString(StringUtils.trim(message.getIp())));
+			}
+			if(message.getBeginTime() != null){
+				hql += " and createDate >= :beginTime ";
+				params.put("beginTime", message.getBeginTime());
+			}
+			if(message.getEndTime() != null){
+				hql += " and createDate <= :endTime ";
+				params.put("endTime", message.getEndTime());
+			}
+		}
+		
+		hql += " order by m.pkId desc";
+		String countHql = "select count(*) " + hql;
+		
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		params.put("createUserId", user.getPkId());
 		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);

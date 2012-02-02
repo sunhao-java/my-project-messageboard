@@ -114,8 +114,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PaginationSupport getMyMessages(int start, int num, User user) throws Exception {
-		PaginationSupport paginationSupport = this.messageDAO.getMyMessages(start, num, user);
+	public PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception {
+		PaginationSupport paginationSupport = this.messageDAO.getMyMessages(start, num, user, message);
 		List<Message> messages = paginationSupport.getItems();
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){

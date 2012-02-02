@@ -349,9 +349,9 @@
 	     					<tbody>
 	     						<tr>
 	     							<td align="left" style="">
-	     								<a href="javascript:nav('/info/inViewInfoJsp.do')">
+	     								<a href="javascript:nav('/info/inListInfoHistoryJsp.do')">
 	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">查看留言板信息</span>
+	     									<span style="font-size: 12px;">描述编辑历史</span>
 	     								</a>
 	     							</td>
 	     						</tr>
@@ -376,15 +376,15 @@
 	     			</td>
 	     		</tr>
 			     </c:if>
-			     <tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
 	     			<td align="center">
 	     				<table width="100%" cellpadding="0" cellspacing="4">
 	     					<tbody>
 	     						<tr>
 	     							<td align="left" style="">
-	     								<a href="javascript:nav('/info/inListInfoHistoryJsp.do')">
+	     								<a href="javascript:nav('/info/inViewInfoJsp.do')">
 	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">描述编辑历史</span>
+	     									<span style="font-size: 12px;">查看留言板信息</span>
 	     								</a>
 	     							</td>
 	     						</tr>

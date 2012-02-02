@@ -57,6 +57,10 @@
 	function search(){
 		dom.get("dataFrm").submit();
 	}
+	
+	function reset(){
+		window.location.href = "${contextPath}/message/listMessageAdmin.do";
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -64,7 +68,7 @@
 	<jsp:param value="true" name="delete"/>
 </jsp:include>
 
-<div id="listFrm">
+<div id="listFrm" style="width: 90%">
 	<form id="dataFrm" action="" method="post">
 		<table width="100%" border="1" class="tableform">
 			<tr>

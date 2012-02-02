@@ -50,10 +50,10 @@ YAHOO.app.calendar = function(){
 			dateField.css("width", 150);
 			dateField.attr("readonly", "readonly");
 			
-			var calendar_dateFormat = '%Y-%m-%d %l:%M';
+			var calendar_dateFormat = '%Y-%m-%d %k:%M';
 			
 			if(dateFormat_ == 'yyyy-MM-dd hh:mm'){
-				calendar_dateFormat = '%Y-%m-%d %l:%M';
+				calendar_dateFormat = '%Y-%m-%d %k:%M';
 			} else if(dateFormat_ == 'yyyy-MM-dd'){
 				calendar_dateFormat = '%Y-%m-%d';
 			}
@@ -63,7 +63,7 @@ YAHOO.app.calendar = function(){
 				dateFormat 		: calendar_dateFormat,
 				trigger 		: id_ + 'SelectBtn',
 				selectionType	: Calendar.SEL_MULTIPLE,
-				showTime		: 12,
+				showTime		: 24,
 				onSelect		: function(){
 						 this.hide();
 				}

@@ -47,6 +47,8 @@ YAHOO.app.calendar = function(){
 			var button = $("<input type='button' id='" + id_ + "SelectBtn' value='选择' style='" + style + "'>");
 			var dateField = $("#" + id_);
 			dateField.after(button);
+			dateField.css("width", 150);
+			dateField.attr("readonly", "readonly");
 			
 			var calendar_dateFormat = '%Y-%m-%d %l:%M';
 			

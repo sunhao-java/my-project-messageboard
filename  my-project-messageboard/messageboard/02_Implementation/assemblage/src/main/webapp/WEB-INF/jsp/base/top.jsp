@@ -85,7 +85,7 @@
    							<span>
    								您上次登录是
    								<c:if test="${not empty lastLoginTime}">
-   									<fmt:formatDate value="${lastLoginTime}" pattern="yyyy-MM-dd  HH:mm"/>
+   									<msg:formatDate value="${lastLoginTime}"/>
    								</c:if>
    								<c:if test="${empty lastLoginTime}">
    									无

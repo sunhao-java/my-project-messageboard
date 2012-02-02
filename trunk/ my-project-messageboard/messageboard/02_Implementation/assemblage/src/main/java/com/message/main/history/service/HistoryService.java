@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
+import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.user.pojo.User;
 
 /**
@@ -42,7 +43,7 @@ public interface HistoryService {
 	 * @return
 	 * @throws Exception
 	 */
-	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num) throws Exception;
+	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num, UserLoginHistory history) throws Exception;
 	
 	/**
 	 * 定时清除一个月前的登录日志

@@ -52,8 +52,9 @@ public interface MessageDAO {
 	 * @param start
 	 * @param num
 	 * @param user
+	 * @param message
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getMyMessages(int start, int num, User user) throws Exception;
+	PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception;
 }

@@ -49,6 +49,7 @@ public class InfoController extends ExtMultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		try {
 			params.put("info", this.infoService.getNewestInfo());
+			params.put("isAdmin", ((User)in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION)).getIsAdmin());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);

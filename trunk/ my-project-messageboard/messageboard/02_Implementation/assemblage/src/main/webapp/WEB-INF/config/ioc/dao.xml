@@ -5,16 +5,22 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
+	<!-- 事件的dao -->
 	<bean id="eventDAO" class="com.message.main.event.dao.impl.EventDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 登录历史的dao -->
 	<bean id="historyDAO" class="com.message.main.history.dao.impl.HistoryDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 留言板信息的dao -->
 	<bean id="infoDAO" class="com.message.main.info.dao.impl.InfoDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 留言的dao -->
 	<bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 回复的dao -->
 	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 用户的dao -->
 	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>
 	
 </beans>

@@ -2,15 +2,22 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
 	
+	<!-- 引入spring基本配置 -->
 	<import resource="spring-init.xml"/>
 	
+	<!-- 引入job的配置 -->
 	<import resource="base/jobs.xml"/>
+	<!-- 引入spring与hibernate整合的配置 -->
 	<import resource="base/spring-hibernate.xml"/>
 	
+	<!-- 引入oracle数据库的配置 -->
 	<import resource="database/db-oracle.xml"/>
 	
+	<!-- 引入项目中所有dao的配置 -->
 	<import resource="ioc/dao.xml"/>
+	<!-- 引入项目中所有service的配置 -->
 	<import resource="ioc/service.xml"/>
+	<!-- 引入项目中所有controller的配置 -->
 	<import resource="ioc/controller.xml"/>
 	
 </beans>

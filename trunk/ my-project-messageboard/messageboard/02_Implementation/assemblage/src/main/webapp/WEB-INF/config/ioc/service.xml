@@ -5,21 +5,25 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
+	<!-- 事件的service -->
 	<bean id="eventService" class="com.message.main.event.service.impl.EventServiceImpl">
 		<property name="eventDAO" ref="eventDAO"/>
 		<property name="userService" ref="userService"/>
 	</bean>
 	
+	<!-- 登录历史的service -->
 	<bean id="historyService" class="com.message.main.history.service.impl.HistoryServiceImpl">
     	<property name="historyDAO" ref="historyDAO"/>
     </bean>
     
+    <!-- 留言板信息的service -->
     <bean id="infoService" class="com.message.main.info.service.impl.InfoServiceImpl">
 		<property name="infoDAO" ref="infoDAO"/>
 		<property name="userService" ref="userService"/>
 		<property name="eventService" ref="eventService"/>
 	</bean>
 	
+	<!-- 留言的service -->
 	<bean id="messageService" class="com.message.main.message.service.impl.MessageServiceImpl">
     	<property name="messageDAO" ref="messageDAO"/>
     	<property name="userService" ref="userService"/>
@@ -27,12 +31,14 @@
     	<property name="eventService" ref="eventService"/>
     </bean>
     
+    <!-- 回复的service -->
     <bean id="replyService" class="com.message.main.reply.service.impl.ReplyServiceImpl">
     	<property name="replyDAO" ref="replyDAO"/>
     	<property name="userService" ref="userService"/>
     	<property name="eventService" ref="eventService"/>
     </bean>
     
+    <!-- 用户的service -->
     <bean id="userService" class="com.message.main.user.service.impl.UserServiceImpl">
     	<property name="userDAO" ref="userDAO"/>
     	<property name="historyService" ref="historyService"/>

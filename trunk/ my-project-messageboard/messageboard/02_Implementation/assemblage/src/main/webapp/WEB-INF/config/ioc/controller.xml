@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
+	<!-- 事件的controller -->
 	<bean id="eventController" class="com.message.main.event.web.EventController">
 		<property name="methodNameResolver">
 			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -18,6 +19,7 @@
 		<property name="eventService" ref="eventService"/>
 	</bean>
 	
+	<!-- 主页的controller -->
 	<bean id="homeController" class="com.message.main.home.web.HomeController">
 		<property name="methodNameResolver">
 			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -35,6 +37,7 @@
 		<property name="historyService" ref="historyService"/>
 	</bean>
 	
+	<!-- 登录历史的controller -->
 	<bean id="historyController" class="com.message.main.history.web.HistoryController">
     	<property name="methodNameResolver">
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -48,6 +51,7 @@
     	<property name="historyService" ref="historyService"/>
     </bean>
     
+    <!-- 留言板信息的controller -->
     <bean id="infoController" class="com.message.main.info.web.InfoController">
     	<property name="methodNameResolver">
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -64,6 +68,7 @@
     	<property name="infoService" ref="infoService"/>
     </bean>
     
+    <!-- 留言的controller -->
     <bean id="messageController" class="com.message.main.message.web.MessageController">
     	<property name="methodNameResolver">
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -85,6 +90,7 @@
     	<property name="userService" ref="userService"/>
     </bean>
     
+    <!-- 回复的controller -->
     <bean id="replyController" class="com.message.main.reply.web.ReplyController">
     	<property name="methodNameResolver">
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
@@ -99,6 +105,7 @@
     	<property name="replyService" ref="replyService"/>
     </bean>
     
+    <!-- 用户的controller -->
     <bean id="userController" class="com.message.main.user.web.UserController">
     	<property name="methodNameResolver">
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/aop
+         		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+         		http://www.springframework.org/schema/tx
+           		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    
+	<!-- 整合hibernate 开始 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>/WEB-INF/config/jdbc.properties</value>
+		</property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingResources">
+			<list>
+				<!-- 配置hibernate的映射文件 -->
+				<value>com/message/main/user/pojo/User.hbm.xml</value>
+				<value>com/message/main/message/pojo/Message.hbm.xml</value>
+				<value>com/message/main/reply/pojo/Reply.hbm.xml</value>
+				<value>com/message/main/info/pojo/Info.hbm.xml</value>
+				<value>com/message/main/history/pojo/UserLoginHistory.hbm.xml</value>
+				<value>com/message/main/event/pojo/BaseEvent.hbm.xml</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.current_session_context_class">thread</prop> 
+			</props>
+		</property>
+		<property name="lobHandler">
+			<ref bean="oracleLobHandler"/>
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(public * com.message.*.*.*.impl.*.*(..))" id="myPointcut"/>
+		<aop:advisor advice-ref="advice" pointcut-ref="myPointcut"/>
+	</aop:config>
+	
+	<tx:advice id="advice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true"/>
+			<tx:method name="list*" read-only="true"/>
+			<tx:method name="get*" read-only="true"/>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+		<property name="nestedTransactionAllowed" value="true"/>
+	</bean>
+	<!-- 整合hibernate 结束 -->
+</beans>

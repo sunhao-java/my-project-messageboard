@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="eventController" class="com.message.main.event.web.EventController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+				<property name="mappings">
+					<props>
+						<prop key="/event/listEvent.do">listEvent</prop>
+					</props>
+				</property>
+			</bean>
+		</property>
+		<property name="eventService" ref="eventService"/>
+	</bean>
+	
+	<bean id="homeController" class="com.message.main.home.web.HomeController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+				<property name="mappings">
+					<props>
+						<prop key="/home/index.do">index</prop>
+						<prop key="/home/left.do">left</prop>
+						<prop key="/home/top.do">top</prop>
+						<prop key="/home/tail.do">tail</prop>
+						<prop key="/home/inMessageIndex.do">inMessageIndex</prop>
+					</props>
+				</property>
+			</bean>
+		</property>
+		<property name="historyService" ref="historyService"/>
+	</bean>
+	
+	<bean id="historyController" class="com.message.main.history.web.HistoryController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/history/listLoginHistory.do">listLoginHistory</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="historyService" ref="historyService"/>
+    </bean>
+    
+    <bean id="infoController" class="com.message.main.info.web.InfoController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/info/inViewInfoJsp.do">inViewInfoJsp</prop>
+    					<prop key="/info/inEditInfoJsp.do">inEditInfoJsp</prop>
+    					<prop key="/info/saveInfo.do">saveInfo</prop>
+    					<prop key="/info/inListInfoHistoryJsp.do">inListInfoHistoryJsp</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="infoService" ref="infoService"/>
+    </bean>
+    
+    <bean id="messageController" class="com.message.main.message.web.MessageController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/message/listMessage.do">listMessage</prop>
+    					<prop key="/message/inPublishMessageJsp.do">inPublishMessageJsp</prop>
+    					<prop key="/message/saveMessage.do">saveMessage</prop>
+    					<prop key="/message/listMessageAdmin.do">listMessageForAdmin</prop>
+    					<prop key="/message/viewMessage.do">viewMessage</prop>
+    					<prop key="/message/deleteMessage.do">deleteMessage</prop>
+    					<prop key="/message/inDetailJsp.do">inDetailJsp</prop>
+    					<prop key="/message/inListMyMessageJsp.do">inListMyMessageJsp</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="messageService" ref="messageService"/>
+    	<property name="userService" ref="userService"/>
+    </bean>
+    
+    <bean id="replyController" class="com.message.main.reply.web.ReplyController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/reply/deleteReply.do">deleteReply</prop>
+    					<prop key="/reply/replyMessage.do">replyMessage</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="replyService" ref="replyService"/>
+    </bean>
+    
+    <bean id="userController" class="com.message.main.user.web.UserController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/user/inLogin.do">inLoginJsp</prop>
+    					<prop key="/user/login.do">userLogin</prop>
+    					<prop key="/user/register.do">saveUser</prop>
+    					<prop key="/user/check.do">checkUser</prop>
+    					<prop key="/user/userInfo.do">showUserInfo</prop>
+    					<prop key="/user/editUserInfo.do">inEditUserInfoJsp</prop>
+    					<prop key="/user/saveUser.do">saveEdit</prop>
+    					<prop key="/user/changePsw.do">inChangePswJsp</prop>
+    					<prop key="/user/checkPsw.do">checkPsw</prop>
+    					<prop key="/user/savePassword.do">savePassword</prop>
+    					<prop key="/user/logout.do">logout</prop>
+    					<prop key="/user/listAllUser.do">listAllUser</prop>
+    					<prop key="/user/deleteUser.do">deleteUser</prop>
+    					<prop key="/user/managerPerm.do">managerPerm</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="userService" ref="userService"/>
+    </bean>
+	
+</beans>

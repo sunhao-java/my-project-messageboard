@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="eventDAO" class="com.message.main.event.dao.impl.EventDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="historyDAO" class="com.message.main.history.dao.impl.HistoryDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="infoDAO" class="com.message.main.info.dao.impl.InfoDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>
+	
+</beans>

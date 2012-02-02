@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="eventService" class="com.message.main.event.service.impl.EventServiceImpl">
+		<property name="eventDAO" ref="eventDAO"/>
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="historyService" class="com.message.main.history.service.impl.HistoryServiceImpl">
+    	<property name="historyDAO" ref="historyDAO"/>
+    </bean>
+    
+    <bean id="infoService" class="com.message.main.info.service.impl.InfoServiceImpl">
+		<property name="infoDAO" ref="infoDAO"/>
+		<property name="userService" ref="userService"/>
+		<property name="eventService" ref="eventService"/>
+	</bean>
+	
+	<bean id="messageService" class="com.message.main.message.service.impl.MessageServiceImpl">
+    	<property name="messageDAO" ref="messageDAO"/>
+    	<property name="userService" ref="userService"/>
+    	<property name="replyService" ref="replyService"/>
+    	<property name="eventService" ref="eventService"/>
+    </bean>
+    
+    <bean id="replyService" class="com.message.main.reply.service.impl.ReplyServiceImpl">
+    	<property name="replyDAO" ref="replyDAO"/>
+    	<property name="userService" ref="userService"/>
+    	<property name="eventService" ref="eventService"/>
+    </bean>
+    
+    <bean id="userService" class="com.message.main.user.service.impl.UserServiceImpl">
+    	<property name="userDAO" ref="userDAO"/>
+    	<property name="historyService" ref="historyService"/>
+    	<property name="messageService" ref="messageService"/>
+    	<property name="eventService" ref="eventService"/>
+    </bean>
+	
+</beans>

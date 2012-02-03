@@ -27,7 +27,7 @@ YAHOO.app.dialog = function(){
 			var modal_ = args.modal || _true;						//背景是否被灰化
 			var draggable_ = args.draggable || _true;				//窗口是否能被移动
 			
-			var diaWidth_ = args.diaWinth || 300;					//弹窗宽度(默认300px)
+			var diaWidth_ = args.diaWidth || 300;					//弹窗宽度(默认300px)
 			var diaHeight_ = args.diaHeight || 100;					//弹窗高度(默认100px)
 			
 			var alertMsg_ = args.alertMsg;							//弹窗显示内容（与reqUrl不能同时为空）

@@ -9,7 +9,7 @@
 		height:23px;
 		line-height:23px;
 		text-align:left;
-		width:80px;
+		width:55px;
 	}
 </style>
 <div id="header">
@@ -20,8 +20,12 @@
 </div>
 
 <p class="actions" style="margin: 5px;border:0px solid">
+	<c:if test="${param.add eq 'true'}">
+		<input class="buttonlist" type="button" onclick="addpagefunction();" value="增加" 
+			style="background:url(${contextPath}/image/wiseduimg/module/button_add.gif) no-repeat left;cursor:pointer;"/>
+	</c:if>
 	<c:if test="${param.delete eq 'true'}">
-		<input class="buttonlist" type="button" onclick="deleteFunction();" value="批量删除" 
+		<input class="buttonlist" type="button" onclick="deleteFunction();" value="删除" 
 			style="background:url(${contextPath}/image/wiseduimg/module/button_del.gif) no-repeat left;cursor:pointer;"/>
 	</c:if>
 </p>

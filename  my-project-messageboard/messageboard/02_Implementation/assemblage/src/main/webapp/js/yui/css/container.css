@@ -144,6 +144,15 @@ version: 2.8.2r1
 	padding: 10px;
 }
 
+.formbd{
+	padding: 0px 0px 5px 5px;
+	background-color: #F2F2F2;
+	border-color: #808080;
+    border-style: solid;
+    border-width: 0 1px;
+    margin: 0 -1px;
+}
+
 .yui-skin-sam .yui-panel .ft {
 	border-top: solid 1px #808080;
 	padding: 5px 10px;

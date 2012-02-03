@@ -7,6 +7,7 @@
 <msg:js src="js/mouse-over-out.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/app-dialog.js"/>
+<msg:js src="js/base/app-form.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
@@ -40,6 +41,11 @@
 		
 		updateObject(requestURL, responseURL, '设置权限成功！');
 	}
+	
+	function addpagefunction(){
+		YAHOO.app.form.show({'reqUrl':'${contextPath}/user/inAddUserJsp.do','title':'添加用户',
+					'diaWidth':'800','diaHeight':'300','overflow':'no'});
+	}
 </script>
 
 <c:choose>
@@ -47,6 +53,7 @@
 		<jsp:include page="/WEB-INF/jsp/base/head.jsp">
 			<jsp:param value="所有用户" name="title"/>
 			<jsp:param value="true" name="delete"/>
+			<jsp:param value="true" name="add"/>
 		</jsp:include>
 	</c:when>
 	<c:otherwise>

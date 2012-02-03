@@ -8,6 +8,7 @@
 		<title></title>
 		<msg:css href="js/yui/css/container.css"/>
 		<msg:css href="js/yui/css/fonts-min.css"/>
+		<msg:css href="js/yui/css/button.css"/>
 		<!--[if lte IE 6]>
 			<msg:js src="/js/base/ie-pngbug.js"/>
 		<![endif]-->

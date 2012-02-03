@@ -6,3 +6,4 @@
 <msg:js src="js/yui/js/connection-min.js"/>
 <msg:js src="js/yui/js/dragdrop-min.js"/>
 <msg:js src="js/yui/js/container-min.js"/>
+<msg:js src="js/yui/js/button-min.js"/>

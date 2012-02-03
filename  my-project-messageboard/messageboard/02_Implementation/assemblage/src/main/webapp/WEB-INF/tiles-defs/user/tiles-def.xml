@@ -25,4 +25,10 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/listAllUser.jsp"/>
 	</definition>
 	
+	<!--<definition name="user.add" template="/WEB-INF/jsp/user/addUser.jsp"/>-->
+	
+	<definition name="user.add" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/addUser.jsp"/>
+	</definition>
+	
 </tiles-definitions>

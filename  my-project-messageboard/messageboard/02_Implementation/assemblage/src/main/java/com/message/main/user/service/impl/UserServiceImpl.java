@@ -68,7 +68,9 @@ public class UserServiceImpl implements UserService{
 				user.setIsMailCheck(ResourceType.MAIL_CHECK_NO);
 				pkId = this.userDAO.registerUser(user);
 				if(pkId != null){
-					this.mailSend.sendMail(pkId, user.getUsername(), user.getEmail());
+					if(user.getEmail() != null){
+						this.mailSend.sendMail(pkId, user.getUsername(), user.getEmail());
+					}
 					return true;
 				} else {
 					return false;

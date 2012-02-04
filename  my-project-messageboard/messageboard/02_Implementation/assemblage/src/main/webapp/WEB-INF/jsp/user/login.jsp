@@ -53,7 +53,7 @@
 						success : function(o){
 							var _e = eval("(" + o.responseText + ")");
 							if(_e.status == '1'){
-								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册成功！',
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册成功！请及时到您所输入的邮箱中激活帐号！',
 									'confirmFunction':function(){
 										this.cancel();
 										closeDiv();

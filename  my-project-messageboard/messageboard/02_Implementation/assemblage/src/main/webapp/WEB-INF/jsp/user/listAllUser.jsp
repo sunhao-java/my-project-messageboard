@@ -7,7 +7,7 @@
 <msg:js src="js/mouse-over-out.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/app-dialog.js"/>
-<msg:js src="js/base/app-form.js"/>
+<msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/validate.js"/>
 
 <script type="text/javascript">
@@ -44,7 +44,7 @@
 	}
 	
 	function addpagefunction(){
-		YAHOO.app.form.show({'reqUrl':'${contextPath}/user/inAddUserJsp.do','title':'添加用户',
+		YAHOO.app.alertForm.show({'reqUrl':'${contextPath}/user/inAddUserJsp.do','title':'添加用户',
 					'diaWidth':'400','diaHeight':'150', 'submitUrl':'${contextPath}/user/register.do', 'success' : '添加用户成功'
 					,'failure' : '添加用户失败'});
 	}

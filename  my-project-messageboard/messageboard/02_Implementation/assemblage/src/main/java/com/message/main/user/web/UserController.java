@@ -390,7 +390,7 @@ public class UserController extends ExtMultiActionController {
 		return null;
 	}
 	
-	public ModelAndView inAddUserJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView inAddUserJsp(HttpServletRequest request, HttpServletResponse response, User user){
 		Map<String, Object> params = new HashMap<String, Object>();
 		return new ModelAndView("user.add", params);
 	}

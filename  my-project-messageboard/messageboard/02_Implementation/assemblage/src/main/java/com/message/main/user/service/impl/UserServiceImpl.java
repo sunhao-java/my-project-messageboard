@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService{
 			try {
 				if(StringUtils.isNotEmpty(user.getPassword())){
 					user.setPassword(MD5Utils.MD5Encode(user.getPassword()));
+				} else {
+					user.setPassword(MD5Utils.MD5Encode(ResourceType.DEFAULT_PASSWORD));
 				}
 				user.setCreateDate(new Date());
 				user.setDeleteFlag(ResourceType.DELETE_NO);

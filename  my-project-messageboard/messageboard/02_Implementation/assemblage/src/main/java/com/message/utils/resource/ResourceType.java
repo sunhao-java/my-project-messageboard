@@ -86,4 +86,9 @@ public final class ResourceType {
 	 */
 	public static final int REPLY_TYPE = 4;
 	
+	/**
+	 * 初始默认密码
+	 */
+	public static final String DEFAULT_PASSWORD = "123456";
+	
 }

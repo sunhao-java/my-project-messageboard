@@ -44,15 +44,15 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		int dd = Math.abs(nowDate.getDate() - value.getDate());		//计算间隔的天数
 		int m = Math.abs(nowDate.getMonth() - value.getMonth());	//计算间隔的月份数
 		
-		if((nowDate.getDate() - value.getDate()) < 0){
-			dd += dd + m * 30;
+		if((nowDate.getDate() - value.getDate()) < 0 || m != 0){
+			dd = dd + m * 30;
 		}
 		
 		/**
 		 * 显示完整时间
 		 * 条件：间隔天数大于等于2
 		 */
-		if(dd >= 2 && (m == 0 || m >= 1)){
+		if(mm >= 2*24*60*60*1000){
 			if(dateType == 1){
 				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 			} else {

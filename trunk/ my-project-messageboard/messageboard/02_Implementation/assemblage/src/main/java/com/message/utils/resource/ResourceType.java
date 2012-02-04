@@ -91,4 +91,14 @@ public final class ResourceType {
 	 */
 	public static final String DEFAULT_PASSWORD = "123456";
 	
+	/**
+	 * 已进行邮箱验证标识
+	 */
+	public static final Long MAIL_CHECK_YES = Long.valueOf(1);
+	
+	/**
+	 * 未进行邮箱验证标识
+	 */
+	public static final Long MAIL_CHECK_NO = Long.valueOf(0);
+	
 }

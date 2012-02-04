@@ -126,6 +126,7 @@
     					<prop key="/user/deleteUser.do">deleteUser</prop>
     					<prop key="/user/managerPerm.do">managerPerm</prop>
     					<prop key="/user/inAddUserJsp.do">inAddUserJsp</prop>
+    					<prop key="/user/emailConfirm.do">emailConfirm</prop>
     				</props>
     			</property>
     		</bean>

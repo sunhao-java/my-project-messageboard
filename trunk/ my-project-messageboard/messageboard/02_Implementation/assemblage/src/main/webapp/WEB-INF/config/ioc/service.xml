@@ -44,6 +44,7 @@
     	<property name="historyService" ref="historyService"/>
     	<property name="messageService" ref="messageService"/>
     	<property name="eventService" ref="eventService"/>
+    	<property name="mailSend" ref="mailSend"/>
     </bean>
 	
 </beans>

@@ -75,5 +75,10 @@
 				<comment>是否是管理员的标识, 0不是管理员，1是管理员</comment>
 			</column>
 		</property>
+		<property name="isMailCheck" type="java.lang.Long">
+			<column name="IS_MAIL_CHECK" precision="10" scale="0">
+				<comment>是否已经邮箱验证过？ 1已验证，0未验证</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

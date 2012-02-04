@@ -37,7 +37,7 @@ public class UserController extends ExtMultiActionController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	/**
 	 * 进入用户登录页面
 	 * @param in
@@ -85,6 +85,9 @@ public class UserController extends ExtMultiActionController {
 					request.setAttribute("status", status);
 				} else if(status == 3){
 					request.setAttribute("message", "用户名密码必填");
+					request.setAttribute("status", status);
+				} else if(status == 4){
+					request.setAttribute("message", "未进行邮箱验证，请验证！");
 					request.setAttribute("status", status);
 				}
 				return this.inLoginJsp(request, response);
@@ -400,6 +403,32 @@ public class UserController extends ExtMultiActionController {
 	public ModelAndView inAddUserJsp(HttpServletRequest request, HttpServletResponse response, User user){
 		Map<String, Object> params = new HashMap<String, Object>();
 		return new ModelAndView("user.add", params);
+	}
+	
+	/**
+	 * 当注册人在验证激活用户邮件中点击链接时触发对用户进行激活
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView emailConfirm(HttpServletRequest request, HttpServletResponse response){
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		String usernameMD5Code = in.getString("usernameMD5Code", StringUtils.EMPTY);
+		Long userid = in.getLong("userid", 0L);
+		String view = "";
+		try {
+			boolean result = this.userService.emailConfirm(userid, usernameMD5Code);
+			if(result){
+				view = "redirect:/home/inMessageIndex.do";
+			} else {
+				view = "redirect:http://www.baidu.com";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return new ModelAndView(view);
 	}
 
 }

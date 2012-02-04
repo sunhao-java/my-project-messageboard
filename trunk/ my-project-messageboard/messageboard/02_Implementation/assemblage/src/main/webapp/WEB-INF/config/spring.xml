@@ -9,6 +9,8 @@
 	<import resource="base/jobs.xml"/>
 	<!-- 引入spring与hibernate整合的配置 -->
 	<import resource="base/spring-hibernate.xml"/>
+	<!-- 引入项目邮件服务器配置 -->
+	<import resource="base/mail.xml"/>
 	
 	<!-- 引入oracle数据库的配置 -->
 	<import resource="database/db-oracle.xml"/>

@@ -171,6 +171,24 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
 		return ss;
 	}
 	
+	/**
+	 * 获取字符串中两个字符中间的那段字符串
+	 * @param string
+	 * @param first
+	 * @param second
+	 * @return
+	 */
+	public static String getBetweenTwoLetters(String string, String first, String second){
+		if(isEmpty(string)){
+			return EMPTY;
+		} else {
+			int firstIndex = StringUtils.indexOf(string, first);
+			int secondIndex = StringUtils.indexOf(string, second);
+			
+			return StringUtils.substring(string, firstIndex + 1, secondIndex);
+		}
+	}
+	
 	
 	
 }

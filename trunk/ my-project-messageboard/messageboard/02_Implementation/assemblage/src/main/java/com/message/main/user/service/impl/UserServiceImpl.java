@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.MessageUtils;
+import com.message.base.email.MailSend;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
 import com.message.main.event.pojo.BaseEvent;
@@ -30,6 +31,7 @@ public class UserServiceImpl implements UserService{
 	private HistoryService historyService;
 	private MessageService messageService;
 	private EventService eventService;
+	private MailSend mailSend;
 	
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
@@ -47,6 +49,10 @@ public class UserServiceImpl implements UserService{
 		this.eventService = eventService;
 	}
 
+	public void setMailSend(MailSend mailSend) {
+		this.mailSend = mailSend;
+	}
+
 	public boolean registerUser(User user) throws Exception {
 		if(user != null){
 			Long pkId = null;
@@ -59,8 +65,10 @@ public class UserServiceImpl implements UserService{
 				user.setCreateDate(new Date());
 				user.setDeleteFlag(ResourceType.DELETE_NO);
 				user.setIsAdmin(ResourceType.IS_ADMIN_NO);
+				user.setIsMailCheck(ResourceType.MAIL_CHECK_NO);
 				pkId = this.userDAO.registerUser(user);
 				if(pkId != null){
+					this.mailSend.sendMail(pkId, user.getUsername(), user.getEmail());
 					return true;
 				} else {
 					return false;
@@ -84,8 +92,12 @@ public class UserServiceImpl implements UserService{
 			return 1;		//用户名错误
 		} else {
 			if(loginPsw.equals(dbUser.getPassword())){
-				this.historyService.saveLoginHistory(in, dbUser);
-				return 0;	//正确
+				if(dbUser.getIsMailCheck() != ResourceType.MAIL_CHECK_YES){
+					return 4;	//未进行邮箱验证
+				} else {
+					this.historyService.saveLoginHistory(in, dbUser);
+					return 0;	//正确
+				}
 			} else {
 				return 2;	//密码错误
 			}
@@ -199,6 +211,24 @@ public class UserServiceImpl implements UserService{
 			return true;
 		}
 		return false;
+	}
+
+	public boolean emailConfirm(Long pkId, String usernameMD5) throws Exception {
+		User dbUser = this.userDAO.getUserById(pkId);
+		if(dbUser == null){
+			return false;
+		} else {
+			String dbUsername = dbUser.getUsername();
+			String dbusernameMD5 = MD5Utils.MD5Encode(dbUsername);
+			if(dbusernameMD5.equals(usernameMD5)) {
+				dbUser.setIsMailCheck(ResourceType.MAIL_CHECK_YES);
+				
+				this.userDAO.updateUser(dbUser);
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 	
 	

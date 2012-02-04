@@ -71,14 +71,17 @@
 			<th width="3%" class="fb_result_head">
 				<input type="checkbox" id="selAll" name="selAll" onclick="selectAll('selAll','pkId');">
 			</th>
-			<th class="fb_result_head" width="25%">
+			<th class="fb_result_head" width="20%">
 				登录名
 			</th>
-			<th class="fb_result_head" width="20%">
+			<th class="fb_result_head" width="15%">
 				姓名
 			</th>
 			<th class="fb_result_head" width="10%">
 				是否管理员
+			</th>
+			<th class="fb_result_head" width="10%">
+				是否激活
 			</th>
 			<th class="fb_result_head" width="10%">
 				性别
@@ -109,6 +112,16 @@
 						<c:if test="${user.isAdmin eq '0'}">
 							否
 						</c:if>
+					</td>
+					<td>
+						<c:choose>
+							<c:when test="${user.isMailCheck eq '1'}">
+								已激活
+							</c:when>
+							<c:when test="${user.isMailCheck eq '0'}">
+								未激活
+							</c:when>
+						</c:choose>
 					</td>
 					<td>
 						<c:if test="${user.sex == 0}">

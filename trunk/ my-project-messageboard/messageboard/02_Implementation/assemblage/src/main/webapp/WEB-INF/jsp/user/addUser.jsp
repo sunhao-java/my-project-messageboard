@@ -11,7 +11,7 @@
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="50%">
-					登录名<img src="${contextPath }/image/register/warning.png" title="注册后不可修改"/>
+					登录名<span style="color: red">*</span><img src="${contextPath }/image/register/warning.png" title="注册后不可修改"/>
 				</td>
 				<td>
 					<input type="text" name="username" id="username" class="f_text" dataType="Limit"
@@ -31,7 +31,7 @@
 			</tr>
 			<tr>
 				<td class="fb_result_head">
-					真实姓名<img src="${contextPath }/image/register/warning.png" title="注册后不可修改"/>
+					真实姓名<span style="color: red">*</span><img src="${contextPath }/image/register/warning.png" title="注册后不可修改"/>
 				</td>
 				<td>
 					<input type="text" name="truename" id="truename" class="f_text" dataType="Limit" 

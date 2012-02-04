@@ -5,7 +5,7 @@
  * @author sunhao(sunhao.java@gmail.com)
  */
 YAHOO.namespace("app.form");
-YAHOO.app.form = function(){
+YAHOO.app.alertForm = function(){
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
 	var _true = 'true';
 	var _false = 'false';

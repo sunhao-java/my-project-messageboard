@@ -17,6 +17,17 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
 	
+	<!-- 资源文件进行注入 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/i18n/loginJsp</value>
+				<value>/WEB-INF/i18n/system</value>
+				<value>/WEB-INF/i18n/event</value>
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -45,18 +56,6 @@
 				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/event/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
-			</list>
-		</property>
-	</bean>
-	
-	
-	<!-- 资源文件进行注入 -->
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>/WEB-INF/i18n/loginJsp</value>
-				<value>/WEB-INF/i18n/message</value>
-				<value>/WEB-INF/i18n/event</value>
 			</list>
 		</property>
 	</bean>

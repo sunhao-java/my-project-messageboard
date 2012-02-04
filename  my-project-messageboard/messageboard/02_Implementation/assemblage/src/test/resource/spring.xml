@@ -11,15 +11,15 @@
          		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
          		http://www.springframework.org/schema/tx
            		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-    <bean id="adminDAO" class="com.message.main.admin.dao.impl.AdminDAOImpl"></bean>
+    <!--<bean id="adminDAO" class="com.message.main.admin.dao.impl.AdminDAOImpl"></bean>
     
-    <!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
+     hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 
 	<bean id="springHibernateUtils" class="com.message.utils.spring.SpringHibernateUtils">
 		<property name="genericHibernateDAO" ref="genericHibernateDAO"/>
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
 	
-	<!-- 整合hibernate 开始 -->
+	 整合hibernate 开始 
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<value>classpath:jdbc.properties</value>
@@ -37,7 +37,7 @@
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mappingResources">
 			<list>
-				<!-- 配置hibernate的映射文件 -->
+				 配置hibernate的映射文件 
 				<value>com/message/main/admin/pojo/Admin.hbm.xml</value>
 			</list>
 		</property>
@@ -51,7 +51,7 @@
 		</property>
 	</bean>
 	
-	<!-- 代替了注入hibernateTemplate -->
+	 代替了注入hibernateTemplate 
 	<bean id="genericHibernateDAO" class="com.message.utils.spring.GenericHibernateDAO">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
@@ -78,5 +78,21 @@
 		<property name="sessionFactory" ref="sessionFactory"/>
 		<property name="nestedTransactionAllowed" value="true"></property>
 	</bean>
-	<!-- 整合hibernate 结束 -->
+	 整合hibernate 结束 
+	-->
+	
+	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
+	<bean class="com.message.base.ApplicationContextUtil"/>
+	
+	<!-- 资源文件进行注入 -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/i18n/loginJsp</value>
+				<value>/WEB-INF/i18n/message</value>
+				<value>/WEB-INF/i18n/event</value>
+			</list>
+		</property>
+	</bean>
+	
 </beans>

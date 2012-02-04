@@ -59,7 +59,7 @@
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="9%">
-					姓名
+					登录名
 				</td>
 				<td width="42%">
 					<c:out value="${user.username}"/><span style="color: red;visibility: hidden">（注册后不可修改）</span>              

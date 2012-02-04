@@ -44,6 +44,10 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		int dd = Math.abs(nowDate.getDate() - value.getDate());		//计算间隔的天数
 		int m = Math.abs(nowDate.getMonth() - value.getMonth());	//计算间隔的月份数
 		
+		if((nowDate.getDate() - value.getDate()) < 0){
+			dd += dd + m * 30;
+		}
+		
 		/**
 		 * 显示完整时间
 		 * 条件：间隔天数大于等于2

@@ -8,6 +8,7 @@
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-form.js"/>
+<msg:js src="js/validate.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
@@ -44,7 +45,8 @@
 	
 	function addpagefunction(){
 		YAHOO.app.form.show({'reqUrl':'${contextPath}/user/inAddUserJsp.do','title':'添加用户',
-					'diaWidth':'800','diaHeight':'300','overflow':'no'});
+					'diaWidth':'400','diaHeight':'150', 'submitUrl':'${contextPath}/user/register.do', 'success' : '添加用户成功'
+					,'failure' : '添加用户失败'});
 	}
 </script>
 

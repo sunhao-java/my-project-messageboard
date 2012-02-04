@@ -43,7 +43,7 @@
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="15%">
-					姓名
+					登录名
 				</td>
 				<td width="40%">
 					<c:out value="${user.username}"/>              

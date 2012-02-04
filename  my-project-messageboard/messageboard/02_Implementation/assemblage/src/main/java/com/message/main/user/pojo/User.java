@@ -24,6 +24,7 @@ public class User implements Serializable{
 	private String homePage;	//注册用户的主页
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 	private Long isAdmin;		//是否是管理员的标识, 0不是管理员，1是管理员
+	private Long isMailCheck;	//是否已经邮箱验证过？ 1已验证，0未验证
 	
 	//VO fileds
 	private Date lastLoginTime;	//上次登录的时间
@@ -183,6 +184,14 @@ public class User implements Serializable{
 
 	public void setLoginIP(String loginIP) {
 		this.loginIP = loginIP;
+	}
+
+	public Long getIsMailCheck() {
+		return isMailCheck;
+	}
+
+	public void setIsMailCheck(Long isMailCheck) {
+		this.isMailCheck = isMailCheck;
 	}
 
 }

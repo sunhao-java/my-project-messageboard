@@ -20,7 +20,7 @@ public interface UserService {
 	/**
 	 * 用户登录
 	 * @param user
-	 * @return 0:成功	1:用户名错误		2:密码错误
+	 * @return 0:成功	1:用户名错误		2:密码错误		4:未进行邮箱验证
 	 * @throws Exception
 	 */
 	int userLogin(User user, WebInput in) throws Exception;
@@ -102,5 +102,14 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	boolean managerPerm(long pkId, boolean opertion, User sessionUser) throws Exception;
+	
+	/**
+	 * 当注册人在验证激活用户邮件中点击链接时触发对用户进行激活
+	 * @param pkId
+	 * @param usernameMD5
+	 * @return
+	 * @throws Exception
+	 */
+	boolean emailConfirm(Long pkId, String usernameMD5) throws Exception;
 	
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="mail_163" class="com.message.base.email.SendMailProperties">
+		<property name="name">
+			<value>163</value>
+		</property>
+		<property name="smtp">
+			<value>smtp.163.com</value>
+		</property>
+		<property name="port">
+			<value>25</value>
+		</property>
+		<property name="description">
+			<value>163邮箱的配置</value>
+		</property>
+	</bean>
+	
+	<bean id="mail_sina" class="com.message.base.email.SendMailProperties">
+		<property name="name">
+			<value>sina</value>
+		</property>
+		<property name="smtp">
+			<value>smtp.sina.cn</value>
+		</property>
+		<property name="port">
+			<value>25</value>
+		</property>
+		<property name="description">
+			<value>sina邮箱的配置(.com和.cn的配置一样)</value>
+		</property>
+	</bean>
+	
+	<bean id="mail_sohu" class="com.message.base.email.SendMailProperties">
+		<property name="name">
+			<value>sohu</value>
+		</property>
+		<property name="smtp">
+			<value>smtp.sohu.com</value>
+		</property>
+		<property name="port">
+			<value>25</value>
+		</property>
+		<property name="description">
+			<value>sohu邮箱的配置</value>
+		</property>
+	</bean>
+	
+	<bean id="mail_gmail" class="com.message.base.email.SendMailProperties">
+		<property name="name">
+			<value>gmail</value>
+		</property>
+		<property name="smtp">
+			<value>smtp.gmail.com</value>
+		</property>
+		<property name="port">
+			<value>465</value>
+		</property>
+		<property name="description">
+			<value>Google的Gmail配置</value>
+		</property>
+	</bean>
+	
+	<bean id="mailSend" class="com.message.base.email.impl.MailSendImpl">
+		<property name="mailProperties">
+			<list>
+				<ref bean="mail_163"/>
+				<ref bean="mail_gmail"/>
+				<ref bean="mail_sina"/>
+				<ref bean="mail_sohu"/>
+			</list>
+		</property>
+	</bean>
+	
+	<!--<bean id="mail_yahoo" class="com.message.base.email.SendMailProperties">
+		<property name="name">
+			<value>yahoo</value>
+		</property>
+		<property name="smtp">
+			<value>smtp.mail.yahoo.com.cn</value>
+		</property>
+		<property name="port">
+			<value></value>
+		</property>
+	</bean>-->
+</beans>

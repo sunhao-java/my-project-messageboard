@@ -52,7 +52,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 显示完整时间
 		 * 条件：间隔天数大于等于2
 		 */
-		if(mm >= 2*24*60*60*1000){
+		if(dd >= 2){
 			if(dateType == 1){
 				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 			} else {
@@ -92,7 +92,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 显示多少小时之前
 		 * 条件：1小时<间隔小时数<=24小时
 		 */
-		if(mm <= 24*60*60*1000 && mm > 1*60*60*1000){
+		if(mm <= 24*60*60*1000 && mm > 1*60*60*1000 && dd == 0){
 			String hours = String.valueOf((int) mm/(1000*60*60));
 			out = hours + MessageUtils.getMessage("dateformat.beforeH");
 			print(out);
@@ -102,7 +102,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 显示多少分钟之前
 		 * 条件：1分钟<间隔分钟数<=60分钟
 		 */
-		if(mm <= 60*60*1000 && mm > 1*60*1000){
+		if(mm <= 60*60*1000 && mm > 1*60*1000 && dd == 0){
 			String minutes = String.valueOf((int) mm/(1000*60));
 			out = minutes + MessageUtils.getMessage("dateformat.beforeM");
 			print(out);
@@ -112,7 +112,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 显示多少秒之前
 		 * 条件：1秒<间隔秒数<=60秒
 		 */
-		if(mm <= 60*1000 && mm > 1000){
+		if(mm <= 60*1000 && mm > 1000 && dd == 0){
 			String seconds = String.valueOf((int) mm/(1000));
 			out = seconds + MessageUtils.getMessage("dateformat.beforeS");
 			print(out);
@@ -122,11 +122,20 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 显示1秒前
 		 * 条件：间隔时间<=1秒
 		 */
-		if(mm <= 1000){
+		if(mm <= 1000 && dd == 0){
 			out = "1" + MessageUtils.getMessage("dateformat.beforeS");
 			print(out);
 			return EVAL_PAGE;
 		}
+		
+		if(dateType == 1){
+			format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
+		} else {
+			format.applyPattern(MessageUtils.getMessage("dateformat.chinese.format"));
+		}
+		
+		out = format.format(value);
+		print(out);
 		
 		return EVAL_PAGE;
 	}

@@ -215,14 +215,20 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	public boolean emailConfirm(Long pkId, String usernameMD5) throws Exception {
-		User dbUser = this.userDAO.getUserById(pkId);
+	public boolean emailConfirm(WebInput in) throws Exception {
+		final String USERNAME_CODE = MessageUtils.getMessage("mail.confirm.key", "usernameCode");
+		final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");
+		
+		String usernameCode = in.getString(USERNAME_CODE, StringUtils.EMPTY);
+		Long userid = in.getLong(CONFIRM_USER_ID, 0L);
+		
+		User dbUser = this.userDAO.getUserById(userid);
 		if(dbUser == null){
 			return false;
 		} else {
 			String dbUsername = dbUser.getUsername();
 			String dbusernameMD5 = MD5Utils.MD5Encode(dbUsername);
-			if(dbusernameMD5.equals(usernameMD5)) {
+			if(dbusernameMD5.equals(usernameCode)) {
 				dbUser.setIsMailCheck(ResourceType.MAIL_CHECK_YES);
 				
 				this.userDAO.updateUser(dbUser);

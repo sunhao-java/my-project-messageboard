@@ -117,7 +117,7 @@ YAHOO.app.alertForm = function(){
 					/**
 					 * 这里有问题，以后要修改
 					 */
-					var flag = true;//Validator.Validate(formDate, 1);
+					var flag = Validator.Validate(formDate, 1);
 					if(flag){
 						this.cancel();
 						$C.setForm(formDate);

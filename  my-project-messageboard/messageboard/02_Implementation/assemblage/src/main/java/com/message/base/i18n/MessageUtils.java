@@ -1,8 +1,10 @@
-package com.message.base;
+package com.message.base.i18n;
 
 import java.util.Locale;
 
 import org.springframework.context.MessageSource;
+
+import com.message.base.spring.ApplicationContextUtil;
 
 /**
  * 国际化资源文件工具类

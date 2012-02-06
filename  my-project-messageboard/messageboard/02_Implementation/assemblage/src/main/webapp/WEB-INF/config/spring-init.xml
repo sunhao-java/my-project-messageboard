@@ -24,6 +24,7 @@
 				<value>/WEB-INF/i18n/loginJsp</value>
 				<value>/WEB-INF/i18n/system</value>
 				<value>/WEB-INF/i18n/event</value>
+				<value>/WEB-INF/i18n/mail</value>
 			</list>
 		</property>
 	</bean>
@@ -61,6 +62,6 @@
 	</bean>
 	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
-	<bean class="com.message.base.ApplicationContextUtil"/>
+	<bean class="com.message.base.spring.ApplicationContextUtil"/>
 	
 </beans>

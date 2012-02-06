@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.message.base.MessageUtils;
+import com.message.base.i18n.MessageUtils;
 
 import junit.framework.TestCase;
 @SuppressWarnings("unused")

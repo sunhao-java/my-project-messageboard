@@ -7,7 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.MessageUtils;
+import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
 import com.message.main.event.job.CleanEventJob;

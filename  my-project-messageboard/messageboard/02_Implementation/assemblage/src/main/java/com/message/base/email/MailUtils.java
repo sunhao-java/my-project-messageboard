@@ -15,7 +15,8 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.MessageUtils;
+import com.message.base.i18n.MessageUtils;
+import com.message.base.i18n.SystemConfig;
 import com.message.utils.MD5Utils;
 import com.message.utils.StringUtils;
 
@@ -34,6 +35,10 @@ public class MailUtils {
 	private final String CONFIRM_TIP_AGAIN = MessageUtils.getMessage("confirm.tip.again", "如果没有成功，请复制下面链接到浏览器地址栏！");
 	private final String URL_CONFIRM = MessageUtils.getMessage("user.confirm", "http://sunhao.wiscom.com.cn:8089/message/user/emailConfirm.do?");
 	private final String MAIL_CONFIRM_TITLE = MessageUtils.getMessage("mail.confirm.title", "邮件验证");
+	private final boolean MAIL_IS_DEBUG = SystemConfig.getBooleanProperty("mail.send.debug", Boolean.FALSE);
+	private final String MAIL_SMTP_AUTH = SystemConfig.getStringProperty("mail.smtp.auth", "true");
+	private final String MAIL_TRANSPORT_PROTOCOL = SystemConfig.getStringProperty("mail.transport.protocol", "auth");
+	
 	
 	private static MailUtils instance = new MailUtils();
 	
@@ -52,9 +57,9 @@ public class MailUtils {
 	 * @return
 	 */
 	public boolean sendMail(MailBean bean){
-		Properties props = getProps("true", "smtp");
+		Properties props = getProps(MAIL_SMTP_AUTH, MAIL_TRANSPORT_PROTOCOL);
 		Session session = Session.getInstance(props);
-		session.setDebug(true);
+		session.setDebug(MAIL_IS_DEBUG);
 		
 		SendMailProperties properties = bean.getSendMailProperties();
 		

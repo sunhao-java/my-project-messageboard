@@ -24,7 +24,7 @@ public class MailSendImpl implements MailSend {
 	}
 
 	/**
-	 * 发送邮件
+	 * 用户认证发送邮件
 	 * @param pkId
 	 * @param username
 	 * @param useremail

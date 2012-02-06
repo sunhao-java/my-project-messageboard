@@ -1,4 +1,4 @@
-package com.message.base;
+package com.message.base.spring;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

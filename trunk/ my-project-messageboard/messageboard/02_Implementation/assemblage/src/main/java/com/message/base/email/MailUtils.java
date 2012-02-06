@@ -38,6 +38,8 @@ public class MailUtils {
 	private final boolean MAIL_IS_DEBUG = SystemConfig.getBooleanProperty("mail.send.debug", Boolean.FALSE);
 	private final String MAIL_SMTP_AUTH = SystemConfig.getStringProperty("mail.smtp.auth", "true");
 	private final String MAIL_TRANSPORT_PROTOCOL = SystemConfig.getStringProperty("mail.transport.protocol", "auth");
+	private final String USERNAME_CODE = MessageUtils.getMessage("mail.confirm.key", "usernameCode");
+	private final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");
 	
 	
 	private static MailUtils instance = new MailUtils();
@@ -138,11 +140,13 @@ public class MailUtils {
 		StringBuffer sb = new StringBuffer();
 		String username_md5 = MD5Utils.MD5Encode(username);
 		sb.append(CONFIRM_TIP).append("<br/>");
-		sb.append("<a href='").append(URL_CONFIRM).append("usernameMD5Code=").append(username_md5).append("&userid=").append(pkId);
-		sb.append("'>").append(URL_CONFIRM).append("usernameMD5Code=").append(username_md5).append("&userid=").append(pkId).append("</a>");
+		sb.append("<a href='").append(URL_CONFIRM).append(USERNAME_CODE).append("=").append(username_md5).append("&").append(CONFIRM_USER_ID)
+							.append("=").append(pkId);
+		sb.append("'>").append(URL_CONFIRM).append(USERNAME_CODE).append("=").append(username_md5).append("&").append(CONFIRM_USER_ID).append("=")
+							.append(pkId).append("</a>");
 		sb.append("<br/>");
 		sb.append(CONFIRM_TIP_AGAIN).append("<br/>");
-		sb.append(URL_CONFIRM).append("usernameMD5Code=").append(username_md5).append("&userid=").append(pkId);
+		sb.append(URL_CONFIRM).append(USERNAME_CODE).append(username_md5).append("&").append(CONFIRM_USER_ID).append("=").append(pkId);
 		
 		return sb.toString();
 	}

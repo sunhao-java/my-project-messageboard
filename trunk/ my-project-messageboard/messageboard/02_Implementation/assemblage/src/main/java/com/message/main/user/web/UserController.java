@@ -414,11 +414,9 @@ public class UserController extends ExtMultiActionController {
 	public ModelAndView emailConfirm(HttpServletRequest request, HttpServletResponse response){
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
-		String usernameMD5Code = in.getString("usernameMD5Code", StringUtils.EMPTY);
-		Long userid = in.getLong("userid", 0L);
 		String view = "";
 		try {
-			boolean result = this.userService.emailConfirm(userid, usernameMD5Code);
+			boolean result = this.userService.emailConfirm(in);
 			if(result){
 				view = "redirect:/home/inMessageIndex.do";
 			} else {

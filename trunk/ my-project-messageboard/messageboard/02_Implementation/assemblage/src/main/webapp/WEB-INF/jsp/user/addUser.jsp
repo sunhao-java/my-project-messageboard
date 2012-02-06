@@ -38,7 +38,6 @@
 
 <div id="listFrm" style="width: 100%">
 	<form id="regFrm" action="${contextPath}/user/inAddUserJsp.do" method="post">
-		<input type="hidden" name="pkId" value="${user.pkId }"/>
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="50%">

@@ -105,11 +105,10 @@ public interface UserService {
 	
 	/**
 	 * 当注册人在验证激活用户邮件中点击链接时触发对用户进行激活
-	 * @param pkId
-	 * @param usernameMD5
+	 * @param in
 	 * @return
 	 * @throws Exception
 	 */
-	boolean emailConfirm(Long pkId, String usernameMD5) throws Exception;
+	boolean emailConfirm(WebInput in) throws Exception;
 	
 }

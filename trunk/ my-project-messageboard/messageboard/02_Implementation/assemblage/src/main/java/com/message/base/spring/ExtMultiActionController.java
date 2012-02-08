@@ -9,7 +9,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 继承<code>MultiActionController</code>,重写<code>initBinder</code>方法<br>

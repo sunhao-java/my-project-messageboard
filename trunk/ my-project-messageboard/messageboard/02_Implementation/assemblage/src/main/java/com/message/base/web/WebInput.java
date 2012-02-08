@@ -10,8 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.message.utils.GenericDateFormat;
-import com.message.utils.StringUtils;
+import com.message.base.utils.GenericDateFormat;
+import com.message.base.utils.StringUtils;
 
 /**
  * 封装HttpServletRequest

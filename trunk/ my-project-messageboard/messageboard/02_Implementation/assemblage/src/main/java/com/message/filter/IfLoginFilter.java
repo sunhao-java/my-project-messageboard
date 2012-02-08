@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 判断是否登录的filter，拦截一些未登录的非法URL

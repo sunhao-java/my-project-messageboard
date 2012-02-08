@@ -14,7 +14,7 @@ import com.message.main.info.pojo.Info;
 import com.message.main.info.service.InfoService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 留言板描述的service的实现

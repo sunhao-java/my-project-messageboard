@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.info.pojo.Info;
 import com.message.main.info.service.InfoService;
 import com.message.main.user.pojo.User;
-import com.message.utils.SqlUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 留言板描述的controller

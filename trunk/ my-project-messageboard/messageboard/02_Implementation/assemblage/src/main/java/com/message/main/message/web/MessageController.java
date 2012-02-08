@@ -14,15 +14,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.SqlUtils;
-import com.message.utils.StringUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 public class MessageController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);

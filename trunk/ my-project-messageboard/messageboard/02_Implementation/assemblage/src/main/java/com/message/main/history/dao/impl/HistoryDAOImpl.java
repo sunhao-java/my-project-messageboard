@@ -10,10 +10,10 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.pojo.UserLoginHistory;
-import com.message.utils.SqlUtils;
-import com.message.utils.StringUtils;
 
 /**
  * 登录历史操作的DAO的实现

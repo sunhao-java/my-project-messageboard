@@ -6,8 +6,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.message.utils.HtmlUtils;
-import com.message.utils.StringUtils;
+import com.message.base.utils.HtmlUtils;
+import com.message.base.utils.StringUtils;
 
 public class CutTextTag extends TagSupport{
 	private static final long serialVersionUID = -2921502360042121850L;

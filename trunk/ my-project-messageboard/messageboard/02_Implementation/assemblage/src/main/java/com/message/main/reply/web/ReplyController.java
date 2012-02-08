@@ -15,7 +15,7 @@ import com.message.base.web.WebOutput;
 import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 public class ReplyController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);

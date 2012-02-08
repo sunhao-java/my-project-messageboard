@@ -7,12 +7,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.DateUtils;
 import com.message.main.event.dao.EventDAO;
 import com.message.main.event.job.CleanEventJob;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.user.service.UserService;
-import com.message.utils.DateUtils;
 
 /**
  * 事件service实现

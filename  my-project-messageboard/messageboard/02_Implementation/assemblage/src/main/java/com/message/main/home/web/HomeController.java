@@ -15,7 +15,7 @@ import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.main.history.service.HistoryService;
 import com.message.main.user.pojo.User;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * home的controller

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.message.utils.StringUtils;
+import com.message.base.utils.StringUtils;
 
 
 /**

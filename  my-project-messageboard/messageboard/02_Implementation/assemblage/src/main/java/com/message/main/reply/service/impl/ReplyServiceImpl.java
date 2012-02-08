@@ -13,7 +13,7 @@ import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 回复操作的serivce的实现

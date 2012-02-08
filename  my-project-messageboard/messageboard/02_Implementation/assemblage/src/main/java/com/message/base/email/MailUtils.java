@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.i18n.MessageUtils;
 import com.message.base.i18n.SystemConfig;
-import com.message.utils.MD5Utils;
-import com.message.utils.StringUtils;
+import com.message.base.utils.MD5Utils;
+import com.message.base.utils.StringUtils;
 
 /**
  * 邮件发送工具类

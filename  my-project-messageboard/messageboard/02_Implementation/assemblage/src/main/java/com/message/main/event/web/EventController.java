@@ -11,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.service.EventService;
 import com.message.main.message.web.MessageController;
-import com.message.utils.SqlUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 时间controller

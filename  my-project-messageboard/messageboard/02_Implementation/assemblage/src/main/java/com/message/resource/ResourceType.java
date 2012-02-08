@@ -1,4 +1,4 @@
-package com.message.utils.resource;
+package com.message.resource;
 
 /**
  * 资源类型类

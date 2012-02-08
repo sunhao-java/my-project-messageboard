@@ -13,14 +13,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.MD5Utils;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.MD5Utils;
-import com.message.utils.SqlUtils;
-import com.message.utils.StringUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 用户操作的controller
@@ -66,7 +66,7 @@ public class UserController extends ExtMultiActionController {
 	 */
 	public ModelAndView userLogin(HttpServletRequest request, HttpServletResponse response, User user){
 		in = new WebInput(request);
-		logger.debug("用户名是" + user.getUsername());
+		logger.debug("username is " + user.getUsername());
 		int status = 0;
 		try {
 			status = this.userService.userLogin(user, in);
@@ -88,6 +88,9 @@ public class UserController extends ExtMultiActionController {
 					request.setAttribute("status", status);
 				} else if(status == 4){
 					request.setAttribute("message", "未进行邮箱验证，请验证！");
+					request.setAttribute("status", status);
+				} else if(status == 5){
+					request.setAttribute("message", "用户已被停用");
 					request.setAttribute("status", status);
 				}
 				return this.inLoginJsp(request, response);

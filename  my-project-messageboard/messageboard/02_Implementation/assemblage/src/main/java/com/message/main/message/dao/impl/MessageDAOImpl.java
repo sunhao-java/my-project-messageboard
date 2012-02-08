@@ -9,12 +9,12 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.user.pojo.User;
-import com.message.utils.SqlUtils;
-import com.message.utils.StringUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 留言操作的DAO

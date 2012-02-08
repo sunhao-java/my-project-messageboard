@@ -1,6 +1,6 @@
 package com.message.utils.date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,7 +12,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.message.utils.DateUtils;
+import com.message.base.utils.DateUtils;
 
 @SuppressWarnings("deprecation")
 public class DateUtilsTest {

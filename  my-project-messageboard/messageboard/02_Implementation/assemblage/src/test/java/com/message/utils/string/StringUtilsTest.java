@@ -1,7 +1,6 @@
 package com.message.utils.string;
 
-import com.message.utils.MD5Utils;
-import com.message.utils.StringUtils;
+import com.message.base.utils.MD5Utils;
 
 
 public class StringUtilsTest {

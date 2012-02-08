@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import com.message.base.email.MailSend;
 import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.MD5Utils;
+import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
@@ -16,9 +18,7 @@ import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.MD5Utils;
-import com.message.utils.StringUtils;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 用户操作的service 实现
@@ -93,15 +93,19 @@ public class UserServiceImpl implements UserService{
 		if(dbUser == null){
 			return 1;		//用户名错误
 		} else {
-			if(loginPsw.equals(dbUser.getPassword())){
-				if(dbUser.getIsMailCheck() != ResourceType.MAIL_CHECK_YES){
-					return 4;	//未进行邮箱验证
+			if(dbUser.getDeleteFlag() != ResourceType.DELETE_YES){
+				if(loginPsw.equals(dbUser.getPassword())){
+					if(dbUser.getIsMailCheck() != ResourceType.MAIL_CHECK_YES){
+						return 4;	//未进行邮箱验证
+					} else {
+						this.historyService.saveLoginHistory(in, dbUser);
+						return 0;	//正确
+					}
 				} else {
-					this.historyService.saveLoginHistory(in, dbUser);
-					return 0;	//正确
+					return 2;	//密码错误
 				}
 			} else {
-				return 2;	//密码错误
+				return 5;		//用户被删除
 			}
 		}
 	}

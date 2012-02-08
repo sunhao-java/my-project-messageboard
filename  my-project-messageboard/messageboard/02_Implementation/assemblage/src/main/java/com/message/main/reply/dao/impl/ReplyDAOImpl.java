@@ -7,7 +7,7 @@ import java.util.Map;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.main.reply.dao.ReplyDAO;
 import com.message.main.reply.pojo.Reply;
-import com.message.utils.resource.ResourceType;
+import com.message.resource.ResourceType;
 
 /**
  * 回复操作的dao的实现

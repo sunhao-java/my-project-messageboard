@@ -130,6 +130,7 @@
     					<prop key="/user/managerPerm.do">managerPerm</prop>
     					<prop key="/user/inAddUserJsp.do">inAddUserJsp</prop>
     					<prop key="/user/emailConfirm.do">emailConfirm</prop>
+    					<prop key="/user/inPrivacySetting.do">inPrivacySetting</prop>
     				</props>
     			</property>
     		</bean>

@@ -280,7 +280,7 @@
 			     					<tbody>
 			     						<tr>
 			     							<td align="left" style="">
-			     								<a href="#">
+			     								<a href="javaScript:nav('/user/inPrivacySetting.do');">
 			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">隐私设置</span>
 			     								</a>

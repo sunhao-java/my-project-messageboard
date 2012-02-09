@@ -431,6 +431,17 @@ public class UserController extends ExtMultiActionController {
 		
 		return new ModelAndView(view);
 	}
+	
+	/**
+	 * 进入用户隐私设置界面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView inPrivacySetting(HttpServletRequest request, HttpServletResponse response){
+		Map<String, Object> params = new HashMap<String, Object>();
+		return new ModelAndView("user.privacy.setting", params);
+	}
 
 }
 

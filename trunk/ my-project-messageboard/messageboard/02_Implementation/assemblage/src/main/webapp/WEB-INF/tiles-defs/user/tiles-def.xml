@@ -31,4 +31,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/user/addUser.jsp"/>
 	</definition>
 	
+	<definition name="user.privacy.setting" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/privacySetting.jsp"/>
+	</definition>
+	
 </tiles-definitions>

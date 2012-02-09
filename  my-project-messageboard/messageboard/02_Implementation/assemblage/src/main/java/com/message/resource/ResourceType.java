@@ -114,4 +114,18 @@ public final class ResourceType {
 	 */
 	public static final Long MAIL_CHECK_NO = Long.valueOf(0);
 	
+	//下面是用户个人隐私设置的标识
+	/**
+	 * 所有人可见
+	 */
+	public static final Long LOOK_ALL_PROPLE = Long.valueOf(0L);
+	/**
+	 * 只有自己可见
+	 */
+	public static final Long LOOK_ONLY_SELF = Long.valueOf(1L);
+	/**
+	 * 只有好友可见
+	 */
+	public static final Long LOOK_ONLY_FRIENDS = Long.valueOf(2L);
+	
 }

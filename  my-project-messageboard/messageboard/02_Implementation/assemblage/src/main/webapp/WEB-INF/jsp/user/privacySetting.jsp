@@ -47,7 +47,7 @@
 					用户名
 				</td>
 				<td>
-					<span style="color: red">*用户名必须可见</span>           
+					<span style="color: red">*用户名必须所有人可见</span>           
 				</td>
 			</tr>
 			<tr>
@@ -58,6 +58,7 @@
 					<select style="display: none" id="sexSelect" name="sex">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('sex');" id="sexSpan">所有人可见</span>   
 				</td>
@@ -70,6 +71,7 @@
 					<select style="display: none" id="truenameSelect" name="truename">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('truename');" id="truenameSpan">所有人可见</span>         
 				</td>
@@ -82,6 +84,7 @@
 					<select style="display: none" id="emailSelect" name="email">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('email');" id="emailSpan">所有人可见</span>    
 				</td>
@@ -94,6 +97,7 @@
 					<select style="display: none" id="phonenumSelect" name="phoneNum">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('phonenum');" id="phonenumSpan">所有人可见</span>   
 				</td>
@@ -106,6 +110,7 @@
 					<select style="display: none" id="qqSelect" name="qq">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('qq');" id="qqSpan">所有人可见</span>     
 				</td>
@@ -118,6 +123,7 @@
 					<select style="display: none" id="homepageSelect" name="homePage">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('homepage');" id="homepageSpan">所有人可见</span>    
 				</td>
@@ -130,6 +136,7 @@
 					<select style="display: none" id="addressSelect" name="address">
 						<option value="0">所有人可见</option>
 						<option value="1">仅自己可见</option>
+						<option value="2">仅好友可见</option>
 					</select>  
 					<span onclick="showSelect('address');" id="addressSpan">所有人可见</span>    
 				</td>

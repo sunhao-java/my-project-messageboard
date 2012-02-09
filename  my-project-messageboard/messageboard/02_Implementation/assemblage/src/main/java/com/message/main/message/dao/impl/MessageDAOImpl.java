@@ -25,7 +25,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 	public PaginationSupport getAllMessages(int start, int num, Message message)
 			throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String hql = "from Message where deleteFlag = :deleteFlag ";
+		String hql = "from Message where deleteFlag = :deleteFlag and isAudit = :isAudit ";
 		if(message != null){
 			if(StringUtils.isNotEmpty(message.getTitle())) {
 				hql += " and title like :title";
@@ -47,6 +47,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		hql += " order by pkId desc";
 		String countHql = "select count(*) " + hql;
 		params.put("deleteFlag", ResourceType.DELETE_NO);
+		params.put("isAudit", ResourceType.AUDIT_YES);
 		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;
 	}
@@ -80,7 +81,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 
 	public PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag ";
+		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag and isAudit = :isAudit ";
 		if(message != null){
 			if(StringUtils.isNotEmpty(message.getTitle())){
 				hql += " and m.title like :title ";
@@ -105,8 +106,18 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		params.put("createUserId", user.getPkId());
+		params.put("isAudit", ResourceType.AUDIT_YES);
 		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;
+	}
+
+	public PaginationSupport listToAuditMessage(int start, int num, Message message, boolean flag) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from Message m where m.deleteFlag = :deleteFlag and m.isAudit = :isAudit order by m.pkId desc ";
+		String countHql = "select count(*) " + hql;
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		params.put("isAudit", flag ? ResourceType.AUDIT_NOAUDIT : ResourceType.AUDIT_NO);
+		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}
 
 }

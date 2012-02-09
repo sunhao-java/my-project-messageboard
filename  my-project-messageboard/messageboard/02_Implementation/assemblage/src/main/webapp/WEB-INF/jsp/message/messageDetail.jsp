@@ -88,8 +88,10 @@
 					</h4>
 					<span class="time">12秒前</span>
 
-					<span class="pipe">|</span>
-					<a href="#reply-div">回复本条留言</a>
+					<c:if test="${flag ne 'audit'}">
+						<span class="pipe">|</span>
+						<a href="#reply-div">回复本条留言</a>
+					</c:if>
 				</div>
 				<div id="blogContent" class="content orig-content">
 					<div>
@@ -149,29 +151,31 @@
 						</li>
 					</c:forEach>
 				</ol>
-				<!-- 回复 -->
-				<div class="comment-post" id="reply-div">
-					<form id="reply-form" method="post" action="">
-						<input type="hidden" value="${loginUser.pkId}" name="replyUserId"/>
-						<input type="hidden" value="${message.pkId}" name="messageId"/>
-						<p style="margin-bottom: 0px;">
-							标题&nbsp;&nbsp;
-							<input type="text" class="f_text" name="title" 
-								dataType="Limit" require="true" max="200" min="1" msg="不能为空,且不超过100字符"/>
-						</p>
-						<p style="margin-bottom: 0px;">
-							内容&nbsp;&nbsp;
-							<textarea style="width: 400px;" id="replyContent" name="replyContent"
-								dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符">
-							</textarea>
-						</p>
-						<div class="act">
-				            <div style="float:right;">
-				            	<input type="button" value="回复" id="submitBtn" class="f-button" onclick="reply()">
-				            </div>
-				        </div>
-					</form>
-				</div>
+				<c:if test="${flag ne 'audit'}">
+					<!-- 回复 -->
+					<div class="comment-post" id="reply-div">
+						<form id="reply-form" method="post" action="">
+							<input type="hidden" value="${loginUser.pkId}" name="replyUserId"/>
+							<input type="hidden" value="${message.pkId}" name="messageId"/>
+							<p style="margin-bottom: 0px;">
+								标题&nbsp;&nbsp;
+								<input type="text" class="f_text" name="title" 
+									dataType="Limit" require="true" max="200" min="1" msg="不能为空,且不超过100字符"/>
+							</p>
+							<p style="margin-bottom: 0px;">
+								内容&nbsp;&nbsp;
+								<textarea style="width: 400px;" id="replyContent" name="replyContent"
+									dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符">
+								</textarea>
+							</p>
+							<div class="act">
+					            <div style="float:right;">
+					            	<input type="button" value="回复" id="submitBtn" class="f-button" onclick="reply()">
+					            </div>
+					        </div>
+						</form>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

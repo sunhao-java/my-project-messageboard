@@ -21,7 +21,8 @@ public class Message implements Serializable {
 	private Date createDate;							//留言时间
 	private Long createUserId;							//对应的留言者ID
 	private String createUsername;						//对应的留言者Name
-	private Long deleteFlag;							//删除标识0未删除1已删除
+	private Long deleteFlag;							//删除标识：0未删除1已删除
+	private Long isAudit;								//管理员审核通过标识：0未审核1已通过2未通过审核
 	
 	//VO Field
 	private User createUser;							//VO字段，发表留言者
@@ -123,6 +124,14 @@ public class Message implements Serializable {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public Long getIsAudit() {
+		return isAudit;
+	}
+
+	public void setIsAudit(Long isAudit) {
+		this.isAudit = isAudit;
 	}
 
 }

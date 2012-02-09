@@ -16,6 +16,19 @@ public final class ResourceType {
 	public static final Long DELETE_YES = 1L;
 	
 	/**
+	 * 未审核
+	 */
+	public static final Long AUDIT_NOAUDIT = 0L;
+	/**
+	 * 审核通过
+	 */
+	public static final Long AUDIT_YES = 1L;
+	/**
+	 * 未通过审核
+	 */
+	public static final Long AUDIT_NO = 2L;
+	
+	/**
 	 * 每页显示的条数
 	 */
 	public static final int PAGE_NUM = 10;

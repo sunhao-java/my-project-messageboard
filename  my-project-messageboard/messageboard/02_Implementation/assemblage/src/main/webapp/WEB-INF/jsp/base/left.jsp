@@ -292,12 +292,71 @@
 			     		</tr>
 			     	</tbody>
 		     </table>
-		     <c:if test="${user.isAdmin eq '1'}">
+		     
+	     	<table width="120%" cellpadding="0" cellspacing="0" id="messageInfo" flag="1">
+	     		<tr onclick="OpenMenu('messageInfo');">
+	     			<td colspan="2" style="cursor:pointer" class="tabheader">
+	     				&nbsp;&nbsp;
+	     				<span style="font-size: 13px;">留言板管理</span>
+	     			</td>
+	     		</tr>
+	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+	     			<td align="center">
+	     				<table width="100%" cellpadding="0" cellspacing="4">
+	     					<tbody>
+	     						<tr>
+	     							<td align="left" style="">
+	     								<a href="javascript:nav('/info/inViewInfoJsp.do')">
+	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+	     									<span style="font-size: 12px;">查看留言板信息</span>
+	     								</a>
+	     							</td>
+	     						</tr>
+	     					</tbody>
+	     				</table>
+	     			</td>
+	     		</tr>
+	     		<c:if test="${user.isAdmin eq '1'}">
+	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+	     			<td align="center">
+	     				<table width="100%" cellpadding="0" cellspacing="4">
+	     					<tbody>
+	     						<tr>
+	     							<td align="left" style="">
+	     								<a href="javascript:nav('/info/inEditInfoJsp.do')">
+	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+	     									<span style="font-size: 12px;">编辑留言板信息</span>
+	     								</a>
+	     							</td>
+	     						</tr>
+	     					</tbody>
+	     				</table>
+	     			</td>
+	     		</tr>
+	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+	     			<td align="center">
+	     				<table width="100%" cellpadding="0" cellspacing="4">
+	     					<tbody>
+	     						<tr>
+	     							<td align="left" style="">
+	     								<a href="javascript:nav('/info/inListInfoHistoryJsp.do')">
+	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+	     									<span style="font-size: 12px;">描述编辑历史</span>
+	     								</a>
+	     							</td>
+	     						</tr>
+	     					</tbody>
+	     				</table>
+	     			</td>
+	     		</tr>
+			     </c:if>
+	     	</table>
+	     	<c:if test="${user.isAdmin eq '1'}">
 		     	<table width="120%" cellpadding="0" cellspacing="0" id="userManager" flag="1">
 		     		<tr onclick="OpenMenu('userManager');">
 		     			<td colspan="2" style="cursor:pointer" class="tabheader">
 		     				&nbsp;&nbsp;
-		     				<span style="font-size: 13px;">系统用户管理</span>
+		     				<span style="font-size: 13px;">系统管理</span>
 		     			</td>
 		     		</tr>
 		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
@@ -332,83 +391,56 @@
 		     				</table>
 		     			</td>
 		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/listToAuditMessage.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">待审核留言</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/listAuditNoMessage.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">未通过审核留言</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
+		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/event/listEvent.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">操作日志</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
+		     			</td>
+		     		</tr>
 		     	</table>
 		     </c:if>
-		     
-	     	<table width="120%" cellpadding="0" cellspacing="0" id="messageInfo" flag="1">
-	     		<tr onclick="OpenMenu('messageInfo');">
-	     			<td colspan="2" style="cursor:pointer" class="tabheader">
-	     				&nbsp;&nbsp;
-	     				<span style="font-size: 13px;">留言板管理</span>
-	     			</td>
-	     		</tr>
-	     		<c:if test="${user.isAdmin eq '1'}">
-	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
-	     			<td align="center">
-	     				<table width="100%" cellpadding="0" cellspacing="4">
-	     					<tbody>
-	     						<tr>
-	     							<td align="left" style="">
-	     								<a href="javascript:nav('/info/inListInfoHistoryJsp.do')">
-	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">描述编辑历史</span>
-	     								</a>
-	     							</td>
-	     						</tr>
-	     					</tbody>
-	     				</table>
-	     			</td>
-	     		</tr>
-	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
-	     			<td align="center">
-	     				<table width="100%" cellpadding="0" cellspacing="4">
-	     					<tbody>
-	     						<tr>
-	     							<td align="left" style="">
-	     								<a href="javascript:nav('/info/inEditInfoJsp.do')">
-	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">编辑留言板信息</span>
-	     								</a>
-	     							</td>
-	     						</tr>
-	     					</tbody>
-	     				</table>
-	     			</td>
-	     		</tr>
-			     </c:if>
-	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
-	     			<td align="center">
-	     				<table width="100%" cellpadding="0" cellspacing="4">
-	     					<tbody>
-	     						<tr>
-	     							<td align="left" style="">
-	     								<a href="javascript:nav('/info/inViewInfoJsp.do')">
-	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">查看留言板信息</span>
-	     								</a>
-	     							</td>
-	     						</tr>
-	     					</tbody>
-	     				</table>
-	     			</td>
-	     		</tr>
-	     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
-	     			<td align="center">
-	     				<table width="100%" cellpadding="0" cellspacing="4">
-	     					<tbody>
-	     						<tr>
-	     							<td align="left" style="">
-	     								<a href="javascript:nav('/event/listEvent.do')">
-	     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-	     									<span style="font-size: 12px;">操作日志</span>
-	     								</a>
-	     							</td>
-	     						</tr>
-	     					</tbody>
-	     				</table>
-	     			</td>
-	     		</tr>
-	     	</table>
 	     </div>       
 	</div>
   </body>

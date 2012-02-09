@@ -82,6 +82,9 @@
     					<prop key="/message/deleteMessage.do">deleteMessage</prop>
     					<prop key="/message/inDetailJsp.do">inDetailJsp</prop>
     					<prop key="/message/inListMyMessageJsp.do">inListMyMessageJsp</prop>
+    					<prop key="/message/listToAuditMessage.do">listToAuditMessage</prop>
+    					<prop key="/message/setAudit.do">setAudit</prop>
+    					<prop key="/message/listAuditNoMessage.do">listAuditNoMessage</prop>
     				</props>
     			</property>
     		</bean>

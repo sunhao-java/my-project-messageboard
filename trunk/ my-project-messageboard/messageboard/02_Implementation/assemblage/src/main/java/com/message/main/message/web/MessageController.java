@@ -27,6 +27,15 @@ import com.message.resource.ResourceType;
 public class MessageController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
+	/**
+	 * 待审核的
+	 */
+	private static final boolean GET_TO_AUDIT = Boolean.TRUE;
+	/**
+	 * 审核未通过的
+	 */
+	private static final boolean GET_NO_AUDIT = Boolean.FALSE;
+	
 	private WebInput in = null;
 	private WebOutput out = null;
 	
@@ -235,6 +244,74 @@ public class MessageController extends ExtMultiActionController {
 			logger.error(e.getMessage(), e);
 		}
 		return new ModelAndView("message.list.mine", params);
+	}
+	
+	/**
+	 * 列出所有待审核的留言
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public ModelAndView listToAuditMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		int num = in.getInt("num", ResourceType.PAGE_NUM);
+		int start = SqlUtils.getStartNum(in, num);
+		try {
+			params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_TO_AUDIT));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return new ModelAndView("message.list.to.audit", params);
+	}
+	
+	/**
+	 * 列出所有未审核通过的留言
+	 * @param request
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public ModelAndView listAuditNoMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
+		int num = in.getInt("num", ResourceType.PAGE_NUM);
+		int start = SqlUtils.getStartNum(in, num);
+		try {
+			params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_NO_AUDIT));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return new ModelAndView("message.list.no.audit", params);
+	}
+	
+	/**
+	 * 对留言进行审批
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView setAudit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		JSONObject params = new JSONObject();
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		Long messageId = in.getLong("messageId", 0L);
+		String status = in.getString("status", StringUtils.EMPTY);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		try {
+			this.messageService.setAudit(messageId, status, user);
+			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		} catch (Exception e) {
+			e.printStackTrace();
+			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+			logger.error(e.getMessage(), e);
+		}
+		out.toJson(params);
+		return null;
 	}
 	
 }

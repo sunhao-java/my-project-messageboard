@@ -26,4 +26,12 @@
 	<definition name="message.list.mine" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/message/listMyMessage.jsp"/>
 	</definition>
+	
+	<definition name="message.list.to.audit" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/listToAudit.jsp"/>
+	</definition>
+	
+	<definition name="message.list.no.audit" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/message/listNoAudit.jsp"/>
+	</definition>
 </tiles-definitions>        

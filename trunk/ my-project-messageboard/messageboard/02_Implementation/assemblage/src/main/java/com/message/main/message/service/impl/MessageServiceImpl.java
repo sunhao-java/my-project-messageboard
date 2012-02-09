@@ -25,6 +25,9 @@ import com.message.resource.ResourceType;
  */
 public class MessageServiceImpl implements MessageService {
 	
+	private static final String AUDIT_OK = "ok";
+	private static final String AUDIT_NO = "no";
+	
 	private MessageDAO messageDAO;
 	
 	private UserService userService;
@@ -69,6 +72,7 @@ public class MessageServiceImpl implements MessageService {
 			message.setCreateDate(new Date());
 			message.setDeleteFlag(ResourceType.DELETE_NO);
 			message.setCreateUsername(user.getTruename());
+			message.setIsAudit(ResourceType.AUDIT_NOAUDIT);
 		}
 		
 		Long messageId = this.messageDAO.saveMessage(message);
@@ -127,6 +131,38 @@ public class MessageServiceImpl implements MessageService {
 			}
 		}
 		return paginationSupport;
+	}
+
+	@SuppressWarnings("unchecked")
+	public PaginationSupport listToAuditMessage(int start, int num, Message message, boolean flag) throws Exception {
+		PaginationSupport pagination = this.messageDAO.listToAuditMessage(start, num, message, flag);
+		List<Message> messages = pagination.getItems();
+		if(CollectionUtils.isNotEmpty(messages)){
+			for(Message msg : messages){
+				User dbuser = this.userService.getUserById(msg.getCreateUserId());
+				List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+				
+				msg.setCreateUser(dbuser);
+				msg.setReplys(replys);
+			}
+		}
+		return pagination;
+	}
+
+	public void setAudit(Long messageId, String status, User user) throws Exception {
+		Message dbMessage = this.messageDAO.getMessageByPkId(messageId);
+		String eventMsg = "";
+		if(AUDIT_OK.equals(status)) {
+			dbMessage.setIsAudit(ResourceType.AUDIT_YES);
+			eventMsg = MessageUtils.getMessage("audit.yes", new Object[]{dbMessage.getTitle(), messageId});
+		} else if(AUDIT_NO.equals(status)){
+			dbMessage.setIsAudit(ResourceType.AUDIT_NO);
+			eventMsg = MessageUtils.getMessage("audit.no", new Object[]{dbMessage.getTitle(), messageId});
+		}
+		
+		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_EDIT, dbMessage.getCreateUserId(), 
+				ResourceType.MESSAGE_TYPE, messageId, user.getLoginIP(), eventMsg));
+		this.messageDAO.updateMessage(dbMessage);
 	}
 
 }

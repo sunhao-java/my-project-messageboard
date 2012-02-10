@@ -37,6 +37,7 @@
 				<value>com/message/main/info/pojo/Info.hbm.xml</value>
 				<value>com/message/main/history/pojo/UserLoginHistory.hbm.xml</value>
 				<value>com/message/main/event/pojo/BaseEvent.hbm.xml</value>
+				<value>com/message/main/user/pojo/UserPrivacy.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

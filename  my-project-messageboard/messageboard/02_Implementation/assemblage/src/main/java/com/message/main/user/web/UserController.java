@@ -19,6 +19,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
+import com.message.main.user.service.UserPrivacyService;
 import com.message.main.user.service.UserService;
 import com.message.resource.ResourceType;
 
@@ -33,9 +34,14 @@ public class UserController extends ExtMultiActionController {
 	private static WebOutput out = null;
 	
 	private UserService userService;
+	private UserPrivacyService userPrivacyService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
+	}
+
+	public void setUserPrivacyService(UserPrivacyService userPrivacyService) {
+		this.userPrivacyService = userPrivacyService;
 	}
 
 	/**
@@ -170,6 +176,7 @@ public class UserController extends ExtMultiActionController {
 					user = new User(viewUserId);
 					params.put("customer", "true");
 					params.put("viewwhoname", this.userService.getUserById(viewUserId).getTruename());
+					params.put("privacy", this.userPrivacyService.getUserPrivacyByUser(user));
 				}
 				user = this.userService.getUserById(user.getPkId());
 				user = this.userService.addLoginInfo(user);
@@ -432,16 +439,5 @@ public class UserController extends ExtMultiActionController {
 		return new ModelAndView(view);
 	}
 	
-	/**
-	 * 进入用户隐私设置界面
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	public ModelAndView inPrivacySetting(HttpServletRequest request, HttpServletResponse response){
-		Map<String, Object> params = new HashMap<String, Object>();
-		return new ModelAndView("user.privacy.setting", params);
-	}
-
 }
 

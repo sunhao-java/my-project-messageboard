@@ -46,5 +46,10 @@
     	<property name="eventService" ref="eventService"/>
     	<property name="mailSend" ref="mailSend"/>
     </bean>
+    
+    <!-- 用户隐私配置的service -->
+    <bean id="userPrivacyService" class="com.message.main.user.service.impl.UserPrivacyServiceImpl">
+    	<property name="userPrivacyDAO" ref="userPrivacyDAO"/>
+    </bean>
 	
 </beans>

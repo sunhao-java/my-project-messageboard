@@ -23,4 +23,7 @@
 	<!-- 用户的dao -->
 	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 用户隐私配置的dao -->
+	<bean id="userPrivacyDAO" class="com.message.main.user.dao.impl.UserPrivacyDAOImpl" parent="genericHibernateDAOImpl"/>
+	
 </beans>

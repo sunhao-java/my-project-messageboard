@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.vote.pojo.Vote" table="T_MESSAGE_VOTE">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0">
+				<comment>主键</comment>
+			</column>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_VOTE</param>
+			</generator>
+		</id>
+		<property name="question" type="java.lang.String">
+			<column name="QUESTION" length="255">
+				<comment>投票问题</comment>
+			</column>
+		</property>
+		<property name="type" type="java.lang.Long">
+			<column name="TYPE" length="2">
+				<comment>1单选2多选</comment>
+			</column>
+		</property>
+		<property name="maxOption" type="java.lang.Integer">
+			<column name="MAX_OPTION" length="2">
+				<comment>最大选项数，如果是单选，为1；如果是多选，为选项数</comment>
+			</column>
+		</property>
+		<property name="endTime" type="java.util.Date">
+			<column name="ENDTIME">
+				<comment>投票截止时间，为空则永远有效，除非手动终止</comment>
+			</column>
+		</property>
+		<property name="createUserId" type="java.lang.Long">
+			<column name="CREATE_USERID" precision="10" scale="0">
+				<comment>创建者ID</comment>
+			</column>
+		</property>
+		<property name="createUsername" type="java.lang.String">
+			<column name="CREATE_USERNAME" length="255">
+				<comment>创建者NAME</comment>
+			</column>
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TIME">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Long">
+			<column name="DELETE_FLAG" length="1">
+				<comment>删除标识：1已删除0未删除</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

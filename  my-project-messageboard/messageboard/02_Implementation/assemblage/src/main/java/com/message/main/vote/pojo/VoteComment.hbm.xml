@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.vote.pojo.VoteComment" table="T_MESSAGE_VOTE_COMMENT">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0">
+				<comment>主键</comment>
+			</column>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_VOTE_COMMENT</param>
+			</generator>
+		</id>
+		<property name="voteId" type="java.lang.Long">
+			<column name="VOTE_ID" precision="10" scale="0">
+				<comment>对应投票的ID</comment>
+			</column>
+		</property>
+		<property name="commentContent" type="java.lang.String">
+			<column name="COMMENT_CONTENT" length="2000">
+				<comment>评论内容</comment>
+			</column>
+		</property>
+		<property name="commentUserId" type="java.lang.Long">
+			<column name="COMMENT_USERID" precision="10" scale="0">
+				<comment>评论人ID</comment>
+			</column>
+		</property>
+		<property name="commentUserName" type="java.lang.String">
+			<column name="COMMENT_USERNAME" length="255">
+				<comment>评论人NAME</comment>
+			</column>
+		</property>
+		<property name="commentDate" type="java.util.Date">
+			<column name="COMMENT_DATE">
+				<comment>评论日期</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Long">
+			<column name="DELETE_FLAG" length="1">
+				<comment>删除标识：1已删除0未删除</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

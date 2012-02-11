@@ -38,6 +38,10 @@
 				<value>com/message/main/history/pojo/UserLoginHistory.hbm.xml</value>
 				<value>com/message/main/event/pojo/BaseEvent.hbm.xml</value>
 				<value>com/message/main/user/pojo/UserPrivacy.hbm.xml</value>
+				<value>com/message/main/vote/pojo/Vote.hbm.xml</value>
+				<value>com/message/main/vote/pojo/VoteComment.hbm.xml</value>
+				<value>com/message/main/vote/pojo/VoteOption.hbm.xml</value>
+				<value>com/message/main/vote/pojo/VoteAnswer.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -45,7 +49,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
 				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>

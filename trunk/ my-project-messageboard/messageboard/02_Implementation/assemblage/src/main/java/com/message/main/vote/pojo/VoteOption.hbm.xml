@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.vote.pojo.VoteOption" table="T_MESSAGE_VOTE_OPTION">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0">
+				<comment>主键</comment>
+			</column>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_VOTE_OPTION</param>
+			</generator>
+		</id>
+		<property name="voteId" type="java.lang.Long">
+			<column name="VOTE_ID" precision="10" scale="0">
+				<comment>对应投票的ID</comment>
+			</column>
+		</property>
+		<property name="optionContent" type="java.lang.String">
+			<column name="OPTION_CONTENT" length="255">
+				<comment>答案选项的内容</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

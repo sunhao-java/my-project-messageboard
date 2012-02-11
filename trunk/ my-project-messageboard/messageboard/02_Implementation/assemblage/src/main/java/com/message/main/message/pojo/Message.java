@@ -22,6 +22,8 @@ public class Message implements Serializable {
 	private Long createUserId;							//对应的留言者ID
 	private String createUsername;						//对应的留言者Name
 	private Long deleteFlag;							//删除标识：0未删除1已删除
+	private Long auditUserId;							//审核者ID
+	private String auditUsername;						//审核者姓名
 	private Long isAudit;								//管理员审核通过标识：0未审核1已通过2未通过审核
 	
 	//VO Field
@@ -29,6 +31,7 @@ public class Message implements Serializable {
 	private List<Reply> replys;							//VO字段，此条留言的回复
 	private Date beginTime;
 	private Date endTime;
+	private User auditUser;								//VO字段，审核人
 
 	public Long getPkId() {
 		return pkId;
@@ -126,12 +129,36 @@ public class Message implements Serializable {
 		this.endTime = endTime;
 	}
 
+	public Long getAuditUserId() {
+		return auditUserId;
+	}
+
+	public void setAuditUserId(Long auditUserId) {
+		this.auditUserId = auditUserId;
+	}
+
+	public String getAuditUsername() {
+		return auditUsername;
+	}
+
+	public void setAuditUsername(String auditUsername) {
+		this.auditUsername = auditUsername;
+	}
+
 	public Long getIsAudit() {
 		return isAudit;
 	}
 
 	public void setIsAudit(Long isAudit) {
 		this.isAudit = isAudit;
+	}
+
+	public User getAuditUser() {
+		return auditUser;
+	}
+
+	public void setAuditUser(User auditUser) {
+		this.auditUser = auditUser;
 	}
 
 }

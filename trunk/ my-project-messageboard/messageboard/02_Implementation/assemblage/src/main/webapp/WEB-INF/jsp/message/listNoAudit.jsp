@@ -47,6 +47,9 @@
 			<th width="10%" class="fb_result_head">
 				状态
 			</th>
+			<th width="7%" class="fb_result_head">
+				审核人
+			</th>
 		</tr>
 		<c:forEach items="${pagination.items}" var="message">
 			<tr>
@@ -69,6 +72,9 @@
 				</td>
 				<td>
 					审核不通过
+				</td>
+				<td>
+					${message.auditUser.truename}
 				</td>
 			</tr>
 		</c:forEach>

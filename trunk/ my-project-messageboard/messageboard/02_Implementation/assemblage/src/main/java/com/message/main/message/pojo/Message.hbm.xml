@@ -45,6 +45,16 @@
 				<comment>删除标识0未删除1已删除</comment>
 			</column>
 		</property>
+		<property name="auditUserId" type="java.lang.Long">
+			<column name="AUDIT_USERID" precision="10" scale="0">
+				<comment>审核者ID</comment>
+			</column>
+		</property>
+		<property name="auditUsername" type="java.lang.String">
+			<column name="AUDIT_USERNAME" length="255">
+				<comment>审核者姓名</comment>
+			</column>
+		</property>
 		<property name="isAudit" type="java.lang.Long">
 			<column name="IS_AUDIT" precision="10" scale="0">
 				<comment>管理员审核通过标识：0未审核1已通过2未通过审核</comment>

@@ -1,5 +1,7 @@
 package com.message.base.email;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -31,16 +33,15 @@ public class MailUtils {
 	private final String SYS_SENDER_PASSWORD = MessageUtils.getMessage("sys.sender.password", "sunhao1314520");
 	private final String EMAIL_AT = "@";
 	private final String EMAIL_DAO = ".";
-	private final String CONFIRM_TIP = MessageUtils.getMessage("confirm.tip", "请点击下面的链接验证用户！");
-	private final String CONFIRM_TIP_AGAIN = MessageUtils.getMessage("confirm.tip.again", "如果没有成功，请复制下面链接到浏览器地址栏！");
+	//private final String CONFIRM_TIP = MessageUtils.getMessage("confirm.tip", "请点击下面的链接验证用户！");
+	//private final String CONFIRM_TIP_AGAIN = MessageUtils.getMessage("confirm.tip.again", "如果没有成功，请复制下面链接到浏览器地址栏！");
 	private final String URL_CONFIRM = MessageUtils.getMessage("user.confirm", "http://sunhao.wiscom.com.cn:8089/message/user/emailConfirm.do?");
 	private final String MAIL_CONFIRM_TITLE = MessageUtils.getMessage("mail.confirm.title", "邮件验证");
 	private final boolean MAIL_IS_DEBUG = SystemConfig.getBooleanProperty("mail.send.debug", Boolean.FALSE);
 	private final String MAIL_SMTP_AUTH = SystemConfig.getStringProperty("mail.smtp.auth", "true");
 	private final String MAIL_TRANSPORT_PROTOCOL = SystemConfig.getStringProperty("mail.transport.protocol", "auth");
 	private final String USERNAME_CODE = MessageUtils.getMessage("mail.confirm.key", "usernameCode");
-	private final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");
-	
+	private final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");	
 	
 	private static MailUtils instance = new MailUtils();
 	
@@ -139,16 +140,15 @@ public class MailUtils {
 	public String makeMailContent(Long pkId, String username){
 		StringBuffer sb = new StringBuffer();
 		String username_md5 = MD5Utils.MD5Encode(username);
-		sb.append(CONFIRM_TIP).append("<br/>");
-		sb.append("<a href='").append(URL_CONFIRM).append(USERNAME_CODE).append("=").append(username_md5).append("&").append(CONFIRM_USER_ID)
+		sb.append(URL_CONFIRM).append(USERNAME_CODE).append("=").append(username_md5).append("&").append(CONFIRM_USER_ID)
 							.append("=").append(pkId);
-		sb.append("'>").append(URL_CONFIRM).append(USERNAME_CODE).append("=").append(username_md5).append("&").append(CONFIRM_USER_ID).append("=")
-							.append(pkId).append("</a>");
-		sb.append("<br/>");
-		sb.append(CONFIRM_TIP_AGAIN).append("<br/>");
-		sb.append(URL_CONFIRM).append(USERNAME_CODE).append(username_md5).append("&").append(CONFIRM_USER_ID).append("=").append(pkId);
 		
-		return sb.toString();
+		Date now = new Date();
+		String nowStr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
+		
+		String content = MessageUtils.getMessage("mail.confirm.content", new Object[]{nowStr, username, sb.toString()});
+		
+		return content;
 	}
 	
 	/**

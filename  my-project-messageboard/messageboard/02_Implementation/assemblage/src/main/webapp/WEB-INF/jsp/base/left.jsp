@@ -182,24 +182,6 @@
 			     				</table>
 			     			</td>
 			     		</tr>
-			     		<c:if test="${user.isAdmin eq '1'}">
-			     			<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
-				     			<td align="center">
-				     				<table width="100%" cellpadding="0" cellspacing="4">
-				     					<tbody>
-				     						<tr>
-				     							<td align="left" style="">
-				     								<a href="javascript:nav('/message/listMessageAdmin.do')">
-				     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
-				     									<span style="font-size: 12px;">管理留言</span>
-				     								</a>
-				     							</td>
-				     						</tr>
-				     					</tbody>
-				     				</table>
-				     			</td>
-				     		</tr>
-			     		</c:if>
 			     	</tbody>
 		     </table>
 		     <table width="120%" cellpadding="0" cellspacing="0" id="manager" flag="1">
@@ -357,6 +339,22 @@
 		     			<td colspan="2" style="cursor:pointer" class="tabheader">
 		     				&nbsp;&nbsp;
 		     				<span style="font-size: 13px;">系统管理</span>
+		     			</td>
+		     		</tr>
+	     			<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">
+		     			<td align="center">
+		     				<table width="100%" cellpadding="0" cellspacing="4">
+		     					<tbody>
+		     						<tr>
+		     							<td align="left" style="">
+		     								<a href="javascript:nav('/message/listMessageAdmin.do')">
+		     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
+		     									<span style="font-size: 12px;">管理留言</span>
+		     								</a>
+		     							</td>
+		     						</tr>
+		     					</tbody>
+		     				</table>
 		     			</td>
 		     		</tr>
 		     		<tr style="cursor:pointer;" onmouseover="javascript:this.bgColor='#f7e982'" onmouseout="javascript:this.bgColor=''">

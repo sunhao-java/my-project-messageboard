@@ -144,6 +144,11 @@ public class MessageServiceImpl implements MessageService {
 				
 				msg.setCreateUser(dbuser);
 				msg.setReplys(replys);
+				
+				if(msg.getAuditUserId() != null){
+					User auditUser = this.userService.getUserById(msg.getAuditUserId());
+					msg.setAuditUser(auditUser);
+				}
 			}
 		}
 		return pagination;
@@ -152,6 +157,8 @@ public class MessageServiceImpl implements MessageService {
 	public void setAudit(Long messageId, String status, User user) throws Exception {
 		Message dbMessage = this.messageDAO.getMessageByPkId(messageId);
 		String eventMsg = "";
+		dbMessage.setAuditUserId(user.getPkId());
+		dbMessage.setAuditUsername(user.getTruename());
 		if(AUDIT_OK.equals(status)) {
 			dbMessage.setIsAudit(ResourceType.AUDIT_YES);
 			eventMsg = MessageUtils.getMessage("audit.yes", new Object[]{dbMessage.getTitle(), messageId});

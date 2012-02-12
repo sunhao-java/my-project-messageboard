@@ -26,6 +26,11 @@
 				<comment>最大选项数，如果是单选，为1；如果是多选，为选项数</comment>
 			</column>
 		</property>
+		<property name="setEndTime" type="java.lang.Long">
+			<column name="SET_ENDTIME" length="1">
+				<comment>是否设置截止时间，为1不设置2设置</comment>
+			</column>
+		</property>
 		<property name="endTime" type="java.util.Date">
 			<column name="ENDTIME">
 				<comment>投票截止时间，为空则永远有效，除非手动终止</comment>

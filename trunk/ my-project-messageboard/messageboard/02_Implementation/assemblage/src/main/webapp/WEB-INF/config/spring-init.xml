@@ -56,6 +56,7 @@
 				<value>/WEB-INF/tiles-defs/message/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/event/tiles-def.xml</value>
+				<value>/WEB-INF/tiles-defs/vote/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
 			</list>
 		</property>

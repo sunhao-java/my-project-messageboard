@@ -51,5 +51,10 @@
     <bean id="userPrivacyService" class="com.message.main.user.service.impl.UserPrivacyServiceImpl">
     	<property name="userPrivacyDAO" ref="userPrivacyDAO"/>
     </bean>
+    
+    <!-- 投票的service -->
+    <bean id="voteService" class="com.message.main.vote.service.impl.VoteServiceImpl">
+    	<property name="voteDAO" ref="voteDAO"/>
+    </bean>
 	
 </beans>

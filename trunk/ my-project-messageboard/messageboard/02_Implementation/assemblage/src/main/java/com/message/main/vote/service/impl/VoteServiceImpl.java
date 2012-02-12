@@ -31,6 +31,10 @@ public class VoteServiceImpl implements VoteService {
 	 * 未设置截止日期
 	 */
 	private static final Long SET_ENDTIME_NO = Long.valueOf(1);
+	/**
+	 * 已经投过票了
+	 */
+	private static final Long IS_VOTE_YES = Long.valueOf(1);
 	
 	private VoteDAO voteDAO;
 	private UserService userService;
@@ -92,7 +96,7 @@ public class VoteServiceImpl implements VoteService {
 				for(VoteAnswer answer : answers){
 					if(answer.getAnswerUserId().equals(user.getPkId())){
 						//登录者(即当前查看人)已经对这个投票投过票了
-						v.setIsVote(1L);
+						v.setIsVote(IS_VOTE_YES);
 						myAnswer.add(this.getOptionById(answer.getAnswer()).getOptionContent());
 					}
 				}

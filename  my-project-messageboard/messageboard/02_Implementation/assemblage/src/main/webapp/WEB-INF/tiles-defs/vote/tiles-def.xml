@@ -6,4 +6,8 @@
 	<definition name="vote.create" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/vote/vote_create.jsp"/>
 	</definition>
+	
+	<definition name="vote.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/vote/vote_list.jsp"/>
+	</definition>
 </tiles-definitions>

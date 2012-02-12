@@ -55,6 +55,7 @@
     <!-- 投票的service -->
     <bean id="voteService" class="com.message.main.vote.service.impl.VoteServiceImpl">
     	<property name="voteDAO" ref="voteDAO"/>
+    	<property name="userService" ref="userService"/>
     </bean>
 	
 </beans>

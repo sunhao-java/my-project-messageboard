@@ -1,5 +1,6 @@
 package com.message.main.vote.service;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.user.pojo.User;
 import com.message.main.vote.pojo.Vote;
 
@@ -22,4 +23,15 @@ public interface VoteService {
 	 * @throws Exception
 	 */
 	boolean saveVote(Vote vote, User user, String[] choices) throws Exception;
+	
+	/**
+	 * 列出所有投票
+	 * 
+	 * @param start
+	 * @param num
+	 * @param vote
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport listVotes(int start, int num, Vote vote) throws Exception;
 }

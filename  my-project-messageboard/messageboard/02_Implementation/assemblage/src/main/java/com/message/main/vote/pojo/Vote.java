@@ -2,6 +2,9 @@ package com.message.main.vote.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.message.main.user.pojo.User;
 
 /**
  * 投票的主题信息
@@ -23,6 +26,10 @@ public class Vote implements Serializable {
 	private String createUsername;		//创建者姓名
 	private Date createTime;			//创建时间
 	private Long deleteFlag;			//删除标识：1已删除0未删除
+	
+	//VO Fields
+	private List<VoteOption> voteOptions;		//投票的选项
+	private User createUser;					//创建者
 
 	public Long getPkId() {
 		return pkId;
@@ -102,6 +109,22 @@ public class Vote implements Serializable {
 
 	public void setSetEndTime(Long setEndTime) {
 		this.setEndTime = setEndTime;
+	}
+
+	public List<VoteOption> getVoteOptions() {
+		return voteOptions;
+	}
+
+	public void setVoteOptions(List<VoteOption> voteOptions) {
+		this.voteOptions = voteOptions;
+	}
+
+	public User getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(User createUser) {
+		this.createUser = createUser;
 	}
 
 }

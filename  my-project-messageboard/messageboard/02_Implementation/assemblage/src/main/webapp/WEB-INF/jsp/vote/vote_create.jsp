@@ -61,7 +61,7 @@
 		var flag = checkVote();
 		if(flag){
 			var requestURL = "${contextPath}/vote/saveVote.do";
-			var responseURL = '${contextPath}/vote/createVote.do';
+			var responseURL = '${contextPath}/vote/listVote.do';
 			var voteFrm = dom.get('voteFrm');
 			$C.setForm(voteFrm);
 			$C.asyncRequest("POST",requestURL,{
@@ -70,7 +70,7 @@
 					if(_e.status == 1){
 						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发起投票成功！',
 								'confirmFunction':function(){
-									window.location.reload(true);
+									window.location.href = responseURL;
 								}});
 					} else {
 						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发起投票失败！'});
@@ -126,16 +126,7 @@
 </jsp:include>
 
 <div class="content">
-	<div class="top">
-		<ul>
-			<li class="current">
-				<a href="${contextPath}/vote/createVote.do">发起新投票</a>
-			</li>
-			<li class="alt">
-				<a href="#">返回投票列表</a>
-			</li>
-		</ul>
-	</div>
+	<jsp:include page="vote_head.jsp"/>
 	<div class="vote_create">
 		<div class="vote">
 			<div class="vote-content">

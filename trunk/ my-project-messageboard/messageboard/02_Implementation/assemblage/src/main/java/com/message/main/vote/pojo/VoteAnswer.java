@@ -1,6 +1,7 @@
 package com.message.main.vote.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 投票的答案
@@ -17,6 +18,7 @@ public class VoteAnswer implements Serializable {
 	private Long answerUserId;			//回答者ID
 	private String answerUserName;		//回答者NAME
 	private Long answer;				//答案，voteOption的ID
+	private Date answerDate;			//回答时间
 
 	public Long getPkId() {
 		return pkId;
@@ -56,6 +58,14 @@ public class VoteAnswer implements Serializable {
 
 	public void setAnswer(Long answer) {
 		this.answer = answer;
+	}
+
+	public Date getAnswerDate() {
+		return answerDate;
+	}
+
+	public void setAnswerDate(Date answerDate) {
+		this.answerDate = answerDate;
 	}
 
 }

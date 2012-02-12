@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.vote.pojo.Vote;
+import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteOption;
 
 /**
@@ -51,5 +52,40 @@ public interface VoteDAO {
 	 * @throws Exception
 	 */
 	List<VoteOption> listOptionByVote(Long voteId) throws Exception;
+	
+	/**
+	 * 批量保存投票答案
+	 * 
+	 * @param answers
+	 * @throws Exception
+	 */
+	void saveVoteAnswers(List<VoteAnswer> answers) throws Exception;
+	
+	/**
+	 * 根据投票的ID获得参与信息
+	 * 
+	 * @param voteId
+	 * @return
+	 * @throws Exception
+	 */
+	List<VoteAnswer> listAnswerByVote(Long voteId) throws Exception;
+	
+	/**
+	 * 根据投票的ID获得参与人数
+	 * 
+	 * @param voteId
+	 * @return
+	 * @throws Exception
+	 */
+	int getParticipantNum(Long voteId) throws Exception;
+	
+	/**
+	 * 根据ID获得选项
+	 * 
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	VoteOption getOptionById(Long pkId) throws Exception;
 
 }

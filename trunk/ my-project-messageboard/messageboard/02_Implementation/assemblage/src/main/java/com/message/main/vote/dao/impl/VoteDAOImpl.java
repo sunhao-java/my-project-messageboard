@@ -10,6 +10,7 @@ import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
+import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteOption;
 import com.message.resource.ResourceType;
 
@@ -48,6 +49,35 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		String hql = "from VoteOption vo where vo.voteId = :voteId ";
 		params.put("voteId", voteId);
 		return this.findByHQL(hql, params);
+	}
+
+	public void saveVoteAnswers(List<VoteAnswer> answers) throws Exception {
+		if(CollectionUtils.isNotEmpty(answers)) {
+			for(VoteAnswer answer : answers) {
+				this.saveObject(answer);
+			}
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<VoteAnswer> listAnswerByVote(Long voteId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from VoteAnswer va where va.voteId = :voteId order by va.pkId desc ";
+		params.put("voteId", voteId);
+		return this.findByHQL(hql, params);
+	}
+
+	@SuppressWarnings("unchecked")
+	public int getParticipantNum(Long voteId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(*) from (select distinct answer_userid from t_message_vote_answer where vote_id = :voteId)";
+		params.put("voteId", voteId);
+		List list = this.queryByNativeSQL(sql, params);
+		return Integer.parseInt(list.get(0).toString());
+	}
+
+	public VoteOption getOptionById(Long pkId) throws Exception {
+		return (VoteOption) this.loadObject(VoteOption.class, pkId);
 	}
 
 }

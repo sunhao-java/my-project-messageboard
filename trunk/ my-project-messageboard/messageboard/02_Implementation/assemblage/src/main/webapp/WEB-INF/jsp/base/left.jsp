@@ -198,7 +198,7 @@
 			     					<tbody>
 			     						<tr>
 			     							<td align="left" style="">
-			     								<a href="javascript:nav('')">
+			     								<a href="javascript:nav('/vote/listVote.do')">
 			     									&nbsp;&nbsp;<img src="${contextPath}/image/wiseduimg/module/251012_s.gif.png"/>
 			     									<span style="font-size: 12px;">全部投票</span>
 			     								</a>

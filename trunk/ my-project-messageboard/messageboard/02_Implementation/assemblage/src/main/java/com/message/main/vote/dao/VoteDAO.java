@@ -2,6 +2,7 @@ package com.message.main.vote.dao;
 
 import java.util.List;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteOption;
 
@@ -30,5 +31,25 @@ public interface VoteDAO {
 	 * @throws Exception
 	 */
 	void saveOptions(List<VoteOption> voteOptions) throws Exception;
+	
+	/**
+	 * 获得所有投票，只有投票实体
+	 * 
+	 * @param start
+	 * @param num
+	 * @param vote
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport listAllVote(int start, int num, Vote vote) throws Exception;
+	
+	/**
+	 * 根据投票ID获得选项的list集合
+	 * 
+	 * @param voteId
+	 * @return
+	 * @throws Exception
+	 */
+	List<VoteOption> listOptionByVote(Long voteId) throws Exception;
 
 }

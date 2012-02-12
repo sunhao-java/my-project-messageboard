@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.StringUtils;
 import com.message.main.user.pojo.User;
+import com.message.main.user.service.UserService;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteOption;
@@ -28,10 +30,16 @@ public class VoteServiceImpl implements VoteService {
 	 * 未设置截止日期
 	 */
 	private static final Long SET_ENDTIME_NO = Long.valueOf(1);
+	
 	private VoteDAO voteDAO;
+	private UserService userService;
 
 	public void setVoteDAO(VoteDAO voteDAO) {
 		this.voteDAO = voteDAO;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	public boolean saveVote(Vote vote, User user, String[] choices) throws Exception {
@@ -67,6 +75,21 @@ public class VoteServiceImpl implements VoteService {
 			return true;
 		}
 		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public PaginationSupport listVotes(int start, int num, Vote vote) throws Exception {
+		PaginationSupport pagination = this.voteDAO.listAllVote(start, num, vote);
+		List<Vote> votes = pagination.getItems();
+		for(Vote v : votes){
+			if(v != null){
+				List<VoteOption> options = this.voteDAO.listOptionByVote(v.getPkId());
+				User createUser = this.userService.getUserById(v.getCreateUserId());
+				v.setVoteOptions(options);
+				v.setCreateUser(createUser);
+			}
+		}
+		return pagination;
 	}
 
 }

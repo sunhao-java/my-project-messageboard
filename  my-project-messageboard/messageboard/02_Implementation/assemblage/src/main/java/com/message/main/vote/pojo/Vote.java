@@ -16,7 +16,8 @@ public class Vote implements Serializable {
 	private Long pkId;					//主键
 	private String question;			//投票问题
 	private Long type;					//1单选2多选
-	private Integer maxOption;				//最大选项数，如果是单选，为1；如果是多选，为选项数
+	private Integer maxOption;			//最大选项数，如果是单选，为1；如果是多选，为选项数
+	private Long setEndTime;			//是否设置截止时间，为1不设置2设置
 	private Date endTime;				//投票截止时间，为空则永远有效，除非手动终止
 	private Long createUserId;			//创建者ID
 	private String createUsername;		//创建者姓名
@@ -93,6 +94,14 @@ public class Vote implements Serializable {
 
 	public void setDeleteFlag(Long deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public Long getSetEndTime() {
+		return setEndTime;
+	}
+
+	public void setSetEndTime(Long setEndTime) {
+		this.setEndTime = setEndTime;
 	}
 
 }

@@ -1,0 +1,209 @@
+@CHARSET "UTF-8";
+
+.top ul:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.top ul {
+    border-bottom: 1px solid #888888;
+    padding: 15px 0 0 15px;
+}
+
+ul {
+    font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.content{
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #ADADAD;
+    overflow: visible;
+    top: -1px;
+    word-wrap: break-word;
+}
+
+.content .top{
+	background: none repeat scroll 0 0 #F5F5F5;
+    padding-top: 0;
+    position: relative;
+}
+
+.top li.current {
+    border-bottom: 1px solid #FFFFFF;
+}
+
+.top li {
+    border: 1px solid #888888;
+    display: inline;
+    float: left;
+    list-style: none outside none;
+    margin-right: 8px;
+    position: relative;
+    top: 1px;
+}
+
+a:link, a:active, a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.top li.current a {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 1px solid #EEEEEE;
+    color: #333333;
+    padding: 2px 15px;
+    float: left;
+    line-height: 120%;
+}
+
+.top li {
+    border: 1px solid #888888;
+    display: inline;
+    float: left;
+    list-style: none outside none;
+    margin-right: 8px;
+    top: 1px;
+}
+
+.top li a {
+    background: none repeat scroll 0 0 #999999;
+    border-top: 1px solid #B5B5B5;
+    color: #FFFFFF;
+    float: left;
+    line-height: 120%;
+    padding: 2px 15px;
+}
+
+.vote_create {
+    margin: 20px 60px;
+}
+
+.vote:after, .vote_create:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.vote_create .vote {
+    padding-bottom: 1.5em;
+}
+
+.vote, .vote_create {
+    position: relative;
+}
+
+.vote:after, .vote-content:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.vote, .vote-content {
+    position: relative;
+}
+
+.vote form.form {
+    margin-left: 0;
+}
+
+.vote_create form {
+    margin-top: 20px;
+}
+
+.vote-newformtb {
+    margin: 2em 2em 2em 9em;
+}
+
+.form-layout {
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table {
+    font-size: inherit;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.vote-title-tr th {
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.vote-newformtb th {
+    text-align: right;
+}
+
+.vote-newformtb th {
+    width: 82px;
+}
+
+.vote-newformtb th, .vote-newformtb td {
+    padding: 6px;
+}
+
+.form-layout th, .form-layout td {
+    vertical-align: top;
+}
+
+.vote-title-tr .f-text {
+    font-size: 14px;
+    padding: 2px;
+}
+
+.vote-newformtb .f-text {
+    width: 240px;
+}
+
+.vote-title-tr .f-warning {
+    border: 1px solid #CC0000 !important;
+}
+
+.create_vote .vote-content p {
+    margin: 1em 0;
+}
+
+.vote-newformtb .vote-newtip {
+    color: #666666;
+}
+
+form.form p {
+    line-height: 21px;
+    margin: 10px 0;
+}
+
+.vote-newformtb p {
+    margin-bottom: 8px;
+}
+
+a:link, a:visited {
+    color: #0066CC;
+    text-decoration: none;
+}
+
+a {
+    outline: medium none;
+}
+
+a:hover{
+	text-decoration: underline;
+}

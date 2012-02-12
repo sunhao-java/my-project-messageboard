@@ -152,5 +152,20 @@
     	</property>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
     </bean>
+    
+    <!-- 投票的controller -->
+    <bean id="voteController" class="com.message.main.vote.web.VoteController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/vote/createVote.do">createVote</prop>
+    					<prop key="/vote/saveVote.do">saveVote</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="voteService" ref="voteService"/>
+    </bean>
 	
 </beans>

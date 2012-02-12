@@ -26,4 +26,7 @@
 	<!-- 用户隐私配置的dao -->
 	<bean id="userPrivacyDAO" class="com.message.main.user.dao.impl.UserPrivacyDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 投票的DAO -->
+	<bean id="voteDAO" class="com.message.main.vote.dao.impl.VoteDAOImpl" parent="genericHibernateDAOImpl"/>
+	
 </beans>

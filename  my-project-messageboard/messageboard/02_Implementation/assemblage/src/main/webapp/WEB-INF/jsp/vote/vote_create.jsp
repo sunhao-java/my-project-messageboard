@@ -85,14 +85,21 @@
 	
 	function checkVote(){
 		var voteTitle = dom.get('question').value;
-		voteTitle = voteTitle.replace(/\s+/g,"");    
+		voteTitle = voteTitle.replace(/\s+/g,"");  
+		var warning = dom.get('warning');
 		if(voteTitle.trim() == ''){
-			dom.addClass('question', 'f-warning');
-			var warning = $('<span style="display: block;color: #CC0000">此项必须填写</span>');
-			$('#question').after(warning);
+			if(warning == undefined){
+				dom.addClass('question', 'f-warning');
+				var warning = $('<span id="warning" style="display: block;color: #CC0000">此项必须填写</span>');
+				$('#question').after(warning);
+			}
 			checkOption();
 			return false;
 		} else {
+			if(warning != undefined){
+				dom.removeClass('question', 'f-warning');
+				dom.get('warning').style.display = 'none';
+			}
 			return true && checkOption();
 		}
 	}

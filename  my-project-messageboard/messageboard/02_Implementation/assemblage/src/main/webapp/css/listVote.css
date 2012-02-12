@@ -177,3 +177,30 @@ textarea {
     margin-right: 50px;
     text-align: right;
 }
+
+.vote-list .vote-answer {
+    margin-bottom: 0.5em;
+    width: 500px;
+}
+
+.vote-list li h5 {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 0px;
+}
+
+.vote-list .vote-answer .content {
+    color: #333333;
+    margin-left: 5.5em;
+    width: 350px;
+    border-width: 0px;
+}
+
+.myAnswer {
+    font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+

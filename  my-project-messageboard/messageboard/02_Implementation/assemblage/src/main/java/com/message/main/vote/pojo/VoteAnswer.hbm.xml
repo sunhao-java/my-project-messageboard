@@ -31,5 +31,10 @@
 				<comment>答案，voteOption的ID</comment>
 			</column>
 		</property>
+		<property name="answerDate" type="java.util.Date">
+			<column name="ANSWER_DATE">
+				<comment>回答时间</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

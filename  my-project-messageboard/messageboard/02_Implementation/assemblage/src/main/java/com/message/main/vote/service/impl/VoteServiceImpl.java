@@ -10,6 +10,7 @@ import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
+import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteOption;
 import com.message.main.vote.service.VoteService;
 import com.message.resource.ResourceType;
@@ -78,18 +79,60 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PaginationSupport listVotes(int start, int num, Vote vote) throws Exception {
+	public PaginationSupport listVotes(int start, int num, Vote vote, User user) throws Exception {
 		PaginationSupport pagination = this.voteDAO.listAllVote(start, num, vote);
 		List<Vote> votes = pagination.getItems();
 		for(Vote v : votes){
 			if(v != null){
 				List<VoteOption> options = this.voteDAO.listOptionByVote(v.getPkId());
 				User createUser = this.userService.getUserById(v.getCreateUserId());
+				int participantNum = this.voteDAO.getParticipantNum(v.getPkId());
+				List<VoteAnswer> answers = this.listAnswerByVote(v.getPkId());
+				List<String> myAnswer = new ArrayList<String>();
+				for(VoteAnswer answer : answers){
+					if(answer.getAnswerUserId().equals(user.getPkId())){
+						//登录者(即当前查看人)已经对这个投票投过票了
+						v.setIsVote(1L);
+						myAnswer.add(this.getOptionById(answer.getAnswer()).getOptionContent());
+					}
+				}
+				v.setMyAnswer(myAnswer);
 				v.setVoteOptions(options);
 				v.setCreateUser(createUser);
+				v.setParticipantNum(participantNum);
 			}
 		}
 		return pagination;
+	}
+
+	public boolean saveAnswer(Long voteId, Long[] optionIds, User user) throws Exception {
+		if(optionIds.length > 0){
+			List<VoteAnswer> voteAnswers = new ArrayList<VoteAnswer>();
+			for(Long optionId : optionIds){
+				VoteAnswer answer = new VoteAnswer();
+				answer.setVoteId(voteId);
+				answer.setAnswerUserId(user.getPkId());
+				answer.setAnswerUserName(user.getTruename());
+				answer.setAnswer(optionId);
+				answer.setAnswerDate(new Date());
+				
+				voteAnswers.add(answer);
+			}
+			
+			this.voteDAO.saveVoteAnswers(voteAnswers);
+			
+			return true;
+		}
+		return false;
+	}
+
+	public List<VoteAnswer> listAnswerByVote(Long voteId) throws Exception {
+		List<VoteAnswer> answers = this.voteDAO.listAnswerByVote(voteId);
+		return answers;
+	}
+
+	public VoteOption getOptionById(Long pkId) throws Exception {
+		return this.voteDAO.getOptionById(pkId);
 	}
 
 }

@@ -35,8 +35,8 @@
 		<li <c:if test="${current eq 'list' }">class="current"</c:if><c:if test="${current ne 'list' }">class="alt"</c:if>>
 			<a href="${contextPath}/vote/listVote.do">返回投票列表</a>
 		</li>
-		<li <c:if test="${current eq 'detail' }">class="current"</c:if><c:if test="${current ne 'list' }">class="alt"</c:if>>
-			<a href="${contextPath}/vote/listVote.do">投票</a>
+		<li <c:if test="${current eq 'myVote' }">class="current"</c:if><c:if test="${current ne 'myVote' }">class="alt"</c:if>>
+			<a href="${contextPath}/vote/listMyVote.do">我的投票</a>
 		</li>
 	</ul>
 </div>

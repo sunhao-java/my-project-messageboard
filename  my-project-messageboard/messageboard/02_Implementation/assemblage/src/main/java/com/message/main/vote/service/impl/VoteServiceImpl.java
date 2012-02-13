@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.StringUtils;
 import com.message.main.user.pojo.User;
@@ -202,6 +204,33 @@ public class VoteServiceImpl implements VoteService {
 		vote.setParticipantNum(participantNum);
 
 		return vote;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Vote> listMyAttendVote(User user) throws Exception {
+		//我回答的投票ID
+		List voteIds = this.voteDAO.listMyAnswerVoteId(user);
+		List<Vote> votes = new ArrayList<Vote>();
+		if(CollectionUtils.isNotEmpty(voteIds)){
+			for(int i = 0; i < voteIds.size(); i++){
+				Long voteId = Long.valueOf(voteIds.get(i).toString());
+				Vote vote = this.voteDAO.getVote(voteId);
+				this.makeVoteWithAnswerAndOption(vote, user);
+				
+				votes.add(vote);
+			}
+		}
+		return votes;
+	}
+
+	public List<Vote> listMyCreateVote(User user) throws Exception {
+		List<Vote> votes = this.voteDAO.listVoteByCreateUser(user);
+		if(CollectionUtils.isNotEmpty(votes)){
+			for(Vote vote : votes){
+				this.makeVoteWithAnswerAndOption(vote, user);
+			}
+		}
+		return votes;
 	}
 
 }

@@ -8,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.user.pojo.User;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
@@ -82,6 +83,22 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 
 	public Vote getVote(Long pkId) throws Exception {
 		return (Vote) this.loadObject(Vote.class, pkId);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Vote> listVoteByCreateUser(User user) throws Exception {
+		String hql = "from Vote v where v.createUserId = :userId ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getPkId());
+		return this.findByHQL(hql, params);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List listMyAnswerVoteId(User user) throws Exception {
+		String sql = "select distinct va.vote_id from t_message_vote_answer va where va.answer_userid = :userId";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getPkId());
+		return this.queryByNativeSQL(sql, params);
 	}
 
 }

@@ -180,4 +180,28 @@ public class VoteController extends ExtMultiActionController {
 		return new ModelAndView("vote.detail", params);
 	}
 	
+	/**
+	 * 取出我创建的投票和我参与的投票
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView listMyVote(HttpServletRequest request, HttpServletResponse response){
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		Map<String, Object> params = new HashMap<String, Object>();
+		try {
+			params.put("myCreateVote", this.voteService.listMyCreateVote(user));
+			params.put("myAttendVote", this.voteService.listMyAttendVote(user));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		params.put("current", "myVote");
+		//TODO 页面未写，非此页面
+		return new ModelAndView("vote.detail", params);
+	}
+	
 }

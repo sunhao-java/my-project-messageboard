@@ -3,6 +3,7 @@ package com.message.main.vote.dao;
 import java.util.List;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.user.pojo.User;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteOption;
@@ -96,5 +97,24 @@ public interface VoteDAO {
 	 * @throws Exception
 	 */
 	Vote getVote(Long pkId) throws Exception;
+	
+	/**
+	 * 根据投票创建者获得投票
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<Vote> listVoteByCreateUser(User user) throws Exception;
+	
+	/**
+	 * 返回我回答的投票ID
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	List listMyAnswerVoteId(User user) throws Exception;
 
 }

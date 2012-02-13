@@ -165,6 +165,7 @@
     					<prop key="/vote/saveVoteResult.do">saveVoteResult</prop>
     					<prop key="/vote/viewVote.do">viewVote</prop>
     					<prop key="/vote/viewVoteResult.do">viewVoteResult</prop>
+    					<prop key="/vote/listMyVote.do">listMyVote</prop>
     				</props>
     			</property>
     		</bean>

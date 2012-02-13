@@ -86,4 +86,22 @@ public interface VoteService {
 	 * @throws Exception
 	 */
 	Vote getVoteResult(Long pkId, User user) throws Exception;
+	
+	/**
+	 * 获得我所创建的投票
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<Vote> listMyCreateVote(User user) throws Exception;
+
+	/**
+	 * 获得我所参加的投票
+	 * 
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	List<Vote> listMyAttendVote(User user) throws Exception;
 }

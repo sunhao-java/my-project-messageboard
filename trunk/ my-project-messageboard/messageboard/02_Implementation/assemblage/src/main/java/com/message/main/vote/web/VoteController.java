@@ -133,5 +133,51 @@ public class VoteController extends ExtMultiActionController {
 		out.toJson(params);
 		return null;
 	}
-
+	
+	/**
+	 * 取得单个投票
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView viewVote(HttpServletRequest request, HttpServletResponse response){
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		Map<String, Object> params = new HashMap<String, Object>();
+		Long voteId = in.getLong("voteId", 0L);
+		params.put("show", "detail");
+		try {
+			params.put("vote", this.voteService.getVote(voteId, user));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return new ModelAndView("vote.detail", params);
+	}
+	
+	/**
+	 * 查看投票结果
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView viewVoteResult(HttpServletRequest request, HttpServletResponse response){
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		Map<String, Object> params = new HashMap<String, Object>();
+		Long voteId = in.getLong("voteId", 0L);
+		params.put("show", "result");
+		try {
+			params.put("vote", this.voteService.getVoteResult(voteId, user));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage(), e);
+		}
+		return new ModelAndView("vote.detail", params);
+	}
+	
 }

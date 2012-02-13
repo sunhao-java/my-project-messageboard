@@ -214,3 +214,439 @@ textarea {
     padding: 0;
 }
 
+.ui-t1:after, .ui-t2:after, .ui-t3:after, .ui-t4:after, .ui-group-out:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.u1i-t2 {
+    background: url("../image/wiseduimg/ui-bg.gif") repeat-y scroll 780px 0 #FFFFFF;
+    border-top: 1px solid #CCCCCC;
+    height: auto !important;
+    min-height: 601px;
+    overflow: visible;
+}
+
+.ui-t2 .ui-gf, .ui-group-out .ui-gf {
+    float: left;
+    overflow: hidden;
+    padding: 10px 0 10px 15px;
+    width: 90%;
+}
+
+.vote-list .vote-answer:after, .vote-owner:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.vote-owner {
+    background: url("../image/wiseduimg/vote-round.gif") no-repeat scroll 0 0 #EEEEEE;
+    border-top: 10px solid #FFFFFF;
+    height: 48px;
+    margin: 0 4px;
+    overflow: hidden;
+    padding: 7px 10px;
+}
+
+.vote-owner .image, .vote-owner .txt {
+    float: left;
+    margin-right: 10px;
+    margin-top: 0px;
+}
+
+.voteTipoff {
+    float: right;
+}
+
+.vote-owner .txt {
+    line-height: 24px;
+}
+
+.vote-owner .image, .vote-owner .txt {
+    float: left;
+    margin-right: 10px;
+}
+
+h3 {
+    font-size: 14px;
+}
+
+.vote-owner .vote-info {
+    float: right;
+    margin-top: 26px;
+}
+
+.vote-info {
+    color: #666666;
+}
+
+.vote-member {
+    color: #004B9B;
+    font-size: 18px;
+    margin: 0 5px;
+}
+
+.vote-singlevoteform {
+    padding: 0;
+}
+
+.vote-wrapper h3, .vote-wrapper h4 {
+    font-size: 14px;
+}
+
+p.vote-desc, .vote-resultable p.vote-desc {
+    color: #666666;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.widebody p.vote-desc, .vote-voteform .vote-addcmt, .vote-voteform .vote-oplist {
+    margin-left: 21%;
+    text-align: left;
+}
+
+.vote-oplist li, .vote-pl li .vote-oplist li {
+    margin: 7px 0;
+    padding-left: 25px;
+    padding-top: 3px;
+    position: relative;
+}
+
+.vote-oplist li input {
+    left: 0;
+    position: absolute;
+    top: 2px;
+}
+
+input, button, select {
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.vote-addcmt p {
+    margin: 10px 0;
+}
+
+.vote-singlevoteform textarea {
+    height: 40px;
+    vertical-align: top;
+    width: 280px;
+}
+
+.unsharp {
+    color: #999999;
+}
+
+textarea {
+    overflow: auto;
+}
+
+.f-text, textarea {
+    padding: 2px;
+}
+
+.f-text, textarea, select {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #7C7C7C #CCCCCC #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    line-height: 120%;
+}
+
+input, textarea, select {
+    font-family: 'lucida grande',tahoma,arial,'bitstream vera sans',helvetica,sans-serif;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.vote-color-0, .vote-color-0 .vote-option {
+    color: #A67B4D;
+}
+.vote-color-0 .vote-chart-percentage i {
+    border-color: #C18F5A;
+}
+.vote-color-0 .vote-chart-percentage b {
+    background-color: #E7AB6D;
+}
+.vote-color-1, .vote-color-1 .vote-option {
+    color: #478C45;
+}
+.vote-color-1 .vote-chart-percentage i {
+    border-color: #478F45;
+}
+.vote-color-1 .vote-chart-percentage b {
+    background-color: #5DBC5B;
+}
+.vote-color-2, .vote-color-2 .vote-option {
+    color: #5C7299;
+}
+.vote-color-2 .vote-chart-percentage i {
+    border-color: #586E97;
+}
+.vote-color-2 .vote-chart-percentage b {
+    background-color: #6C81B6;
+}
+.vote-color-3, .vote-color-3 .vote-option {
+    color: #769199;
+}
+.vote-color-3 .vote-chart-percentage i {
+    border-color: #8AABB4;
+}
+.vote-color-3 .vote-chart-percentage b {
+    background-color: #A5CBD6;
+}
+.vote-color-4, .vote-color-4 .vote-option {
+    color: #A62185;
+}
+.vote-color-4 .vote-chart-percentage i {
+    border-color: #B0248D;
+}
+.vote-color-4 .vote-chart-percentage b {
+    background-color: #D843B3;
+}
+.vote-color-5, .vote-color-5 .vote-option {
+    color: #5FA60D;
+}
+.vote-color-5 .vote-chart-percentage i {
+    border-color: #67B410;
+}
+.vote-color-5 .vote-chart-percentage b {
+    background-color: #C2F263;
+}
+.vote-color-6, .vote-color-6 .vote-option {
+    color: #CC234A;
+}
+.vote-color-6 .vote-chart-percentage i {
+    border-color: #BF2146;
+}
+.vote-color-6 .vote-chart-percentage b {
+    background-color: #EE335F;
+}
+.vote-color-7, .vote-color-7 .vote-option {
+    color: #DB7C23;
+}
+.vote-color-7 .vote-chart-percentage i {
+    border-color: #E37F24;
+}
+.vote-color-7 .vote-chart-percentage b {
+    background-color: #FFC535;
+}
+.vote-color-8, .vote-color-8 .vote-option {
+    color: #96A60A;
+}
+.vote-color-8 .vote-chart-percentage i {
+    border-color: #ADBF0B;
+}
+.vote-color-8 .vote-chart-percentage b {
+    background-color: #D8E929;
+}
+.vote-color-9, .vote-color-9 .vote-option {
+    color: #BF4406;
+}
+.vote-color-9 .vote-chart-percentage i {
+    border-color: #923305;
+}
+.vote-color-9 .vote-chart-percentage b {
+    background-color: #E58652;
+}
+.vote-color-0 .vote-chart-percentage b {
+    border-color: #F7CA9B;
+}
+.vote-color-1 .vote-chart-percentage b {
+    border-color: #BDE875;
+}
+.vote-color-2 .vote-chart-percentage b {
+    border-color: #9EB5F0;
+}
+.vote-color-3 .vote-chart-percentage b {
+    border-color: #AEE7F8;
+}
+.vote-color-4 .vote-chart-percentage b {
+    border-color: #FB85DF;
+}
+.vote-color-5 .vote-chart-percentage b {
+    border-color: #E2FEA7;
+}
+.vote-color-6 .vote-chart-percentage b {
+    border-color: #FB7B99;
+}
+.vote-color-7 .vote-chart-percentage b {
+    border-color: #FBE096;
+}
+.vote-color-8 .vote-chart-percentage b {
+    border-color: #E6F63B;
+}
+.vote-color-9 .vote-chart-percentage b {
+    border-color: #FDB188;
+}
+
+.vote-heading {
+    border-bottom: 1px solid #CCCCCC;
+    color: #009800;
+    line-height: 2;
+}
+
+.pl li:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.vote-pl li {
+    margin: 8px 0;
+    padding-left: 63px;
+}
+
+.pl li {
+    border-bottom: 1px solid #DDDDDD;
+    min-height: 70px;
+    padding: 8px 5px 8px 68px;
+    position: relative;
+}
+
+.pl .u-image a {
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    top: 8px;
+    width: 68px;
+}
+
+.pl .u-image img {
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+}
+
+.pl .u-image a span {
+    display: block;
+    line-height: 150%;
+    white-space: nowrap;
+}
+
+.vote-pl li h5 {
+    color: #666666;
+    float: left;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.vote-pl .vote-singlechoice, .vote-pl .vote-multichoice {
+    margin-left: 3.5em;
+}
+
+.vote-pl li ul {
+    margin-bottom: 8px;
+}
+
+.pl p.review {
+    background: url("../image/wiseduimg/quote-start.gif") no-repeat scroll 0 5px transparent;
+    padding: 5px 0 0 18px;
+}
+
+q:before, q:after {
+    content: "";
+}
+
+q:before, q:after {
+    content: "";
+}
+
+.pl p.review q {
+    background: url("../image/wiseduimg/quote-end.gif") no-repeat scroll 100% 100% transparent;
+    padding-right: 18px;
+}
+
+.vote-pl li .vote-singlechoice li, .vote-pl li .vote-multichoice li, .vote-pl .vote-answerslist li, .vote-pl li .vote-oplist li {
+    border-bottom: 0 none;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}
+
+.vote-chart {
+    margin: 12px 0 18px;
+    table-layout: fixed;
+}
+
+table {
+    font-size: inherit;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.vote-chart .vote-option {
+    text-align: right;
+    width: 172px;
+}
+
+.vote-chart td {
+    padding: 4px;
+    vertical-align: top;
+}
+
+.vote-chart .vote-chart-percentage {
+    width: 265px;
+}
+
+.vote-chart td {
+    padding: 4px;
+    vertical-align: top;
+}
+
+.vote-chart-percentage span {
+    height: 10px;
+    margin-top: 4px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.vote-chart-percentage span, .vote-chart-percentage i, .vote-chart-percentage b {
+    display: block;
+    font-size: 6px;
+    line-height: 1;
+}
+
+.vote-chart-percentage span {
+    background: none repeat scroll 0 0 #ECECEC;
+}
+
+.vote-chart-percentage i {
+    border-style: solid;
+    border-width: 1px;
+    height: 8px;
+}
+
+.vote-chart-percentage b {
+    border-color: #EEEEEE;
+    border-style: solid;
+    border-width: 1px 1px 0;
+    height: 7px;
+}
+
+.vote-chart-percentage span, .vote-chart-percentage i, .vote-chart-percentage b {
+    display: block;
+    font-size: 6px;
+    line-height: 1;
+}

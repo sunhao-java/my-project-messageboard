@@ -29,6 +29,7 @@ public class Vote implements Serializable {
 	
 	//VO Fields
 	private List<VoteOption> voteOptions;		//投票的选项
+	private List<VoteAnswer> answers;				//此投票的回答
 	private User createUser;					//创建者
 	private int participantNum;					//共有多少人参加
 	private Long isVote;						//查看人是否已经投过票 1：投过票    2：没有
@@ -152,6 +153,14 @@ public class Vote implements Serializable {
 
 	public void setMyAnswer(List<String> myAnswer) {
 		this.myAnswer = myAnswer;
+	}
+
+	public List<VoteAnswer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<VoteAnswer> answers) {
+		this.answers = answers;
 	}
 
 }

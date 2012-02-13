@@ -95,7 +95,7 @@
 									${vote.participantNum}
 								</p>
 								<h4>
-									<a href="#">${vote.question}</a>
+									<a href="${contextPath}/vote/viewVote.do?voteId=${vote.pkId}">${vote.question}</a>
 								</h4>
 								<p class="image">
 									<a href="#"> <img alt="${user.truename}"
@@ -140,7 +140,7 @@
 									</c:otherwise>
 								</c:choose>
 								<p class="vote-instant-act" style="padding-top: 20px">
-									<a href="#">»查看投票结果</a>
+									<a href="${contextPath}/vote/viewVoteResult.do?voteId=${vote.pkId}">»查看投票结果</a>
 								</p>
 							</div>
 						</form>

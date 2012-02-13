@@ -15,6 +15,10 @@ public class VoteOption implements Serializable {
 	private Long pkId; 				// 主键
 	private Long voteId; 			// 对应投票的ID
 	private String optionContent; 	// 答案选项的内容
+	
+	//VO Fields
+	private int selectNum;			//投此选项的人数
+	private int selectPercent;		//投此选项的百分比(去除%)
 
 	public Long getPkId() {
 		return pkId;
@@ -38,6 +42,22 @@ public class VoteOption implements Serializable {
 
 	public void setOptionContent(String optionContent) {
 		this.optionContent = optionContent;
+	}
+
+	public int getSelectNum() {
+		return selectNum;
+	}
+
+	public void setSelectNum(int selectNum) {
+		this.selectNum = selectNum;
+	}
+
+	public int getSelectPercent() {
+		return selectPercent;
+	}
+
+	public void setSelectPercent(int selectPercent) {
+		this.selectPercent = selectPercent;
 	}
 
 }

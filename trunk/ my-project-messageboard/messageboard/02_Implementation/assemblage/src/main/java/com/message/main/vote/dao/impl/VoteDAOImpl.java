@@ -80,4 +80,8 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		return (VoteOption) this.loadObject(VoteOption.class, pkId);
 	}
 
+	public Vote getVote(Long pkId) throws Exception {
+		return (Vote) this.loadObject(Vote.class, pkId);
+	}
+
 }

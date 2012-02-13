@@ -71,6 +71,16 @@ li {
     font-size: 14px;
 }
 
+.vote-wrapper .vote-list a:active,a:link,a:visited{
+	color: #0066CC !important;
+	text-decoration: none !important;
+}
+
+.vote-wrapper .vote-list a:HOVER{
+	text-decoration: underline !important;
+	color: red !important;
+}
+
 h1, h2, h3, h4, h5, h6, strong {
     font-weight: bold;
 }

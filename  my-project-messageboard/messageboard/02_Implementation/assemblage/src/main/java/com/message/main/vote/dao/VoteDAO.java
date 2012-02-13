@@ -87,5 +87,14 @@ public interface VoteDAO {
 	 * @throws Exception
 	 */
 	VoteOption getOptionById(Long pkId) throws Exception;
+	
+	/**
+	 * 根据ID取得投票实体
+	 * 
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	Vote getVote(Long pkId) throws Exception;
 
 }

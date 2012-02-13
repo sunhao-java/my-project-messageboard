@@ -88,7 +88,7 @@ public class VoteServiceImpl implements VoteService {
 		List<Vote> votes = pagination.getItems();
 		for(Vote v : votes){
 			if(v != null){
-				List<VoteOption> options = this.voteDAO.listOptionByVote(v.getPkId());
+				/*List<VoteOption> options = this.voteDAO.listOptionByVote(v.getPkId());
 				User createUser = this.userService.getUserById(v.getCreateUserId());
 				int participantNum = this.voteDAO.getParticipantNum(v.getPkId());
 				List<VoteAnswer> answers = this.listAnswerByVote(v.getPkId());
@@ -103,7 +103,8 @@ public class VoteServiceImpl implements VoteService {
 				v.setMyAnswer(myAnswer);
 				v.setVoteOptions(options);
 				v.setCreateUser(createUser);
-				v.setParticipantNum(participantNum);
+				v.setParticipantNum(participantNum);*/
+				this.makeVoteWithAnswerAndOption(v, user);
 			}
 		}
 		return pagination;
@@ -137,6 +138,70 @@ public class VoteServiceImpl implements VoteService {
 
 	public VoteOption getOptionById(Long pkId) throws Exception {
 		return this.voteDAO.getOptionById(pkId);
+	}
+
+	public Vote getVote(Long pkId, User user) throws Exception {
+		Vote vote = this.voteDAO.getVote(pkId);
+		if(vote != null){
+			this.makeVoteWithAnswerAndOption(vote, user);
+		}
+		return vote;
+	}
+
+	public Vote getVoteResult(Long pkId, User user) throws Exception {
+		Vote vote = this.voteDAO.getVote(pkId);
+		if(vote != null){
+			this.makeVoteWithAnswerAndOption(vote, user);
+			
+			List<VoteOption> options = vote.getVoteOptions();
+			List<VoteAnswer> answers = vote.getAnswers();
+			
+			for(int i = 0; i < options.size(); i++){
+				VoteOption option = options.get(i);
+				int m = 0;
+				for(int j = 0; j < answers.size(); j++){
+					VoteAnswer answer = answers.get(j);
+					if(option.getPkId().equals(answer.getAnswer())){
+						m += 1;
+					}
+				}
+				option.setSelectNum(m);
+				int percent = m * 100 / answers.size();
+				option.setSelectPercent(percent);
+			}
+		}
+		return vote;
+	}
+	
+	/**
+	 * 往vote中放入一些信息
+	 * @param vote
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	private Vote makeVoteWithAnswerAndOption(Vote vote, User user) throws Exception{
+		List<VoteOption> options = this.voteDAO.listOptionByVote(vote.getPkId());
+		List<VoteAnswer> answers = this.listAnswerByVote(vote.getPkId());
+		User createUser = this.userService.getUserById(vote.getCreateUserId());
+		int participantNum = this.voteDAO.getParticipantNum(vote.getPkId());
+		
+		List<String> myAnswer = new ArrayList<String>();
+		for(VoteAnswer answer : answers){
+			if(answer.getAnswerUserId().equals(user.getPkId())){
+				//登录者(即当前查看人)已经对这个投票投过票了
+				vote.setIsVote(IS_VOTE_YES);
+				myAnswer.add(this.getOptionById(answer.getAnswer()).getOptionContent());
+			}
+		}
+		vote.setMyAnswer(myAnswer);
+		
+		vote.setAnswers(answers);
+		vote.setVoteOptions(options);
+		vote.setCreateUser(createUser);
+		vote.setParticipantNum(participantNum);
+
+		return vote;
 	}
 
 }

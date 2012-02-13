@@ -68,4 +68,22 @@ public interface VoteService {
 	 * @throws Exception
 	 */
 	VoteOption getOptionById(Long pkId) throws Exception;
+	
+	/**
+	 * 根据ID取得投票实体
+	 * 
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	Vote getVote(Long pkId, User user) throws Exception;
+	
+	/**
+	 * 获得投票结果
+	 * 
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	Vote getVoteResult(Long pkId, User user) throws Exception;
 }

@@ -650,3 +650,13 @@ table {
     font-size: 6px;
     line-height: 1;
 }
+
+.vote-list .chart0 {
+    background: url("../image/wiseduimg/chart1.gif") no-repeat scroll 8px 0 transparent;
+}
+.vote-list .chart1 {
+    background: url("../image/wiseduimg/chart2.gif") no-repeat scroll 8px 0 transparent;
+}
+.vote-list .chart2 {
+    background: url("../image/wiseduimg/chart3.gif") no-repeat scroll 8px 0 transparent;
+}

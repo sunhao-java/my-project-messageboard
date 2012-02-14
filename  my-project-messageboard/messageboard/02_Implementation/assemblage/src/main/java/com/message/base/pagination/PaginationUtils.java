@@ -19,14 +19,14 @@ public class PaginationUtils {
 	 */
 	public static PaginationSupport makePagination(List items,int totalSize, int num, int currentIndex){
 		int pageSize = getPageSize(num, totalSize);
-		PaginationSupport paginationSupport = new PaginationSupport(items, num, pageSize, currentIndex);
+		PaginationSupport paginationSupport = new PaginationSupport(items, num, pageSize, currentIndex, totalSize);
 		return paginationSupport;
 	}
 	
 	/**
 	 * 计算共有多少页
 	 * @param num				每页显示的条数
-	 * @param totleSize			数据库中共有多少条
+	 * @param totalSize			数据库中共有多少条
 	 * @return
 	 */
 	private static int getPageSize(int num, int totalSize){

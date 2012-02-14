@@ -19,6 +19,7 @@ public class PaginationSupport implements Serializable {
 	private int nextIndex;			//下一页
 	private int endIndex;			//尾页
 	private int startIndex;			//首页
+    private int totalRow;           //数据库中共有多少条
 	
 	/**
 	 * 构造器
@@ -26,8 +27,9 @@ public class PaginationSupport implements Serializable {
 	 * @param num				每页显示条数
 	 * @param pageSize			总的页数
 	 * @param currentIndex		当前页数
+     * @param totalRow          数据库中共有多少条
 	 */
-	public PaginationSupport(List items, int num, int pageSize, int currentIndex){
+	public PaginationSupport(List items, int num, int pageSize, int currentIndex, int totalRow){
 		this.items = items;
 		this.num = num;
 		this.pageSize = pageSize;
@@ -36,6 +38,7 @@ public class PaginationSupport implements Serializable {
 		this.nextIndex = this.currentIndex == pageSize ? pageSize : this.currentIndex + 1;
 		this.startIndex = 1;
 		this.endIndex = pageSize;
+        this.totalRow = totalRow;
 	}
 
 	public List getItems() {
@@ -132,4 +135,11 @@ public class PaginationSupport implements Serializable {
 			return currentIndex + 10 / 2;
 	}
 
+    public int getTotalRow() {
+        return totalRow;
+    }
+
+    public void setTotalRow(int totalRow) {
+        this.totalRow = totalRow;
+    }
 }

@@ -192,9 +192,13 @@ public class VoteController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
+        int num = in.getInt("num", 3);
+        int num_ = in.getInt("num_", 3);
+        int start = SqlUtils.getStartNum(in, num);
+        int start_ = SqlUtils.getStartNum_(in, num_);
 		try {
-			params.put("myCreateVote", this.voteService.listMyCreateVote(user));
-			params.put("myAttendVote", this.voteService.listMyAttendVote(user));
+			params.put("myCreateVote", this.voteService.listMyCreateVote(user, start, num));
+			params.put("myAttendVote", this.voteService.listMyAttendVote(user, start_, num_));
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.getMessage(), e);

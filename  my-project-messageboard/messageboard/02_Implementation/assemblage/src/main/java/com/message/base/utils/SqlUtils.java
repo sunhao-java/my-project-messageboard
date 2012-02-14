@@ -29,6 +29,23 @@ public class SqlUtils {
     }
 
     /**
+     * 获得query.setFirstResult(start)中的start值
+     *
+     * @param in
+     * @param num
+     * @return
+     */
+    public static int getStartNum_(WebInput in, int num) {
+        int page = NumberUtils.toInt(StringUtils.trimToNull(in.getString("page_")), 1);
+        if (page < 1) {
+            page = 1;
+        }
+        page--;
+
+        return page * num;
+    }
+
+    /**
      * 组装sql中like后的字符串(%...%)
      *
      * @param likeString

@@ -102,19 +102,23 @@ public interface VoteDAO {
 	 * 根据投票创建者获得投票
 	 * 
 	 * @param user
+     * @param start
+     * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	List<Vote> listVoteByCreateUser(User user) throws Exception;
+	PaginationSupport listVoteByCreateUser(User user, int start, int num) throws Exception;
 	
 	/**
 	 * 返回我回答的投票ID
 	 * 
 	 * @param user
+     * @param start
+     * @param num
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	List listMyAnswerVoteId(User user) throws Exception;
+	PaginationSupport listMyAnswerVoteId(User user, int start, int num) throws Exception;
 
 }

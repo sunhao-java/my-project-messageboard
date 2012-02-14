@@ -20,9 +20,9 @@ public class VoteDAOTest extends BaseTest {
 
     @Test
     public void testGetAttendVote() throws Exception {
-        List<Vote> votes = this.voteDAO.listMyAnswerVoteId(new User(41L));
+        /*List<Vote> votes = this.voteDAO.listMyAnswerVoteId(new User(41L));
         for(Vote v : votes){
             System.out.println(v.getQuestion());
-        }
+        }*/
     }
 }

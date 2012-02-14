@@ -1,9 +1,8 @@
 package com.message.base.hibernate.impl;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import com.message.base.utils.SqlUtils;
@@ -180,7 +179,10 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
                     List items = sqlQuery.list();
                     int pageCount = Integer.valueOf(sqlQuery2.uniqueResult().toString());
 
-                    return PaginationUtils.makePagination(items, pageCount, num, start);
+                    //当start不为0时，需要进行分页查询，结果中会有一个rownum字段，加上前面需要查询的字段，这就变成了一个
+                    //数组的list集合，而程序只需要数组的第一项，所以要进行判断：
+                    //当start==0时，不须对结果处理，当不为0时，就需要处理得到每个数组的第一项的list集合
+                    return PaginationUtils.makePagination(start == 0 ? items : resultHandle(items), pageCount, num, start);
                 }
             });
         } catch (DataAccessException e) {
@@ -272,6 +274,25 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      */
     public void deleteObject(Object entity) {
         this.hibernateTemplate.delete(entity);
+    }
+
+    /**
+     * 纯正的SQL分页会出现错误，这里是对查询得到的结果进行处理<br/>
+     * 得到的结果是List<Object[]>类型的，即是数组的list集合<br/>
+     * 取出每个数组的第一项，作为list返回
+     *
+     * @param result 查询得到的结果
+     * @return 程序需要的结果
+     */
+    private List resultHandle(List result){
+        List trueResult = new ArrayList();
+        if(CollectionUtils.isEmpty(result))
+            return Collections.EMPTY_LIST;
+        for(int i = 0; i < result.size(); i++){
+            Object[] obj = (Object[]) result.get(i);
+            trueResult.add(obj[0]);
+        }
+        return trueResult;
     }
 
 }

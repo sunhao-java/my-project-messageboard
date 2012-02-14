@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.message.base.pagination.PaginationUtils;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -207,9 +208,10 @@ public class VoteServiceImpl implements VoteService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Vote> listMyAttendVote(User user) throws Exception {
+	public PaginationSupport listMyAttendVote(User user, int start, int num) throws Exception {
 		//我回答的投票ID
-		List voteIds = this.voteDAO.listMyAnswerVoteId(user);
+        PaginationSupport pagination = this.voteDAO.listMyAnswerVoteId(user, start, num);
+		List voteIds = pagination.getItems();
 		List<Vote> votes = new ArrayList<Vote>();
 		if(CollectionUtils.isNotEmpty(voteIds)){
 			for(int i = 0; i < voteIds.size(); i++){
@@ -220,17 +222,18 @@ public class VoteServiceImpl implements VoteService {
 				votes.add(vote);
 			}
 		}
-		return votes;
+		return PaginationUtils.makePagination(votes, pagination.getTotalRow(), num, start);
 	}
 
-	public List<Vote> listMyCreateVote(User user) throws Exception {
-		List<Vote> votes = this.voteDAO.listVoteByCreateUser(user);
+	public PaginationSupport listMyCreateVote(User user, int start, int num) throws Exception {
+        PaginationSupport pagination = this.voteDAO.listVoteByCreateUser(user, start, num);
+		List<Vote> votes = pagination.getItems();
 		if(CollectionUtils.isNotEmpty(votes)){
 			for(Vote vote : votes){
 				this.makeVoteWithAnswerAndOption(vote, user);
 			}
 		}
-		return votes;
+		return pagination;
 	}
 
 }

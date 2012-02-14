@@ -91,17 +91,21 @@ public interface VoteService {
 	 * 获得我所创建的投票
 	 * 
 	 * @param user
+     * @param start
+     * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	List<Vote> listMyCreateVote(User user) throws Exception;
+	PaginationSupport listMyCreateVote(User user, int start, int num) throws Exception;
 
 	/**
 	 * 获得我所参加的投票
-	 * 
+	 *
 	 * @param user
+     * @param start
+     * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	List<Vote> listMyAttendVote(User user) throws Exception;
+	PaginationSupport listMyAttendVote(User user, int start, int num) throws Exception;
 }

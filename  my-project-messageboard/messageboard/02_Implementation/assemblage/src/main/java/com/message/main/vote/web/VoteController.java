@@ -200,8 +200,7 @@ public class VoteController extends ExtMultiActionController {
 			logger.error(e.getMessage(), e);
 		}
 		params.put("current", "myVote");
-		//TODO 页面未写，非此页面
-		return new ModelAndView("vote.detail", params);
+		return new ModelAndView("vote.listmine", params);
 	}
 	
 }

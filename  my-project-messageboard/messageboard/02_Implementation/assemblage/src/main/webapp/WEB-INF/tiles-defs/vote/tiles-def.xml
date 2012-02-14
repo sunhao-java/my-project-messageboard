@@ -14,4 +14,8 @@
 	<definition name="vote.detail" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/vote/vote_detail.jsp"/>
 	</definition>
+
+    <definition name="vote.listmine" extends="message.home">
+        <put-attribute name="content" value="/WEB-INF/jsp/vote/vote_listmine.jsp"/>
+    </definition>
 </tiles-definitions>

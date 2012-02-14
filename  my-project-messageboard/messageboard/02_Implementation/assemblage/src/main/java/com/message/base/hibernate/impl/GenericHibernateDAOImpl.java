@@ -46,7 +46,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	public List findByHQL(final String hql, final List params){
 		List result = null;
 		try{
-			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
+			result = (List) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
 				Query query = null;
 				public Object doInHibernate(Session session)
 						throws HibernateException, SQLException {
@@ -74,11 +74,11 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List findByHQL(final String hql, final Map params){
-		return this.hibernateTemplate.execute(new HibernateCallback(){
+		return (List) this.hibernateTemplate.execute(new HibernateCallback(){
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				Query query = session.createQuery(hql);
-				
+
 				Iterator iterator = params.entrySet().iterator();
 				while(iterator.hasNext()){
 					Entry entry = (Entry) iterator.next();
@@ -98,11 +98,11 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public Integer updateByNativeSQL(final String sql, final Map params){
-		return this.hibernateTemplate.execute(new HibernateCallback(){
+		return (Integer) this.hibernateTemplate.execute(new HibernateCallback(){
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				SQLQuery sqlQuery = session.createSQLQuery(sql);
-				
+
 				Iterator it = params.entrySet().iterator();
 				while(it.hasNext()){
 					Entry en = (Entry) it.next();
@@ -122,11 +122,11 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	public List queryByNativeSQL(final String sql, final Map params){
-		return this.hibernateTemplate.execute(new HibernateCallback(){
+		return (List) this.hibernateTemplate.execute(new HibernateCallback(){
 			public Object doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				SQLQuery sqlQuery = session.createSQLQuery(sql);
-				
+
 				Iterator it = params.entrySet().iterator();
 				while(it.hasNext()){
 					Entry entry = (Entry) it.next();
@@ -168,14 +168,14 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 	public PaginationSupport getPaginationSupport(final String hql, final String countHql, final int start, final int num, final Map params) {
 		PaginationSupport result = null;
 		try{
-			result = this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
+			result = (PaginationSupport) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
 				public Object doInHibernate(Session session)
 						throws HibernateException, SQLException {
 					Query query = session.createQuery(hql);
 					Query query2 = session.createQuery(countHql);
 					query.setFirstResult(start);
 					query.setMaxResults(num);
-					
+
 					Iterator it = params.entrySet().iterator();
 					while(it.hasNext()){
 						Entry en = (Entry) it.next();

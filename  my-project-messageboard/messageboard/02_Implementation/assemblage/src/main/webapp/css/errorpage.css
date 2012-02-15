@@ -1,0 +1,206 @@
+.package:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0.1em;
+    height: 0.1px;
+    line-height: 0;
+    visibility: hidden;
+}
+
+#page-body {
+    clear: both;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+a, div, p, dl, ol, ul, dt, dd, li, td, h1, h2, h3, h4, h5, h6 {
+    line-height: 150%;
+}
+
+.package:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0.1em;
+    height: 0.1px;
+    line-height: 0;
+    visibility: hidden;
+}
+
+#hatrix-nav {
+    margin-bottom: 10px;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+div.results-container {
+    margin: 0 auto 0 140px;
+    padding: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+element.style {
+    margin-left: 12px;
+    margin-top: 12px;
+    visibility: visible;
+    z-index: 1350;
+}
+.boxy-wrapper {
+    empty-cells: show;
+}
+
+.boxy-wrapper {
+    position: relative;
+    width: 80%;
+}
+
+table {
+    border: 0 none;
+}
+
+table tr {
+    line-height: 160%;
+}
+
+.boxy-wrapper .top-left {
+}
+
+.boxy-wrapper .top-left, .boxy-wrapper .top-right, .boxy-wrapper .bottom-right, .boxy-wrapper .bottom-left {
+    height: 10px;
+    padding: 0;
+    width: 10px;
+}
+
+body, input, textarea, select, button, td {
+    font-family: "Lucida Grande",Tahoma,Arial,sans-serif;
+}
+
+a, div, p, dl, ol, ul, dt, dd, li, td, h1, h2, h3, h4, h5, h6 {
+    line-height: 150%;
+}
+
+body, input, textarea, select, button, td {
+    color: #333333;
+    font-family: "Lucida Grande",Tahoma,Verdana,Lucida,Arial,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.boxy-wrapper .top, .boxy-wrapper .bottom-center {
+    background-color: black;
+    height: 10px;
+    opacity: 0.6;
+    padding: 0;
+}
+
+.boxy-wrapper .top-right {
+}
+
+.boxy-wrapper .top-left {
+    background: url("../image/boxy/boxy-lt.png") repeat scroll 0 0 transparent;
+}
+
+.boxy-wrapper .top-right {
+    background: url("../image/boxy/boxy-rt.png") repeat scroll 0 0 transparent;
+}
+
+.boxy-wrapper .bottom-left {
+    background: url("../image/boxy/boxy-ld.png") repeat scroll 0 0 transparent;
+}
+
+.boxy-wrapper .bottom-right {
+    background: url("../image/boxy/boxy-rd.png") repeat scroll 0 0 transparent;
+}
+
+.boxy-wrapper .left, .boxy-wrapper .right {
+    background-color: black;
+    opacity: 0.6;
+    padding: 0;
+    width: 10px;
+}
+
+.left {
+    text-align: left;
+}
+
+.boxy-inner {
+    background-color: white;
+    padding: 0;
+}
+
+.boxy-wrapper .title-bar {
+    padding: 6px;
+    position: relative;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+.boxy-wrapper .title-bar h2 {
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.boxy-wrapper h2 {
+    text-align: left;
+}
+
+.boxy-content {
+    padding: 65px 15px 10px 150px;
+    background: url("../image/boxy/cry.png") no-repeat scroll left top transparent;
+}
+
+.results-container p.note {
+    line-height: 18px;
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: black;
+}
+
+.results-container p.tip {
+	font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+	margin-top: 2px;
+}
+
+.results-container p.error {
+	color: red;
+	margin-top: 2px;
+}
+
+.boxy-wrapper .title-bar a.button {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #C00000;
+    border-color: #F4A6A8 #780000 #780000 #F4A6A8;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    padding: 1px 10px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.content{
+	padding: 10px 20px;
+}

@@ -25,7 +25,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<name>css</name>
 		<tag-class>com.message.tags.CSSTag</tag-class>
@@ -40,7 +40,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
 		<name>cutWord</name>
 		<tag-class>com.message.tags.CutWordTag</tag-class>
@@ -61,7 +61,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	
+
 	<tag>
     	<name>formatDate</name>
     	<tag-class>com.message.tags.FormatDateTag</tag-class>
@@ -112,7 +112,7 @@
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
   </tag>
-  
+
   <tag>
 		<name>text</name>
 		<tag-class>com.message.tags.CutTextTag</tag-class>

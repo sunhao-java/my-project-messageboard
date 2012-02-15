@@ -50,8 +50,8 @@ public class HistoryServiceImpl implements HistoryService {
 		return this.historyDAO.getLoginCount(userPkId);
 	}
 
-	public Date getLastLoginTime(Long userPkId) throws Exception {
-		return this.historyDAO.getLastLoginTime(userPkId);
+	public Date getLastLoginTime(Long userPkId, boolean view) throws Exception {
+		return this.historyDAO.getLastLoginTime(userPkId, view);
 	}
 
 	@SuppressWarnings("unchecked")

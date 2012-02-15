@@ -52,10 +52,11 @@ public interface UserService {
 	/**
 	 * 往登录用户中添加历史登录信息
 	 * @param user
+     * @param view
 	 * @return
 	 * @throws Exception
 	 */
-	User addLoginInfo(User user) throws Exception;
+	User addLoginInfo(User user, boolean view) throws Exception;
 	
 	/**
 	 * 编辑修改的用户

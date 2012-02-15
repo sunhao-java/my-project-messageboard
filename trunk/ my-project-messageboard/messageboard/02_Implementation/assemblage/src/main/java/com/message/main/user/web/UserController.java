@@ -179,7 +179,7 @@ public class UserController extends ExtMultiActionController {
 					params.put("privacy", this.userPrivacyService.getUserPrivacyByUser(user));
 				}
 				user = this.userService.getUserById(user.getPkId());
-				user = this.userService.addLoginInfo(user);
+				user = this.userService.addLoginInfo(user, viewUserId == null ? false : true);
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.error(e.getMessage(), e);

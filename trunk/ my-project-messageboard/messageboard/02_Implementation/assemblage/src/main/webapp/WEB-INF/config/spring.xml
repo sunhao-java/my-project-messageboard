@@ -14,6 +14,7 @@
 	
 	<!-- 引入oracle数据库的配置 -->
 	<import resource="database/db-oracle.xml"/>
+	<!-- <import resource="database/db-mysql.xml"/> -->
 	
 	<!-- 引入项目中所有dao的配置 -->
 	<import resource="ioc/dao.xml"/>

@@ -12,4 +12,8 @@
 	<definition name="message.tail" template="/WEB-INF/jsp/base/tail.jsp"/>
 	
 	<definition name="message.home" template="/WEB-INF/jsp/base/home.jsp"/>
+	
+	<definition name="message.error.page" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/base/error.jsp"/>
+	</definition>
 </tiles-definitions>

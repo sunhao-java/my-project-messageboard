@@ -23,4 +23,7 @@
 	<!-- 引入项目中所有controller的配置 -->
 	<import resource="ioc/controller.xml"/>
 	
+	<!-- 引入异常统一处理类的配置 -->
+	<import resource="base/exception.xml"/>
+	
 </beans>

@@ -131,9 +131,9 @@ public class UserServiceImpl implements UserService{
 		return dbUser;
 	}
 
-	public User addLoginInfo(User user) throws Exception {
+	public User addLoginInfo(User user, boolean view) throws Exception {
 		if(user != null){
-			user.setLastLoginTime(this.historyService.getLastLoginTime(user.getPkId()));
+			user.setLastLoginTime(this.historyService.getLastLoginTime(user.getPkId(), view));
 			user.setLoginCount(this.historyService.getLoginCount(user.getPkId()));
 			user.setMessageCount(this.messageService.getLoginUserMessageCount(user.getPkId()));
 		}

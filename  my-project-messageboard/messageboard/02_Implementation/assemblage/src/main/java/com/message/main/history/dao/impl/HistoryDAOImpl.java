@@ -40,14 +40,14 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 	}
 
 	@SuppressWarnings("unchecked")
-	public Date getLastLoginTime(Long userPkId) throws Exception {
+	public Date getLastLoginTime(Long userPkId, boolean view) throws Exception {
 		String hql = "select t.loginTime from UserLoginHistory t where t.loginUserPkId = ? order by t.loginTime desc";
 		List<Object> params = new ArrayList<Object>();
 		params.add(userPkId);
 		
 		List list = this.findByHQL(hql, params);
 		if(list.size() >= 2){
-			return (Date) list.get(1);
+			return view ? (Date) list.get(0) : (Date) list.get(1);
 		}
 		
 		return null;

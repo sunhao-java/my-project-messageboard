@@ -23,7 +23,7 @@
 
 	$(document).ready(function(){
 		new myFCKeditor('content', {'id':'content', 'contextPath':'${contextPath }', 
-				'width':'100%', 'toolBar':'Font'});
+				'width':'100%', 'toolBar':'Font', 'height':'600px'});
 		
 		//调用公共JS自动提示组件
 		showUser('yellow','300px','wrap');
@@ -137,8 +137,7 @@
 					留言内容<span style="color: red">*</span>
 				</td>
 				<td colspan="3">
-					<textarea rows="4" cols="60" name="content" id="content"
-						></textarea>
+					<textarea rows="4" cols="60" name="content" id="content"></textarea>
 				</td>
 			</tr>
 		</table>

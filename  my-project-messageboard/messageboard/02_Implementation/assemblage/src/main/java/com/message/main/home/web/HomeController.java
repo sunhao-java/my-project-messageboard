@@ -64,7 +64,7 @@ public class HomeController extends ExtMultiActionController {
 			logger.debug("login user's name is {}", user.getUsername());
 			try {
 				loginCount = this.historyService.getLoginCount(user.getPkId());
-				lastLoginTime = this.historyService.getLastLoginTime(user.getPkId());
+				lastLoginTime = this.historyService.getLastLoginTime(user.getPkId(), false);
 				params.put("lastLoginTime", lastLoginTime);
 				params.put("loginCount", loginCount);
 				params.put("user", user);

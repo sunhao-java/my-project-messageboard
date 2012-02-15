@@ -30,10 +30,11 @@ public interface HistoryService {
 	/**
 	 * 获取某个用户上次登录的时间
 	 * @param userPkId
+     * @param view
 	 * @return
 	 * @throws Exception
 	 */
-	public Date getLastLoginTime(Long userPkId) throws Exception;
+	public Date getLastLoginTime(Long userPkId, boolean view) throws Exception;
 	
 	/**
 	 * 获取某个用户登录历史的list集合

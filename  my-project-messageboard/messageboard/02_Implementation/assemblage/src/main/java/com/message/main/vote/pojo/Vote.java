@@ -29,11 +29,12 @@ public class Vote implements Serializable {
 	
 	//VO Fields
 	private List<VoteOption> voteOptions;		//投票的选项
-	private List<VoteAnswer> answers;				//此投票的回答
+	private List<VoteAnswer> answers;			//此投票的回答
 	private User createUser;					//创建者
 	private int participantNum;					//共有多少人参加
 	private Long isVote;						//查看人是否已经投过票 1：投过票    2：没有
 	private List<String> myAnswer;				//我的回答
+	private VoteComment comment;				//我的投票的评论
 
 	public Long getPkId() {
 		return pkId;
@@ -161,6 +162,14 @@ public class Vote implements Serializable {
 
 	public void setAnswers(List<VoteAnswer> answers) {
 		this.answers = answers;
+	}
+
+	public VoteComment getComment() {
+		return comment;
+	}
+
+	public void setComment(VoteComment comment) {
+		this.comment = comment;
 	}
 
 }

@@ -6,6 +6,7 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.main.user.pojo.User;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
+import com.message.main.vote.pojo.VoteComment;
 import com.message.main.vote.pojo.VoteOption;
 
 /**
@@ -120,5 +121,24 @@ public interface VoteDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	PaginationSupport listMyAnswerVoteId(User user, int start, int num) throws Exception;
+	
+	/**
+	 * 保存投票评论
+	 * 
+	 * @param voteComment
+	 * @return
+	 * @throws Exception
+	 */
+	public Long saveComment(VoteComment voteComment) throws Exception;
+	
+	/**
+	 * 根据投票的ID获得评论
+	 * 
+	 * @param voteId
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	public VoteComment getComment(Long voteId, User user) throws Exception;
 
 }

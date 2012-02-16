@@ -12,6 +12,7 @@ import com.message.main.user.pojo.User;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
+import com.message.main.vote.pojo.VoteComment;
 import com.message.main.vote.pojo.VoteOption;
 import com.message.resource.ResourceType;
 
@@ -101,6 +102,22 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		params.put("userId", user.getPkId());
         
 		return this.getPaginationByNativeSQL(sql, null, start, num, params);
+	}
+	
+	public Long saveComment(VoteComment voteComment) throws Exception {
+		return ((VoteComment)this.saveObject(voteComment)).getPkId();
+	}
+
+	public VoteComment getComment(Long voteId, User user) throws Exception {
+		String sql = "select vc.pk_id from t_message_vote_comment vc where vc.vote_id = :voteId and vc.comment_userid = :userId ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", user.getPkId());
+		params.put("voteId", voteId);
+		List list = this.queryByNativeSQL(sql, params);
+		if(list != null && list.size() > 0){
+			return (VoteComment) this.loadObject(VoteComment.class, Long.valueOf(list.get(0).toString()));
+		}
+		return null;
 	}
 
 }

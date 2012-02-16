@@ -131,7 +131,7 @@
 													</c:forEach>
 												</ul>
 												<p class="review">
-													<q>此处待处理</q>
+													<q>${vote.comment.commentContent }</q>
 												</p>
 											</li>
 										</ul>

@@ -14,6 +14,7 @@ import com.message.main.user.service.UserService;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
+import com.message.main.vote.pojo.VoteComment;
 import com.message.main.vote.pojo.VoteOption;
 import com.message.main.vote.service.VoteService;
 import com.message.resource.ResourceType;
@@ -113,7 +114,7 @@ public class VoteServiceImpl implements VoteService {
 		return pagination;
 	}
 
-	public boolean saveAnswer(Long voteId, Long[] optionIds, User user) throws Exception {
+	public boolean saveAnswer(Long voteId, Long[] optionIds, User user, String comment) throws Exception {
 		if(optionIds.length > 0){
 			List<VoteAnswer> voteAnswers = new ArrayList<VoteAnswer>();
 			for(Long optionId : optionIds){
@@ -125,6 +126,18 @@ public class VoteServiceImpl implements VoteService {
 				answer.setAnswerDate(new Date());
 				
 				voteAnswers.add(answer);
+			}
+			
+			if(StringUtils.isNotEmpty(comment)){
+				VoteComment voteComment = new VoteComment();
+				voteComment.setCommentContent(comment);
+				voteComment.setCommentDate(new Date());
+				voteComment.setCommentUserId(user.getPkId());
+				voteComment.setCommentUserName(user.getTruename());
+				voteComment.setDeleteFlag(ResourceType.DELETE_NO);
+				voteComment.setVoteId(voteId);
+				
+				this.voteDAO.saveComment(voteComment);
 			}
 			
 			this.voteDAO.saveVoteAnswers(voteAnswers);
@@ -188,6 +201,7 @@ public class VoteServiceImpl implements VoteService {
 		List<VoteAnswer> answers = this.listAnswerByVote(vote.getPkId());
 		User createUser = this.userService.getUserById(vote.getCreateUserId());
 		int participantNum = this.voteDAO.getParticipantNum(vote.getPkId());
+		VoteComment voteComment = this.voteDAO.getComment(vote.getPkId(), user);
 		
 		List<String> myAnswer = new ArrayList<String>();
 		for(VoteAnswer answer : answers){
@@ -203,6 +217,7 @@ public class VoteServiceImpl implements VoteService {
 		vote.setVoteOptions(options);
 		vote.setCreateUser(createUser);
 		vote.setParticipantNum(participantNum);
+		vote.setComment(voteComment);
 
 		return vote;
 	}

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
@@ -122,8 +123,9 @@ public class VoteController extends ExtMultiActionController {
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Long voteId = in.getLong("voteId", 0);
 		Long[] answers = in.getLongObjects(voteId + "result[]");
+		String comment = in.getString("comment", StringUtils.EMPTY);
 		try {
-			params.put(ResourceType.AJAX_STATUS, this.voteService.saveAnswer(voteId, answers, user) ? 
+			params.put(ResourceType.AJAX_STATUS, this.voteService.saveAnswer(voteId, answers, user, comment) ? 
 												ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		} catch (Exception e) {
 			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);

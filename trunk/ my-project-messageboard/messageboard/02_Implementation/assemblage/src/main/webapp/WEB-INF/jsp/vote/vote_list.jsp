@@ -105,12 +105,15 @@
 								<c:choose>
 									<c:when test="${vote.isVote eq '1'}">
 										<div class="vote-answer">
-											<h5>我的选择：</h5>
+											<h5 style="margin-bottom: 0px;">我的选择：</h5>
                                             <div class="content">
                                             	<c:forEach items="${myAnswer}" var="answer">
 													<p class="myAnswer">${answer}</p>
 												</c:forEach>
                                             </div>
+											<p class="review" style="margin-top: 5px; margin-bottom: 0px;">
+												<q>${vote.comment.commentContent }</q>
+											</p>
                                         </div>
 									</c:when>
 									<c:otherwise>
@@ -139,7 +142,7 @@
 										</p>
 									</c:otherwise>
 								</c:choose>
-								<p class="vote-instant-act" style="padding-top: 20px">
+								<p class="vote-instant-act" style="margin-top: 0px;">
 									<a href="${contextPath}/vote/viewVoteResult.do?voteId=${vote.pkId}">»查看投票结果</a>
 								</p>
 							</div>

@@ -46,10 +46,11 @@ public interface VoteService {
 	 * @param voteId
 	 * @param optionIds
 	 * @param user
+	 * @param comment
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveAnswer(Long voteId, Long[] optionIds, User user) throws Exception;
+	boolean saveAnswer(Long voteId, Long[] optionIds, User user, String comment) throws Exception;
 	
 	/**
 	 * 根据投票的ID获得参与信息

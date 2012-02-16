@@ -561,6 +561,17 @@ input, textarea, select {
     padding: 5px 0 0 18px;
 }
 
+.review {
+    background: url("../image/wiseduimg/quote-start.gif") no-repeat scroll 0 5px transparent;
+    padding: 5px 0 0 18px;
+    color: #9EB5F0;
+}
+
+.review q {
+    background: url("../image/wiseduimg/quote-end.gif") no-repeat scroll 100% 100% transparent;
+    padding-right: 18px;
+}
+
 q:before, q:after {
     content: "";
 }

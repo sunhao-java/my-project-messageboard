@@ -100,7 +100,7 @@
                                             <div class="content">
                                                 <c:forEach items="${myVote.myAnswer}" var="answer" varStatus="status">
                                                     <p style="margin-bottom: 0px; margin-top: 0px;"
-                                                       class="vote-color-${status.index}">${answer}</p>
+                                                       class="vote-color-${status.index % 10}">${answer}</p>
                                                 </c:forEach>
                                             </div>
                                         </div>
@@ -164,7 +164,7 @@
                                     <div class="content">
                                         <c:forEach items="${attendVote.myAnswer}" var="answer" varStatus="status">
                                             <p style="margin-bottom: 0px; margin-top: 0px;"
-                                               class="vote-color-${status.index}">${answer}</p>
+                                               class="vote-color-${status.index % 10}">${answer}</p>
                                         </c:forEach>
                                     </div>
                                 </div>

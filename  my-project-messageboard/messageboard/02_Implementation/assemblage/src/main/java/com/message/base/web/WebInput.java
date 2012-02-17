@@ -20,6 +20,10 @@ import com.message.base.utils.StringUtils;
 public class WebInput {
 	private static final Log log = LogFactory.getLog(WebInput.class);
 	public static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
+	/**
+	 * session的默认生命周期，是20分钟
+	 */
+	private static final Integer DEFAULT_SESSION_LIFT = 20 * 60 * 1000;
 	private HttpServletRequest request;
 	
 	public WebInput(HttpServletRequest request){
@@ -248,6 +252,10 @@ public class WebInput {
 	
 	public HttpSession getSession(){
 		return this.request.getSession();
+	}
+	
+	public void setMaxInactiveInterval(HttpSession session, Integer maxTime){
+		session.setMaxInactiveInterval(maxTime == null ? DEFAULT_SESSION_LIFT : maxTime);
 	}
 	
 	public String getClientIP(){

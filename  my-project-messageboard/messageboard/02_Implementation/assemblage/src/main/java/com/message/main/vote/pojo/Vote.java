@@ -35,6 +35,7 @@ public class Vote implements Serializable {
 	private Long isVote;						//查看人是否已经投过票 1：投过票    2：没有
 	private List<String> myAnswer;				//我的回答
 	private VoteComment comment;				//我的投票的评论
+	private List<VoteComment> comments;			//此投票的所有回答
 
 	public Long getPkId() {
 		return pkId;
@@ -170,6 +171,14 @@ public class Vote implements Serializable {
 
 	public void setComment(VoteComment comment) {
 		this.comment = comment;
+	}
+
+	public List<VoteComment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<VoteComment> comments) {
+		this.comments = comments;
 	}
 
 }

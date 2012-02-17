@@ -98,34 +98,39 @@
 									<a href="${contextPath}/vote/viewVote.do?voteId=${vote.pkId}">${vote.question}</a>
 								</h4>
 								<p class="image">
-									<a href="#"> <img alt="${user.truename}"
+									<a href="${contextPath }/user/userInfo.do?viewUserId=${user.pkId}"> <img alt="${user.truename}"
 											src="${contextPath }/${user.headImage}"> <span>
 											<span title="${user.truename}" class="online_width">${user.truename}</span> </span> </a>
 								</p>
 								<c:choose>
 									<c:when test="${vote.isVote eq '1'}">
 										<div class="vote-answer">
-											<h5 style="margin-bottom: 0px;">我的选择：</h5>
+											<h5>我的选择：</h5>
                                             <div class="content">
-                                            	<c:forEach items="${myAnswer}" var="answer">
-													<p class="myAnswer">${answer}</p>
+                                            	<c:forEach items="${myAnswer}" var="answer" varStatus="status">
+													<p class="vote-color-${status.index % 10}" style="margin-bottom: 0px; margin-top: 0px;">
+														${answer}
+													</p>
 												</c:forEach>
                                             </div>
-											<p class="review" style="margin-top: 5px; margin-bottom: 0px;">
+											<p class="review">
 												<q>${vote.comment.commentContent }</q>
 											</p>
                                         </div>
 									</c:when>
 									<c:otherwise>
 										<ul class="vote-oplist">
-											<c:forEach items="${options}" var="option">
+											<c:forEach items="${options}" var="option" varStatus="status">
 												<li>
 													<label for="vote_op_${option.pkId}"> 
 														<input value="${option.pkId}" name="${vote.pkId }result[]" id="vote_op_${option.pkId}"
 															<c:if test="${vote.type eq 1}">type="radio"</c:if>
 															<c:if test="${vote.type eq 2}">type="checkbox"</c:if> 
 														>
-														${option.optionContent}
+														
+														<p class="vote-color-${status.index % 10}" style="margin-bottom: 0px; margin-top: 0px;">
+															${option.optionContent}
+														</p>
 													</label>
 												</li>
 											</c:forEach>

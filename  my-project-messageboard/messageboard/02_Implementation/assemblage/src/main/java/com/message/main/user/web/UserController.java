@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -80,7 +81,14 @@ public class UserController extends ExtMultiActionController {
 				//跳转到另外一个controller
 				User dbUser = this.userService.getUserByName(user.getUsername());
 				dbUser.setLoginIP(in.getClientIP());
-				in.getSession().setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
+				/**
+				 * 将登录用户放入session中
+				 * 设置session的生命周期为1小时(即：用户登录后不做任何操作1小时后将被强制登出)
+				 */
+				HttpSession session = in.getSession();
+				session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
+				in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
+				
 				return new ModelAndView("redirect:/home/inMessageIndex.do");
 			} else {
 				if(status == 1){

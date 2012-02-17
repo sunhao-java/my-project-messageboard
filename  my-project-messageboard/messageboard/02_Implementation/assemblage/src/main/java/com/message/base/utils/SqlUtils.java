@@ -58,6 +58,12 @@ public class SqlUtils {
         return likeString;
     }
 
+	/**
+	 * 生成纯正SQL语句的查询语句
+	 * 
+	 * @param sql
+	 * @return
+	 */
     public static String getCountSql(String sql) {
         StringBuffer sb = new StringBuffer();
         if (StringUtils.isNotEmpty(sql)) {

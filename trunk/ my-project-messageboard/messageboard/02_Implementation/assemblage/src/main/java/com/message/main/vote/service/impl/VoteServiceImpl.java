@@ -182,15 +182,40 @@ public class VoteServiceImpl implements VoteService {
 					}
 				}
 				option.setSelectNum(m);
-				int percent = m * 100 / answers.size();
+				int percent = 0;
+				if(answers.size() != 0){
+					percent = m * 100 / answers.size();
+				}
+				
 				option.setSelectPercent(percent);
+			}
+			
+			for(VoteAnswer answer : answers){
+				this.makeAnswer(answer, user);
 			}
 		}
 		return vote;
 	}
 	
 	/**
+	 * 处理投票回答
+	 * 
+	 * @param answer
+	 * @throws Exception
+	 */
+	private void makeAnswer(VoteAnswer answer, User user) throws Exception{
+		if(answer != null && answer.getPkId() != null){
+			User answerUser = this.userService.getUserById(answer.getAnswerUserId());
+			VoteOption option = this.voteDAO.getOptionById(answer.getAnswer());
+			
+			answer.setAnswerUser(answerUser);
+			answer.setOptionName(option.getOptionContent());
+		}
+	}
+	
+	/**
 	 * 往vote中放入一些信息
+	 * 
 	 * @param vote
 	 * @param user
 	 * @return
@@ -202,6 +227,7 @@ public class VoteServiceImpl implements VoteService {
 		User createUser = this.userService.getUserById(vote.getCreateUserId());
 		int participantNum = this.voteDAO.getParticipantNum(vote.getPkId());
 		VoteComment voteComment = this.voteDAO.getComment(vote.getPkId(), user);
+		List<VoteComment> comments = this.voteDAO.getAllComments(vote.getPkId());
 		
 		List<String> myAnswer = new ArrayList<String>();
 		for(VoteAnswer answer : answers){
@@ -218,7 +244,19 @@ public class VoteServiceImpl implements VoteService {
 		vote.setCreateUser(createUser);
 		vote.setParticipantNum(participantNum);
 		vote.setComment(voteComment);
+		vote.setComments(comments);
 
+		return vote;
+	}
+	
+	/**
+	 * 往投票中加入所有投票回答（除了当前登录人的自己的回答）
+	 * 
+	 * @param vote		需要处理的投票
+	 * @param user		当前登录人
+	 * @return
+	 */
+	private Vote setAllAnswerInVote(Vote vote, User user){
 		return vote;
 	}
 

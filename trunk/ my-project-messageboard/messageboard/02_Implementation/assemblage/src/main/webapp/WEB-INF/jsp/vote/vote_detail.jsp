@@ -84,7 +84,7 @@
 		<div class="ui-gf">
 			<div class="vote-owner">
 				<p class="image">
-					<a href="#"> 
+					<a href="${contextPath }/user/userInfo.do?viewUserId=${vote.createUser.pkId}"> 
 						<img title="${vote.createUsername}" src="${contextPath}/${vote.createUser.headImage}"> </a>
 				</p>
 				<div class="txt">
@@ -115,8 +115,9 @@
 										<ul style="margin-left: 0px; width: 75%;" class="pl vote-pl">
 											<li>
 												<p class="u-image">
-													<a href="/euser/profile.do?uid=113275"> 
-														<img title="孙昊" src="${contextPath}/image/pic1.gif"> <span>孙昊</span>
+													<a href="${contextPath }/user/userInfo.do?viewUserId=${loginUser.pkId}"> 
+														<img title="${loginUser.truename }" src="${contextPath}/${loginUser.headImage }"> 
+														<span>${loginUser.truename }</span>
 													</a>
 												</p>
 												<h5 style="margin-top: 0px;">
@@ -124,7 +125,7 @@
 												</h5>
 												<ul class="vote-multichoice vote-multichoice-checked">
 													<c:forEach items="${vote.myAnswer}" var="answer" varStatus="status">
-														<li class="vote-color-${status.index}"
+														<li class="vote-color-${status.index % 10}"
 															style="margin-top: 2px; padding-top: 0px; border-bottom-width: 0px; height: 18px;">
 															${answer}
 														</li>
@@ -142,7 +143,7 @@
 										<ul class="vote-oplist">
 											<c:set value="${vote.voteOptions}" var="options"/>
 											<c:forEach items="${options}" var="option" varStatus="status">
-												<li class="vote-color-${status.index}">
+												<li class="vote-color-${status.index % 10}">
 													<label for="vote_op_${option.pkId}"> 
 														<input value="${option.pkId}" name="${vote.pkId }result[]" id="vote_op_${option.pkId}"
 															<c:if test="${vote.type eq 1}">type="radio"</c:if>
@@ -177,7 +178,7 @@
 			                    <table id="vote-chart" class="vote-chart">
 									<c:set value="${vote.voteOptions}" var="options"/>
 									<c:forEach items="${options}" var="option" varStatus="status">
-										<tr class="vote-color-${status.index}">
+										<tr class="vote-color-${status.index % 10}">
 			                                <td class="vote-option"><span>${option.optionContent}</span></td>
 			                                <td class="vote-chart-percentage"><span><i style="width:${option.selectPercent}%"><b></b></i></span></td>
 			                                <td class="vote-percentage"><span class="num-precent">${option.selectPercent}% </span> (${option.selectNum}人)</td>
@@ -185,6 +186,73 @@
 									</c:forEach>
 			                    </table>
 			                </div>
+			                <c:if test="${not empty vote.myAnswer}">
+				                <div id="vote-rap">
+			                        <h3 style=" margin-left: 0px; width: 75%;" class="vote-heading">我的评论</h3>
+									<ul style="margin-left: 0px; width: 75%;" class="pl vote-pl">
+										<li>
+											<p class="u-image">
+												<a href="#"> 
+													<img title="${loginUser.truename }" src="${contextPath}/${loginUser.headImage }"> 
+													<span>${loginUser.truename }</span>
+												</a>
+											</p>
+											<h5 style="margin-top: 0px;">
+												选择：
+											</h5>
+											<ul class="vote-multichoice vote-multichoice-checked">
+												<c:forEach items="${vote.myAnswer}" var="answer" varStatus="status">
+													<li class="vote-color-${status.index % 10}"
+														style="margin-top: 2px; padding-top: 0px; border-bottom-width: 0px; height: 18px;">
+														${answer}
+													</li>
+												</c:forEach>
+											</ul>
+											<p class="review">
+												<q>${vote.comment.commentContent }</q>
+											</p>
+										</li>
+									</ul>
+								</div>
+			                </c:if>
+			                <c:if test="${not empty vote.answers}">
+				                <div id="vote-rap">
+			                        <h3 style=" margin-left: 0px; width: 75%;" class="vote-heading">其他评论</h3>
+									<ul style="margin-left: 0px; width: 75%;" class="pl vote-pl">
+										<c:set value="${vote.comments }" var="voteComments"/>
+										<c:forEach items="${vote.answers }" var="answer_">
+											<c:if test="${answer_.answerUserId ne loginUser.pkId }">
+												<li>
+													<p class="u-image">
+														<a href="#"> 
+															<img title="${answer_.answerUser.truename }" src="${contextPath}/${answer_.answerUser.headImage}"> 
+															<span>${answer_.answerUser.truename }</span>
+														</a>
+													</p>
+													<h5 style="margin-top: 0px;">
+														选择：
+													</h5>
+													<ul class="vote-multichoice vote-multichoice-checked">
+														<li class="vote-color-${status.index % 10}"
+															style="margin-top: 2px; padding-top: 0px; border-bottom-width: 0px; height: 18px;">
+															${answer_.optionName }
+														</li>
+													</ul>
+													<p class="review">
+														<q>
+															<c:forEach items="${voteComments }" var="vc">
+																<c:if test="${vc.commentUserId eq answer_.answerUserId }">
+																	${vc.commentContent }
+																</c:if>
+															</c:forEach>
+														</q>
+													</p>
+												</li>
+											</c:if>
+										</c:forEach>
+									</ul>
+								</div>
+			                </c:if>
 						</c:if>
 					</div>
 				</div>

@@ -150,6 +150,7 @@ public class VoteController extends ExtMultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long voteId = in.getLong("voteId", 0L);
 		params.put("show", "detail");
+		params.put("loginUser", user);
 		try {
 			params.put("vote", this.voteService.getVote(voteId, user));
 		} catch (Exception e) {
@@ -173,6 +174,7 @@ public class VoteController extends ExtMultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long voteId = in.getLong("voteId", 0L);
 		params.put("show", "result");
+		params.put("loginUser", user);
 		try {
 			params.put("vote", this.voteService.getVoteResult(voteId, user));
 		} catch (Exception e) {

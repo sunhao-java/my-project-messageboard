@@ -140,5 +140,14 @@ public interface VoteDAO {
 	 * @throws Exception
 	 */
 	public VoteComment getComment(Long voteId, User user) throws Exception;
-
+	
+	/**
+	 * 根据投票的ID获得所有评论
+	 * 
+	 * @param voteId
+	 * @return
+	 * @throws Exception
+	 */
+	public List<VoteComment> getAllComments(Long voteId) throws Exception;
+	
 }

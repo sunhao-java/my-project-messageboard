@@ -109,8 +109,9 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 	}
 
 	public VoteComment getComment(Long voteId, User user) throws Exception {
-		String sql = "select vc.pk_id from t_message_vote_comment vc where vc.vote_id = :voteId and vc.comment_userid = :userId ";
+		String sql = "select vc.pk_id from t_message_vote_comment vc where vc.vote_id = :voteId and vc.comment_userid = :userId";
 		Map<String, Object> params = new HashMap<String, Object>();
+		
 		params.put("userId", user.getPkId());
 		params.put("voteId", voteId);
 		List list = this.queryByNativeSQL(sql, params);
@@ -118,6 +119,13 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 			return (VoteComment) this.loadObject(VoteComment.class, Long.valueOf(list.get(0).toString()));
 		}
 		return null;
+	}
+
+	public List<VoteComment> getAllComments(Long voteId) throws Exception {
+		String hql = "from VoteComment vc where vc.voteId = :voteId ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("voteId", voteId);
+		return this.findByHQL(hql, params);
 	}
 
 }

@@ -42,8 +42,8 @@
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="cleanEventJob"/>
-				<ref bean="cleanLoginHistoryJob"/>
+				<!-- <ref bean="cleanEventJob"/>
+				<ref bean="cleanLoginHistoryJob"/> -->
 			</list>
 		</property>
 	</bean>

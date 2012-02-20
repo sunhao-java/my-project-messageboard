@@ -143,4 +143,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	
+	<tag>
+		<name>formatAnswer</name>
+		<tag-class>com.message.tags.FormatVoteAnswer</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>voteAnswer</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>                        

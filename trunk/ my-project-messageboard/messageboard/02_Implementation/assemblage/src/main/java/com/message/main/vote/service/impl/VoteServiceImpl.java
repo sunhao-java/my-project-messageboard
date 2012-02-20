@@ -198,7 +198,7 @@ public class VoteServiceImpl implements VoteService {
 			// this.makeAnswer(answer, user);
 			// }
 
-			//TODO by jiabi 2012-01-19
+			//TODO by jiaxiuya 2012-01-19
 			List<String> repeats = new ArrayList<String>();
 			for (int i = 0; i < answers.size(); i++) {
 				if (answers.get(i) != null && answers.get(i).getPkId() != null) {
@@ -211,36 +211,30 @@ public class VoteServiceImpl implements VoteService {
 							}
 						}
 					}
-					if (repeatType == true)
+					if (repeatType == true){
 						continue;
+					}
+						
 					StringBuffer OptionName = new StringBuffer();
-					VoteOption option = this.voteDAO.getOptionById(answers.get(
-							i).getAnswer());
+					VoteOption option = this.voteDAO.getOptionById(answers.get(i).getAnswer());
 					OptionName.append(option.getOptionContent());
 					Long answerUserId1 = answers.get(i).getAnswerUserId();
 					for (int j = i + 1; j < answers.size(); j++) {
-						if (answers.get(j) != null
-								&& answers.get(j).getPkId() != null) {
-							Long answerUserId2 = answers.get(j)
-									.getAnswerUserId();
+						if (answers.get(j) != null && answers.get(j).getPkId() != null) {
+							Long answerUserId2 = answers.get(j).getAnswerUserId();
 
 							if (answerUserId2.equals(answerUserId1)) {
-								VoteOption option1 = this.voteDAO
-										.getOptionById(answers.get(j)
-												.getAnswer());
-								OptionName.append(","
-										+ option1.getOptionContent());
+								VoteOption option1 = this.voteDAO.getOptionById(answers.get(j).getAnswer());
+								OptionName.append("," + option1.getOptionContent());
 								// 标记重复的节点
 								repeats.add(j + "");
 							}
 						}
 					}
 
-					User answerUser = this.userService.getUserById(answers.get(
-							i).getAnswerUserId());
+					User answerUser = this.userService.getUserById(answers.get(i).getAnswerUserId());
 					answers.get(i).setAnswerUser(answerUser);
 					answers.get(i).setOptionName(OptionName.toString());
-					// this.makeAnswer(answer, user);
 				}
 			}
 			// 去除重复的选项

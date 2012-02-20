@@ -233,10 +233,7 @@
 														选择：
 													</h5>
 													<ul class="vote-multichoice vote-multichoice-checked">
-														<li class="vote-color-${status.index % 10}"
-															style="margin-top: 2px; padding-top: 0px; border-bottom-width: 0px; height: 18px;">
-															${answer_.optionName }
-														</li>
+														<msg:formatAnswer voteAnswer="${answer_.optionName }"/>
 													</ul>
 													<p class="review">
 														<q>

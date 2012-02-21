@@ -35,12 +35,21 @@
 YAHOO.namespace("app.calendar");
 YAHOO.app.calendar = function(){
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
+	var TRUE = 'true';
 	
 	return{
 		simpleInit : function(args){
 			var dateFormat_ = args.dateFormat || 'yyyy-MM-dd hh:mm';		//正则表达式
 			var id_ = args.id;												//要变成时间选择组件的文本框id
 			var showTime_ = args.showTime || 24;							//显示时间的格式：12 12小时制；24 24小时制
+			var readOnly_ = args.readOnly || 'true';						//是否将文本框设置成只读
+			var disabled_ = args.disabled || 'true';						//是否将文本框设置成不可操作
+			/**
+			 * 要不是Date()类型的，
+			 * 要不就是形似20120221的字符串
+			 */
+			var minTime_ = args.minTime || '19000101';						//最小时间
+			var maxTime_ = args.maxTime || '20991231';						//最大时间
 
 			var style = "position: relative; margin-right: -20px; cursor: pointer; left: -20px;";
 			var img = $('<img align="absmiddle" vspace="1" style="' + style + '" ' +
@@ -48,7 +57,12 @@ YAHOO.app.calendar = function(){
 			var dateField = $("#" + id_);
 			dateField.after(img);
 			dateField.css("width", 150);
-			dateField.attr("readonly", "readonly");
+			if(readOnly_ == TRUE){
+				dateField.attr("readonly", "readonly");
+			}
+			if(disabled_ == TRUE){
+				dateField.attr("disabled", "disabled");
+			}
 			
 			var calendar_dateFormat = '%Y-%m-%d %k:%M';
 			
@@ -58,12 +72,39 @@ YAHOO.app.calendar = function(){
 				calendar_dateFormat = '%Y-%m-%d';
 			}
 			
+			var minTimeStr;
+			var maxTimeStr;
+			if($L.isObject(minTime_)){
+				var year = minTime_.getFullYear();
+				var month = (minTime_.getMonth() + 1 + '').length == 1 ? ('0' + (minTime_.getMonth() + 1)) : (minTime_.getMonth() + 1);
+				var day = (minTime_.getDate() + '').length == 1 ? ('0' + minTime_.getDate()) : minTime_.getDate();
+				
+				minTimeStr = year + '' + month + day;
+			} else if ($L.isString(minTime_)){
+				minTimeStr = minTime_;
+			}
+			
+			if($L.isObject(maxTime_)){
+				var year = maxTime_.getFullYear();
+				var month = (maxTime_.getMonth() + 1 + '').length == 1 ? ('0' + (maxTime_.getMonth() + 1)) : (maxTime_.getMonth() + 1);
+				var day = (maxTime_.getDate() + '').length == 1 ? ('0' + maxTime_.getDate()) : maxTime_.getDate();
+				
+				maxTimeStr = year + '' + month + day;
+			} else if ($L.isString(maxTime_)){
+				maxTimeStr = maxTime_;
+			}
+			
+			minTimeStr = parseInt(minTimeStr);
+			maxTimeStr = parseInt(maxTimeStr);
+			
 			NEW_CALENDAR = new Calendar({
 				inputField 		: id_,
 				dateFormat 		: calendar_dateFormat,
 				trigger 		: id_ + 'SelectBtn',
 				selectionType	: Calendar.SEL_MULTIPLE,
 				showTime		: showTime_,
+				min				: minTimeStr,
+				max				: maxTimeStr,
 				onSelect		: function(){
 						 this.hide();
 				}

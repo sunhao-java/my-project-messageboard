@@ -20,7 +20,7 @@
 	var num = 5;
 	$(document).ready(function(){
 		//初始化时间选择组件
-	    YAHOO.app.calendar.simpleInit({'id':'endTime'});
+	    YAHOO.app.calendar.simpleInit({'id':'endTime', 'minTime': new Date()});
 		
 		$("#selectMore").click(function(){
 			dom.get('multi-max-option').style.visibility = '';
@@ -206,8 +206,8 @@
 										截止时间
 									</label>
 									<span style="visibility: hidden;" id="endTimeSpan">
-										<input type="text" readonly="readonly" id="endTime" name="endTime"
-											style="width: 90px;" class="f-text"> 
+										<input type="text" id="endTime" name="endTime"
+											style="width: 90px;" class="f-text"/> 
 									</span>
 								</p>
 							</td>

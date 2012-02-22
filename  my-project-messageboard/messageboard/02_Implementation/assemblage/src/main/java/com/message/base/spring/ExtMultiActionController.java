@@ -30,7 +30,17 @@ public class ExtMultiActionController extends MultiActionController {
 	 * @param binder
 	 */
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(ResourceType.SIMPLE_DATE_FORMAT);
+        SimpleDateFormat dateFormat = new SimpleDateFormat();
+        String pattern = "";
+        String date = request.getParameter("endTime");
+        if(date != null && date.indexOf("-") != -1 && date.indexOf(":") == -1){
+        	pattern = ResourceType.DATE_FORMAT;
+        } else {
+        	pattern = ResourceType.SIMPLE_DATE_FORMAT;
+        }
+        
+        dateFormat.applyPattern(pattern);
+        
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }

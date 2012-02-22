@@ -36,6 +36,7 @@ public class Vote implements Serializable {
 	private List<String> myAnswer;				//我的回答
 	private VoteComment comment;				//我的投票的评论
 	private List<VoteComment> comments;			//此投票的所有回答
+	private String isOverTime;					//是否已经过期,0没过期，1过期
 
 	public Long getPkId() {
 		return pkId;
@@ -179,6 +180,14 @@ public class Vote implements Serializable {
 
 	public void setComments(List<VoteComment> comments) {
 		this.comments = comments;
+	}
+
+	public String getIsOverTime() {
+		return isOverTime;
+	}
+
+	public void setIsOverTime(String isOverTime) {
+		this.isOverTime = isOverTime;
 	}
 
 }

@@ -95,12 +95,23 @@
 									${vote.participantNum}
 								</p>
 								<h4>
-									<a href="${contextPath}/vote/viewVote.do?voteId=${vote.pkId}">${vote.question}</a>
+									<c:choose>
+										<c:when test="${vote.isOverTime eq '1' }">
+											<a href="${contextPath}/vote/viewVoteResult.do?voteId=${vote.pkId}">${vote.question}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${contextPath}/vote/viewVote.do?voteId=${vote.pkId}">${vote.question}</a>
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${vote.isOverTime eq '1' }">(该投票已过期)</c:if>
 								</h4>
 								<p class="image">
-									<a href="${contextPath }/user/userInfo.do?viewUserId=${user.pkId}"> <img alt="${user.truename}"
-											src="${contextPath }/${user.headImage}"> <span>
-											<span title="${user.truename}" class="online_width">${user.truename}</span> </span> </a>
+									<a href="${contextPath }/user/userInfo.do?viewUserId=${user.pkId}"> 
+										<img alt="${user.truename}" src="${contextPath }/${user.headImage}"> 
+										<span>
+											<span title="${user.truename}" class="online_width">${user.truename}</span> 
+										</span> 
+									</a>
 								</p>
 								<c:choose>
 									<c:when test="${vote.isVote eq '1'}">
@@ -118,7 +129,7 @@
 											</p>
                                         </div>
 									</c:when>
-									<c:otherwise>
+									<c:when test="${vote.isOverTime ne '1' }">
 										<ul class="vote-oplist">
 											<c:forEach items="${options}" var="option" varStatus="status">
 												<li>
@@ -139,15 +150,17 @@
 											<textarea name="comment" maxlength="500"></textarea>
 										</p>
 										<c:if test="${vote.type eq 2}">
-											<p class="warning" style="margin-bottom: 0px;color:#FF0000">提示:最多可选择${vote.maxOption }个投票项 </p>
+											<p class="warning" style="margin-bottom: 0px;color:#FF0000">
+												提示:最多可选择${vote.maxOption }个投票项 
+											</p>
 										</c:if>
 										<p style="margin-top: 0px; margin-bottom: 0px;">
 											<input type="button" value="确定" class="f-button" 
 													onclick="saveVoteResult('${vote.pkId}', '${vote.type}', '${vote.maxOption}')">
 										</p>
-									</c:otherwise>
+									</c:when>
 								</c:choose>
-								<p class="vote-instant-act" style="margin-top: 0px;">
+								<p class="vote-instant-act">
 									<a href="${contextPath}/vote/viewVoteResult.do?voteId=${vote.pkId}">»查看投票结果</a>
 								</p>
 							</div>

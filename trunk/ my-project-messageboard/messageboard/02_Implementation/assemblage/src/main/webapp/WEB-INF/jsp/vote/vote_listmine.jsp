@@ -91,7 +91,15 @@
                                         style="border-bottom-width: 0px"
                                     </c:if>>
                                 <h4>
-                                    <a href="${contextPath}/vote/viewVote.do?voteId=${myVote.pkId}">${myVote.question}</a>
+                                	<c:choose>
+										<c:when test="${myVote.isOverTime eq '1' }">
+											<a href="${contextPath}/vote/viewVoteResult.do?voteId=${myVote.pkId}">${myVote.question}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${contextPath}/vote/viewVote.do?voteId=${myVote.pkId}">${myVote.question}</a>
+										</c:otherwise>
+									</c:choose>
+									<c:if test="${myVote.isOverTime eq '1' }">(该投票已过期)</c:if>
                                 </h4>
                                 <c:choose>
 									<c:when test="${myVote.isVote eq '1'}">
@@ -105,18 +113,22 @@
                                             </div>
                                         </div>
 									</c:when>
-									<c:otherwise>
+									<c:when test="${myVote.isVote ne '0' }">
                                         <form method="post" id="voteForm${myVote.pkId}">
                                             <ul class="vote-oplist">
                                                 <c:set value="${myVote.voteOptions}" var="options"/>
-                                                <c:forEach items="${options}" var="option">
+                                                <c:forEach items="${options}" var="option" varStatus="status">
                                                     <li>
                                                         <label for="vote_op_${option.pkId}">
-                                                            <input value="${option.pkId}" name="${myVote.pkId }result[]" id="vote_op_${option.pkId}"
+                                                            <input value="${option.pkId}" name="${myVote.pkId }result[]" 
+                                                            	id="vote_op_${option.pkId}"
                                                                 <c:if test="${myVote.type eq 1}">type="radio"</c:if>
                                                                 <c:if test="${myVote.type eq 2}">type="checkbox"</c:if>
                                                             >
-                                                            ${option.optionContent}
+                                                            <%-- ${option.optionContent} --%>
+                                                            <p class="vote-color-${status.index % 10}" style="margin-bottom: 0px; margin-top: 0px;">
+																${option.optionContent}
+															</p>
                                                         </label>
                                                     </li>
                                                 </c:forEach>
@@ -133,7 +145,7 @@
                                                                 '${myVote.maxOption}')">
                                             </p>
                                         </form>
-									</c:otherwise>
+									</c:when>
 								</c:choose>
                                 <%--<p class="vote-viewmore">
                                     <a name="delVote" class="delVote" rel="del.do?ajax=ajax&amp;id=163" href="javascript:;">

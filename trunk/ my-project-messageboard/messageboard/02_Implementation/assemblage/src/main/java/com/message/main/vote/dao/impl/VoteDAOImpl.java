@@ -88,7 +88,7 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 
 	@SuppressWarnings("unchecked")
 	public PaginationSupport listVoteByCreateUser(User user, int start, int num) throws Exception {
-		String hql = "from Vote v where v.createUserId = :userId ";
+		String hql = "from Vote v where v.createUserId = :userId order by v.pkId desc ";
         String countHql = "select count(*) " + hql;
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", user.getPkId());
@@ -97,7 +97,7 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 
 	@SuppressWarnings("unchecked")
 	public PaginationSupport listMyAnswerVoteId(User user, int start, int num) throws Exception {
-		String sql = "select distinct va.vote_id from t_message_vote_answer va where va.answer_userid = :userId";
+		String sql = "select distinct va.vote_id from t_message_vote_answer va where va.answer_userid = :userId order by va.vote_id desc  ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userId", user.getPkId());
         

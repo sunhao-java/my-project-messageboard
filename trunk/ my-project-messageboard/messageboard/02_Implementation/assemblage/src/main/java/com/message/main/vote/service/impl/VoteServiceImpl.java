@@ -8,6 +8,7 @@ import com.message.base.pagination.PaginationUtils;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.DateUtils;
 import com.message.base.utils.StringUtils;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
@@ -32,13 +33,18 @@ public class VoteServiceImpl implements VoteService {
 	 */
 	private static final Long SINGLE_VOTE = Long.valueOf(1);
 	/**
-	 * 未设置截止日期
-	 */
-	private static final Long SET_ENDTIME_NO = Long.valueOf(1);
-	/**
 	 * 已经投过票了
 	 */
 	private static final Long IS_VOTE_YES = Long.valueOf(1);
+	
+	/**
+	 * 投票没有过期
+	 */
+	private static final String OVER_TIME_NO = "0";
+	/**
+	 * 投票过期了
+	 */
+	private static final String OVER_TIME_YES = "1";
 
 	private VoteDAO voteDAO;
 	private UserService userService;
@@ -60,9 +66,6 @@ public class VoteServiceImpl implements VoteService {
 			vote.setDeleteFlag(ResourceType.DELETE_NO);
 			if (SINGLE_VOTE == vote.getType()) {
 				vote.setMaxOption(1);
-			}
-			if (SET_ENDTIME_NO == vote.getSetEndTime()) {
-				vote.setEndTime(null);
 			}
 
 			vote = this.voteDAO.saveVote(vote);
@@ -95,23 +98,15 @@ public class VoteServiceImpl implements VoteService {
 		List<Vote> votes = pagination.getItems();
 		for (Vote v : votes) {
 			if (v != null) {
-				/*
-				 * List<VoteOption> options =
-				 * this.voteDAO.listOptionByVote(v.getPkId()); User createUser =
-				 * this.userService.getUserById(v.getCreateUserId()); int
-				 * participantNum = this.voteDAO.getParticipantNum(v.getPkId());
-				 * List<VoteAnswer> answers =
-				 * this.listAnswerByVote(v.getPkId()); List<String> myAnswer =
-				 * new ArrayList<String>(); for(VoteAnswer answer : answers){
-				 * if(answer.getAnswerUserId().equals(user.getPkId())){
-				 * //登录者(即当前查看人)已经对这个投票投过票了 v.setIsVote(IS_VOTE_YES);
-				 * myAnswer.add
-				 * (this.getOptionById(answer.getAnswer()).getOptionContent());
-				 * } } v.setMyAnswer(myAnswer); v.setVoteOptions(options);
-				 * v.setCreateUser(createUser);
-				 * v.setParticipantNum(participantNum);
-				 */
 				this.makeVoteWithAnswerAndOption(v, user);
+				Date now = new Date();
+				if(v.getEndTime() != null && v.getSetEndTime() == 1L){
+					if(now.after(v.getEndTime())){
+						v.setIsOverTime(OVER_TIME_YES);
+					} else {
+						v.setIsOverTime(OVER_TIME_NO);
+					}
+				}
 			}
 		}
 		return pagination;
@@ -272,8 +267,7 @@ public class VoteServiceImpl implements VoteService {
 			if (answer.getAnswerUserId().equals(user.getPkId())) {
 				// 登录者(即当前查看人)已经对这个投票投过票了
 				vote.setIsVote(IS_VOTE_YES);
-				myAnswer.add(this.getOptionById(answer.getAnswer())
-						.getOptionContent());
+				myAnswer.add(this.getOptionById(answer.getAnswer()).getOptionContent());
 			}
 		}
 		vote.setMyAnswer(myAnswer);
@@ -330,6 +324,15 @@ public class VoteServiceImpl implements VoteService {
 		if (CollectionUtils.isNotEmpty(votes)) {
 			for (Vote vote : votes) {
 				this.makeVoteWithAnswerAndOption(vote, user);
+				
+				Date now = new Date();
+				if(vote.getEndTime() != null && vote.getSetEndTime() == 1L){
+					if(now.after(vote.getEndTime())){
+						vote.setIsOverTime(OVER_TIME_YES);
+					} else {
+						vote.setIsOverTime(OVER_TIME_NO);
+					}
+				}
 			}
 		}
 		return pagination;

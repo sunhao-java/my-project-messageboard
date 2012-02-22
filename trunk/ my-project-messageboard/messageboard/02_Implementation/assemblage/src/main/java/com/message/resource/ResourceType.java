@@ -66,6 +66,10 @@ public final class ResourceType {
 	 * 标准的日期格式
 	 */
 	public static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd HH:mm";
+	/**
+	 * 日期格式
+	 */
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	
 	//下面是操作类型的标识
 	/**

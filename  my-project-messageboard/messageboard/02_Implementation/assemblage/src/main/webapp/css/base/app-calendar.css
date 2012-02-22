@@ -55,10 +55,10 @@ table.DynarchCalendar-titleCont {
   background-position: 100% 50%;
 }
 
-
-
-
-
+.display{
+	background: none repeat scroll 0 0 #E7E7E7 !important;
+    cursor: default;
+}
 
 .DynarchCalendar-bottomBar {
   border-top: 1px solid #aaa;

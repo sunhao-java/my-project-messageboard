@@ -20,7 +20,7 @@
 	var num = 5;
 	$(document).ready(function(){
 		//初始化时间选择组件
-	    YAHOO.app.calendar.simpleInit({'id':'endTime', 'minTime': new Date()});
+	    YAHOO.app.calendar.simpleInit({'id':'endTime', 'minTime': new Date(), 'dateFormat':'yyyy-MM-dd'});
 		
 		$("#selectMore").click(function(){
 			dom.get('multi-max-option').style.visibility = '';

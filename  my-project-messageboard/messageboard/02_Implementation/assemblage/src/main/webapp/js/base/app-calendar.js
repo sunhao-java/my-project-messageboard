@@ -41,9 +41,11 @@ YAHOO.app.calendar = function(){
 		simpleInit : function(args){
 			var dateFormat_ = args.dateFormat || 'yyyy-MM-dd hh:mm';		//正则表达式
 			var id_ = args.id;												//要变成时间选择组件的文本框id
-			var showTime_ = args.showTime || 24;							//显示时间的格式：12 12小时制；24 24小时制
+			var showTime_ = args.showTime || "24";							//显示时间的格式：12 12小时制；24 24小时制
 			var readOnly_ = args.readOnly || 'true';						//是否将文本框设置成只读
 			var disabled_ = args.disabled || 'true';						//是否将文本框设置成不可操作
+			var bottomBar_ = args.bottomBar || "true";						//是否显示按钮
+			
 			/**
 			 * 要不是Date()类型的，
 			 * 要不就是形似20120221的字符串
@@ -61,7 +63,7 @@ YAHOO.app.calendar = function(){
 				dateField.attr("readonly", "readonly");
 			}
 			if(disabled_ == TRUE){
-				dateField.attr("disabled", "disabled");
+				dateField.addClass("display");
 			}
 			
 			var calendar_dateFormat = '%Y-%m-%d %k:%M';
@@ -97,16 +99,23 @@ YAHOO.app.calendar = function(){
 			minTimeStr = parseInt(minTimeStr);
 			maxTimeStr = parseInt(maxTimeStr);
 			
-			NEW_CALENDAR = new Calendar({
+			if(!$L.isBoolean(bottomBar_)){
+				bottomBar_ = bottomBar_ == TRUE;
+			}
+			
+			showTime_ = parseInt(showTime_);
+			
+			NEW_CALENDAR = Calendar.setup({
 				inputField 		: id_,
 				dateFormat 		: calendar_dateFormat,
+				selectionType 	: Calendar.SEL_SINGLE,
 				trigger 		: id_ + 'SelectBtn',
-				selectionType	: Calendar.SEL_MULTIPLE,
 				showTime		: showTime_,
+				bottomBar		: bottomBar_,
 				min				: minTimeStr,
 				max				: maxTimeStr,
 				onSelect		: function(){
-						 this.hide();
+					this.hide();
 				}
 			});
 		

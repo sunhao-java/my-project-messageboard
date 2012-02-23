@@ -113,7 +113,7 @@
                                             </div>
                                         </div>
 									</c:when>
-									<c:when test="${myVote.isVote ne '0' }">
+									<c:when test="${myVote.isVote eq '1' }">
                                         <form method="post" id="voteForm${myVote.pkId}">
                                             <ul class="vote-oplist">
                                                 <c:set value="${myVote.voteOptions}" var="options"/>

@@ -14,7 +14,7 @@ YAHOO.app.dialog = function(){
 		pop : function(args){
 			var id_ = args.id || '';								//dialog框的id
 			
-			var closeIcon_ = args.closeIcon || _false;				//右上角是否有关闭图标，默认是true
+			var closeIcon_ = args.closeIcon || _true;				//右上角是否有关闭图标，默认是true
 			
 			var confirmButton_ = args.confirmButton || _true;		//是否有确定按钮，默认是true
 			var confirmFunction_ = args.confirmFunction;			//点击确定按钮执行的函数
@@ -34,6 +34,18 @@ YAHOO.app.dialog = function(){
 			var reqUrl_ = args.reqUrl;								//请求的URL（与alertMsg不能同时为空）
 			
 			var zIndex_ = args.zIndex || 999;						//对应CSS属性值z-index,默认是4
+			
+			/**
+			 * B.ICON_BLOCK = "blckicon"; 
+			 * B.ICON_ALARM = "alrticon"; 
+			 * B.ICON_HELP = "hlpicon"; 
+			 * B.ICON_INFO = "infoicon"; 
+			 * B.ICON_WARN = "warnicon"; 
+			 * B.ICON_TIP = "tipicon"; 
+			 * B.ICON_CSS_CLASSNAME = "yui-icon"; 
+			 * B.CSS_SIMPLEDIALOG = "yui-simple-dialog";
+			 */
+			var icon_ = args.icon || "alrticon";					//dialog中的图标,默认是alrticon
 			
 			if($L.isString(modal_)){
                 modal_ = (modal_ == _true);
@@ -115,7 +127,7 @@ YAHOO.app.dialog = function(){
 			if(alertMsg_){
 				alertDialog = new YAHOO.widget.SimpleDialog("panel-3", {
 					modal: modal_,
-					icon: YAHOO.widget.SimpleDialog.ICON_INFO,
+					icon : icon_,
 					visible: false,
 					fixedcenter: true,
 					constraintoviewport: true,

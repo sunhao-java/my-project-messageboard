@@ -22,7 +22,7 @@ YAHOO.app.alertForm = function(){
 			var success_ = args.success || "成功！";					//交互成功显示信息，默认显示成功
 			var failure_ = args.failure || "失败！";					//交互失败显示信息，默认显示失败
 			
-			var closeIcon_ = args.closeIcon || _false;				//右上角是否有关闭图标，默认是true
+			var closeIcon_ = args.closeIcon || _true;				//右上角是否有关闭图标，默认是true
 			
 			var cancelButton_ = args.cancelButton || _true;			//是否有取消按钮，默认是true
 			
@@ -86,11 +86,12 @@ YAHOO.app.alertForm = function(){
 			 document.body.appendChild(div);
 			 
 			 formDialog = new YAHOO.widget.Dialog(divId, 
-				{ width : diaWidth_,
+				{ 
+				  width : diaWidth_,
 				  height: diaHeight_,
 				  fixedcenter : true,
 				  visible : false, 
-				  modal : true,
+				  modal : modal_,
 				  close : closeIcon_,
 				  zIndex : zIndex_,
 				  constraintoviewport : false,

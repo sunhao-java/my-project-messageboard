@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.DateUtils;
 import com.message.main.event.dao.EventDAO;
+import com.message.main.event.exception.EventException;
 import com.message.main.event.job.CleanEventJob;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
@@ -42,6 +43,8 @@ public class EventServiceImpl implements EventService {
 		if(baseEvent != null){
 			baseEvent.setOperationTime(new Date());
 			this.eventDAO.saveEvent(baseEvent);
+		} else {
+			throw new EventException("the event entry is null!");
 		}
 	}
 

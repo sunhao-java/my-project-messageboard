@@ -14,6 +14,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.job.CleanEventJob;
 import com.message.main.history.dao.HistoryDAO;
+import com.message.main.history.exception.HistoryException;
 import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.user.pojo.User;
@@ -43,6 +44,8 @@ public class HistoryServiceImpl implements HistoryService {
 			loginHistory.setLoginTime(new Date());
 			loginHistory.setBrowser(in.getRequest().getHeader("User-Agent"));
 			this.historyDAO.saveLoginHistory(loginHistory);
+		} else {
+			throw new HistoryException("the wenInput is null!");
 		}
 	}
 

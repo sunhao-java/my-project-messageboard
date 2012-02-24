@@ -6,15 +6,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.service.EventService;
-import com.message.main.message.web.MessageController;
 import com.message.resource.ResourceType;
 
 /**
@@ -22,7 +19,6 @@ import com.message.resource.ResourceType;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class EventController extends ExtMultiActionController {
-private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	private WebInput in = null;
 	
@@ -37,18 +33,14 @@ private static final Logger logger = LoggerFactory.getLogger(MessageController.c
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws Exception 
 	 */
-	public ModelAndView listEvent(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView listEvent(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		try {
-			params.put("paginationSupport", this.eventService.getEvents(start, num));
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			e.printStackTrace();
-		}
+		params.put("paginationSupport", this.eventService.getEvents(start, num));
 		return new ModelAndView("message.list.event", params);
 	}
 }

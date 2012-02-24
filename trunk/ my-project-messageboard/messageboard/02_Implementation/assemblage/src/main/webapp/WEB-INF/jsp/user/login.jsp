@@ -102,7 +102,7 @@
 
 	</head>
 
-	<body class="yui-skin-sam">
+	<body class="yui-skin-sam" style="margin: 0px;">
 		<table width="100%" border="0" height="100%" cellpadding="0" cellspacing="0">
 			<tr>
 				<td bgcolor="#165286">

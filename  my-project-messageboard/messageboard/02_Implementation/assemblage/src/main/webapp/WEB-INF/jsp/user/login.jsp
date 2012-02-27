@@ -9,6 +9,8 @@
 <html>
 	<head>
 		<title>登录</title>
+		
+		<link rel="shortcut icon" href="${contextPath }/favicon.ico" />
 
 		<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 		<msg:js src="js/jquery/jquery.easyui.min.js"/>
@@ -99,21 +101,34 @@
 				}
 			}
 		</script>
+		
+		<style type="text/css">
+			.logo{
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				width: 32px;
+				height: 32px;
+			}
+		</style>
 
 	</head>
 
-	<body class="yui-skin-sam" style="margin: 0px;">
-		<table width="100%" border="0" height="100%" cellpadding="0" cellspacing="0">
+	<body class="yui-skin-sam" style="margin: 0px;background: url('${contextPath}/image/chuchu/background.jpg') no-repeat;">
+		<div class="logo">
+			<img src="${contextPath }/image/chuchu/logo.jpg" title="佳友之家">
+		</div>
+		<table width="100%" border="0" height="100%" cellpadding="0" cellspacing="0"> 
 			<tr>
-				<td bgcolor="#165286">
-					<table width="1000" height="483" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#66CC33" id="__01">
+				<td bgcolor="">
+					<table width="1000" height="483" border="0" align="right" cellpadding="0" cellspacing="0" bordercolor="#66CC33" id="__01">
 						<tr>
-							<td background="${contextPath}/image/wiseduimg/wiscom_index_01.jpg" height="104" colspan="3">
+							<td height="104" colspan="2">
 								&nbsp;
 							</td>
 						</tr>
 						<tr>
-							<td width="603" height="379" rowspan="2" background="${contextPath}/image/wiseduimg/wiscom_index_02.jpg" style="background-repeat: no-repeat;">
+							<td width="603" height="379" rowspan="2"  style="background-repeat: no-repeat;">
 								&nbsp;
 							</td>
 							<c:choose>
@@ -149,6 +164,7 @@
 												<tr>
 													<td height="72" style="padding-left: 20px; font-size: 18px;">
 														<img src="${contextPath}/image/wiseduimg/wiscom_login.PNG" width="124" height="46" onclick="login()" style="cursor: pointer">
+														<img src="${contextPath}/image/wiseduimg/wiscom_reg.jpg" width="124" height="46" onclick="showRegister()" style="cursor: pointer">
 													</td>
 												</tr>
 											</table>
@@ -184,7 +200,7 @@
                 					 </td>
 								</c:otherwise>
 							</c:choose>
-							<td width="86" height="377" rowspan="2" background="${contextPath}/image/wiseduimg/wiscom_index_04.jpg">
+							<td width="86" height="377" rowspan="2">
 								&nbsp;
 							</td>
 						</tr>
@@ -197,6 +213,7 @@
 				</td>
 			</tr>
 		</table>
+		
 		<div id="registerDiv" class="registerDiv">
 			<div id="titleDiv" class="titleDiv">
 				<a id="turnoff" title="关闭" href="javaScript:closeDiv();">

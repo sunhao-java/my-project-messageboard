@@ -6,6 +6,7 @@
 <html>
   <head>
     <title>留言板</title>
+    <link rel="shortcut icon" href="${contextPath }/favicon.ico" />
   </head>
   
 	<frameset rows="70,*,50" height="100%" frameborder="0" framespacing="0"> 

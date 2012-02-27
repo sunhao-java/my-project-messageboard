@@ -31,7 +31,8 @@ body{
 	padding-bottom: 0px;
 	margin-left: 155px;
 	margin-top: 39px;
-	background-image: url('../image/main_05.gif');
+	/* background-image: url('../image/main_05.gif'); */
+	background-color: #196793;
 	width: 810px;
 	z-index: 1000;
 	position:absolute;

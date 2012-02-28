@@ -124,12 +124,12 @@
 					<table width="1000" height="483" border="0" align="right" cellpadding="0" cellspacing="0" bordercolor="#66CC33" id="__01">
 						<tr>
 							<td height="104" colspan="2">
-								&nbsp;
+								
 							</td>
 						</tr>
 						<tr>
 							<td width="603" height="379" rowspan="2"  style="background-repeat: no-repeat;">
-								&nbsp;
+								
 							</td>
 							<c:choose>
 								<c:when test="${empty status}">
@@ -157,8 +157,16 @@
 													</td>
 												</tr>
 												<tr>
-													<td height="21">
-														&nbsp;
+													<td height="28" style="padding-left: 20px;">
+														<c:choose>
+															<c:when test="${guestAuth eq 'true' }">
+																<span style="color: red">*&nbsp;游客登录：用户名guest，密码guest</span>
+															</c:when>
+															<c:otherwise>
+																&nbsp;
+															</c:otherwise>
+														</c:choose>
+														
 													</td>
 												</tr>
 												<tr>

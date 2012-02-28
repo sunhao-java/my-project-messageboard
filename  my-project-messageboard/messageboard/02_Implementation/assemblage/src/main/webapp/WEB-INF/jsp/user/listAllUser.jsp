@@ -112,6 +112,9 @@
 						<c:if test="${user.isAdmin eq '0'}">
 							否
 						</c:if>
+						<c:if test="${user.isAdmin eq '2'}">
+							游客
+						</c:if>
 					</td>
 					<td>
 						<c:choose>

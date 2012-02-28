@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.i18n.SystemConfig;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;
@@ -54,14 +55,17 @@ public class UserController extends ExtMultiActionController {
 	 */
 	public ModelAndView inLoginJsp(HttpServletRequest request, HttpServletResponse response){
 		in = new WebInput(request);
+		Map<String, Object> params = new HashMap<String, Object>();
 		String view = "";
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+		boolean guestAuth = SystemConfig.getBooleanProperty("system.auth.guest", false);
 		if(user != null) {
 			view = "redirect:/home/inMessageIndex.do";
 		} else {
 			view = "user.login";
 		}
-		return new ModelAndView(view);
+		params.put("guestAuth", guestAuth);
+		return new ModelAndView(view, params);
 	}
 	
 	/**

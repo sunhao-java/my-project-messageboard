@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class ReName {
 	public static void main(String[] args) throws IOException {
-		rename("C:\\Documents and Settings\\Administrator\\桌面\\新建1文件夹\\");
+		rename("C:\\Documents and Settings\\Administrator\\桌面\\新建文件夹\\");
 	}
 	
 	private static void rename(String path) throws IOException{

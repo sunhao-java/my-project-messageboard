@@ -184,6 +184,7 @@
     					<prop key="/menu/inEditJsp.do">inEditJsp</prop>
     					<prop key="/menu/inShowIcon.do">inShowIcon</prop>
     					<prop key="/menu/saveMenu.do">saveMenu</prop>
+    					<prop key="/menu/delete.do">delete</prop>
     				</props>
     			</property>
     		</bean>

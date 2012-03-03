@@ -55,5 +55,14 @@
 				<comment>创建日期</comment>
 			</column>
 		</property>
+		<property name="menuPerm" type="java.lang.String">
+			<column name="MENU_PERM" length="10">
+				<comment>
+					菜单权限：1管理员可见；0普通成员可见；2游客可见
+					如管理员和游客可见，则为1,2,
+					如管理员和普通成员可见，则1,0
+				</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

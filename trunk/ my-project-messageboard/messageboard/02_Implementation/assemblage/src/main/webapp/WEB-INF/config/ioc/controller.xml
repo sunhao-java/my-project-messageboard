@@ -172,5 +172,23 @@
     	</property>
     	<property name="voteService" ref="voteService"/>
     </bean>
+    
+    <!-- 菜单的controller -->
+    <bean id="menuController" class="com.message.main.menu.web.MenuController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/menu/inMenuJsp.do">inMenuJsp</prop>
+    					<prop key="/menu/ajaxLoadMenu.do">ajaxLoadMenu</prop>
+    					<prop key="/menu/inEditJsp.do">inEditJsp</prop>
+    					<prop key="/menu/inShowIcon.do">inShowIcon</prop>
+    					<prop key="/menu/saveMenu.do">saveMenu</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="menuService" ref="menuService"/>
+    </bean>
 	
 </beans>

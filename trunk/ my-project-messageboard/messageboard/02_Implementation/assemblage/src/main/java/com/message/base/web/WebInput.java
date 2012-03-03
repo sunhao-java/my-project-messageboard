@@ -89,7 +89,7 @@ public class WebInput {
 		try {
 			result = Long.parseLong(this.request.getParameter(name));
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
 		return result;

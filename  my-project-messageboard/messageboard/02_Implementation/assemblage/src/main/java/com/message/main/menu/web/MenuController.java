@@ -125,12 +125,36 @@ public class MenuController extends ExtMultiActionController {
 	public ModelAndView saveMenu(HttpServletRequest request, HttpServletResponse response, Menu menu) throws Exception{
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
+		String[] menuPerms = in.getStrings("menuPerm");
 		
 		User loginUser = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		JSONObject params = new JSONObject();
-		boolean status = this.menuService.saveMenu(menu, loginUser);
+		boolean status = this.menuService.saveMenu(menu, loginUser, menuPerms);
+		
 		params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * ajax软删除菜单的操作
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		JSONObject params = new JSONObject();
+		
+		Long menuId = in.getLong("menuId", Long.valueOf(0));
+		
+		boolean status = this.menuService.deleteMenu(menuId);
+		
+		params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}

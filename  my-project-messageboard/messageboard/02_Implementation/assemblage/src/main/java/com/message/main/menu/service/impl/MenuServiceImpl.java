@@ -10,7 +10,10 @@ import java.util.Map;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.message.base.utils.StringUtils;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
@@ -25,6 +28,7 @@ import com.message.resource.ResourceType;
  * @createTime 2012-3-2 下午09:12:34
  */
 public class MenuServiceImpl implements MenuService {
+	private static final Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
 	
 	/**
 	 * 菜单DAO接口
@@ -117,21 +121,46 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	public Menu loadMenu(Long pkId) throws Exception {
-		return this.menuDAO.loadMenu(pkId);
+		Menu menu = this.menuDAO.loadMenu(pkId);
+		
+		if(menu != null){
+			String menuPerms = menu.getMenuPerm();
+			List<Long> menuPerm = new ArrayList<Long>();
+			
+			if(StringUtils.isNotEmpty(menuPerms)){
+				String[] perm = menuPerms.split(",");
+				for(String p : perm){
+					menuPerm.add(Long.valueOf(p));
+				}
+			}
+			
+			menu.setPerms(menuPerm);
+		}
+		return menu;
 	}
 
-	public boolean saveMenu(Menu menu, User loginUser) throws Exception {
+	public boolean saveMenu(Menu menu, User loginUser, String[] menuPerms) throws Exception {
+		String menuPerm = StringUtils.EMPTY;
+		if(menuPerms != null && menuPerms.length > 0){
+			for(String perm : menuPerms){
+				menuPerm += perm + ",";
+			}
+			
+			menuPerm = menuPerm.substring(0, menuPerm.length() - 1);
+		}
 		if(menu.getPkId() == null){
 			//新建菜单
 			menu.setCreateDate(new Date());
 			menu.setCreateUserId(loginUser.getPkId());
 			menu.setDeleteStatus(ResourceType.DELETE_NO);
+			menu.setMenuPerm(menuPerm);
 			
 			this.menuDAO.saveMenu(menu);
 			
 			return menu.getPkId() == null ? false : true;
 		} else {
 			//编辑菜单
+			menu.setMenuPerm(menuPerm);
 			this.menuDAO.updateMenu(menu);
 			
 			return true;
@@ -141,10 +170,30 @@ public class MenuServiceImpl implements MenuService {
 	@SuppressWarnings("unchecked")
 	public List<Menu> listParentMenu(Long parentId) throws Exception {
 		if(parentId == null){
+			logger.error("the parentId is null, this is error!");
 			return Collections.EMPTY_LIST;
 		}
 		
 		return this.menuDAO.listMenuByParentId(parentId);
+	}
+
+	public boolean deleteMenu(Long menuId) throws Exception {
+		if(menuId == null){
+			logger.error("the menuId is null, this is error!");
+			return false;
+		}
+		
+		Menu dbMenu = this.menuDAO.loadMenu(menuId);
+		
+		if(dbMenu == null){
+			logger.error("there is no menu entry what pkId is " + menuId);
+			return false;
+		}
+		
+		dbMenu.setDeleteStatus(ResourceType.DELETE_YES);
+		this.menuDAO.updateMenu(dbMenu);
+		
+		return true;
 	}
 
 }

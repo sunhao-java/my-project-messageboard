@@ -38,10 +38,11 @@ public interface MenuService {
 	 * 
 	 * @param menu			要保持的菜单
 	 * @param loginUser		当前登录者
+	 * @param menuPerms		菜单权限
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveMenu(Menu menu, User loginUser) throws Exception;
+	boolean saveMenu(Menu menu, User loginUser, String[] menuPerms) throws Exception;
 	
 	/**
 	 * 获取parentId指定的菜单集合
@@ -51,5 +52,14 @@ public interface MenuService {
 	 * @throws Exception
 	 */
 	List<Menu> listParentMenu(Long parentId) throws Exception;
+	
+	/**
+	 * 删除菜单的操作，软删除
+	 * 
+	 * @param menuId		菜单ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean deleteMenu(Long menuId) throws Exception;
 
 }

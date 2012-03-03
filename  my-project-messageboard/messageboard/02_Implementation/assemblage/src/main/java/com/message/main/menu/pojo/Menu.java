@@ -27,10 +27,14 @@ public class Menu implements Serializable, Comparable {
 	private Long deleteStatus;			//软删除标识：0-未删除，1-删除
 	private Long createUserId;			//创建人ID
 	private Date createDate;			//创建日期
+	private String menuPerm;			//菜单权限：1管理员可见；0普通成员可见；2游客可见
+										//(如管理员和游客可见，则为1,2)
+										//(如管理员和普通成员可见，则1,0)
 	
 	//VO Fileds
 	private User createUser;			//创建人
 	private List<Menu> children;		//此菜单的所有子
+	private List<Long> perms;			//权限VO字段
 
 	public Long getPkId() {
 		return pkId;
@@ -126,6 +130,22 @@ public class Menu implements Serializable, Comparable {
 
 	public void setChildren(List<Menu> children) {
 		this.children = children;
+	}
+
+	public String getMenuPerm() {
+		return menuPerm;
+	}
+
+	public void setMenuPerm(String menuPerm) {
+		this.menuPerm = menuPerm;
+	}
+
+	public List<Long> getPerms() {
+		return perms;
+	}
+
+	public void setPerms(List<Long> perms) {
+		this.perms = perms;
 	}
 
 	public int compareTo(Object o) {

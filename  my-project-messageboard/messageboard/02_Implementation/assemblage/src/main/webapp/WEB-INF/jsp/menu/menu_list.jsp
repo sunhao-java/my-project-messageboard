@@ -6,12 +6,14 @@
 <msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/base/app-dialog.js"/>
+<msg:js src="js/base/commfunction.js"/>
 
 <msg:css href="themes/icon.css"/>
 <msg:css href="css/menu.css"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+	var selectMenuId;
 
 	$(document).ready(function(){
 		using(['tree', 'linkbutton'], function(){
@@ -33,6 +35,7 @@
 			checkbox: false,
 			url: '${contextPath}/menu/ajaxLoadMenu.do',
 			onClick:function(node){
+				selectMenuId = node.id;
 				dom.get('menuIframe').src = '${contextPath}/menu/inEditJsp.do?menuId=' + node.id;
 			},
 			onBeforeLoad : function(){
@@ -51,6 +54,13 @@
 	
 	function deleteMenu(){
 		//删除菜单
+		if(selectMenuId == undefined){
+			YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'请在左边的菜单树选择要删除的菜单！'});
+		} else {
+			var requestURL = '${contextPath}/menu/delete.do?menuId=' + selectMenuId;
+			var responseURL = '';
+			deleteOne(requestURL, responseURL, true);
+		}
 	}
 </script>
 

@@ -57,5 +57,10 @@
     	<property name="voteDAO" ref="voteDAO"/>
     	<property name="userService" ref="userService"/>
     </bean>
+    
+    <!-- 菜单的service -->
+    <bean id="menuService" class="com.message.main.menu.service.impl.MenuServiceImpl">
+    	<property name="menuDAO" ref="menuDAO"/>
+    </bean>
 	
 </beans>

@@ -48,6 +48,14 @@
 			input:focus {
 			    border-color: #FF8800;
 			}
+			
+			.width200{
+				width: 200px;
+			}
+			
+			.width250{
+				width: 250px;
+			}
 		</style>
 	</head>
 	<body class="yui-skin-sam">

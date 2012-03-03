@@ -29,4 +29,7 @@
 	<!-- 投票的DAO -->
 	<bean id="voteDAO" class="com.message.main.vote.dao.impl.VoteDAOImpl" parent="genericHibernateDAOImpl"/>
 	
+	<!-- 菜单的DAO -->
+	<bean id="menuDAO" class="com.message.main.menu.dao.impl.MenuDAOImpl" parent="genericHibernateDAOImpl"/>
+	
 </beans>

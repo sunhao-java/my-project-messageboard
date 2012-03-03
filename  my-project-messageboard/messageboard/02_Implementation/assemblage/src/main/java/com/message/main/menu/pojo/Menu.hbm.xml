@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.menu.pojo.Menu" table="t_message_menu">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_MENU</param>
+			</generator>
+		</id>
+		<property name="menuName" type="java.lang.String">
+			<column name="MENU_NAME" length="200">
+				<comment>菜单名称</comment>
+			</column>
+		</property>
+		<property name="menuUrl" type="java.lang.String">
+			<column name="MENU_URL" length="200">
+				<comment>菜单链接</comment>
+			</column>
+		</property>
+		<property name="parentId" type="java.lang.Long">
+			<column name="PARENT_ID" precision="10" scale="0">
+				<comment>上级菜单</comment>
+			</column>
+		</property>
+		<property name="menuSort" type="java.lang.Long">
+			<column name="MENU_SORT" length="3">
+				<comment>菜单排序</comment>
+			</column>
+		</property>
+		<property name="menuStatus" type="java.lang.Long">
+			<column name="MENU_STATUS" length="1">
+				<comment>菜单状态：1-激活；0-未激活</comment>
+			</column>
+		</property>
+		<property name="menuIcon" type="java.lang.String">
+			<column name="MENU_ICON" length="200">
+				<comment>菜单图标</comment>
+			</column>
+		</property>
+		<property name="deleteStatus" type="java.lang.Long">
+			<column name="DELETE_STATUS" length="1">
+				<comment>软删除标识：0-未删除，1-删除</comment>
+			</column>
+		</property>
+		<property name="createUserId" type="java.lang.Long">
+			<column name="CREATE_USERID" precision="10" scale="0">
+				<comment>创建人ID</comment>
+			</column>
+		</property>
+		<property name="createDate" type="java.util.Date">
+			<column name="CREATE_DATE">
+				<comment>创建日期</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

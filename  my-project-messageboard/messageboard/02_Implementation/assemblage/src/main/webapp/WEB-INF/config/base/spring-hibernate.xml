@@ -47,21 +47,27 @@
 		</property>
 		<property name="hibernateProperties">
 			<props>
+                <!-- oracle的hibernate方言 -->
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                <!-- MySQL的hibernate方言 -->
+                <!--<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>-->
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
 				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>
 		<!-- MySQL配置
 		<property name="lobHandler">
 			<ref bean="mysqlLobHandler"/>
-		</property> 
+		</property>
 		-->
+
+		<!-- Oracle配置 -->
 		<property name="lobHandler">
 			<ref bean="oracleLobHandler"/>
 		</property>
+
 	</bean>
 	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">

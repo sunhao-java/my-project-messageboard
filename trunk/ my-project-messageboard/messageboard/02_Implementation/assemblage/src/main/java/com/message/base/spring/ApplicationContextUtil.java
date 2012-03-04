@@ -17,7 +17,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class ApplicationContextUtil implements ApplicationContextAware {
-	private static ApplicationContext applicationContext;//声明一个静态变量保存   
+	private static ApplicationContext applicationContext;//声明一个静态变量保存
 
 	@SuppressWarnings("static-access")
 	public void setApplicationContext(ApplicationContext applicationContext)

@@ -148,7 +148,7 @@
 				菜单状态
 			</td>
 			<td>
-				<input type="radio" value="1" name="menuStatus" id="ok"><label for="ok">可用</label>
+				<input type="radio" value="1" name="menuStatus" id="ok"><label for="ok">启用</label>
 				<input type="radio" value="0" name="menuStatus" id="no"><label for="no">禁用</label>
 			</td>
 		</tr>
@@ -174,13 +174,15 @@
 					<c:choose>
 						<c:when test="${not empty menu.menuIcon }">
 							<img src="${contextPath }/${menu.menuIcon}" id="iconImg"/>
+                            <input type="hidden" name="menuIcon" id="menuIcon" value="${menu.menuIcon }"/>
 						</c:when>
 						<c:otherwise>
 							<img src="${contextPath }/image/icon/icon_01.png" id="iconImg"/>
+                            <input type="hidden" name="menuIcon" id="menuIcon"
+                                   value="/image/icon/icon_01.png"/>
 						</c:otherwise>
 					</c:choose>
 				</span>
-				<input type="hidden" name="menuIcon" id="menuIcon" value="${menu.menuIcon }"/>
 			</td>
 		</tr>
 	</table>

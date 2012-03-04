@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.i18n.SystemConfig;
+import com.message.base.spring.AuthContext;
+import com.message.base.spring.AuthContextHelper;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;
@@ -92,9 +94,14 @@ public class UserController extends ExtMultiActionController {
 				HttpSession session = in.getSession();
 				session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
 				in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
+				AuthContext authContext = new AuthContext();
+				authContext.setLoginUser(dbUser);
+				AuthContextHelper.setAuthContext(authContext);
 				
 				return new ModelAndView("redirect:/home/inMessageIndex.do");
 			} else {
+				AuthContext authContext = new AuthContext();
+				authContext.setLoginUser(null);
 				if(status == 1){
 					request.setAttribute("message", "用户名错误");
 					request.setAttribute("status", status);
@@ -111,6 +118,7 @@ public class UserController extends ExtMultiActionController {
 					request.setAttribute("message", "用户已被停用");
 					request.setAttribute("status", status);
 				}
+				AuthContextHelper.setAuthContext(authContext);
 				return this.inLoginJsp(request, response);
 			}
 		} catch (Exception e) {

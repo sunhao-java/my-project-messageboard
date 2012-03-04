@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.message.base.spring.AuthContext;
+import com.message.base.spring.AuthContextHelper;
+import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 /**
@@ -39,9 +42,21 @@ public class IfLoginFilter implements Filter {
 			System.out.println("method=[" + request.getMethod() + "]");
 			System.out.println("end-------------------");
 		}
+
+        User loginUser = (User) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+
+        /**
+         * 往threadLocal中放入当前登录者，以后在service中也可以获取loginUser
+         */
+        if (loginUser != null) {
+            AuthContext authContext = new AuthContext();
+            authContext.setLoginUser(loginUser);
+            AuthContextHelper.setAuthContext(authContext);
+        }
+
 		if(url.indexOf(".do") != -1 && !url.equals("/user/inLogin.do") && !url.equals("/user/login.do") && !url.equals("/user/check.do") &&
 				!url.equals("/user/register.do") && !url.equals("/user/emailConfirm.do")){
-			if(session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION) == null){
+			if(loginUser == null){
 				response.sendRedirect(request.getContextPath() + "/user/inLogin.do");
 			} else {
 				chain.doFilter(req, res);

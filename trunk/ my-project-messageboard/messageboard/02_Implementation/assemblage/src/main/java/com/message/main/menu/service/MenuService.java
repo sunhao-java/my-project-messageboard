@@ -61,5 +61,13 @@ public interface MenuService {
 	 * @throws Exception
 	 */
 	boolean deleteMenu(Long menuId) throws Exception;
+	
+	/**
+	 * 当用户登录后获取其可见菜单
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	List<Menu> getMenuTree() throws Exception;
 
 }

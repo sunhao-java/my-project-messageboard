@@ -2,11 +2,14 @@ package com.message.main.home.web;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.main.menu.pojo.Menu;
+import com.message.main.menu.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +28,7 @@ public class HomeController extends ExtMultiActionController {
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private HistoryService historyService;
+    private MenuService menuService;
 	
 	private WebInput in = null;
 	
@@ -32,19 +36,25 @@ public class HomeController extends ExtMultiActionController {
 		this.historyService = historyService;
 	}
 
-	/**
+    public void setMenuService(MenuService menuService) {
+        this.menuService = menuService;
+    }
+
+    /**
 	 * 左边菜单的请求
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView left(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView left(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(user != null){
 			params.put("user", user);
 		}
+        List<Menu> menus = this.menuService.getMenuTree();
+        params.put("menus", menus);
 		return new ModelAndView("message.left", params);
 	}
 	

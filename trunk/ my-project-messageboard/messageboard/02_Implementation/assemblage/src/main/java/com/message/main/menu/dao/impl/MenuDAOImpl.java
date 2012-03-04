@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.utils.SqlUtils;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
 import com.message.resource.ResourceType;
@@ -46,5 +47,16 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 		params.put("parentId", parentId);
 		return this.findByHQL(hql, params);
 	}
+
+    public List<Menu> listPermMenu(String perm) throws Exception {
+        String hql = "from Menu m where m.deleteStatus = :flag and m.menuStatus = :status " +
+                " and m.menuPerm like :perm order by m.menuSort asc";
+
+        Map<String, Object> params = new HashMap<String, Object>();
+		params.put("flag", ResourceType.DELETE_NO);
+		params.put("status", 1L);
+        params.put("perm", SqlUtils.makeLikeString(perm));
+        return this.findByHQL(hql, params);
+    }
 
 }

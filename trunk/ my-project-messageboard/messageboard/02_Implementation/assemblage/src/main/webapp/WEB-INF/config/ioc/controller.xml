@@ -35,6 +35,7 @@
 			</bean>
 		</property>
 		<property name="historyService" ref="historyService"/>
+        <property name="menuService" ref="menuService"/>
 	</bean>
 	
 	<!-- 登录历史的controller -->

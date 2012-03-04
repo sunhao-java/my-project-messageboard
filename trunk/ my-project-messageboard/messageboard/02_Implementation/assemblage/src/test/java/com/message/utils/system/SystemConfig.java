@@ -1,7 +1,6 @@
-package com.message.utils;
+package com.message.utils.system;
 
 import java.util.Properties;
-import java.util.Set;
 
 /**
  * @author sunhao(sunhao.java@gmail.com)

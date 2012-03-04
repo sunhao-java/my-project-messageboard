@@ -28,6 +28,6 @@
 	<import resource="base/exception.xml"/>
 	
 	<!-- spring的interceptor引入 -->
-	<!-- <import resource="base/interceptor.xml"/> -->
+	<import resource="base/interceptor.xml"/>
 	
 </beans>

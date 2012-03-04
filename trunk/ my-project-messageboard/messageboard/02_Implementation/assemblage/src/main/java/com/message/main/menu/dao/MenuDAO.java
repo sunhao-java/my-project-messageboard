@@ -64,5 +64,14 @@ public interface MenuDAO {
      * @throws Exception
      */
     List<Menu> listPermMenu(String perm) throws Exception;
+
+    /**
+     * 根据URL获取菜单
+     *
+     * @param menuUrl
+     * @return
+     * @throws Exception
+     */
+    Menu findMenu(String menuUrl) throws Exception;
 	
 }

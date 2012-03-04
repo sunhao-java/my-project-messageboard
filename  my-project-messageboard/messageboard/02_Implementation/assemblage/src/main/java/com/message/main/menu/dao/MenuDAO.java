@@ -55,5 +55,14 @@ public interface MenuDAO {
 	 * @throws Exception
 	 */
 	List<Menu> listMenuByParentId(Long parentId) throws Exception;
+
+    /**
+     * 获得当前登录者能看到的菜单
+     *
+     * @param perm
+     * @return
+     * @throws Exception
+     */
+    List<Menu> listPermMenu(String perm) throws Exception;
 	
 }

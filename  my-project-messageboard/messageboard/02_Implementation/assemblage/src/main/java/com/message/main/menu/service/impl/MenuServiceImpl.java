@@ -13,6 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.message.base.spring.AuthContextHelper;
 import com.message.base.utils.StringUtils;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
@@ -41,6 +42,7 @@ public class MenuServiceImpl implements MenuService {
 
 	public JSONArray loadMenuJsonData() throws Exception {
 		List<Menu> menus = this.getOrderMenu(0L);
+        
 		JSONArray jsons = new JSONArray();
 		if (menus.size() > 0) {
 			for (Menu menu : menus) {
@@ -194,6 +196,16 @@ public class MenuServiceImpl implements MenuService {
 		this.menuDAO.updateMenu(dbMenu);
 		
 		return true;
+	}
+
+	public List<Menu> getMenuTree() throws Exception {
+		User loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        String perm = loginUser.getIsAdmin().toString();
+
+        List menus = this.menuDAO.listPermMenu(perm);
+        Collections.sort(menus);
+        menus = this.orderMenu(menus, 0L);
+		return menus;
 	}
 
 }

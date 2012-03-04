@@ -1,12 +1,8 @@
 package com.message.main.menu.service.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.message.main.menu.exception.NoPermException;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -207,5 +203,28 @@ public class MenuServiceImpl implements MenuService {
         menus = this.orderMenu(menus, 0L);
 		return menus;
 	}
+
+    public boolean checkPerm(String perm, String menuUrl) throws Exception {
+        Menu menu = null;
+        try {
+            menu = this.menuDAO.findMenu(menuUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if(menu == null) {
+            return true;
+        } else {
+            String menuPerm = menu.getMenuPerm();
+            String[] menuPerms = menuPerm.split(",");
+            List<String> perms = Arrays.asList(menuPerms);
+
+            if(perms.contains(perm)){
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
 }

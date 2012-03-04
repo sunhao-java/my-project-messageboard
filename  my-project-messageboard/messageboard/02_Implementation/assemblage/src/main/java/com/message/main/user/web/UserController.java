@@ -48,13 +48,12 @@ public class UserController extends ExtMultiActionController {
 		this.userPrivacyService = userPrivacyService;
 	}
 
-	/**
-	 * 进入用户登录页面
-	 * @param in
-	 * @param out
-	 * @param admin
-	 * @return
-	 */
+    /**
+     * 进入用户登录页面
+     * @param request
+     * @param response
+     * @return
+     */
 	public ModelAndView inLoginJsp(HttpServletRequest request, HttpServletResponse response){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -257,7 +256,6 @@ public class UserController extends ExtMultiActionController {
 	 * 进入修改密码页面
 	 * @param request
 	 * @param response
-	 * @param user
 	 * @return
 	 */
 	public ModelAndView inChangePswJsp(HttpServletRequest request, HttpServletResponse response){

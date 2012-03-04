@@ -70,4 +70,14 @@ public interface MenuService {
 	 */
 	List<Menu> getMenuTree() throws Exception;
 
+    /**
+     * 检查登录用户是否具有访问此URL的权限
+     *
+     * @param perm
+     * @param menuUrl
+     * @return
+     * @throws Exception
+     */
+    boolean checkPerm(String perm, String menuUrl) throws Exception;
+
 }

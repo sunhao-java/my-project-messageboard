@@ -4,9 +4,36 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-    
-    <!-- 拦截器所有.do方法，实现登录判断 -->
-    <bean id="authHeaderInterceptor" class="com.message.filter.LoginInterceptor">
+
+    <bean id="defaultController" class="com.message.base.spring.DefaultController"/>
+
+    <bean id="urlMappingTemplate" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="rootHandler" ref="defaultController"/>
+        <property name="alwaysUseFullPath" value="true"/>
     </bean>
+
+    <bean id="defaultUrlMapping" parent="urlMappingTemplate">
+        <property name="order" value="1"/>
+        <property name="interceptors">
+            <ref bean="authHeaderInterceptor"/>
+        </property>
+        <property name="mappings">
+            <props>
+                <prop key="/user/*.do">userController</prop>
+                <prop key="/message/*.do">messageController</prop>
+                <prop key="/home/*.do">homeController</prop>
+                <prop key="/vote/*.do">voteController</prop>
+                <prop key="/reply/*.do">replyController</prop>
+                <prop key="/history/*.do">historyController</prop>
+                <prop key="/info/*.do">infoController</prop>
+                <prop key="/privacy/*.do">userPrivacyController</prop>
+                <prop key="/menu/*.do">menuController</prop>
+                <prop key="/event/*.do">eventController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- 拦截器所有.do方法，实现登录判断 -->
+    <bean id="authHeaderInterceptor" class="com.message.filter.LoginInterceptor"/>
 	
 </beans>

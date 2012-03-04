@@ -10,6 +10,10 @@
 	<msg:js src="js/jquery/jquery.easyui.min.js"/>
 	
 	<msg:css href="css/left.css"/>
+
+    <!--[if lte IE 6]>
+        <msg:js src="/js/base/ie-pngbug.js"/>
+    <![endif]-->
 	
 	<script type="text/javascript">
 		var OldOpenMenu = '';

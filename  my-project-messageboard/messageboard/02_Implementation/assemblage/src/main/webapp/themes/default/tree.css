@@ -58,7 +58,8 @@
 }
 .tree-file{
 	display:inline-block;
-	background:url('images/tree_file.gif') no-repeat;
+	/*background:url('images/tree_file.gif') no-repeat;*/
+    background: url("images/tree.gif") repeat scroll -25px -112px transparent;
 	width:16px;
 	height:18px;
 	vertical-align:middle;

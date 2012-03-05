@@ -60,7 +60,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         if(url.indexOf(".do") != -1){
 			if(loginUser == null){
-				response.sendRedirect(request.getContextPath() + "/user/inLogin.do");
+				response.sendRedirect(request.getContextPath() + "/guest/index.do");
 			} else {
                 AuthContext authContext = new AuthContext();
                 authContext.setLoginUser(loginUser);

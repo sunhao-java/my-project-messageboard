@@ -116,10 +116,6 @@
     		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
     			<property name="mappings">
     				<props>
-    					<prop key="/user/inLogin.do">inLoginJsp</prop>
-    					<prop key="/user/login.do">userLogin</prop>
-    					<prop key="/user/register.do">saveUser</prop>
-    					<prop key="/user/check.do">checkUser</prop>
     					<prop key="/user/userInfo.do">showUserInfo</prop>
     					<prop key="/user/editUserInfo.do">inEditUserInfoJsp</prop>
     					<prop key="/user/saveUser.do">saveEdit</prop>
@@ -131,7 +127,6 @@
     					<prop key="/user/deleteUser.do">deleteUser</prop>
     					<prop key="/user/managerPerm.do">managerPerm</prop>
     					<prop key="/user/inAddUserJsp.do">inAddUserJsp</prop>
-    					<prop key="/user/emailConfirm.do">emailConfirm</prop>
     				</props>
     			</property>
     		</bean>
@@ -192,6 +187,24 @@
     		</bean>
     	</property>
     	<property name="menuService" ref="menuService"/>
+    </bean>
+
+    <!-- 不用登录就可访问的controller -->
+    <bean id="guestController" class="com.message.main.home.web.GuestController">
+        <property name="methodNameResolver">
+            <bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+                <property name="mappings">
+                    <props>
+                        <prop key="/guest/login.do">login</prop>
+                        <prop key="/guest/check.do">checkUser</prop>
+                        <prop key="/guest/register.do">register</prop>
+                        <prop key="/guest/emailConfirm.do">emailConfirm</prop>
+                        <prop key="/guest/index.do">index</prop>
+                    </props>
+                </property>
+            </bean>
+        </property>
+        <property name="userService" ref="userService"/>
     </bean>
 	
 </beans>

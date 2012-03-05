@@ -165,8 +165,7 @@
 							<p style="margin-bottom: 0px;">
 								内容&nbsp;&nbsp;
 								<textarea style="width: 400px;" id="replyContent" name="replyContent"
-									dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符">
-								</textarea>
+									dataType="Limit" max="1300" min="1" msg="不能为空,且不超过1300字符"></textarea>
 							</p>
 							<div class="act">
 					            <div style="float:right;">

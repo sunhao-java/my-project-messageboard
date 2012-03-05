@@ -78,7 +78,7 @@
 			
 			function checkUser(input){
 				var name = input.value;
-				var requestURL = "${contextPath}/user/check.do";
+				var requestURL = "${contextPath}/guest/check.do";
 				var dataFrm = $D.get('registerFrm');
 				if(name != ''){
 					$C.setForm(dataFrm);
@@ -134,7 +134,7 @@
 							<c:choose>
 								<c:when test="${empty status}">
 									<td width="311" height="309" valign="top" id="yzmtd" background="${contextPath}/image/wiseduimg/wiscom_index_03.jpg">
-										<form action="${contextPath}/user/login.do" method="post" name="dataFrm" id="dataFrm">
+										<form action="${contextPath}/guest/login.do" method="post" name="dataFrm" id="dataFrm">
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
 													<td height="102">
@@ -232,7 +232,7 @@
 			<div>
 				<img src="${contextPath}/image/register/register-back.jpg">
 				<center>
-					<form action="${contextPath}/user/register.do" id="registerFrm" method="post">
+					<form action="${contextPath}/guest/register.do" id="registerFrm" method="post">
 						<table width="100%" class="tableform">
 							<tr>
 	                 			<td class="fb_result_head" style="width: 25%">

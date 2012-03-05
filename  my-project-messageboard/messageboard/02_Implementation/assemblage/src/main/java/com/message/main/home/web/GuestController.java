@@ -181,7 +181,7 @@ public class GuestController extends ExtMultiActionController {
         try {
             boolean result = this.userService.emailConfirm(in);
             if (result) {
-                view = "redirect:/home/inMessageIndex.do";
+                view = "redirect:/guest/index.do";
             } else {
                 view = "redirect:http://www.baidu.com";
             }

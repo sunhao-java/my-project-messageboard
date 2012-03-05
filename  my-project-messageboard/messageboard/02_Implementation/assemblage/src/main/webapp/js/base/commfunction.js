@@ -29,7 +29,7 @@ function logout(contextPath){
 		success : function(o){
 			var _e = eval("(" + o.responseText + ")");
 			if(_e.status == 1){
-				parent.location.href = contextPath + '/user/inLogin.do';
+				parent.location.href = contextPath + '/guest/index.do';
 			}
 		}
 	});

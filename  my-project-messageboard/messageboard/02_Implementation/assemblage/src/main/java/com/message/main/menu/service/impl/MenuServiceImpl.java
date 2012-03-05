@@ -213,7 +213,12 @@ public class MenuServiceImpl implements MenuService {
         }
 
         if(menu == null) {
-            return true;
+            if(menuUrl.indexOf("home") != -1){
+                return true;
+            } else {
+                return true;
+                //throw new NoPermException("不存在\"" + menuUrl + "\"链接");
+            }
         } else {
             String menuPerm = menu.getMenuPerm();
             String[] menuPerms = menuPerm.split(",");

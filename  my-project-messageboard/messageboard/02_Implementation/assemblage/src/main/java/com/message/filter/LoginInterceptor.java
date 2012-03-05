@@ -58,8 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         User loginUser = (User) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 
-        if(url.indexOf(".do") != -1 && !url.equals("/user/inLogin.do") && !url.equals("/user/login.do") && !url.equals("/user/check.do") &&
-				!url.equals("/user/register.do") && !url.equals("/user/emailConfirm.do")){
+        if(url.indexOf(".do") != -1){
 			if(loginUser == null){
 				response.sendRedirect(request.getContextPath() + "/user/inLogin.do");
 			} else {
@@ -75,7 +74,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 if(isPerm){
                     return true;
                 } else {
-                    throw new NoPermException("无权访问！");
+                    throw new NoPermException("您无权访问\"" + url + "\"！");
                 }
 			}
 		} else {

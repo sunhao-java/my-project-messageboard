@@ -12,6 +12,7 @@
         <property name="alwaysUseFullPath" value="true"/>
     </bean>
 
+    <!-- 配置需要拦截的请求 -->
     <bean id="defaultUrlMapping" parent="urlMappingTemplate">
         <property name="order" value="1"/>
         <property name="interceptors">
@@ -29,6 +30,15 @@
                 <prop key="/privacy/*.do">userPrivacyController</prop>
                 <prop key="/menu/*.do">menuController</prop>
                 <prop key="/event/*.do">eventController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="guestUrlMapping" parent="urlMappingTemplate">
+        <property name="order" value="0"/>
+        <property name="mappings">
+            <props>
+                <prop key="/guest/*.do">guestController</prop>
             </props>
         </property>
     </bean>

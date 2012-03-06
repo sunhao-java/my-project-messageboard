@@ -1,3 +1,4 @@
-<Context path="/message"  docBase="F:\workspace\workspace\love\messageboard\02_Implementation\assemblage\src\main\webapp"
+<Context path="/message"  docBase="F:\workspace\workspace\messageboard\messageboard\02_Implementation\assemblage\src\main\webapp"
 	debug="99" reloadable="false">
+	<Resource name="jdbc/message" auth="Container" type="javax.sql.DataSource" maxActive="30" maxIdle="30" maxWait="10000" username="message" password="message" driverClassName="oracle.jdbc.OracleDriver" url="jdbc:oracle:thin:@127.0.0.1:1521:SUNHAO"/>
 </Context>

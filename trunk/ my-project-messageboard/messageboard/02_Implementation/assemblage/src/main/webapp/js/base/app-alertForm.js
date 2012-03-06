@@ -41,6 +41,8 @@ YAHOO.app.alertForm = function(){
 			var zIndex_ = args.zIndex || 999;						//对应CSS属性值z-index,默认是4
 			
 			var overflow_ = args.overflow || 'no'; 					// 显示内容区域的overflow样式
+
+            var checkLeve_ = args.checkLeve || 3;                   //validate检验的提示级别，默认是3
 			
 			if($L.isString(closeIcon_)){
 				closeIcon_ = (closeIcon_ == _true);
@@ -53,6 +55,10 @@ YAHOO.app.alertForm = function(){
 			if($L.isString(draggable_)){
 				draggable_ = (draggable_ == _true);
 			}
+
+            if($L.isString(checkLeve_)){
+                checkLeve_ = parseInt(checkLeve_);
+            }
 			
 			/**
 			 * 如果success_和failure_不是以！或!结果的，则在后面加上！
@@ -71,7 +77,7 @@ YAHOO.app.alertForm = function(){
 			 * 拼弹框需要的HTML
 			 * @memberOf {TypeName} 
 			 */
-			var str = '<div class="hd"><span style="font-size: 12px;">' + title_ + '</span></div>';
+			 var str = '<div class="hd"><span style="font-size: 12px;">' + title_ + '</span></div>';
 				str += '<div class="formbd">';
 				
 			  str += '<iframe src="' + url_ + '" id="' + name_ + '" name="' + name_ + '" frameborder="0" ' +
@@ -113,52 +119,56 @@ YAHOO.app.alertForm = function(){
 					}
 				}
 			 }
-			 
+
+             /**
+             * 没有提供提交URL，则提交form，使用form的action
+             * 否则使用提供的URL进行提交表单
+             */
 			 function handleSubmit() {
-					var formDate = frames[name_].document.forms[0];
-					/**
-					 * 没有提供提交URL，则提交form，使用form的action
-					 * 否则使用提供的URL进行提交表单
-					 * 
-					 * 最好使用提供URL的方式
-					 */
-					if(submit_ == ''){
-						formDate.submit();
-						if(responseUrl_ != ''){
-							window.location.href = responseUrl_;
-						} else {
-							window.location.reload(true);
-						}
-					} else {
-						/**
-						 * 这里有问题，以后要修改
-						 */
-						var flag = Validator.Validate(formDate, 1);
-						if(flag){
-							this.cancel();
-							$C.setForm(formDate);
-							$C.asyncRequest("POST", submit_, {
-								success : function(o){
-									var _e = eval("(" + o.responseText + ")");
-									if(_e.status == '1'){
-										YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':success_,
-											'confirmFunction' : function(){
-												if(responseUrl_ != ''){
-													window.location.href = responseUrl_;
-												} else {
-													window.location.reload(true);
-												}
-											}});
-									} else {
-										YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':failure_});
-									}
-								},
-								failure : function(o){
-									YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
-								}
-							});
-						}
-					}
+                 var formDate = frames[name_].document.getElementById(formId_);
+
+                 if(formDate == null){
+                     this.cancel();
+                     YAHOO.app.dialog.pop({
+                        'dialogHead':'提示',
+                        'cancelButton':'false',
+                        'alertMsg':'请给出正确的formId！',
+                        'icon':'warnicon'
+                     });
+                     return;
+                 }
+
+                 var action = '';
+                 if(submit_ == ''){
+                     action = formDate.action;
+                 } else {
+                     action = submit_;
+                 }
+
+                 var flag = Validator.Validate(formDate, checkLeve_);
+                 if (flag) {
+                     $C.setForm(formDate);
+                     $C.asyncRequest("POST", action, {
+                        success : function(o){
+                            var _e = eval("(" + o.responseText + ")");
+                            if(_e.status == '1'){
+                                YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':success_,
+                                    'confirmFunction' : function(){
+                                        if(responseUrl_ != ''){
+                                            window.location.href = responseUrl_;
+                                        } else {
+                                            window.location.reload(true);
+                                        }
+                                    }});
+                            } else {
+                                YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':failure_});
+                            }
+                        },
+                        failure : function(o){
+                            YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+                        }
+                     });
+                 }
 				};
 				
 				function handleCancel() {
@@ -175,8 +185,6 @@ YAHOO.app.alertForm = function(){
 				  close : closeIcon_,
 				  zIndex : zIndex_,
 				  constraintoviewport : false,
-//				  buttons : [ { text:"提交", handler:handleSubmit, isDefault:true },
-//					      { text:"取消", handler:handleCancel } ]
 				  buttons : buttons_
 				});
 			 

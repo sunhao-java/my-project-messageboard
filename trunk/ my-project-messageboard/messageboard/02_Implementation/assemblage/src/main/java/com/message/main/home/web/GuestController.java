@@ -191,4 +191,16 @@ public class GuestController extends ExtMultiActionController {
 
         return new ModelAndView(view);
     }
+
+    /**
+     * 出现错误页面跳转
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    public ModelAndView error(HttpServletRequest request, HttpServletResponse response){
+        String exception = "您访问的链接可能被禁用，或者不存在！";
+        return new ModelAndView("message.error.page", "exception", exception);
+    }
 }

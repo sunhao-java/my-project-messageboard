@@ -221,7 +221,7 @@
 				</td>
 			</tr>
 		</table>
-		
+
 		<div id="registerDiv" class="registerDiv">
 			<div id="titleDiv" class="titleDiv">
 				<a id="turnoff" title="关闭" href="javaScript:closeDiv();">
@@ -250,7 +250,7 @@
 	                 				<spring:message code="message.truename"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="text" name="truename" id="truename" class="f_text" dataType="Limit" 
+									<input type="text" name="truename" id="truename" class="f_text" dataType="Limit"
 											require="true" max="100" min="1" msg="不能为空,且不超过50字符"/>
 								</td>
 	              			</tr>
@@ -268,7 +268,7 @@
 	                 				<spring:message code="message.password.again"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="password" name="password_" id="password_" class="f_text" 
+									<input type="password" name="password_" id="password_" class="f_text"
 										dataType="Repeat" to="password" msg="两次输入的密码不一致"/>
 								</td>
 	              			</tr>
@@ -385,7 +385,7 @@
 	                 				<spring:message code="message.address"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="text" name="address" id="address" class="f_text" 
+									<input type="text" name="address" id="address" class="f_text"
 										 dataType="Limit" max="100" min="0" msg="不超过50字符"/>
 								</td>
 	              			</tr>

@@ -65,5 +65,12 @@
 	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
 	<bean class="com.message.base.spring.ApplicationContextUtil"/>
+
+    <!-- 引入配置文件 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>/WEB-INF/config/jdbc.properties</value>
+		</property>
+	</bean>
 	
 </beans>

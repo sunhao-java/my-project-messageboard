@@ -10,5 +10,9 @@
 	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
 		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
 	</bean>
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="${jdbc.message}"/>
+    </bean>
 	
 </beans>

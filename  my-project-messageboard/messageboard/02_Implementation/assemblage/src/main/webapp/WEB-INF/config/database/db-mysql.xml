@@ -7,5 +7,9 @@
     
 	
 	<bean id="mysqlLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true"/>
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="${jdbc.message}"/>
+    </bean>
 	
 </beans>

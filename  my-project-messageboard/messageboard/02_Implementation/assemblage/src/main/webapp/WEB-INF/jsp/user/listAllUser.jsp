@@ -44,9 +44,16 @@
 	}
 	
 	function addpagefunction(){
-		YAHOO.app.alertForm.show({'reqUrl':'${contextPath}/user/inAddUserJsp.do','title':'添加用户',
-					'diaWidth':'400','diaHeight':'150', 'submitUrl':'${contextPath}/user/register.do', 'success' : '添加用户成功'
-					,'failure' : '添加用户失败'});
+		YAHOO.app.alertForm.show({
+            'reqUrl':'${contextPath}/user/inAddUserJsp.do',
+            'title':'添加用户',
+            'diaWidth':'400',
+            'diaHeight':'150',
+            'submitUrl':'${contextPath}/guest/register.do',
+            'formId': 'regFrm',
+            'success' : '添加用户成功',
+            'failure' : '添加用户失败'
+        });
 	}
 </script>
 

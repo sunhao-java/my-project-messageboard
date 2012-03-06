@@ -12,7 +12,7 @@
  	
 	function checkUser(input){
 		var name = input.value;
-		var requestURL = "${contextPath}/user/check.do";
+		var requestURL = "${contextPath}/guest/check.do";
 		var dataFrm = $D.get('regFrm');
 		if(name != ''){
 			$C.setForm(dataFrm);
@@ -37,7 +37,7 @@
 </script>
 
 <div id="listFrm" style="width: 100%">
-	<form id="regFrm" action="${contextPath}/user/inAddUserJsp.do" method="post">
+	<form id="regFrm" action="${contextPath}/guest/register.do" method="post">
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="50%">

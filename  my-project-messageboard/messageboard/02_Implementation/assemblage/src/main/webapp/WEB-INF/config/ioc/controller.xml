@@ -200,6 +200,7 @@
                         <prop key="/guest/register.do">register</prop>
                         <prop key="/guest/emailConfirm.do">emailConfirm</prop>
                         <prop key="/guest/index.do">index</prop>
+                        <prop key="/guest/error.do">error</prop>
                     </props>
                 </property>
             </bean>

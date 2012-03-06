@@ -11,7 +11,9 @@
 	<import resource="base/spring-hibernate.xml"/>
 	<!-- 引入项目邮件服务器配置 -->
 	<import resource="base/mail.xml"/>
-	
+
+    <!-- 引入数据源配置 -->
+    <import resource="database/dataSource.xml"/>
 	<!-- 引入oracle数据库的配置 -->
 	<import resource="database/db-oracle.xml"/>
     <!-- 引入MySQL数据库的配置 -->

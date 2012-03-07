@@ -66,4 +66,14 @@
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
 	<bean class="com.message.base.spring.ApplicationContextUtil"/>
 
+    <bean id="systemConfig" class="com.message.base.utils.PropertiesFactoryBean">
+    	<property name="propertiesLocation" value="properties/"/>
+        <property name="supportXmlFile" value="false"/>
+        <property name="projectRootConfigFilePath" value="/config/message/root.properties"/>
+    </bean>
+
+    <bean id="systemConfi" class="com.message.base.utils.SystemConfig">
+        <property name="configuration" ref="systemConfig"/>
+    </bean>
+
 </beans>

@@ -145,8 +145,8 @@
 			     			<td align="center">
 			     				<table width="100%" cellpadding="0" cellspacing="4">
                                     <tr>
-                                        <td align="left" style="">
-                                            <a href="javascript:nav('${child.menuUrl}')">
+                                        <td align="left" style="" onclick="javascript:nav('${child.menuUrl}');">
+                                            <a href="#">
                                                 &nbsp;&nbsp;<img src="${contextPath}/${child.menuIcon}"/>
                                                 <span style="font-size: 12px;">${child.menuName}</span>
                                             </a>

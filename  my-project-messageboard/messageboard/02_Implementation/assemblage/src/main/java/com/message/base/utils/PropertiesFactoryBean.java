@@ -1,7 +1,17 @@
 package com.message.base.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -9,60 +19,128 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.DefaultPropertiesPersister;
 import org.springframework.util.PropertiesPersister;
 
-import java.io.*;
-import java.util.*;
+import com.message.base.spring.ApplicationHelper;
 
 /**
- * 读取系统的配置文件,默认从/WEB-INF/properties/下加载，配置文件的加载顺序为
- * /WEB-INF/properties/，System.getProperty,/opt/wiscom/config/ccs/seu/properties/（配置）,数据库
+ * 读取系统的配置文件<br/><br/>
+ * <b>使用方法(配置文件中配置)：</b>
+ * <table border='1'>
+ * 	<tr>
+ * 		<th>key</th><th>是否必填</th><th>意义</th>
+ *  </tr>
+ * 	<tr>
+ * 		<th>propertiesFilePath</th><th>必填项</th><th>系统的配置文件路径</th>
+ *  </tr>  
+ * 	<tr>
+ * 		<th>singleton</th><th>非必填项</th><th>是否单例，默认true</th>
+ *  </tr>
+ * 	<tr>
+ * 		<th>isSupportXmlFile</th><th>非必填项</th><th>是否支持读取XML，默认false</th>
+ *  </tr> 
+ * 	<tr>
+ * 		<th>fileEncoding</th><th>非必填项</th><th>读取文件时的编码，默认UTF-8</th>
+ *  </tr> 
+ * 	<tr>
+ * 		<th>fileLastLoadPrefix</th><th>非必填项</th><th>最后加载的文件的前缀，默认"config."</th>
+ *  </tr>
+ * 	<tr>
+ * 		<th>defaultConfigKey</th><th>非必填项</th><th>默认的寻找配置文件的key，默认"config.root"</th>
+ *  </tr>
+ * </table>
+ * 
+ * @author sunhao
+ * @version V1.0
+ * @createTime 2012-3-10 下午07:28:05
  */
-@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+@SuppressWarnings({ "rawtypes", "unused" })
 public final class PropertiesFactoryBean implements FactoryBean, InitializingBean {
-
-    private static Logger logger = LoggerFactory.getLogger(PropertiesFactoryBean.class);
-    private boolean singleton = true;
-
-    //存放配置文件的配置项
+	private static Logger logger = LoggerFactory.getLogger(PropertiesFactoryBean.class);
+	
+	/**
+	 * 指定系统配置文件的路径，如"/config/message/root.properties"
+	 */
+	private String propertiesFilePath;
+	
+	/**
+	 * 存放配置文件的配置项
+	 */
     private Object configProperties;
-
-    public static final String PROPERTIES_FILE_EXTENSION = ".properties";
-    public static final String HTML_FILE_EXTENSION = ".html";
-    public static final String HTML_FILE_EXTENSION_SHORT = ".htm";
-    public static final String TXT_FILE_EXTENSION = ".txt";
-
-    public static final String XML_FILE_EXTENSION = ".xml";
-    //最后加载的文件的前缀
-    public static final String FILE_LAST_LOAD_PREFIX = "config.";
-
-    private String defaultPropertiesLocation = "/WEB-INF/properties/";
-
-    private String propertiesLocation;
-
-    private String projectRootConfigFilePath;
-    private boolean isSupportXmlFile = false;
-
-    private Properties[] localProperties;
-    private Resource[] locations;
-    private boolean localOverride = false;
-    private boolean ignoreResourceNotFound = false;
-    private String fileEncoding = null;
-    private String templateEncoding = "UTF-8";
-    private PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
-
-    public void setTemplateEncoding(String templateEncoding) {
-        this.templateEncoding = templateEncoding;
-    }
-
-    public void setPropertiesLocation(String propertiesLocation) {
-        this.propertiesLocation = propertiesLocation;
-    }
-
-
     /**
+     * 是否单例
+     */
+    private boolean singleton = true;
+    /**
+     * 是否支持读取XML文件，默认不支持
+     */
+    private boolean isSupportXmlFile = false;
+    
+    /**
+     * 文件的编码，默认是UTF-8
+     */
+    private String fileEncoding = "UTF-8";
+    
+    /**
+     * 最后加载的文件的前缀
+     */
+    private String fileLastLoadPrefix = "config.";
+    /**
+     * 默认的寻找配置文件的key
+     */
+    private String defaultConfigKey = "config.root";
+    /**
+     * spring的文件解析器
+     */
+    private PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
+    
+    
+    //以下为默认系统常量
+    /**
+	 * 默认的配置文件路径,如果不指定<code>propertiesFilePath</code>,则使用这个路径
+	 */
+	private static final String DEFAULT_PROPERTIES_PATH = "/config/message/root.properties";
+
+	/**
+	 * properties文件的后缀名
+	 */
+    private static final String PROPERTIES_FILE_EXTENSION = ".properties";
+    /**
+     * html文件的后缀名
+     */
+    private static final String HTML_FILE_EXTENSION = ".html";
+    /**
+     * htm文件的后缀名
+     */
+    private static final String HTML_FILE_EXTENSION_SHORT = ".htm";
+    /**
+     * txt文件的后缀名
+     */
+    private static final String TEXT_FILE_EXTENSION = ".txt";
+    /**
+     * XML文件的后缀名
+     */
+    private static final String XML_FILE_EXTENSION = ".xml";
+
+	/**
+	 * 生成实例，返回的其实是一个Map
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	private Object createInstance() throws Exception {
+		Properties result = new Properties();
+		Properties fileProp = new Properties();
+		Properties rootProp = new Properties();
+		
+		initLocations(result, fileProp, rootProp);
+		
+		fileProp.putAll(result);
+		return fileProp;
+	}
+
+	/**
      * 读取配置文件的规则
      *
      * @param result    存放配置读取的map
@@ -70,64 +148,48 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param rootProps 存放配置文件root的最基础的配置信息
      * @throws IOException IOException
      */
-    private void initLocations(Properties result, Properties fileProps, Properties rootProps) throws IOException {
-		List locs = new ArrayList(32);
-
-        String rootPath = "F:\\workspace\\workspace\\messageboard\\messageboard\\" +
-        		"02_Implementation\\assemblage\\src\\main\\webapp";
-        StringBuffer sb = new StringBuffer(128);
-        sb.append("file:///").append(rootPath).append(this.defaultPropertiesLocation);
-        //默认的配置文件路径
-        String defaultLocation = sb.toString().replace('\\', '/');
-
-        if (logger.isInfoEnabled()) {
-            logger.info("default config path is " + defaultLocation);
-        }
-        
-        try {
-            //从指定的路径读取配置文件列表
-
-            this.loadPropByPath(defaultLocation, locs, fileProps, false);
-
-            String secondConfig = StringUtils.trimToNull(System.getProperty("CCS.CONFIG.ROOT"));
-            if (secondConfig == null) {
-                File file = new File(this.projectRootConfigFilePath);
-                if (file.exists() && file.isFile() && file.canRead()) {
-                    Properties p = new Properties();
-                    FileInputStream fs = FileUtils.openInputStream(file);
-                    p.load(fs);
-                    fs.close();
-                    rootProps.putAll(p);
-                    result.putAll(p);
-
-                    secondConfig = StringUtils.trimToNull(p.getProperty("config.root"));
-                    if (secondConfig != null) {
-                        secondConfig += "/properties/";
-                        if (!secondConfig.startsWith("file://")) {
-                            this.loadPropByPath("file://" + secondConfig, locs, fileProps, true);
-                        } else {
-                            this.loadPropByPath(secondConfig, locs, fileProps, true);
-                        }
-                    } else {
-                        logger.error("'config.root' not found! Plz create properties file '" + this.projectRootConfigFilePath + "'");
-                    }
-                } else {
-                    logger.warn("Project config is not found!");
-                }
-            }
-            this.loadProperties(result, (Resource[]) locs.toArray(new Resource[locs.size()]));
-
-
-        } catch (IOException ex) {
-            if (this.ignoreResourceNotFound) {
-                logger.warn("Could not load properties from " + propertiesLocation + ": " + ex.getMessage());
-            } else {
-                throw ex;
-            }
-        }
+    @SuppressWarnings("unchecked")
+	private void initLocations(Properties result, Properties fileProps, Properties rootProps) throws IOException {
+    	List locs = new ArrayList();
+    	
+    	try {
+			//this.loadPropByPath(filePath, locs, fileProps, false);
+    		
+    		if(StringUtils.isNotEmpty(this.getPropertiesFilePath())){
+    			File file = new File(this.getPropertiesFilePath());
+    			
+    			//判读文件存在并且是文件并且可读
+    			if(file.exists() && file.isFile() && file.canRead()){
+    				Properties config = new Properties();
+    				FileInputStream fs = FileUtils.openInputStream(file);
+    				config.load(fs);
+    				fs.close();		//关闭流
+    				rootProps.putAll(config);
+    				result.putAll(rootProps);
+    				
+    				String secondPath = StringUtils.trimToNull(config.getProperty(this.defaultConfigKey));
+    				
+    				if(StringUtils.isNotEmpty(secondPath)){
+    					secondPath += "properties/";
+    					if(!secondPath.startsWith("file://")){
+    						this.loadPropByPath("file://" + secondPath, locs, fileProps, true);
+    					} else {
+    						this.loadPropByPath(secondPath, locs, fileProps, true);
+    					}
+    				} else {
+    					logger.error("the '{}' is not found!", this.defaultConfigKey);
+    				}
+    			} else {
+    				logger.error("this project config files is not found with path:'{}' given!", this.getPropertiesFilePath());
+    			}
+    		}
+    		this.loadProperties(result, (Resource[]) locs.toArray(new Resource[locs.size()]));
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("can not load config file from given path '{}'!", this.getPropertiesFilePath());
+		}
     }
-
-
+    
     /**
      * 根据路径将配置文件列表放到路径列表中
      *
@@ -137,58 +199,94 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param isSupportLastFile 是否支持最后文件加载
      * @throws IOException 异常
      */
+	@SuppressWarnings("unchecked")
 	private void loadPropByPath(String location, List locations, Properties fileProps, boolean isSupportLastFile) throws IOException {
-        UrlResource ur = new UrlResource(location);
-        Collection fs = FileUtils.listFiles(ur.getFile(), null, false);
-        if (!fs.isEmpty()) {
-            Iterator fi = fs.iterator();
-            File f;
-            String fileName;
-            File lastFile = null;//最后加载的文件
-            while (fi.hasNext()) {
-                f = (File) fi.next();
-                fileName = StringUtils.trimToEmpty(f.getName());
-                //若以.xml或.properties文件结尾的，按照Spring读取配置文件方式读取
-                if (fileName.endsWith(PROPERTIES_FILE_EXTENSION)
-                        || fileName.endsWith(XML_FILE_EXTENSION)) {
-                    if (isSupportLastFile && fileName.startsWith(FILE_LAST_LOAD_PREFIX)) {
-                        lastFile = f;
-                    } else {
-                        locations.add(new FileSystemResource(f));
-                    }
-                } else if (fileName.endsWith(HTML_FILE_EXTENSION)
-                        || fileName.endsWith(HTML_FILE_EXTENSION_SHORT)
-                        || fileName.endsWith(TXT_FILE_EXTENSION)) {
-                    //否则，则将其文件名作key，文件的内容作value读取
-                    fileProps.setProperty(getMainFileName(fileName), getFileContent(f));
-                    logger.info("file '{}' content has been loaded", f.toString());
-                } else {
-                    logger.info("file '{}' is ignore", f.toString());
-                }
-            }
-            if (lastFile != null) {
-                locations.add(new FileSystemResource(lastFile));
-            }
-        }
-    }
-
-    /**
+		UrlResource ur = new UrlResource(location);
+		Collection files = FileUtils.listFiles(ur.getFile(), null, false);
+		
+		if(!files.isEmpty()){
+			Iterator it = files.iterator();
+			File file;
+			String fileName;
+			File lastFile = null;
+			
+			while(it.hasNext()){
+				file = (File) it.next();
+				fileName = StringUtils.trimToNull(file.getName());
+				
+				if(fileName.endsWith(PROPERTIES_FILE_EXTENSION)){
+					if(isSupportLastFile && fileName.startsWith(this.fileLastLoadPrefix)){
+						lastFile = file;
+					} else {
+						locations.add(new FileSystemResource(file));
+					}
+				} else if (fileName.endsWith(HTML_FILE_EXTENSION)
+						|| fileName.endsWith(HTML_FILE_EXTENSION_SHORT)
+						|| fileName.endsWith(TEXT_FILE_EXTENSION)) {
+					//如果文件是html、htm、txt类型的文件，则将文件名作为key，文件内容作为value
+					fileProps.setProperty(this.getMainFileName(fileName), this.getFileContent(file));
+					logger.info("the file named '{}' is loading!the content is '{}'!",
+							new Object[] { this.getMainFileName(fileName), this.getFileContent(file) });
+				} else {
+					logger.info("the file named '{}' is ignore!", fileName);
+				}
+			}
+			if(lastFile != null){
+				locations.add(new FileSystemResource(lastFile));
+			}
+		}
+	}
+	
+	private void loadProperties(Properties props, Resource[] locs) throws IOException {
+		if(locs != null && locs.length > 0){
+			Resource location;
+			for(int i = 0; i < locs.length; i++){
+				location = locs[i];
+				logger.info("loading config from {}", location);
+				InputStream is = null;
+				
+				try {
+					is = location.getInputStream();
+					if(this.isSupportXmlFile && location.getFilename().endsWith(XML_FILE_EXTENSION)){
+						this.propertiesPersister.loadFromXml(props, is);
+					} else {
+						if(this.fileEncoding != null){
+							this.propertiesPersister.load(props, new InputStreamReader(is, fileEncoding));
+						} else {
+							this.propertiesPersister.load(props, is);
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error("Could not load properties from '{}' : {}", new Object[]{location, e.getMessage()});
+				} finally {
+					if(is != null){
+						is.close();
+					}
+				}
+			}
+		} else {
+			logger.error("the resources is null!");
+		}
+	}
+	
+	/**
      * 获取文件名除去扩展名的部分.
      *
      * @param fileName 文件名.
      * @return 文件名除去扩展名的部分.
      */
     private String getMainFileName(final String fileName) {
-        int pos = fileName.lastIndexOf('.');
-        String mainName = fileName;
-
-        if (pos > 0) {
-            mainName = fileName.substring(0, pos);
-        }
-
-        return mainName;
+    	int pos = fileName.lastIndexOf(".");
+    	String mainName = fileName;
+    	
+    	if(pos > 0){
+    		mainName = fileName.substring(0, pos);
+    	}
+    	
+    	return mainName;
     }
-
+    
     /**
      * 读取文件内容.
      *
@@ -197,193 +295,61 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @throws IOException IO错误.
      */
     private String getFileContent(final File file) throws IOException {
-        return FileUtils.readFileToString(file, templateEncoding);
+    	return FileUtils.readFileToString(file, fileEncoding);
     }
 
-    public Object getObject() throws Exception {
-        return this.configProperties;
+	private void loadProperties(Properties result) {
+		
+	}
 
-    }
+	public void afterPropertiesSet() throws Exception {
+		this.configProperties = createInstance();
+	}
+
+	public Object getObject() throws Exception {
+		return this.configProperties;
+	}
 
 	public Class getObjectType() {
-        return Properties.class;
-    }
+		return Properties.class;
+	}
 
-    public final boolean isSingleton() {
-        return this.singleton;
-    }
+	public boolean isSingleton() {
+		return this.singleton;
+	}
 
-    public void afterPropertiesSet() throws Exception {
-        this.configProperties = createInstance();
-    }
+	public String getPropertiesFilePath() {
+		return propertiesFilePath;
+	}
 
-    private Object createInstance() throws IOException {
-        if (!this.isSupportXmlFile) {
-            logger.info("'css' config is not support xml properties!");
-        }
-        Properties result = this.mergeProperties();
-        Properties fileProp = new Properties();
-        Properties rootProp = new Properties();
-        initLocations(result, fileProp, rootProp);
-        //如果系统配置为支持变量替换，则将配置中的属性替换为具体的值
-/*        if (!"false".equals(StringUtils.trimToEmpty(result.getProperty("ccs.config.variable.replace")).toLowerCase())) {
-            logger.info("replace the 'ccs' config variable");
-            replaceValue(result, rootProp);
-        }*/
-        fileProp.putAll(result);
-        return fileProp;
-    }
+	public void setPropertiesFilePath(String propertiesFilePath) {
+		if(StringUtils.isEmpty(propertiesFilePath)){
+			this.propertiesFilePath = DEFAULT_PROPERTIES_PATH;
+			return;
+		}
+		logger.info("the propertiesFilePath is '{}'.", propertiesFilePath);
+		this.propertiesFilePath = propertiesFilePath;
+	}
 
-    /**
-     * 将map的值中的变量替换掉
-     *
-     * @param map      要替换值的map
-     * @param valueMap 提供替换值的Map
-     */
-	private void replaceValue(Map map, Map valueMap) {
-        Iterator it = map.entrySet().iterator();
-        Map.Entry me;
-        String key, val;
-        for (; it.hasNext();) {
-            me = (Map.Entry) it.next();
-            key = (String) me.getKey();
-            val = StringUtils.trimToEmpty((String) me.getValue());
-            map.put(key, Evaluator.replaceVariable(val, valueMap, true));
-        }
-    }
+	public void setFileEncoding(String fileEncoding) {
+		this.fileEncoding = fileEncoding;
+	}
 
-    public void setDefaultPropertiesLocation(final String dl) {
-        this.defaultPropertiesLocation = dl;
-    }
+	public void setSupportXmlFile(boolean isSupportXmlFile) {
+		this.isSupportXmlFile = isSupportXmlFile;
+	}
 
-    public void setProperties(Properties properties) {
-        this.localProperties = new Properties[]{properties};
-    }
+	public void setPropertiesPersister(PropertiesPersister propertiesPersister) {
+		this.propertiesPersister = (propertiesPersister == null ? 
+				new DefaultPropertiesPersister() : propertiesPersister);
+	}
 
-    public void setPropertiesArray(Properties[] propertiesArray) {
-        this.localProperties = propertiesArray;
-    }
+	public void setFileLastLoadPrefix(String fileLastLoadPrefix) {
+		this.fileLastLoadPrefix = fileLastLoadPrefix == null ? "config." : fileLastLoadPrefix;
+	}
 
-    public void setLocation(Resource location) {
-        this.locations = new Resource[]{location};
-    }
-
-    public void setLocations(Resource[] locations) {
-        this.locations = locations;
-    }
-
-    public void setLocalOverride(boolean localOverride) {
-        this.localOverride = localOverride;
-    }
-
-    public void setIgnoreResourceNotFound(boolean ignoreResourceNotFound) {
-        this.ignoreResourceNotFound = ignoreResourceNotFound;
-    }
-
-    public void setFileEncoding(String encoding) {
-        this.fileEncoding = encoding;
-    }
-
-    public void setPropertiesPersister(PropertiesPersister propertiesPersister) {
-        this.propertiesPersister =
-                (propertiesPersister != null ? propertiesPersister : new DefaultPropertiesPersister());
-    }
-
-    private Properties mergeProperties() throws IOException {
-        Properties result = new Properties();
-
-        if (this.localOverride) {
-            loadProperties(result);
-        }
-
-        if (this.localProperties != null) {
-            for (int i = 0; i < this.localProperties.length; i++) {
-                CollectionUtils.mergePropertiesIntoMap(this.localProperties[i], result);
-            }
-        }
-
-        if (!this.localOverride) {
-            loadProperties(result);
-        }
-
-        return result;
-    }
-
-    private void loadProperties(Properties props) throws IOException {
-        loadProperties(props, null);
-    }
-
-    private void loadProperties(Properties props, Resource[] locs) throws IOException {
-        if (locs == null) {
-            locs = this.locations;
-        }
-        if (locs != null) {
-            Resource location;
-            for (int i = 0, n = locs.length; i < n; i++) {
-                location = locs[i];
-                if (logger.isInfoEnabled()) {
-                    logger.info("Loading config from " + location);
-                }
-                InputStream is = null;
-                try {
-                    is = location.getInputStream();
-                    if (this.isSupportXmlFile && location.getFilename().endsWith(XML_FILE_EXTENSION)) {
-                        this.propertiesPersister.loadFromXml(props, is);
-                    } else {
-                        if (this.fileEncoding != null) {
-                            this.propertiesPersister.load(props, new InputStreamReader(is, this.fileEncoding));
-                        } else {
-                            this.propertiesPersister.load(props, is);
-                        }
-                    }
-                } catch (IOException ex) {
-                    if (this.ignoreResourceNotFound) {
-                        if (logger.isWarnEnabled()) {
-                            logger.warn("Could not load properties from " + location + ": " + ex.getMessage());
-                        }
-                    } else {
-                        throw ex;
-                    }
-                } finally {
-                    if (is != null) {
-                        is.close();
-                    }
-                }
-            }
-        }
-    }
-
-    public String getProjectRootConfigFilePath() {
-        return projectRootConfigFilePath;
-    }
-
-
-    public void setProjectRootConfigFilePath(String projectRootConfigFilePath) {
-        this.projectRootConfigFilePath = projectRootConfigFilePath;
-
-        /**
-         * 从JVM读取配置判断是否需要重置
-         */
-        String rootPath = System.getProperty("ccs.jvm.root.index");
-        logger.debug("the jvm rootPath is {}", rootPath);
-
-        String filePath = "";
-        if (StringUtils.isNotBlank(rootPath)) {
-            filePath = "/config/message/" + rootPath + ".properties";
-            logger.debug("the jvm filePath is {}", filePath);
-
-            File file = new File(filePath);
-
-            /**
-             *  如果文件存在
-             */
-            if (file.exists() && file.isFile() && file.canRead()) {
-                this.projectRootConfigFilePath = filePath;
-            }
-        }
-    }
-
-    public void setSupportXmlFile(final boolean supportXmlFile) {
-        isSupportXmlFile = supportXmlFile;
-    }
+	public void setDefaultConfigKey(String defaultConfigKey) {
+		this.defaultConfigKey = defaultConfigKey == null ? "config.root" : defaultConfigKey;
+	}
+    
 }

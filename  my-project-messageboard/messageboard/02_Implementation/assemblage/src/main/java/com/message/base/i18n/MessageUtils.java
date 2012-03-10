@@ -4,12 +4,15 @@ import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 
-import com.message.base.spring.ApplicationContextUtil;
+import com.message.base.spring.ApplicationHelper;
 
 /**
  * 国际化资源文件工具类
+ * 
+ * @see com.message.base.utils.SystemConfig
  * @author sunhao(sunhao.java@gmail.com)
  */
+@Deprecated
 public class MessageUtils {
 	
 	private static MessageSource messageSource = null;
@@ -19,7 +22,8 @@ public class MessageUtils {
 	 * @return
 	 */
 	private static MessageSource getMessageSource(){
-		messageSource = (MessageSource) ApplicationContextUtil.getContext().getBean("messageSource");
+//		messageSource = (MessageSource) ApplicationContextUtil.getContext().getBean("messageSource");
+		messageSource = (MessageSource) ApplicationHelper.getInstance().getBean("messageSource");
 		return messageSource;
 	}
 	

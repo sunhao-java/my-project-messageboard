@@ -65,15 +65,17 @@
 	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
 	<bean class="com.message.base.spring.ApplicationContextUtil"/>
+	
+	<bean id="applicationContextListener" class="com.message.base.spring.ApplicationContextListener"/>
 
-    <!-- <bean id="propertiesConfig" class="com.message.base.utils.PropertiesFactoryBean">
-    	<property name="propertiesLocation" value="properties/"/>
-        <property name="supportXmlFile" value="false"/>
-        <property name="projectRootConfigFilePath" value="/config/message/root.properties"/>
+	<!-- properties文件解析器 -->
+    <bean id="propertiesConfig" class="com.message.base.utils.PropertiesFactoryBean">
+        <property name="propertiesFilePath" value="/config/message/root.properties"/>
     </bean>
 
+	<!-- 系统配置解析器 -->
     <bean id="systemConfig" class="com.message.base.utils.SystemConfig">
         <property name="configuration" ref="propertiesConfig"/>
-    </bean> -->
+    </bean>
 
 </beans>

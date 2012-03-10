@@ -34,6 +34,7 @@
         </property>
     </bean>
 
+	<!-- 配置不需要拦截的请求 -->
     <bean id="guestUrlMapping" parent="urlMappingTemplate">
         <property name="order" value="0"/>
         <property name="mappings">
@@ -44,6 +45,8 @@
     </bean>
 
     <!-- 拦截器所有.do方法，实现登录判断 -->
-    <bean id="authHeaderInterceptor" class="com.message.filter.LoginInterceptor"/>
+    <bean id="authHeaderInterceptor" class="com.message.filter.LoginInterceptor">
+    	<property name="debug" value="true"/>
+    </bean>
 	
 </beans>

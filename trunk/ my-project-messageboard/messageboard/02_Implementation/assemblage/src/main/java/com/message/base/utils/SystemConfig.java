@@ -15,7 +15,6 @@ import java.util.Map;
 @SuppressWarnings("rawtypes")
 public final class SystemConfig implements InitializingBean {
     private static Logger log = LoggerFactory.getLogger(SystemConfig.class);
-    private String[] needConfig;
 
 	private static Map systemProperties;
 
@@ -174,23 +173,5 @@ public final class SystemConfig implements InitializingBean {
         }
         Locale.setDefault(defaultLoacle);
         log.info("ccs default locale is '{}'", defaultLoacle);
-        // 检查某些关键的配置顶是否存在，不存在就报初始化错误
-        final String[] keys = this.needConfig;
-        String key;
-
-
-        // log.debug("1,systemProperties:"+systemProperties);
-        for (int i = 0, n = keys.length; i < n; i++) {
-            key = StringUtils.trimToEmpty(keys[i]);
-
-            if (!systemProperties.containsKey(key)) {
-                throw new IllegalStateException("Can not find property \"" + key
-                        + "\" in ccs.properties configuration file.");
-            }
-        }
-    }
-
-    public void setNeedConfig(String[] needConfig) {
-        this.needConfig = needConfig;
     }
 }

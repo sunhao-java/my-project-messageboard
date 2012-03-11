@@ -7,8 +7,8 @@
 
 	<bean id="nativeJdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.SimpleNativeJdbcExtractor"/>
 	
-	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler" lazy-init="true">
-		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/>
+	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true">
+		<!-- <property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/> -->
 	</bean>
 
 </beans>

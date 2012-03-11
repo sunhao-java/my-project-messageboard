@@ -8,7 +8,7 @@
 %>
 <html>
 	<head>
-		<title>登录</title>
+		<title>幸福家园留言板</title>
 		
 		<link rel="shortcut icon" href="${contextPath }/favicon.ico" />
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 设置项目的名称 -->
+<!-- 设置项目的路径(.表示在build.xml所在的路径) -->
+<project name="messageboard" basedir=".">
+
+	<!-- 设置属性变量 -->
+	<!-- 设置项目源文件所在的目录 -->
+	<property name="src.dir" value="${basedir}\java\com\message\base" />
+	<!-- 指向系统的环境变量，以方便下面各属性的配置 -->
+	<property environment="env"/>
+	<!-- 从系统环境变量中读取到JBOSS_HOME的值 -->
+	<property name="tomcat.home" value="${env.TOMCAT_HOME}" />
+    <!-- 项目webapp -->
+    <property name="webapp.dir" value="${basedir}\webapp"/>
+	<!-- 编译源文件class类存放的路径 -->
+	<property name="build.dir" value="${webapp.dir}\WEB-INF\classes"/>
+    <!-- 项目配置文件 -->
+    <property name="project.config" value="${basedir}\resource"/>
+
+
+	<!-- 使用到的一些jar包 -->
+	<path id="build.classpath">
+		<!-- tomcat安装目录的lib目录下 -->
+		<fileset dir="${tomcat.home}\lib">
+			<!-- 包含了所有的jar包 -->
+			<include name="*.jar"/>
+		</fileset>
+        <!-- 项目lib -->
+        <fileset dir="${webapp.dir}\WEB-INF\lib">
+            <!-- 包含了所有的jar包 -->
+            <include name="*.jar"/>
+        </fileset>
+		<!-- 编译之后的class文件 -->
+		<pathelement location="${build.dir}"/>
+	</path>
+	
+	<!-- 用于创建mkdir目录，编译之后的文件存放在mkdir中 -->
+	<target name="prepare">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}"/>
+	</target>
+	
+	<!-- 编译工作 -->
+    <target name="compile" depends="prepare" description="编译">
+    	<!-- srcdir:源文件目录 destdir:项目下的build目录 -->
+        <javac srcdir="${src.dir}" destdir="${build.dir}" >
+        	<!-- 需要的jar包,上面定义的build.classpath -->
+        	<classpath refid="build.classpath" />
+        </javac>
+        
+    </target>
+
+    <target name="deployConfigFile" description="复制配置文件" >
+        <copy todir="${build.dir}">
+            <fileset dir="${project.config}">
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+            </fileset>
+        </copy>
+	</target>
+
+	<!-- 定义一个打包的任务 -->
+	<target name="makejar" depends="compile" description="创建发布jar包" >
+		<!-- 打包之后放在${basedir}下，文件名为${ant.project.name}.jar -->
+		<jar destfile="${basedir}\${ant.project.name}-core-2.0.jar">
+			<!-- 需要打包的class文件路径 -->
+			<fileset dir="${build.dir}">
+				<!-- 把所有class文件打包进去 -->
+				<include name="**/*.class" />
+			</fileset>
+		</jar>
+	</target>
+</project>

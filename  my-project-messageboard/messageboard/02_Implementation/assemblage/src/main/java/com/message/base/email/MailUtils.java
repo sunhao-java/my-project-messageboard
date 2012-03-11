@@ -26,6 +26,7 @@ import com.message.base.utils.StringUtils;
  * 邮件发送工具类
  * @author sunhao(sunhao.java@gmail.com)
  */
+@SuppressWarnings("deprecation")
 public class MailUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MailUtils.class);
 	

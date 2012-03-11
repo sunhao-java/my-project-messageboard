@@ -1,4 +1,4 @@
-package com.message.tags;
+package com.message.base.tags;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -14,6 +14,7 @@ import com.message.resource.ResourceType;
  * 自定义的格式化时间标签
  * @author sunhao(sunhao.java@gmail.com)
  */
+@SuppressWarnings("deprecation")
 public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag {
 	private static final long serialVersionUID = 5556661395114907904L;
 	
@@ -31,7 +32,6 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		this.dateType = dateType;
 	}
 
-	@SuppressWarnings("deprecation")
 	public int doEndTag() throws JspException {
 		String out = "";
 		Date nowDate = new Date();

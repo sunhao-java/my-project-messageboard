@@ -1,4 +1,4 @@
-package com.message.base.spring.tags;
+package com.message.base.tags;
 
 import java.io.IOException;
 

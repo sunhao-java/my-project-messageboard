@@ -31,12 +31,12 @@
 					success : function(o){
 						var _e = eval("(" + o.responseText + ")");
 						if(_e.status == '1'){
-							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'审核成功！',
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'审核成功！','autoClose':2,
 								'confirmFunction':function(){
 									window.location.reload(true);
 								}});
 						} else if(_e.status == '0'){
-							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'审核失败！'});
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'审核失败！','autoClose':2});
 						}
 					},
 					failure : function(o){

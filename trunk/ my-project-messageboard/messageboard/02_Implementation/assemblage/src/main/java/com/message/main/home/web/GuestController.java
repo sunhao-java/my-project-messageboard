@@ -1,22 +1,23 @@
 package com.message.main.home.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
+
+import org.springframework.web.servlet.ModelAndView;
+
 import com.message.base.i18n.SystemConfig;
-import com.message.base.spring.AuthContext;
-import com.message.base.spring.AuthContextHelper;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.resource.ResourceType;
-import net.sf.json.JSONObject;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author sunhao(sunhao.java@gmail.com)
@@ -64,6 +65,8 @@ public class GuestController extends ExtMultiActionController {
      * @return
      */
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, User user) {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	
         in = new WebInput(request);
         logger.debug("username is " + user.getUsername());
         int status = 0;
@@ -80,39 +83,29 @@ public class GuestController extends ExtMultiActionController {
                 HttpSession session = in.getSession();
                 session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
                 in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
-                AuthContext authContext = new AuthContext();
-                authContext.setLoginUser(dbUser);
-                AuthContextHelper.setAuthContext(authContext);
 
                 return new ModelAndView("redirect:/home/inMessageIndex.do");
             } else {
-                AuthContext authContext = new AuthContext();
-                authContext.setLoginUser(null);
                 if (status == 1) {
-                    request.setAttribute("message", "用户名错误");
-                    request.setAttribute("status", status);
+                	params.put("message", "用户名错误");
                 } else if (status == 2) {
-                    request.setAttribute("message", "密码错误");
-                    request.setAttribute("status", status);
+                    params.put("message", "密码错误");
                 } else if (status == 3) {
-                    request.setAttribute("message", "用户名密码必填");
-                    request.setAttribute("status", status);
+                	params.put("message", "用户名密码必填");
                 } else if (status == 4) {
-                    request.setAttribute("message", "未进行邮箱验证，请验证！");
-                    request.setAttribute("status", status);
+                	params.put("message", "未进行邮箱验证，请验证！");
                 } else if (status == 5) {
-                    request.setAttribute("message", "用户已被停用");
-                    request.setAttribute("status", status);
+                	params.put("message", "用户已被停用");
                 }
-                AuthContextHelper.setAuthContext(authContext);
-                return new ModelAndView("redirect:/guest/login.do");
+                params.put("status", status);
+                return new ModelAndView("redirect:/guest/index.do", params);
             }
         } catch (Exception e) {
             e.printStackTrace();
             status = 3;        //网络有错误
             logger.error(e.getMessage(), e);
             request.setAttribute("status", status);
-            return new ModelAndView("redirect:/guest/login.do");
+            return new ModelAndView("redirect:/guest/index.do");
         }
     }
 

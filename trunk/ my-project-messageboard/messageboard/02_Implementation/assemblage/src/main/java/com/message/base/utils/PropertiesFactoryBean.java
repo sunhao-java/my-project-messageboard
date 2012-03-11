@@ -55,7 +55,7 @@ import com.message.base.spring.ApplicationHelper;
  * @version V1.0
  * @createTime 2012-3-10 下午07:28:05
  */
-@SuppressWarnings({ "rawtypes", "unused" })
+@SuppressWarnings( "rawtypes" )
 public final class PropertiesFactoryBean implements FactoryBean, InitializingBean {
 	private static Logger logger = LoggerFactory.getLogger(PropertiesFactoryBean.class);
 	
@@ -122,6 +122,10 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * XML文件的后缀名
      */
     private static final String XML_FILE_EXTENSION = ".xml";
+    /**
+     * 第一加载的路径
+     */
+    private final String DEFAULT_PROPERTIES_CONFIG_PATH = "/WEB-INF/properties/";
 
 	/**
 	 * 生成实例，返回的其实是一个Map
@@ -152,8 +156,18 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 	private void initLocations(Properties result, Properties fileProps, Properties rootProps) throws IOException {
     	List locs = new ArrayList();
     	
+    	String rootPath = ApplicationHelper.getInstance().getRootPath();
+    	StringBuffer path = new StringBuffer(128);
+    	path.append("file:///").append(rootPath).append(this.DEFAULT_PROPERTIES_CONFIG_PATH);
+    	//默认的配置文件路径
+    	String defaultRealPath = path.toString().replace("\\", "/");
+    	
+    	if(logger.isInfoEnabled()){
+    		logger.info("the default properties config real path is '{}'!", defaultRealPath);
+    	}
+    	
     	try {
-			//this.loadPropByPath(filePath, locs, fileProps, false);
+			this.loadPropByPath(defaultRealPath, locs, fileProps, false);
     		
     		if(StringUtils.isNotEmpty(this.getPropertiesFilePath())){
     			File file = new File(this.getPropertiesFilePath());
@@ -297,10 +311,6 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
     private String getFileContent(final File file) throws IOException {
     	return FileUtils.readFileToString(file, fileEncoding);
     }
-
-	private void loadProperties(Properties result) {
-		
-	}
 
 	public void afterPropertiesSet() throws Exception {
 		this.configProperties = createInstance();

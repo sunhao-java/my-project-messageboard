@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * .替换字符串中的简单变量表达式如：${ccs.file.path.root}
+ * .替换字符串中的简单变量表达式如：${file.path.root}
  *  替换${xx}中的内容
  */
 @SuppressWarnings("rawtypes")

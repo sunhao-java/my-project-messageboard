@@ -131,8 +131,12 @@
 							<td width="603" height="379" rowspan="2"  style="background-repeat: no-repeat;">
 								
 							</td>
+							<%-- <%
+								String status = request.getParameter("status");
+							%>
+							<c:set value="<%=status %>" var="status"/> --%>
 							<c:choose>
-								<c:when test="${empty status}">
+								<c:when test="${empty param.status}">
 									<td width="311" height="309" valign="top" id="yzmtd" background="${contextPath}/image/wiseduimg/wiscom_index_03.jpg">
 										<form action="${contextPath}/guest/login.do" method="post" name="dataFrm" id="dataFrm">
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -143,7 +147,9 @@
 												</tr>
 												<tr>
 													<td height="29" style="padding-left: 20px;">
-														<input type="text" style="width: 250px; height: 25px; background-color: ececec; border: 1 solid #b2b2b2; line-height: 25px;" name="username" id="username" value="" tabindex="1">
+														<input type="text" style="width: 250px; height: 25px; 
+																background-color: ececec; border: 1 solid #b2b2b2; line-height: 25px;" 
+																name="username" id="username" value="" tabindex="1">
 													</td>
 												</tr>
 												<tr>
@@ -153,7 +159,9 @@
 												</tr>
 												<tr>
 													<td height="28" style="padding-left: 20px;">
-														<input type="password" style="width: 250px; height: 25px; background-color: ececec; border: 1 solid #b2b2b2; line-height: 25px;" name="password" id="password" value="" tabindex="2">
+														<input type="password" style="width: 250px; height: 25px; background-color: ececec; 
+																border: 1 solid #b2b2b2; line-height: 25px;" 
+																name="password" id="password" value="" tabindex="2">
 													</td>
 												</tr>
 												<tr>
@@ -171,8 +179,10 @@
 												</tr>
 												<tr>
 													<td height="72" style="padding-left: 20px; font-size: 18px;">
-														<img src="${contextPath}/image/wiseduimg/wiscom_login.PNG" width="124" height="46" onclick="login()" style="cursor: pointer">
-														<img src="${contextPath}/image/wiseduimg/wiscom_reg.jpg" width="124" height="46" onclick="showRegister()" style="cursor: pointer">
+														<img src="${contextPath}/image/wiseduimg/wiscom_login.PNG" 
+																	width="124" height="46" onclick="login()" style="cursor: pointer">
+														<img src="${contextPath}/image/wiseduimg/wiscom_reg.jpg" width="124" 
+																	height="46" onclick="showRegister()" style="cursor: pointer">
 													</td>
 												</tr>
 											</table>
@@ -186,12 +196,12 @@
 								                <tr>
 								                	<td valign="middle">
 														<div class="AlrtErrTxt"> 
-								                			<img name="Login.AlertImage" src="${contextPath}/image/wiseduimg/error_large.gif" alt="Error" 
-								                					height="21" width="21" />
-								               				<spring:message code="message.login.failure"/>
+								                			<img name="Login.AlertImage" src="${contextPath}/image/wiseduimg/error_large.gif" 
+								                				alt="Error" height="21" width="21" />
+								                			<spring:message code="message.login.failure"/>
 								               			</div>
 								                		<div class="AlrtMsgTxt">
-															${message }
+															${param.message }
                 											<p>
                 												<a href="${contextPath}">
                 													<spring:message code="message.login.again"/>

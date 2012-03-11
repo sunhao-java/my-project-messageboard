@@ -35,6 +35,8 @@ YAHOO.app.dialog = function(){
 			
 			var zIndex_ = args.zIndex || 999;						//对应CSS属性值z-index,默认是4
 			
+			var autoClose_ = args.autoClose;						//是否自动关闭，为空表示手动关闭对话框
+			
 			/**
 			 * B.ICON_BLOCK = "blckicon"; 
 			 * B.ICON_ALARM = "alrticon"; 
@@ -85,6 +87,23 @@ YAHOO.app.dialog = function(){
 					
 			}
 			
+			if(autoClose_ != undefined){
+				var timeOut;
+				if($L.isNumber(autoClose_)){
+					timeOut = autoClose_;
+				} else {
+					timeOut = parseInt(autoClose_);
+				}
+				
+				window.setTimeout(function(){
+					if($L.isFunction(confirmFunction_)){
+						confirmFunction_();
+					} else {
+						defaultConfirmFunction();
+					}
+				}, timeOut * 1000);
+			}
+			
 			if(diaWidth_){
 				if($L.isNumber(diaWidth_)){
 					diaWidth_ = diaWidth_ + 'px';
@@ -98,7 +117,7 @@ YAHOO.app.dialog = function(){
 			}
 			
 			function defaultConfirmFunction(){
-				this.cancel();
+				alertDialog.cancel();
 				var masks = dom.getElementsByClassName('mask', 'div');
 				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
 				for(var i = 0; i < masks.length; i++){
@@ -111,7 +130,7 @@ YAHOO.app.dialog = function(){
 			}
 			
 			function defaultCancelFunction(){
-				this.cancel();
+				alertDialog.cancel();
 				var masks = dom.getElementsByClassName('mask', 'div');
 				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
 				for(var i = 0; i < masks.length; i++){

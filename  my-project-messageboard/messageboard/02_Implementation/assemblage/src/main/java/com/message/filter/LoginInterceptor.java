@@ -25,11 +25,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
     private static final Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
-    
-    /**
-     * 是否是调试模式，默认是false
-     */
-    private boolean isDebug = Boolean.FALSE;
 	
 	/**
 	 * 发起请求,进入拦截器链，运行所有拦截器的preHandle方法， 
@@ -38,10 +33,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	 * 		然后进入拦截器链，运行所有拦截器的postHandle方法,完后从最后一个拦截器往回执行所有拦截器的afterCompletion方法.
 	 * 当有拦截器抛出异常时,会从当前拦截器往回执行所有拦截器的afterCompletion方法
 	 */
-
-	public void setDebug(boolean isDebug) {
-		this.isDebug = isDebug;
-	}
 
 	/**
      * 在Controller方法前进行拦截
@@ -55,15 +46,6 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(true);
         String url = request.getServletPath();
-		if(url.indexOf(".do") != -1 && isDebug){
-			System.out.println("request process info:");
-			System.out.println("begin-----------------");
-			System.out.println("url=[" + url + "]");
-			System.out.println("port=[" + request.getServerPort() + "]");
-			System.out.println("client=[" + request.getRemoteAddr() + "]");
-			System.out.println("method=[" + request.getMethod() + "]");
-			System.out.println("end-------------------");
-		}
 
         User loginUser = (User) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 

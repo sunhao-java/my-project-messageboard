@@ -77,5 +77,10 @@
     <bean id="systemConfig" class="com.message.base.utils.SystemConfig">
         <property name="configuration" ref="propertiesConfig"/>
     </bean>
+    
+    <!-- 系统是否开启debug功能,可以查看请求的详情 -->
+    <bean id="debugRequestListener" class="com.message.base.spring.DebugRequestListener">
+    	<property name="debug" value="true"/>
+    </bean>
 
 </beans>

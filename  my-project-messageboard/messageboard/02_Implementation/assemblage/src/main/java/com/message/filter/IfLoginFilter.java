@@ -1,7 +1,6 @@
 package com.message.filter;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -16,13 +15,9 @@ import javax.servlet.http.HttpSession;
 import com.message.base.spring.ApplicationContextUtil;
 import com.message.base.spring.AuthContext;
 import com.message.base.spring.AuthContextHelper;
-import com.message.base.utils.StringUtils;
-import com.message.main.menu.exception.NoPermException;
 import com.message.main.menu.service.MenuService;
 import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
-import org.apache.commons.codec.net.URLCodec;
-import org.apache.tiles.util.URLUtil;
 
 /**
  * 判断是否登录的filter，拦截一些未登录的非法URL
@@ -34,6 +29,7 @@ public class IfLoginFilter implements Filter {
 		
 	}
 
+	@SuppressWarnings("unused")
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;

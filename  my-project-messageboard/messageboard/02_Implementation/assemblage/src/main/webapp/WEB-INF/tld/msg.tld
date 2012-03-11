@@ -9,7 +9,7 @@
 	<description>my tag lib</description>
 	<tag>
 		<name>js</name>
-		<tag-class>com.message.tags.JSTag</tag-class>
+		<tag-class>com.message.base.tags.JSTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>src</name>
@@ -28,7 +28,7 @@
 
 	<tag>
 		<name>css</name>
-		<tag-class>com.message.tags.CSSTag</tag-class>
+		<tag-class>com.message.base.tags.CSSTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>href</name>
@@ -64,7 +64,7 @@
 
 	<tag>
     	<name>formatDate</name>
-    	<tag-class>com.message.tags.FormatDateTag</tag-class>
+    	<tag-class>com.message.base.tags.FormatDateTag</tag-class>
     	<body-content>empty</body-content>
 	    <attribute>
 	        <name>value</name>
@@ -157,7 +157,7 @@
 	
 	<tag>
 		<name>message</name>
-		<tag-class>com.message.base.spring.tags.MessageTag</tag-class>
+		<tag-class>com.message.base.tags.MessageTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>code</name>

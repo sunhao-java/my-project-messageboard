@@ -21,7 +21,7 @@
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<value>/WEB-INF/i18n/loginJsp</value>
+				<!-- <value>/WEB-INF/i18n/loginJsp</value> -->
 				<value>/WEB-INF/i18n/system</value>
 				<value>/WEB-INF/i18n/event</value>
 				<value>/WEB-INF/i18n/mail</value>
@@ -70,7 +70,9 @@
 
 	<!-- properties文件解析器 -->
     <bean id="propertiesConfig" class="com.message.base.utils.PropertiesFactoryBean">
-        <property name="propertiesFilePath" value="/config/message/root.properties"/>
+        <property name="propertiesFilePath">
+       		<value>/opt/config/message/root.properties</value>
+        </property>
     </bean>
 
 	<!-- 系统配置解析器 -->
@@ -82,5 +84,15 @@
     <bean id="debugRequestListener" class="com.message.base.spring.DebugRequestListener">
     	<property name="debug" value="true"/>
     </bean>
+    
+    <!-- 属性文件读入 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:messages.properties</value>
+			</list>
+		</property>
+		<property name="properties" ref="propertiesConfig"/>
+	</bean>
 
 </beans>

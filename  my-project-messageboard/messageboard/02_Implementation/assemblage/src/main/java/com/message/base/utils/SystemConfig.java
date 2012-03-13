@@ -9,8 +9,11 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * 1. 添加返回所有参数Map的方法
- * 2. 添加获取整型、布尔型值的方法
+ * 国际化资源文件工具类
+ * 
+ * @author sunhao(sunhao.java@gmail.com)
+ * @version V1.0
+ * @createTime 2012-3-8 上午12:17:21
  */
 @SuppressWarnings("rawtypes")
 public final class SystemConfig implements InitializingBean {

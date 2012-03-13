@@ -11,8 +11,8 @@ import net.sf.json.JSONObject;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.i18n.SystemConfig;
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.SystemConfig;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;
@@ -46,13 +46,12 @@ public class GuestController extends ExtMultiActionController {
         Map<String, Object> params = new HashMap<String, Object>();
         String view = "";
         User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-        boolean guestAuth = SystemConfig.getBooleanProperty("system.auth.guest", false);
         if (user != null) {
             view = "redirect:/home/inMessageIndex.do";
         } else {
             view = "user.login";
         }
-        params.put("guestAuth", guestAuth);
+        params.put("guestAuth", SystemConfig.getBooleanProperty("system.auth.guest", Boolean.FALSE));
         return new ModelAndView(view, params);
     }
 

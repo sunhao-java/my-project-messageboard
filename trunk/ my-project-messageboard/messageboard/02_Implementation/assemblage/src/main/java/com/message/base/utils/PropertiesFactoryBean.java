@@ -94,6 +94,14 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * spring的文件解析器
      */
     private PropertiesPersister propertiesPersister = new DefaultPropertiesPersister();
+    /**
+     * 配置文件的文件夹名
+     */
+    private String configFolderName = "properties/";
+    /**
+     * 国际化资源文件的文件夹名
+     */
+    private String messageFolderName = "i18n/";
     
     
     //以下为默认系统常量
@@ -101,7 +109,14 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 	 * 默认的配置文件路径,如果不指定<code>propertiesFilePath</code>,则使用这个路径
 	 */
 	private static final String DEFAULT_PROPERTIES_PATH = "/config/message/root.properties";
-
+	/**
+	 * 默认的系统国际化资源文件的文件夹名
+	 */
+	private static final String DEFAULT_MESSAGE_FOLDER_NAME = "i18n/";
+	/**
+	 * 默认的系统配置文件的文件夹名
+	 */
+	private static final String DEFAULT_CONFIG_FOLDER_NAME = "properties/";
 	/**
 	 * properties文件的后缀名
 	 */
@@ -184,15 +199,26 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
     				String secondPath = StringUtils.trimToNull(config.getProperty(this.defaultConfigKey));
     				
     				if(StringUtils.isNotEmpty(secondPath)){
-    					secondPath += "properties/";
-    					if(!secondPath.startsWith("file://")){
-    						this.loadPropByPath("file://" + secondPath, locs, fileProps, true);
+    					String configPath = secondPath + this.getConfigFolderName();
+    					String messagePath = secondPath + this.getMessageFolderName();
+    					
+    					//加载配置文件
+    					if(!configPath.startsWith("file://")){
+    						this.loadPropByPath("file://" + configPath, locs, fileProps, true);
     					} else {
-    						this.loadPropByPath(secondPath, locs, fileProps, true);
+    						this.loadPropByPath(configPath, locs, fileProps, true);
+    					}
+    					
+    					//加载国际化资源文件
+    					if(!messagePath.startsWith("file://")){
+    						this.loadPropByPath("file://" + messagePath, locs, fileProps, true);
+    					} else {
+    						this.loadPropByPath(messagePath, locs, fileProps, true);
     					}
     				} else {
     					logger.error("the '{}' is not found!", this.defaultConfigKey);
     				}
+    				
     			} else {
     				logger.error("this project config files is not found with path:'{}' given!", this.getPropertiesFilePath());
     			}
@@ -360,6 +386,29 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 
 	public void setDefaultConfigKey(String defaultConfigKey) {
 		this.defaultConfigKey = defaultConfigKey == null ? "config.root" : defaultConfigKey;
+	}
+
+	public void setConfigFolderName(String configFolderName) {
+		if(StringUtils.isEmpty(configFolderName)){
+			this.configFolderName = DEFAULT_CONFIG_FOLDER_NAME;
+			return;
+		}
+		this.configFolderName = configFolderName;
+	}
+
+	public void setMessageFolderName(String messageFolderName) {
+		if(StringUtils.isEmpty(messageFolderName)){
+			this.messageFolderName = DEFAULT_MESSAGE_FOLDER_NAME;
+		}
+		this.messageFolderName = messageFolderName;
+	}
+
+	public String getConfigFolderName() {
+		return configFolderName;
+	}
+
+	public String getMessageFolderName() {
+		return messageFolderName;
 	}
     
 }

@@ -45,6 +45,6 @@
     </bean>
 
     <!-- 拦截器所有.do方法，实现登录判断 -->
-    <bean id="authHeaderInterceptor" class="com.message.filter.LoginInterceptor"/>
+    <bean id="authHeaderInterceptor" class="com.message.interceptor.LoginInterceptor"/>
 	
 </beans>

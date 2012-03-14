@@ -49,6 +49,12 @@ import com.message.base.spring.ApplicationHelper;
  * 	<tr>
  * 		<th>defaultConfigKey</th><th>非必填项</th><th>默认的寻找配置文件的key，默认"config.root"</th>
  *  </tr>
+ *  <tr>
+ *  	<th>configFolderName</th><th>非必填项</th><th>放置配置文件的文件夹名，默认是properties/</th>
+ *  </tr>
+ *  <tr>
+ *  	<th>messageFolderName</th><th>非必填项</th><th>放置国际化资源文件的文件夹名，默认是i18n/</th>
+ *  </tr>
  * </table>
  * 
  * @author sunhao

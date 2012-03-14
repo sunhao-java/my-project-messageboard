@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -13,9 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.i18n.SystemConfig;
-import com.message.base.spring.AuthContext;
-import com.message.base.spring.AuthContextHelper;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;

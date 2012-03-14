@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.MessageUtils;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.info.dao.InfoDAO;
@@ -40,7 +40,8 @@ public class InfoServiceImpl implements InfoService {
 	public Long saveInfo(Info info, User sessionUser) throws Exception {
 		info.setModifyDate(new Date());
 		Long pkId = this.infoDAO.saveInfo(info);
-		String eventMsg = MessageUtils.getMessage("event.message.info.add", new Object[]{MessageUtils.getMessage("info.description"), pkId});
+		String eventMsg = MessageUtils.getProperties("event.message.info.add", 
+				new Object[]{MessageUtils.getProperties("info.description"), pkId});
 		this.eventService.publishEvent(new BaseEvent(info.getModifyUserId(), ResourceType.EVENT_EDIT, info.getModifyUserId(), 
 				ResourceType.INFO_TYPE, pkId, sessionUser.getLoginIP(), eventMsg));
 		return pkId;

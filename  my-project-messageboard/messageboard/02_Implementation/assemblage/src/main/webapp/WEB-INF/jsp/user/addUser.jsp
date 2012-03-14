@@ -46,8 +46,8 @@
 				<td>
 					<input type="text" name="username" id="username" class="f_text" dataType="Limit"
 						require="true" max="100" min="1" msg="登录名不能为空,且不超过50字符" onblur="checkUser(this);"/>         
-					<label id="reg" style="color: green;display: none;">*<spring:message code="message.register.ok"/></label>
-					<label id="regNo" style="color: red;display: none;">*<spring:message code="message.register.no"/></label> 
+					<label id="reg" style="color: green;display: none;">*<msg:message code="message.register.ok"/></label>
+					<label id="regNo" style="color: red;display: none;">*<msg:message code="message.register.no"/></label> 
 				</td>
 			</tr>
 			<tr>
@@ -55,9 +55,9 @@
 					性别<img src="${contextPath }/image/register/warning.png" title="注册后不可修改"/>
 				</td>
 				<td>
-					<input type="radio" value="0" name="sex" id="0" checked="checked"><label for="0"><spring:message code="message.sex.no"/></label>
-					<input type="radio" value="1" name="sex" id="1"><label for="1"><spring:message code="message.sex.man"/></label>
-					<input type="radio" value="2" name="sex" id="2"><label for="2"><spring:message code="message.sex.woman"/></label>
+					<input type="radio" value="0" name="sex" id="0" checked="checked"><label for="0"><msg:message code="message.sex.no"/></label>
+					<input type="radio" value="1" name="sex" id="1"><label for="1"><msg:message code="message.sex.man"/></label>
+					<input type="radio" value="2" name="sex" id="2"><label for="2"><msg:message code="message.sex.woman"/></label>
 					<br/>
 				</td>
 			</tr>

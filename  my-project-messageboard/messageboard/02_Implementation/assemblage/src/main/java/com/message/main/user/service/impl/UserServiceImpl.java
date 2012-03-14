@@ -6,9 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.email.MailSend;
-import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.MD5Utils;
+import com.message.base.utils.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.pojo.BaseEvent;
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService{
 					dbUser.setHomePage(user.getHomePage());
 					
 					this.userDAO.updateUser(dbUser);
-					String eventMsg = MessageUtils.getMessage("event.message.user.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+					String eventMsg = MessageUtils.getProperties("event.message.user.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
 					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
 							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 				}
@@ -169,7 +169,7 @@ public class UserServiceImpl implements UserService{
 				dbUser.setPassword(MD5Utils.MD5Encode(user.getPassword()));
 				this.userDAO.updateUser(dbUser);
 				
-				String eventMsg = MessageUtils.getMessage("event.message.psw.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+				String eventMsg = MessageUtils.getProperties("event.message.psw.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
 				this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
 						ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 				return true;
@@ -194,7 +194,7 @@ public class UserServiceImpl implements UserService{
 				
 				if(dbUser != null){
 					dbUser.setDeleteFlag(ResourceType.DELETE_YES);
-					String eventMsg = MessageUtils.getMessage("event.message.user.delete", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+					String eventMsg = MessageUtils.getProperties("event.message.user.delete", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
 					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_DELETE, dbUser.getPkId(), 
 							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 					this.userDAO.updateUser(dbUser);
@@ -211,7 +211,7 @@ public class UserServiceImpl implements UserService{
 		if(dbUser != null){
 			dbUser.setIsAdmin(opertion ? ResourceType.IS_ADMIN_YES : ResourceType.IS_ADMIN_NO);
 			this.userDAO.updateUser(dbUser);
-			String eventMsg = MessageUtils.getMessage("event.message.userPerm", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
+			String eventMsg = MessageUtils.getProperties("event.message.userPerm", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
 			this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, dbUser.getPkId(), 
 					ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
 			return true;
@@ -220,8 +220,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public boolean emailConfirm(WebInput in) throws Exception {
-		final String USERNAME_CODE = MessageUtils.getMessage("mail.confirm.key", "usernameCode");
-		final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");
+		final String USERNAME_CODE = MessageUtils.getProperties("mail.confirm.key", "usernameCode");
+		final String CONFIRM_USER_ID = MessageUtils.getProperties("mail.confirm.userid", "userid");
 		
 		String usernameCode = in.getString(USERNAME_CODE, StringUtils.EMPTY);
 		Long userid = in.getLong(CONFIRM_USER_ID, 0L);

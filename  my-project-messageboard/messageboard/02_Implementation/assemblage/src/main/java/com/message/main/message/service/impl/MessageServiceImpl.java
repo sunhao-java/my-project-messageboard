@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
@@ -78,7 +78,7 @@ public class MessageServiceImpl implements MessageService {
 		
 		Long messageId = this.messageDAO.saveMessage(message);
 		
-		String eventMsg = MessageUtils.getMessage("event.message.add", new Object[]{message.getTitle(), messageId});
+		String eventMsg = MessageUtils.getProperties("event.message.add", new Object[]{message.getTitle(), messageId});
 		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_ADD, user.getPkId(), ResourceType.MESSAGE_TYPE, 
 				messageId, user.getLoginIP(), eventMsg));
 		
@@ -110,7 +110,7 @@ public class MessageServiceImpl implements MessageService {
 					dbMessage.setDeleteFlag(ResourceType.DELETE_YES);
 					this.messageDAO.updateMessage(dbMessage);
 					
-					String eventMsg = MessageUtils.getMessage("event.message.delete", new Object[]{dbMessage.getTitle(), Long.valueOf(pkId)});
+					String eventMsg = MessageUtils.getProperties("event.message.delete", new Object[]{dbMessage.getTitle(), Long.valueOf(pkId)});
 					this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_DELETE, dbMessage.getCreateUserId(), 
 							ResourceType.MESSAGE_TYPE, Long.valueOf(pkId), user.getLoginIP(), eventMsg));
 				}
@@ -162,10 +162,10 @@ public class MessageServiceImpl implements MessageService {
 		dbMessage.setAuditUsername(user.getTruename());
 		if(AUDIT_OK.equals(status)) {
 			dbMessage.setIsAudit(ResourceType.AUDIT_YES);
-			eventMsg = MessageUtils.getMessage("audit.yes", new Object[]{dbMessage.getTitle(), messageId});
+			eventMsg = MessageUtils.getProperties("audit.yes", new Object[]{dbMessage.getTitle(), messageId});
 		} else if(AUDIT_NO.equals(status)){
 			dbMessage.setIsAudit(ResourceType.AUDIT_NO);
-			eventMsg = MessageUtils.getMessage("audit.no", new Object[]{dbMessage.getTitle(), messageId});
+			eventMsg = MessageUtils.getProperties("audit.no", new Object[]{dbMessage.getTitle(), messageId});
 		}
 		
 		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_EDIT, dbMessage.getCreateUserId(), 

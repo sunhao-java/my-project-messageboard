@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
-import com.message.base.i18n.MessageUtils;
+import com.message.base.utils.MessageUtils;
 import com.message.resource.ResourceType;
 
 /**
@@ -56,7 +56,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 			if(dateType == 1){
 				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 			} else {
-				format.applyPattern(MessageUtils.getMessage("dateformat.chinese.format"));
+				format.applyPattern(MessageUtils.getProperties("dateformat.chinese.format"));
 			}
 			
 			out = format.format(value);
@@ -73,17 +73,17 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 			int minutes = value.getMinutes();
 			String time = "";
 			if(hours < 6){
-				time = MessageUtils.getMessage("dateformat.morning");
+				time = MessageUtils.getProperties("dateformat.morning");
 			} else if(hours < 12) {
-				time = MessageUtils.getMessage("dateformat.am");
+				time = MessageUtils.getProperties("dateformat.am");
 			} else if(hours < 18){
-				time = MessageUtils.getMessage("dateformat.pm");
+				time = MessageUtils.getProperties("dateformat.pm");
 				hours -= 12;
 			} else if(hours < 24){
-				time = MessageUtils.getMessage("dateformat.night");
+				time = MessageUtils.getProperties("dateformat.night");
 				hours -= 12;
 			}
-			out = MessageUtils.getMessage("dateformat.date.format",new Object[]{time, hours, minutes});
+			out = MessageUtils.getProperties("dateformat.date.format",new Object[]{time, hours, minutes});
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -94,7 +94,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 */
 		if(mm <= 24*60*60*1000 && mm > 1*60*60*1000 && dd == 0){
 			String hours = String.valueOf((int) mm/(1000*60*60));
-			out = hours + MessageUtils.getMessage("dateformat.beforeH");
+			out = hours + MessageUtils.getProperties("dateformat.beforeH");
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -104,7 +104,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 */
 		if(mm <= 60*60*1000 && mm > 1*60*1000 && dd == 0){
 			String minutes = String.valueOf((int) mm/(1000*60));
-			out = minutes + MessageUtils.getMessage("dateformat.beforeM");
+			out = minutes + MessageUtils.getProperties("dateformat.beforeM");
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -114,7 +114,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 */
 		if(mm <= 60*1000 && mm > 1000 && dd == 0){
 			String seconds = String.valueOf((int) mm/(1000));
-			out = seconds + MessageUtils.getMessage("dateformat.beforeS");
+			out = seconds + MessageUtils.getProperties("dateformat.beforeS");
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -123,7 +123,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 * 条件：间隔时间<=1秒
 		 */
 		if(mm <= 1000 && dd == 0){
-			out = "1" + MessageUtils.getMessage("dateformat.beforeS");
+			out = "1" + MessageUtils.getProperties("dateformat.beforeS");
 			print(out);
 			return EVAL_PAGE;
 		}
@@ -131,7 +131,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		if(dateType == 1){
 			format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
 		} else {
-			format.applyPattern(MessageUtils.getMessage("dateformat.chinese.format"));
+			format.applyPattern(MessageUtils.getProperties("dateformat.chinese.format"));
 		}
 		
 		out = format.format(value);

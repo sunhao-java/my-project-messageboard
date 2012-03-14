@@ -7,9 +7,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.i18n.MessageUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.DateUtils;
+import com.message.base.utils.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.job.CleanEventJob;
@@ -68,16 +68,16 @@ public class HistoryServiceImpl implements HistoryService {
 					String browser = history.getBrowser();
 					String browserStr = StringUtils.EMPTY;
 					if(browser.indexOf("Firefox") != -1){
-						browserStr = MessageUtils.getMessage("history.browser.firefox");
+						browserStr = MessageUtils.getProperties("history.browser.firefox");
 					} else if(browser.indexOf("360SE") != -1){
-						browserStr = MessageUtils.getMessage("history.browser.360");
+						browserStr = MessageUtils.getProperties("history.browser.360");
 					} else if(browser.indexOf("Apple") != -1){
-						browserStr = MessageUtils.getMessage("history.browser.safari");
+						browserStr = MessageUtils.getProperties("history.browser.safari");
 					} else if(browser.indexOf("MSIE") != -1){
 						//对IE的判断要放在最后，因为有很多浏览器是基于IE内核的
-						browserStr = MessageUtils.getMessage("history.browser.ie");
+						browserStr = MessageUtils.getProperties("history.browser.ie");
 					} else {
-						browserStr = MessageUtils.getMessage("history.browser.other");
+						browserStr = MessageUtils.getProperties("history.browser.other");
 					}
 					
 					history.setBrowserStr(browserStr);

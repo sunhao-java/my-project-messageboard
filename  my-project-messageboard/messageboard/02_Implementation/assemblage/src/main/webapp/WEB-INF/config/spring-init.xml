@@ -18,16 +18,16 @@
 	</bean>
 	
 	<!-- 资源文件进行注入 -->
-	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	<!-- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
-				<!-- <value>/WEB-INF/i18n/loginJsp</value> -->
+				<value>/WEB-INF/i18n/loginJsp</value>
 				<value>/WEB-INF/i18n/system</value>
 				<value>/WEB-INF/i18n/event</value>
 				<value>/WEB-INF/i18n/mail</value>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
@@ -78,6 +78,11 @@
 	<!-- 系统配置解析器 -->
     <bean id="systemConfig" class="com.message.base.utils.SystemConfig">
         <property name="configuration" ref="propertiesConfig"/>
+    </bean>
+    
+    <!-- i18n国际化资源文件解析器 -->
+    <bean id="messageUtils" class="com.message.base.utils.MessageUtils">
+    	<property name="properties" ref="propertiesConfig"/>
     </bean>
     
     <!-- 系统是否开启debug功能,可以查看请求的详情 -->

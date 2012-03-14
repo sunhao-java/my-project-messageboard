@@ -7,8 +7,8 @@ import java.util.Date;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
+import com.message.base.Constants;
 import com.message.base.utils.MessageUtils;
-import com.message.resource.ResourceType;
 
 /**
  * 自定义的格式化时间标签
@@ -54,7 +54,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		 */
 		if(dd >= 2){
 			if(dateType == 1){
-				format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
+				format.applyPattern(Constants.SIMPLE_DATE_FORMAT);
 			} else {
 				format.applyPattern(MessageUtils.getProperties("dateformat.chinese.format"));
 			}
@@ -129,7 +129,7 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 		}
 		
 		if(dateType == 1){
-			format.applyPattern(ResourceType.SIMPLE_DATE_FORMAT);
+			format.applyPattern(Constants.SIMPLE_DATE_FORMAT);
 		} else {
 			format.applyPattern(MessageUtils.getProperties("dateformat.chinese.format"));
 		}

@@ -1,4 +1,4 @@
-package com.message.base.spring;
+package com.message.interceptor;
 
 import com.message.main.user.pojo.User;
 

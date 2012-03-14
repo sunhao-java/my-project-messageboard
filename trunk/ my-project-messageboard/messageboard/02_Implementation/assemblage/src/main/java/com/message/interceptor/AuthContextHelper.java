@@ -1,4 +1,4 @@
-package com.message.base.spring;
+package com.message.interceptor;
 
 /**
  * 往ThreadLocal放入取出当前登录者

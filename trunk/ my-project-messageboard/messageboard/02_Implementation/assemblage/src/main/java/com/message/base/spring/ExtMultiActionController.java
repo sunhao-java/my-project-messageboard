@@ -9,7 +9,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import com.message.resource.ResourceType;
+import com.message.base.Constants;
 
 /**
  * 继承<code>MultiActionController</code>,重写<code>initBinder</code>方法<br>
@@ -34,9 +34,9 @@ public class ExtMultiActionController extends MultiActionController {
         String pattern = "";
         String date = request.getParameter("endTime");
         if(date != null && date.indexOf("-") != -1 && date.indexOf(":") == -1){
-        	pattern = ResourceType.DATE_FORMAT;
+        	pattern = Constants.DATE_FORMAT;
         } else {
-        	pattern = ResourceType.SIMPLE_DATE_FORMAT;
+        	pattern = Constants.SIMPLE_DATE_FORMAT;
         }
         
         dateFormat.applyPattern(pattern);

@@ -17,32 +17,31 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.i18n.MessageUtils;
-import com.message.base.i18n.SystemConfig;
 import com.message.base.utils.MD5Utils;
+import com.message.base.utils.MessageUtils;
 import com.message.base.utils.StringUtils;
+import com.message.base.utils.SystemConfig;
 
 /**
  * 邮件发送工具类
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("deprecation")
 public class MailUtils {
 	private static final Logger LOGGER = LoggerFactory.getLogger(MailUtils.class);
 	
-	private final String SYS_SENDER_USERNAME = MessageUtils.getMessage("sys.sender.username", "sunhao0550@163.com");
-	private final String SYS_SENDER_PASSWORD = MessageUtils.getMessage("sys.sender.password", "sunhao1314520");
+	private final String SYS_SENDER_USERNAME = MessageUtils.getProperties("sys.sender.username", "sunhao0550@163.com");
+	private final String SYS_SENDER_PASSWORD = MessageUtils.getProperties("sys.sender.password", "sunhao1314520");
 	private final String EMAIL_AT = "@";
 	private final String EMAIL_DAO = ".";
 	//private final String CONFIRM_TIP = MessageUtils.getMessage("confirm.tip", "请点击下面的链接验证用户！");
 	//private final String CONFIRM_TIP_AGAIN = MessageUtils.getMessage("confirm.tip.again", "如果没有成功，请复制下面链接到浏览器地址栏！");
-	private final String URL_CONFIRM = MessageUtils.getMessage("user.confirm", "http://sunhao.wiscom.com.cn:8089/message/user/emailConfirm.do?");
-	private final String MAIL_CONFIRM_TITLE = MessageUtils.getMessage("mail.confirm.title", "邮件验证");
+	private final String URL_CONFIRM = MessageUtils.getProperties("user.confirm", "http://sunhao.wiscom.com.cn:8089/message/user/emailConfirm.do?");
+	private final String MAIL_CONFIRM_TITLE = MessageUtils.getProperties("mail.confirm.title", "邮件验证");
 	private final boolean MAIL_IS_DEBUG = SystemConfig.getBooleanProperty("mail.send.debug", Boolean.FALSE);
-	private final String MAIL_SMTP_AUTH = SystemConfig.getStringProperty("mail.smtp.auth", "true");
-	private final String MAIL_TRANSPORT_PROTOCOL = SystemConfig.getStringProperty("mail.transport.protocol", "auth");
-	private final String USERNAME_CODE = MessageUtils.getMessage("mail.confirm.key", "usernameCode");
-	private final String CONFIRM_USER_ID = MessageUtils.getMessage("mail.confirm.userid", "userid");	
+	private final String MAIL_SMTP_AUTH = SystemConfig.getProperty("mail.smtp.auth", "true");
+	private final String MAIL_TRANSPORT_PROTOCOL = SystemConfig.getProperty("mail.transport.protocol", "auth");
+	private final String USERNAME_CODE = MessageUtils.getProperties("mail.confirm.key", "usernameCode");
+	private final String CONFIRM_USER_ID = MessageUtils.getProperties("mail.confirm.userid", "userid");	
 	
 	private static MailUtils instance = new MailUtils();
 	
@@ -147,7 +146,7 @@ public class MailUtils {
 		Date now = new Date();
 		String nowStr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 		
-		String content = MessageUtils.getMessage("mail.confirm.content", new Object[]{nowStr, username, sb.toString()});
+		String content = MessageUtils.getProperties("mail.confirm.content", new Object[]{nowStr, username, sb.toString()});
 		
 		return content;
 	}

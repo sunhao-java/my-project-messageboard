@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.utils.HtmlUtils;
+import com.message.base.utils.ReplaceStringUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.utils.SystemConfig;
 
@@ -69,48 +70,7 @@ public class MessageTag extends TagSupport {
 		}
 		
 		if(argsTemp != null && argsTemp.length > 0){
-			/**
-			 * 第一个'{'的位置
-			 */
-			int firstLeftBrace = printString.indexOf("{");
-			/**
-			 * 最后一个'}'的位置
-			 */
-			int lastRightBrace = printString.lastIndexOf("}");
-			/**
-			 * 第一个'{'后面的那个数字
-			 */
-			String first = printString.substring(firstLeftBrace + 1, firstLeftBrace + 2);
-			/**
-			 * 最后一个'}'后面的那个数字
-			 */
-			String last = printString.substring(lastRightBrace - 1, lastRightBrace);
-			try {
-				/**
-				 * 第一个序号和最后一个序号
-				 */
-				int firstSequence = Integer.parseInt(first);
-				int lastSequence = Integer.parseInt(last);
-				
-				/**
-				 * {0}{1}...的个数与给定的值个数不一致，或者{0}{1}...不是按照这样递增的，那么返回错误,
-				 * 否则进行替换
-				 */
-				if(!((lastSequence - firstSequence + 1) < 0 || (lastSequence - firstSequence + 1) != argsTemp.length)){
-					/**
-					 * 替换规则：
-					 * 给定值的第一个值替换{0}，以此类推
-					 */
-					for(int j = 0; j < argsTemp.length; j++){
-						printString = printString.replace("{" + j + "}", (String) argsTemp[j]);
-					}
-				}
-				
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-			}
-			
+			printString = ReplaceStringUtils.replace(printString, argsTemp, printString);
 		}
 		
 		this.print(printString);

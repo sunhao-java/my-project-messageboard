@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.i18n.MessageUtils;
+import com.message.base.utils.MessageUtils;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.reply.dao.ReplyDAO;
@@ -42,7 +42,7 @@ public class ReplyServiceImpl implements ReplyService {
 		if(dbReply != null){
 			dbReply.setDeleteFlag(ResourceType.DELETE_YES);
 			this.replyDAO.updateReply(dbReply);
-			String eventMsg = MessageUtils.getMessage("event.message.reply.delete", new Object[]{dbReply.getTitle(), dbReply.getPkId()});
+			String eventMsg = MessageUtils.getProperties("event.message.reply.delete", new Object[]{dbReply.getTitle(), dbReply.getPkId()});
 			this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_DELETE, dbReply.getReplyUserId(), 
 					ResourceType.REPLY_TYPE, dbReply.getPkId(), user.getLoginIP(), eventMsg));
 			return true;
@@ -70,7 +70,7 @@ public class ReplyServiceImpl implements ReplyService {
 			
 			Long pkId = this.replyDAO.saveReply(reply);
 			
-			String eventMsg = MessageUtils.getMessage("event.message.reply.add", new Object[]{reply.getTitle(), pkId});
+			String eventMsg = MessageUtils.getProperties("event.message.reply.add", new Object[]{reply.getTitle(), pkId});
 			this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_ADD, reply.getReplyUserId(), 
 					ResourceType.REPLY_TYPE, pkId, user.getLoginIP(), eventMsg));
 		}

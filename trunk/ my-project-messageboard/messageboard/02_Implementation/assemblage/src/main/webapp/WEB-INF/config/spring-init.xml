@@ -17,18 +17,6 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
 	
-	<!-- 资源文件进行注入 -->
-	<!-- <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-		<property name="basenames">
-			<list>
-				<value>/WEB-INF/i18n/loginJsp</value>
-				<value>/WEB-INF/i18n/system</value>
-				<value>/WEB-INF/i18n/event</value>
-				<value>/WEB-INF/i18n/mail</value>
-			</list>
-		</property>
-	</bean> -->
-	
 	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
@@ -98,6 +86,11 @@
 			</list>
 		</property>
 		<property name="properties" ref="propertiesConfig"/>
+	</bean>
+	
+	<!-- log4j配置文件的载入 -->
+	<bean id="log4JConfiguration" class="com.message.base.utils.Log4JConfiguration">
+		<property name="location" value="file://${config.root}/log4j.properties"/>
 	</bean>
 
 </beans>

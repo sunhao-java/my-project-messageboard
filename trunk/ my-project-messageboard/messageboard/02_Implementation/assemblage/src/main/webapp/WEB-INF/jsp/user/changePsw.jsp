@@ -103,7 +103,7 @@
 					原密码
 				</td>
 				<td width="42%">
-					<input type="password" value="" class="f_text" name="oldpassword" id="oldpassword" onblur="checkPsw(this);"
+					<input type="password" class="f_text" name="oldpassword" id="oldpassword" onblur="checkPsw(this);"
 						require="true" dataType="Limit" max="100" min="1" msg="原密码必填"/>     
 					<span id="rightSpan" style="color: green;display: none;"><img src="${contextPath}/image/register/check_right.gif">原密码正确</span>
 					<span id="wrongSpan" style="color: red;display: none;"><img src="${contextPath}/image/register/check_error.gif">原密码错误</span>       

@@ -1,12 +1,11 @@
 package com.message.utils.message;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.message.base.i18n.MessageUtils;
-
-import junit.framework.TestCase;
 @SuppressWarnings("unused")
 public class MessageUtilsTest extends TestCase {
 	
@@ -19,6 +18,5 @@ public class MessageUtilsTest extends TestCase {
 	public void testGetMessage(){
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring.xml");
 		
-		System.out.println(MessageUtils.getMessage("user.confirm", "1111"));
 	}
 }

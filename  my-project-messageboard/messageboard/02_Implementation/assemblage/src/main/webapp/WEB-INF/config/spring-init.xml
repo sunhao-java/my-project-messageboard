@@ -92,5 +92,13 @@
 	<bean id="log4JConfiguration" class="com.message.base.utils.Log4JConfiguration">
 		<property name="location" value="file://${config.root}/log4j.properties"/>
 	</bean>
+	
+	<!-- 文件上传的必须配置 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 最大上传文件大小:1024M 单位：字节 1024*1024*1024 -->
+		<property name="maxUploadSize" value="1073741824"/>
+		<!-- 配置上传到的文件夹 -->
+		<property name="uploadTempDir" value="file://${message.upload.dir}"/>
+	</bean>
 
 </beans>

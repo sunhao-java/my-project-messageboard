@@ -1,30 +1,30 @@
-package com.message.main.menu.exception;
+package com.message.main.upload.exception;
 
 import com.message.base.exception.ApplicationRuntimeException;
 
 /**
- * 菜单没有权限的异常
+ * 文件错误的异常
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
- * @createTime 12-3-4 下午5:32
+ * @createTime 2012-3-17 上午03:19:05
  */
-public class NoPermException extends ApplicationRuntimeException {
-	private static final long serialVersionUID = -448899345295497224L;
-
-	public NoPermException() {
+public class FileErrorException extends ApplicationRuntimeException {
+	private static final long serialVersionUID = 3412753933429299794L;
+	
+	public FileErrorException() {
         super();
     }
 
-    public NoPermException(Throwable cause) {
+    public FileErrorException(Throwable cause) {
         super(cause);
     }
 
-    public NoPermException(String msg) {
+    public FileErrorException(String msg) {
         super(msg);
     }
 
-    public NoPermException(String msg, Throwable cause) {
+    public FileErrorException(String msg, Throwable cause) {
         super(msg, cause);
     }
 

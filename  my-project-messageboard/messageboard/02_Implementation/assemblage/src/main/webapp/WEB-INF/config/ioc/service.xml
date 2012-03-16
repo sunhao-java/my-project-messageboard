@@ -62,5 +62,10 @@
     <bean id="menuService" class="com.message.main.menu.service.impl.MenuServiceImpl">
     	<property name="menuDAO" ref="menuDAO"/>
     </bean>
+    
+    <!-- 上传的service -->
+    <bean id="uploadService" class="com.message.main.upload.service.impl.UploadServiceImpl">
+    	<property name="userService" ref="userService"/>
+    </bean>
 	
 </beans>

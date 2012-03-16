@@ -1,5 +1,7 @@
 package com.message.resource;
 
+import com.message.base.utils.SystemConfig;
+
 /**
  * 资源类型类
  * @author sunhao(sunhao.java@gmail.com)
@@ -131,5 +133,27 @@ public final class ResourceType {
 	 * 只有好友可见
 	 */
 	public static final Long LOOK_ONLY_FRIENDS = Long.valueOf(2L);
+	
+	//用户头像的一些常量
+	/**
+	 * 用户上传头像放置的路径
+	 */
+	public static final String USER_IMAGE_FOLDER_PATH = SystemConfig.getProperty("user.image.upload.dir", "/opt/data/head/");
+	/**
+	 * 大头像
+	 */
+	public static final String IMAGE_SIZE_BIG = "200x200";
+	/**
+	 * 普通头像
+	 */
+	public static final String IMAGE_SIZE_NORMAL = "100x100";
+	/**
+	 * 小头像
+	 */
+	public static final String IMAGE_SIZE_SMALL ="48x48";
+	/**
+	 * 头像尺寸的数组
+	 */
+	public static final String[] IMAGE_SIZE_LIST = new String[]{IMAGE_SIZE_BIG, IMAGE_SIZE_NORMAL, IMAGE_SIZE_SMALL};
 	
 }

@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.email.MailSend;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.spring.ApplicationHelper;
+import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.MessageUtils;
 import com.message.base.utils.StringUtils;
@@ -26,6 +28,11 @@ import com.message.resource.ResourceType;
  */
 public class UserServiceImpl implements UserService{
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	
+	/**
+	 * 用户未设置头像时显示的默认头像
+	 */
+	private static final String HEAD_IMAGE_BLANK = "/image/blank.jpg";
 	
 	private UserDAO userDAO;
 	private HistoryService historyService;
@@ -146,7 +153,6 @@ public class UserServiceImpl implements UserService{
 			if(user.getPkId() != null){
 				dbUser = this.userDAO.getUserById(user.getPkId());
 				if(dbUser != null){
-					//TODO by sunhao: 头像是可以修改的，暂时这样
 					dbUser.setAddress(user.getAddress());
 					dbUser.setPhoneNum(user.getPhoneNum());
 					dbUser.setEmail(user.getEmail());
@@ -241,6 +247,48 @@ public class UserServiceImpl implements UserService{
 				return false;
 			}
 		}
+	}
+
+	public byte[] getHeadImage(Long userId, Integer headType) throws Exception {
+		if(Long.valueOf(-1).equals(userId) || userId == null || headType == null){
+			logger.error("given userId or headType is null!");
+			return null;
+		}
+		User user = this.getUserById(userId);
+		
+		if(user == null){
+			logger.error("no user found!");
+		}
+		
+		StringBuffer imagePath = new StringBuffer();
+		//当可以取得头像的时候用
+		String imageDir = ResourceType.USER_IMAGE_FOLDER_PATH;
+		//当用户未设置头像的时候使用
+		String rootPath = ApplicationHelper.getInstance().getRootPath();
+		//头像大小
+		String imageSize = StringUtils.EMPTY;
+		
+		if(Integer.valueOf(0).equals(headType)){
+			imageSize = ResourceType.IMAGE_SIZE_NORMAL;
+		} else if(Integer.valueOf(1).equals(headType)){
+			imageSize = ResourceType.IMAGE_SIZE_BIG;
+		} else {
+			imageSize = ResourceType.IMAGE_SIZE_SMALL;
+		}
+		
+		if(StringUtils.isEmpty(user.getHeadImage())){
+			imagePath.append(rootPath).append(HEAD_IMAGE_BLANK);
+		} else {
+			imagePath.append(imageDir)								//系统设置上传路径
+						.append("/").append(imageSize).append("/")	//头像大小
+						.append(user.getHeadImage());				//头像实际所在路径
+		}
+		
+		return FileUtils.getFileByte(imagePath.toString());
+	}
+
+	public void updateUser(User user) throws Exception {
+		this.userDAO.updateUser(user);
 	}
 	
 	

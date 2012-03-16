@@ -67,6 +67,14 @@ public interface UserService {
 	void saveEdit(User user, User sessionUser) throws Exception;
 	
 	/**
+	 * 更新用户
+	 * 
+	 * @param user
+	 * @throws Exception
+	 */
+	void updateUser(User user) throws Exception;
+	
+	/**
 	 * 保存密码
 	 * @param user
 	 * @param sessionUser
@@ -111,5 +119,15 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	boolean emailConfirm(WebInput in) throws Exception;
+	
+	/**
+	 * 获取用户头像的字节流
+	 * 
+	 * @param userId		用户ID
+	 * @param headType		显示头像的类型:0普通头像1大头像2小头像
+	 * @return
+	 * @throws Exception
+	 */
+	byte[] getHeadImage(Long userId, Integer headType) throws Exception;
 	
 }

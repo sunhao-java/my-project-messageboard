@@ -133,9 +133,11 @@
 		</table>
 	</form>
 	<form method="post" action="${contextPath }/upload/upload.do" enctype="multipart/form-data">
+		<input type="hidden" name="userId" value="${user.pkId }"/>
 		<input type="file" name="file" /> 
 		<input type="submit" value="upload"/>
 	</form>
+	<msg:userHead userId="${user.pkId }" headType="2"/>
 	<div class="formFunctiondiv">
 		<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
 			<jsp:param value="保存" name="save"/>

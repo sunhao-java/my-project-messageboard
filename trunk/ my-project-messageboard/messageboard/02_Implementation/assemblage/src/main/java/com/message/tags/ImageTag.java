@@ -76,8 +76,8 @@ public class ImageTag extends TagSupport {
 	
 	/**
 	 * 往页面写出调用servlet的代码
-	 * 
-	 * @param userService
+	 *
+     * @param content
 	 * @throws Exception
 	 */
 	private void printImage(String content) throws Exception{

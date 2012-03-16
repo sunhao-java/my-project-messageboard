@@ -205,7 +205,7 @@ public class FileUtils {
 	/**
 	 * 根据所给文件获取此文件的字节流
 	 * 
-	 * @param filePath
+	 * @param file
 	 * @return
 	 * @throws Exception 
 	 */
@@ -242,7 +242,7 @@ public class FileUtils {
 	/**
 	 * 根据所给文件获取此文件的字节流
 	 * 
-	 * @param filePath
+	 * @param file
 	 * @return
 	 * @throws Exception 
 	 */
@@ -297,7 +297,7 @@ public class FileUtils {
 	/**
 	 * 根据所给路径获取输入流
 	 * 
-	 * @param file
+	 * @param filePath
 	 * @return
 	 * @throws Exception
 	 */

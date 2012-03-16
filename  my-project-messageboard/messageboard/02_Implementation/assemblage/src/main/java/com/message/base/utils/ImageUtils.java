@@ -9,7 +9,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 /**
- * 图片处理工具类
+ * 图片处理工具类(需要整理)
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0

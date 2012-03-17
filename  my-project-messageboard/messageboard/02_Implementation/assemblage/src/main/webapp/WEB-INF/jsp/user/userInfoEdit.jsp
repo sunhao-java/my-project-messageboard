@@ -16,8 +16,23 @@
 
 <msg:js src="js/validate.js"/>
 
+<msg:js src="js/base/app-swfupload.js"/>
+
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+
+    $(document).ready(function(){
+        YAHOO.app.swfupload("uploadHeadImage", {
+            title : '上传头像',
+            fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
+            params : {
+                userId : '${user.pkId}'
+            },
+            submitFunction : function(){
+                alert('submit');
+            }
+        });
+    });
 	
 	function save(){
 		var dataFrm = dom.get('dataFrm');
@@ -132,11 +147,12 @@
 			</tr>
 		</table>
 	</form>
-	<form method="post" action="${contextPath }/upload/upload.do" enctype="multipart/form-data">
+	<%--<form method="post" action="${contextPath }/upload/upload.do" enctype="multipart/form-data">
 		<input type="hidden" name="userId" value="${user.pkId }"/>
 		<input type="file" name="file" /> 
 		<input type="submit" value="upload"/>
-	</form>
+	</form>--%>
+    <input id="uploadHeadImage" type="button" class="f-button" value="上传"/>
 	<msg:userHead userId="${user.pkId }" headType="2"/>
 	<div class="formFunctiondiv">
 		<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">

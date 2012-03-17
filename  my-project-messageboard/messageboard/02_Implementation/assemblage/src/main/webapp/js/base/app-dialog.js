@@ -154,6 +154,7 @@ YAHOO.app.dialog = function(){
 					height: diaHeight_,
 					role: "alertdialog",
 					close : closeIcon_,
+                    closeIcon : 'none',
 					buttons: buttons_,	
 					text: alertMsg_,
 					draggable : draggable_,

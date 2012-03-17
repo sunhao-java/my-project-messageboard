@@ -3,7 +3,7 @@ package com.message.main.upload.service;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 
+ * 上传头像的service
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0

@@ -122,11 +122,13 @@ version: 2.8.2r1
 }
 
 .yui-skin-sam .yui-panel .hd {
-	border-bottom: solid 1px #ccc;
+    /*edit by sunhao @ 2012-3-17 08:28 am*/
+	border-bottom: solid 0px #ccc;
 }
 
 .yui-skin-sam .yui-panel .bd,.yui-skin-sam .yui-panel .ft {
-	background-color: #F2F2F2;
+    /*edit by sunhao @ 2012-3-17 08:17 am*/
+	background-color: #FFFFFF;
 }
 
 .yui-skin-sam .yui-panel .hd {
@@ -136,20 +138,31 @@ version: 2.8.2r1
 	line-height: 1.9;
 	font-weight: bold;
 	color: #000;
-	background: url(../image/sprite.png) repeat-x 0
-		-200px;
+    /*edit by sunhao @ 2012-3-17 08:17 am*/
+	/*background: url(../image/sprite.png) repeat-x 0 -200px;*/
+    background: url("../image/dialog-tc.png") repeat scroll 0 0 transparent;
+    border:  1px solid #6694EF;
+    border-bottom-width: 0px;
+    border-top-width: 0px
 }
 
 .yui-skin-sam .yui-panel .bd {
+    /*edit by sunhao @ 2012-3-17 08:17 am*/
+    border: 3px solid #6694EF;
+    border-bottom-width: 0px;
+    border-top-width: 0px;
 	padding: 10px;
 }
 
 .formbd{
+    /*edit by sunhao @ 2012-3-17 08:59 am*/
 	padding: 0px 0px 5px 5px;
 	background-color: #F2F2F2;
-	border-color: #808080;
-    border-style: solid;
-    border-width: 0 1px;
+	/*border-color: #808080;*/
+    /*border-style: solid;*/
+    /*border-width: 0 1px;*/
+    border: 3px solid #6694EF;
+    border-bottom-width: 0px;
     margin: 0 -1px;
 }
 
@@ -200,15 +213,20 @@ version: 2.8.2r1
 	_bottom: 0;
 	_margin-top: 3px;
 	_margin-left: -1px;
-	background-color: #000;
+    /*edit by sunhao @ 2012-3-17 09:00 am*/
+	/*background-color: #000;*/
 	opacity: .12;
 	filter: alpha(opacity = 12);
 }
 
 .yui-skin-sam .yui-dialog .ft {
+    /*edit by sunhao @ 2012-03-17 08:48 am*/
 	border-top: none;
-	padding: 0 10px 10px 10px;
+	padding: 5px 10px 5px 10px;
 	font-size: 100%;
+    border: 3px solid #6694EF;
+    border-top-width: 0px;
+    background: none repeat scroll 0 0 #EEEEEE;
 }
 
 .yui-skin-sam .yui-dialog .ft .button-group {
@@ -244,6 +262,11 @@ version: 2.8.2r1
 
 .yui-skin-sam .yui-dialog .ft span.yui-button-disabled button {
 	color: #a6a6a6;
+}
+
+/*add by sunhao @ 2012-3-17 08:17 am*/
+.yui-skin-sam .yui-simple-dialog .bd .yui-icon-blank {
+    background: 0 0 !important;
 }
 
 .yui-skin-sam .yui-simple-dialog .bd .yui-icon {

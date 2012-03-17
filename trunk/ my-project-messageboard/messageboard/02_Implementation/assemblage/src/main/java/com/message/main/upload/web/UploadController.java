@@ -1,6 +1,7 @@
 package com.message.main.upload.web;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,10 +48,14 @@ public class UploadController extends ExtMultiActionController {
 		in = new WebInput(request);
 		Long userId = in.getLong("userId", Long.valueOf(-1));
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		MultipartFile file = multipartRequest.getFile("file");
-		
-		this.uploadService.uploadHead(userId, file);
-		
+//		MultipartFile file = multipartRequest.getFile("file");
+		Iterator iterator = multipartRequest.getFileNames();
+        while(iterator.hasNext()){
+            String fileName = (String) iterator.next();
+            MultipartFile file = multipartRequest.getFile(fileName);
+            this.uploadService.uploadHead(userId, file);
+        }
+
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);

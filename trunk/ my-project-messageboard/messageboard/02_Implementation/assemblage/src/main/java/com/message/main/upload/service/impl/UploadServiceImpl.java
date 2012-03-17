@@ -17,7 +17,7 @@ import com.message.main.user.service.UserService;
 import com.message.resource.ResourceType;
 
 /**
- * 
+ * 上传头像的service实现
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
@@ -37,11 +37,6 @@ public class UploadServiceImpl implements UploadService {
 		String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 		if(StringUtils.isNotEmpty(fileName)){
 			fileName = MD5Utils.MD5Encode(fileName) + suffix;
-		}
-		
-		String fileType = file.getContentType();
-		if(!fileType.startsWith("image/")){
-			throw new FileErrorException("文件类型不正确!");
 		}
 		
 		String path = ResourceType.USER_IMAGE_FOLDER_PATH;

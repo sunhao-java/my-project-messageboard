@@ -67,5 +67,8 @@
     <bean id="uploadService" class="com.message.main.upload.service.impl.UploadServiceImpl">
     	<property name="userService" ref="userService"/>
     </bean>
+
+    <!-- 通用的上传service -->
+    <bean id="genericUploadService" class="com.message.base.upload.impl.GenericUploadServiceImpl"/>
 	
 </beans>

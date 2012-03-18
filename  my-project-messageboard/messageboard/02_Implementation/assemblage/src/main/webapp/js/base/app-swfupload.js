@@ -86,6 +86,7 @@ YAHOO.app.swfupload = function(link, p){
             var page = "uploadPage=" + p.uploadUrl;
             var _p = p.params;
             page += "%3FuserId=" + (_p.userId ? _p.userId : -1);
+            page += "%26headImage=" + (_p.headImage ? _p.headImage : 'false');
             return page;
         }, show : function(){
             uploadDialog = YAHOO.app.dialog.pop({

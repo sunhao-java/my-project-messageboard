@@ -26,7 +26,8 @@
             title : '上传头像',
             fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
             params : {
-                userId : '${user.pkId}'
+                userId : '${user.pkId}',
+                headImage : 'true'
             },
             submitFunction : function(){
                 alert('submit');

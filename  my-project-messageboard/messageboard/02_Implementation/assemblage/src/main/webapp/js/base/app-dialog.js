@@ -18,9 +18,11 @@ YAHOO.app.dialog = function(){
 			
 			var confirmButton_ = args.confirmButton || _true;		//是否有确定按钮，默认是true
 			var confirmFunction_ = args.confirmFunction;			//点击确定按钮执行的函数
+            var confirmBtn_ = args.confirmBtn || '确定';              //确定按钮的文字
 			
 			var cancelButton_ = args.cancelButton || _true;			//是否有取消按钮，默认是true
 			var cancelFuncion_ = args.cancelFuncion; 				//关闭窗口时需要执行的函数
+            var cancelBtn_ = args.cancelBtn || '取消';                //取消按钮的文字
 			
 			var dialogHead_ = args.dialogHead || ""; 				//弹窗的head
 			
@@ -72,16 +74,16 @@ YAHOO.app.dialog = function(){
 			if(confirmButton_ || cancelButton_){
 				if(confirmButton_){
 					if($L.isFunction(confirmFunction_)){
-						buttons_.push({text:'确定',handler:confirmFunction_});
+						buttons_.push({text:confirmBtn_,handler:confirmFunction_});
 					} else {
-						buttons_.push({text:'确定',handler:defaultConfirmFunction});
+						buttons_.push({text:confirmBtn_,handler:defaultConfirmFunction});
 					}
 				}
 				if(cancelButton_){
 					if($L.isFunction(cancelFuncion_)){
-						buttons_.push({text:'取消',handler:cancelFuncion_});
+						buttons_.push({text:cancelBtn_,handler:cancelFuncion_});
 					} else {
-						buttons_.push({text:'取消',handler:defaultCancelFunction});
+						buttons_.push({text:cancelBtn_,handler:defaultCancelFunction});
 					}
 				}
 					

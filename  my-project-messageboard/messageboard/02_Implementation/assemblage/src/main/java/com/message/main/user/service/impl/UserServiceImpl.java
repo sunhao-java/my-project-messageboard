@@ -32,7 +32,11 @@ public class UserServiceImpl implements UserService{
 	/**
 	 * 用户未设置头像时显示的默认头像
 	 */
-	private static final String HEAD_IMAGE_BLANK = "/image/blank.jpg";
+	private static final String HEAD_IMAGE_BLANK = "/blank.jpg";
+    /**
+     * 用户未设置头像时显示的默认头像所在文件夹
+     */
+    private static final String HEAD_IMAGE_FLODER = "/image/head/";
 	
 	private UserDAO userDAO;
 	private HistoryService historyService;
@@ -277,7 +281,10 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		if(StringUtils.isEmpty(user.getHeadImage())){
-			imagePath.append(rootPath).append(HEAD_IMAGE_BLANK);
+            //默认头像
+			imagePath.append(rootPath).append(HEAD_IMAGE_FLODER)
+                    .append(imageSize).append("/")
+                    .append(HEAD_IMAGE_BLANK);
 		} else {
 			imagePath.append(imageDir)								//系统设置上传路径
 						.append("/").append(imageSize).append("/")	//头像大小

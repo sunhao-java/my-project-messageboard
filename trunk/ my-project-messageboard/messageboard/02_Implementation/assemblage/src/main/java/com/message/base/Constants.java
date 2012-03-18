@@ -1,5 +1,7 @@
 package com.message.base;
 
+import com.message.base.utils.SystemConfig;
+
 /**
  * 资源类型类
  * 
@@ -16,4 +18,8 @@ public class Constants {
 	 * 日期格式
 	 */
 	public static final String DATE_FORMAT = "yyyy-MM-dd";
+    /**
+     * 上传路径
+     */
+    public static final String DEFAULT_UPLOAD_PAYH = SystemConfig.getProperty("message.upload.dir", "/opt/data/");
 }

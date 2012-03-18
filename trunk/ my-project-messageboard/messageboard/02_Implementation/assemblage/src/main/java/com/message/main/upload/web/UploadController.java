@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.base.upload.GenericUploadService;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,14 +26,23 @@ import com.message.resource.ResourceType;
  * @createTime 2012-3-15 下午11:10:35
  */
 public class UploadController extends ExtMultiActionController {
-	
+
+    /**
+     * 上传头像的service
+     */
 	private UploadService uploadService;
+
+    private GenericUploadService genericUploadService;
 	
 	public void setUploadService(UploadService uploadService) {
 		this.uploadService = uploadService;
 	}
 
-	private static WebOutput out = null;
+    public void setGenericUploadService(GenericUploadService genericUploadService) {
+        this.genericUploadService = genericUploadService;
+    }
+
+    private static WebOutput out = null;
 	private static WebInput in = null;
 	
 	/**
@@ -46,14 +56,21 @@ public class UploadController extends ExtMultiActionController {
 	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
+        boolean isHeadImage = in.getBoolean("headImage", Boolean.TRUE);
 		Long userId = in.getLong("userId", Long.valueOf(-1));
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-//		MultipartFile file = multipartRequest.getFile("file");
-		Iterator iterator = multipartRequest.getFileNames();
-        while(iterator.hasNext()){
-            String fileName = (String) iterator.next();
-            MultipartFile file = multipartRequest.getFile(fileName);
-            this.uploadService.uploadHead(userId, file);
+
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        //是上传头像
+        if(isHeadImage){
+            Iterator iterator = multipartRequest.getFileNames();
+            while(iterator.hasNext()){
+                String fileName = (String) iterator.next();
+                MultipartFile file = multipartRequest.getFile(fileName);
+                this.uploadService.uploadHead(userId, file);
+            }
+        } else {
+            //上传文件
+            this.genericUploadService.uploads(multipartRequest);
         }
 
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -61,4 +78,5 @@ public class UploadController extends ExtMultiActionController {
 		out.toJson(params);
 		return null;
 	}
+
 }

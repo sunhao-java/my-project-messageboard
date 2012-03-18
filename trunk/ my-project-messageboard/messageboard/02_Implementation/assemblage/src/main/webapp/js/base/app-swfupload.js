@@ -133,7 +133,23 @@ function attachUploadComplete(x) {
         icon : 'none',
         diaWidth : 460,
         diaHeight : 150,
-        closeIcon : 'false'
+        closeIcon : 'false',
+        confirmBtn : '继续上传',
+        cancelBtn : '结束上传',
+        confirmFunction:function(){
+            alert('1');
+        },
+        cancelFuncion:function(){
+            var masks = dom.getElementsByClassName('mask', 'div');
+            var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
+            for(var i = 0; i < masks.length; i++){
+                masks[i].style.display = 'none';
+            }
+            for(var i = 0; i < panels.length; i++){
+                panels[i].style.visibility = 'hidden';
+            }
+            dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+        }
     });
 
 }

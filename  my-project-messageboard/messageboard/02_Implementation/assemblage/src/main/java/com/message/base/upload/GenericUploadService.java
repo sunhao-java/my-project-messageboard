@@ -3,6 +3,8 @@ package com.message.base.upload;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import java.util.List;
+
 /**
  * 上传文件的通用类的接口
  *
@@ -17,7 +19,7 @@ public interface GenericUploadService {
      * @param request           上传文件的request
      * @throws Exception
      */
-    void uploads(MultipartRequest request) throws Exception;
+    List<String> uploads(MultipartRequest request) throws Exception;
 
     /**
      * 上传单个文件
@@ -25,5 +27,5 @@ public interface GenericUploadService {
      * @param file              上传的文件
      * @throws Exception
      */
-    void upload(MultipartFile file) throws Exception;
+    String upload(MultipartFile file) throws Exception;
 }

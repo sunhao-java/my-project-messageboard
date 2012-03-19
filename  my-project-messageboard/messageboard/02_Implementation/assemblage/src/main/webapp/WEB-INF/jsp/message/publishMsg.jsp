@@ -17,6 +17,7 @@
 
 <msg:css href="css/colortip-1.0-jquery.css"/>
 <msg:js src="js/jquery/colortip-1.0-jquery.js"/>
+<msg:js src="js/base/app-swfupload.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
@@ -28,6 +29,16 @@
 		//调用公共JS自动提示组件
 		showUser('yellow','300px','wrap');
 	});
+
+    $(document).ready(function(){
+        YAHOO.app.swfupload("upload", "", {
+            title : '上传附件',
+            fileTypes : '*.*',
+            params : {
+                headImage : 'false'
+            }
+        });
+    });
 	
 	function reset(){
 		window.location.href = '${contextPath}/message/inPublishMessageJsp.do';
@@ -132,6 +143,14 @@
 						msg="不能为空,且不超过50字符" class="f_text"/>
 				</td>
 			</tr>
+            <tr>
+                <td class="fb_result_head">
+                    <input type="button" id="upload" value="upload">
+                </td>
+                <td colspan="3">
+                    
+                </td>
+            </tr>
 			<tr>
 				<td class="fb_result_head" width="15%">
 					留言内容<span style="color: red">*</span>

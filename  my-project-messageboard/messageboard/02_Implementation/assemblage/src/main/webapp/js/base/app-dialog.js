@@ -24,7 +24,7 @@ YAHOO.app.dialog = function(){
 			var cancelFuncion_ = args.cancelFuncion; 				//关闭窗口时需要执行的函数
             var cancelBtn_ = args.cancelBtn || '取消';                //取消按钮的文字
 			
-			var dialogHead_ = args.dialogHead || ""; 				//弹窗的head
+			var dialogHead_ = args.dialogHead || "提示"; 		    //弹窗的head
 			
 			var modal_ = args.modal || _true;						//背景是否被灰化
 			var draggable_ = args.draggable || _true;				//窗口是否能被移动
@@ -146,7 +146,7 @@ YAHOO.app.dialog = function(){
 			
 			//begin
 			if(alertMsg_){
-				alertDialog = new YAHOO.widget.SimpleDialog("panel-3", {
+				alertDialog = new YAHOO.widget.SimpleDialog(id_, {
 					modal: modal_,
 					icon : icon_,
 					visible: false,
@@ -167,6 +167,8 @@ YAHOO.app.dialog = function(){
 			alertDialog.setHeader(dialogHead_);	//头上显示文字
 			alertDialog.render(document.body);
 			alertDialog.show();
+
+            return alertDialog;
 		}
 	};
 }();

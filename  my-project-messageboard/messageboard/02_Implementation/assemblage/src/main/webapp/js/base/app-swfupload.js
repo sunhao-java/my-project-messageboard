@@ -8,50 +8,36 @@
 YAHOO.namespace("app.swfupload");
 var uploadDialog;
 var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
+var config;
+var contextPath;
 
-YAHOO.app.swfupload = function(link, p){
+YAHOO.app.swfupload = function(link, element, p){
     var location = window.location;
-    var contextPath = "/" + location.pathname.split("/")[1];
-
-    YAHOO.app.defaultConfig = {
-        title : '上传文件',                                  //弹框显示的标题
-        uploadUrl : contextPath + '/upload/upload.do',      //上传路径，不能为空
-        submitButton : 'true',                              //确定按钮显示
-        submitFunction : null,                              //点击确定按钮执行的方法
-        cancelButton : 'true',                              //取消按钮显示
-        cancelFunction : null,                              //点击取消按钮执行的方法
-        close : 'true',                                     //右上角是否有关闭图标，默认是true
-        modal : 'true',						                //背景是否被灰化
-        draggable : 'true',      			                //窗口是否能被移动
-        fileTypeDescription : '',
-        fileTypes : '*.*',                                  //文件类型限制，多个用半角分号隔开，如*.doc;*.jpg
-        fileSizeLimit : 100 * 1024 * 1024,                  //单个文件大小上限，默认100M
-        totalUploadSize : 1024 * 1024 * 1024,               //总共文件上传大小上限,默认1G
-        completeFunction : null,                            //上传结束后执行的函数
-        params : {},                                        //额外参数
-        width : 620,                                        //弹框宽
-        height : 440                                        //弹框高
-    }
-
+    contextPath = "/" + location.pathname.split("/")[1];
+    
     var f = {
         init : function(args){
             p.title = args.title || '上传文件',                                      //弹框显示的标题
             p.uploadUrl = args.uploadUrl || contextPath + '/upload/upload.do',      //上传路径，不能为空
-            p.submitButton = args.submitButton || 'true',                           //确定按钮显示
-            p.submitFunction = args.submitFunction || null,                         //点击确定按钮执行的方法
-            p.cancelButton = args.cancelButton || 'true',                           //取消按钮显示
-            p.cancelFunction = args.cancelFunction || null,                         //点击取消按钮执行的方法
             p.close = args.close || 'true',                                         //右上角是否有关闭图标，默认是true
             p.modal = args.modal || 'true',						                    //背景是否被灰化
             p.draggable = args.draggable || 'true',      			                //窗口是否能被移动
             p.fileTypeDescription = args.fileTypeDescription || '',
-            p.fileTypes = args.fileTypes || '*.*',                                   //文件类型限制，多个用半角分号隔开，如*.doc;*.jpg
+            p.fileTypes = args.fileTypes || '*.*',                                  //文件类型限制，多个用半角分号隔开，如*.doc;*.jpg
             p.fileSizeLimit = args.fileSizeLimit || 100 * 1024 * 1024,              //单个文件大小上限，默认100M
             p.totalUploadSize = args.totalUploadSize || 1024 * 1024 * 1024,         //总共文件上传大小上限,默认1G
             p.completeFunction = 'attachUploadComplete',                            //上传结束后执行的函数
             p.params = args.params || {},                                           //额外参数
             p.width = args.width || 620,                                            //弹框宽
             p.height = args.height || 440                                           //弹框高
+
+            YAHOO.app.resources = {
+                'element':element,
+                'messageId':p.messageId,
+                'resourceType':p.resourceType,
+                'uploadUserId':p.uploadUserId,
+                'resourceId':p.resourceId
+            }
         }, bodyHtml:function () {
             var _bodyHtml = "";
             var maxUploadSizeString = "<div class=\"uploadTips\">提示信息:可上传的单个文件最大尺寸为：1G</div>";
@@ -89,12 +75,12 @@ YAHOO.app.swfupload = function(link, p){
             page += "%26headImage=" + (_p.headImage ? _p.headImage : 'false');
             return page;
         }, show : function(){
+            var id = "swfupload" + new Date().getTime();
             uploadDialog = YAHOO.app.dialog.pop({
+                id : id,
                 dialogHead : p.title,
-                confirmButton : p.submitButton,
-                cancelButton : p.cancelButton,
-                confirmFunction : p.submitFunction,
-                cancelFunction : p.cancelFunction,
+                confirmButton : 'false',
+                cancelBtn : '关闭',
                 closeIcon : p.close,
                 modal : p.modal,
                 draggable : p.draggable,
@@ -107,12 +93,46 @@ YAHOO.app.swfupload = function(link, p){
     }
 
     YAHOO.util.Event.on(link, 'click', function(e){
-        f.init(p)
+        config = p;
+        f.init(config)
         f.show();
     });
 }
 
+var alertDialog;
 function attachUploadComplete(x) {
+    //TODO @2012-03-19 23:44 by sunhao
+    //思路（实现明天写）：
+    //先获取附件上传的messageId，uploadUserId，element(展示附件的div的ID),resourceType等，一个ajax请求到后台，获取刚刚上传的附件files
+    //然后展示在页面上
+//    var messageId = config.messageId || -1;     //附件所在留言的ID
+//    var uploadUserId = "";
+//    var resourceType = config.resourceType;     //文件类型（在留言中还是别的地方）
+//    var element = config.element || "";
+    /*var res = YAHOO.app.resources;
+    var element = res.element, messageId = res.messageId, resourceType = res.resourceType, uploadUserId = res.uploadUserId,
+            resourceId = res.resourceId;
+    var action = contextPath + "/upload/listUpload.do?messageId=" + messageId +"&resourceType=" + resourceType + "&uploadUserId="
+            + uploadUserId + "&resourceId=" + resourceType;
+
+    if(!resourceId)
+        return;
+
+    if('string' == typeof element){
+        element = dom.get(element);
+    }
+
+    var callback = {
+        success : function(o) {
+            //TODO  need implements
+        },
+        failure : function(o) {
+            
+        }
+    }
+
+    $C.asyncRequest("GET", action, callback);*/
+
     // 提示信息
     if(x) {
         x = eval("(" + x + ")");
@@ -126,7 +146,9 @@ function attachUploadComplete(x) {
     var tipMsg = "<div style='" + style2 + "'></div>" +
             "<p style='" + style + "'>已经上传100%，成功上传 " + files + " 个文件,共" + size + "</p>";
 
-    var alertDialog = YAHOO.app.dialog.pop({
+    var dialogId = "dialog" + new Date().getTime();
+    alertDialog = YAHOO.app.dialog.pop({
+        id : dialogId,
         dialogHead : '上传成功',
         cancelButton : false,
         alertMsg : tipMsg,
@@ -137,19 +159,29 @@ function attachUploadComplete(x) {
         confirmBtn : '继续上传',
         cancelBtn : '结束上传',
         confirmFunction:function(){
-            alert('1');
+            continueUpload();
         },
         cancelFuncion:function(){
-            var masks = dom.getElementsByClassName('mask', 'div');
-            var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-            for(var i = 0; i < masks.length; i++){
-                masks[i].style.display = 'none';
-            }
-            for(var i = 0; i < panels.length; i++){
-                panels[i].style.visibility = 'hidden';
-            }
-            dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+            cancelUpload();
         }
     });
 
+}
+
+function continueUpload(){
+    alertDialog.cancel();
+}
+
+function cancelUpload(){
+    uploadDialog.cancel();
+    alertDialog.cancel();
+    var masks = dom.getElementsByClassName('mask', 'div');
+    var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
+    for(var i = 0; i < masks.length; i++){
+        masks[i].style.display = 'none';
+    }
+    for(var i = 0; i < panels.length; i++){
+        panels[i].style.visibility = 'hidden';
+    }
+    dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
 }

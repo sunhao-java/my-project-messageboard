@@ -14,11 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * 上传文件的通用类的实现
@@ -30,21 +28,24 @@ import java.util.List;
 public class GenericUploadServiceImpl implements GenericUploadService {
     private static final Logger logger = LoggerFactory.getLogger(GenericUploadServiceImpl.class);
 
-    public void uploads(MultipartRequest request) throws Exception {
+    public List<String> uploads(MultipartRequest request) throws Exception {
         Iterator it = request.getFileNames();
 
+        List<String> result = new ArrayList<String>();
         while(it.hasNext()){
             String key = (String) it.next();
             if(logger.isDebugEnabled()){
                 logger.debug("the filaName key is '{}'!", key);
             }
             MultipartFile file = request.getFile(key);
-            this.upload(file);
+            String fileName = this.upload(file);
+            result.add(fileName);
         }
-        
+
+        return result;
     }
 
-    public void upload(MultipartFile file) throws Exception {
+    public String upload(MultipartFile file) throws Exception {
         String fileName = file.getOriginalFilename();
         if(logger.isDebugEnabled()){
             logger.debug("the fileName is '{}'", fileName);
@@ -59,6 +60,8 @@ public class GenericUploadServiceImpl implements GenericUploadService {
         String path = Constants.DEFAULT_UPLOAD_PAYH;
 
         makeImageBySize(path, file, fileName);
+
+        return fileName;
     }
 
     /**

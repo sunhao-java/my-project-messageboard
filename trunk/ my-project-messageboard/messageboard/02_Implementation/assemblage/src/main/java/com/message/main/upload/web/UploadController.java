@@ -2,6 +2,7 @@ package com.message.main.upload.web;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,7 @@ public class UploadController extends ExtMultiActionController {
 	public ModelAndView upload(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
+        Map<String, Object> params = new HashMap<String, Object>();
         boolean isHeadImage = in.getBoolean("headImage", Boolean.TRUE);
 		Long userId = in.getLong("userId", Long.valueOf(-1));
 
@@ -70,10 +72,11 @@ public class UploadController extends ExtMultiActionController {
             }
         } else {
             //上传文件
-            this.genericUploadService.uploads(multipartRequest);
+            List<String> results = this.genericUploadService.uploads(multipartRequest);
+            params.put("results", results);
         }
 
-		Map<String, Object> params = new HashMap<String, Object>();
+
 		params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
 		return null;

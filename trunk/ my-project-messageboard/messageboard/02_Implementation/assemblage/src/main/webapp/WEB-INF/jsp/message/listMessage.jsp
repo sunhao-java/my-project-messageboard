@@ -65,7 +65,8 @@
 			<li>
 				<div class="messageDetail">
 					<p class="image" style="position: absolute;">
-						<img src="${contextPath }/${message.createUser.headImage}" title="${message.createUser.truename }">
+						<%--<img src="${contextPath }/${message.createUser.headImage}" title="${message.createUser.truename }">--%>
+                        <msg:userHead userId="${message.createUserId}" headType="2"/>
 					</p>
 					<div class="head">
 						<h4>

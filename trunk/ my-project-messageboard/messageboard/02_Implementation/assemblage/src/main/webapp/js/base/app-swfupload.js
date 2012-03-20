@@ -91,10 +91,24 @@ YAHOO.app.swfupload = function(link, element, p){
                 diaHeight : p.height,
                 icon : 'none'
             });
+        }, loadCss : function(css, callback){
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.type = "text/css";
+            link.media = "screen";
+            link.href = css;
+            document.getElementsByTagName("head")[0].appendChild(link);
+            if (callback) {
+                callback.call(link);
+            }
         }
     }
 
     YAHOO.util.Event.on(link, 'click', function(e){
+        //利用懒加载技术加载上传组件的css样式
+        f.loadCss(contextPath + "/css/base/app-swfupload.css", function(){
+            
+        });
         config = p;
         f.init(config)
         f.show();
@@ -124,7 +138,13 @@ function attachUploadComplete(x) {
                 if(uploadFiles && uploadFiles.length > 0){
                     var innerHTML = "";
                     for(var i = 0; i < uploadFiles.length; i++){
-                        innerHTML += uploadFiles[i].fileName + "<br/>";
+//                        innerHTML += uploadFiles[i].fileName + "<br/>";
+                        innerHTML += "<div class=\"post-attachment-file \">";
+                        innerHTML += "<span><img src=\"" + contextPath + "/image/file/unknow.gif\">" +
+                                "</span><span class=\"file-name\">" + uploadFiles[i].fileName + "</span>";
+                        innerHTML += "<span class=\"delete\"><a class=\"remove-temp-file\"" +
+                                "href=\"#\">删除</a></span>";
+                        innerHTML += "</div>";
                     }
                     element.innerHTML = innerHTML;
                 }

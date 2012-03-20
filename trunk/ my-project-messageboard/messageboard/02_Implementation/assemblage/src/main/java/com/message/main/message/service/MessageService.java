@@ -79,5 +79,13 @@ public interface MessageService {
 	 * @throws Exception
 	 */
 	void setAudit(Long messageId, String status, User user) throws Exception;
+
+    /**
+     * 获取留言sequence的下一个主键值
+     *
+     * @return
+     * @throws Exception
+     */
+    Long getPkId() throws Exception;
 	
 }

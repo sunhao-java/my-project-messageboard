@@ -82,11 +82,13 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView inPublishMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView inPublishMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+        Long pkId = this.messageService.getPkId();
 		params.put("loginUser", user);
+        params.put("pkId", pkId);
 		return new ModelAndView("message.publish", params);
 	}
 	

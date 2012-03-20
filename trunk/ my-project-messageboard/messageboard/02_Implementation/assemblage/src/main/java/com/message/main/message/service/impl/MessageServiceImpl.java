@@ -3,6 +3,7 @@ package com.message.main.message.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.message.base.hibernate.GenericHibernateDAO;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -37,6 +38,8 @@ public class MessageServiceImpl implements MessageService {
 	
 	private EventService eventService;
 
+    private GenericHibernateDAO genericHibernateDAO;
+
 	public void setMessageDAO(MessageDAO messageDAO) {
 		this.messageDAO = messageDAO;
 	}
@@ -53,7 +56,11 @@ public class MessageServiceImpl implements MessageService {
 		this.eventService = eventService;
 	}
 
-	@SuppressWarnings("unchecked")
+    public void setGenericHibernateDAO(GenericHibernateDAO genericHibernateDAO) {
+        this.genericHibernateDAO = genericHibernateDAO;
+    }
+
+    @SuppressWarnings("unchecked")
 	public PaginationSupport getAllMessages(int start, int num, Message message) throws Exception {
 		PaginationSupport paginationSupport = this.messageDAO.getAllMessages(start, num, message);
 		List<Message> messages = paginationSupport.getItems();
@@ -172,5 +179,9 @@ public class MessageServiceImpl implements MessageService {
 				ResourceType.MESSAGE_TYPE, messageId, user.getLoginIP(), eventMsg));
 		this.messageDAO.updateMessage(dbMessage);
 	}
+
+    public Long getPkId() throws Exception {
+        return this.genericHibernateDAO.genericId("SEQ_MESSAGE_MSG");
+    }
 
 }

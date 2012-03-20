@@ -1,4 +1,4 @@
-package com.message.tags;
+package com.message.base.tags;
 
 import java.io.IOException;
 

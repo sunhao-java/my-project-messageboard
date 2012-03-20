@@ -33,10 +33,9 @@ YAHOO.app.swfupload = function(link, element, p){
 
             YAHOO.app.resources = {
                 'element':element,
-                'messageId':p.messageId,
-                'resourceType':p.resourceType,
-                'uploadUserId':p.uploadUserId,
-                'resourceId':p.resourceId
+                'resourceId':p.params.resourceId,
+                'resourceType':p.params.resourceType,
+                'uploadId':p.params.uploadId
             }
         }, bodyHtml:function () {
             var _bodyHtml = "";
@@ -73,6 +72,9 @@ YAHOO.app.swfupload = function(link, element, p){
             var _p = p.params;
             page += "%3FuserId=" + (_p.userId ? _p.userId : -1);
             page += "%26headImage=" + (_p.headImage ? _p.headImage : 'false');
+            page += "%26resourceId=" + (_p.resourceId ? _p.resourceId : -1);
+            page += "%26resourceType=" + (_p.resourceType ? _p.resourceType : -1);
+            page += "%26uploadId=" + (_p.uploadId ? _p.uploadId : -1);
             return page;
         }, show : function(){
             var id = "swfupload" + new Date().getTime();
@@ -102,18 +104,11 @@ YAHOO.app.swfupload = function(link, element, p){
 var alertDialog;
 function attachUploadComplete(x) {
     //TODO @2012-03-19 23:44 by sunhao
-    //思路（实现明天写）：
-    //先获取附件上传的messageId，uploadUserId，element(展示附件的div的ID),resourceType等，一个ajax请求到后台，获取刚刚上传的附件files
-    //然后展示在页面上
-//    var messageId = config.messageId || -1;     //附件所在留言的ID
-//    var uploadUserId = "";
-//    var resourceType = config.resourceType;     //文件类型（在留言中还是别的地方）
-//    var element = config.element || "";
-    /*var res = YAHOO.app.resources;
-    var element = res.element, messageId = res.messageId, resourceType = res.resourceType, uploadUserId = res.uploadUserId,
+    var res = YAHOO.app.resources;
+    var element = res.element, resourceId = res.resourceId, resourceType = res.resourceType, uploadId = res.uploadId,
             resourceId = res.resourceId;
-    var action = contextPath + "/upload/listUpload.do?messageId=" + messageId +"&resourceType=" + resourceType + "&uploadUserId="
-            + uploadUserId + "&resourceId=" + resourceType;
+    var action = contextPath + "/upload/showUploads.do?resourceId=" + resourceId +"&resourceType=" + resourceType + "&uploadId="
+            + uploadId;
 
     if(!resourceId)
         return;
@@ -124,14 +119,23 @@ function attachUploadComplete(x) {
 
     var callback = {
         success : function(o) {
-            //TODO  need implements
+            var res = eval("(" + o.responseText + ")"),uploadFiles = res.files;
+            if(res.status == '1'){
+                if(uploadFiles && uploadFiles.length > 0){
+                    var innerHTML = "";
+                    for(var i = 0; i < uploadFiles.length; i++){
+                        innerHTML += uploadFiles[i].fileName + "<br/>";
+                    }
+                    element.innerHTML = innerHTML;
+                }
+            }
         },
         failure : function(o) {
             
         }
     }
 
-    $C.asyncRequest("GET", action, callback);*/
+    $C.asyncRequest("GET", action, callback);
 
     // 提示信息
     if(x) {

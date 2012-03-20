@@ -29,6 +29,7 @@
     	<property name="userService" ref="userService"/>
     	<property name="replyService" ref="replyService"/>
     	<property name="eventService" ref="eventService"/>
+        <property name="genericHibernateDAO" ref="genericHibernateDAOImpl"/>
     </bean>
     
     <!-- 回复的service -->
@@ -69,6 +70,8 @@
     </bean>
 
     <!-- 通用的上传service -->
-    <bean id="genericUploadService" class="com.message.base.upload.impl.GenericUploadServiceImpl"/>
+    <bean id="genericUploadService" class="com.message.main.upload.service.impl.GenericUploadServiceImpl">
+        <property name="uploadDAO" ref="uploadDAO"/>
+    </bean>
 	
 </beans>

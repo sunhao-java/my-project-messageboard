@@ -21,19 +21,25 @@
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
 
+    var uploadDialog;
     $(document).ready(function(){
-        YAHOO.app.swfupload("uploadHeadImage", {
+        uploadDialog = YAHOO.app.swfupload("uploadHeadImage", '', {
             title : '上传头像',
             fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
             params : {
                 userId : '${user.pkId}',
                 headImage : 'true'
             },
-            submitFunction : function(){
-                alert('submit');
-            }
+            completeFunction : 'completeFun'
         });
     });
+
+    function completeFun(){
+        uploadDialog.cancel();
+        YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'上传头像成功！','confirmFunction':function(){
+             window.location.reload(true);
+        }});
+    }
 	
 	function save(){
 		var dataFrm = dom.get('dataFrm');

@@ -53,7 +53,7 @@
 	<div class="header">
 		<p class="image">
 			<a href="#">
-				<img src="${contextPath }/${message.createUser.headImage}" alt="${message.createUser.truename }">
+                <msg:userHead userId="${message.createUser.pkId}" headType="2"/>
 			</a>
 		</p>
 		<h2>
@@ -86,7 +86,7 @@
 					<h4>
 						${message.title }
 					</h4>
-					<span class="time">12秒前</span>
+					<span class="time"><msg:formatDate value="${message.createDate}"/></span>
 
 					<c:if test="${flag ne 'audit'}">
 						<span class="pipe">|</span>
@@ -120,7 +120,7 @@
 							<div class="post">
 								<p class="image">
 									<a href="#">
-										<img title="${reply.replyUser.truename}" src="${contextPath}/${reply.replyUser.headImage}"> 
+                                        <msg:userHead userId="${reply.replyUser.pkId}" headType="2"/>
 									</a>
 								</p>
 								<div class="info">

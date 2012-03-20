@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import com.message.base.utils.StringUtils;
+import com.message.resource.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,12 +60,27 @@ public class ImageTag extends TagSupport {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		
-		StringBuffer content = new StringBuffer();
-		content.append("<img src=\"").append(contextPath).append("/head.jpg?userId=")
+
+        StringBuffer content = new StringBuffer();
+        
+        if(user == null || StringUtils.isEmpty(user.getHeadImage())){
+            logger.debug("this user'{}' has not set his head image, use the default image!", user);
+            String size = StringUtils.EMPTY;
+            if(Integer.valueOf(1).equals(headType)){
+                size = ResourceType.IMAGE_SIZE_BIG;
+            } else if(Integer.valueOf(2).equals(headType)){
+                size = ResourceType.IMAGE_SIZE_SMALL;
+            } else {
+                size = ResourceType.IMAGE_SIZE_NORMAL;
+            }
+            
+            content.append(contextPath).append("/image/head/").append(size).append("blank.jpg");
+        } else {
+            content.append("<img src=\"").append(contextPath).append("/head.jpg?userId=")
 				.append(userId).append("&headType=").append(headType).append("\" title=\"")
 				.append(user.getTruename() == null ? "" : user.getTruename()).append("\"/>");
-		
+        }
+
 		try {
 			printImage(content.toString());
 		} catch (Exception e) {

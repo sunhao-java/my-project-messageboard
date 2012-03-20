@@ -26,7 +26,7 @@ YAHOO.app.swfupload = function(link, element, p){
             p.fileTypes = args.fileTypes || '*.*',                                  //文件类型限制，多个用半角分号隔开，如*.doc;*.jpg
             p.fileSizeLimit = args.fileSizeLimit || 100 * 1024 * 1024,              //单个文件大小上限，默认100M
             p.totalUploadSize = args.totalUploadSize || 1024 * 1024 * 1024,         //总共文件上传大小上限,默认1G
-            p.completeFunction = 'attachUploadComplete',                            //上传结束后执行的函数
+            p.completeFunction = args.completeFunction ||'attachUploadComplete',    //上传结束后执行的函数
             p.params = args.params || {},                                           //额外参数
             p.width = args.width || 620,                                            //弹框宽
             p.height = args.height || 440                                           //弹框高
@@ -57,7 +57,7 @@ YAHOO.app.swfupload = function(link, element, p){
                     "&fileTypes=" + encodeURIComponent(p.fileTypes) +
                     "&fileSizeLimit=" + encodeURIComponent(p.fileSizeLimit) +
                     "&totalUploadSize=" + encodeURIComponent(p.totalUploadSize) +
-                    "&completeFunction=" + encodeURIComponent('attachUploadComplete');
+                    "&completeFunction=" + encodeURIComponent(p.completeFunction);
             flashVars = f.getSubmitUrl() + flashVars;
             _flashHtml.push("    <param name=\"FlashVars\" value='" + flashVars + "'>");
             _flashHtml.push("    <embed src=\"" + contextPath + "/js/swfupload/FlashFileUpload.swf?ver=123484\" " +
@@ -112,6 +112,8 @@ YAHOO.app.swfupload = function(link, element, p){
         config = p;
         f.init(config)
         f.show();
+
+        return uploadDialog;
     });
 }
 

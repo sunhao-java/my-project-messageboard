@@ -31,11 +31,14 @@
 	});
 
     $(document).ready(function(){
-        YAHOO.app.swfupload("upload", "", {
+        YAHOO.app.swfupload("upload", "showUploadPanel", {
             title : '上传附件',
             fileTypes : '*.*',
             params : {
-                headImage : 'false'
+                headImage : 'false',
+                resourceId : '${pkId}',
+                resourceType : 1,
+                uploadId : '${loginUser.pkId}'
             }
         });
     });
@@ -81,6 +84,7 @@
 <div id="listFrm">
 	<form id="dataFrm" action="" method="post">
 		<input type="hidden" name="user_id" value="${loginUser.pkId}"/>
+        <input type="hidden" name="pkId" value="${pkId}"/>
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="15%">
@@ -148,7 +152,7 @@
                     <input type="button" id="upload" value="upload">
                 </td>
                 <td colspan="3">
-                    
+                    <div id="showUploadPanel"></div>
                 </td>
             </tr>
 			<tr>

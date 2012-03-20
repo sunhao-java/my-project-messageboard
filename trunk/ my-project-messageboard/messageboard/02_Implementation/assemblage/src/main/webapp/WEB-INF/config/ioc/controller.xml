@@ -215,6 +215,7 @@
                 <property name="mappings">
                     <props>
                     	<prop key="/upload/upload.do">upload</prop>
+                        <prop key="/upload/showUploads.do">showUploads</prop>
                     </props>
                 </property>
             </bean>

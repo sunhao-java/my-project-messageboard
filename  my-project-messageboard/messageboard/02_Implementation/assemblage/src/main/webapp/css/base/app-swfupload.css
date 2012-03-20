@@ -1,0 +1,47 @@
+.post-attachment-file {
+    border-bottom: 1px solid #CCCCCC;
+    padding: 5px 0;
+    position: relative;
+    width:50%
+}
+
+.post-attachment-file .file-name {
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.post-attachment-file span.delete {
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
+
+.post-attachment-file span.delete a {
+    background: url("img/delete.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 14px;
+    margin-top: 8px;
+    overflow: hidden;
+    text-align: left;
+    text-indent: -999em;
+    width: 13px;
+    vertical-align: middle !important;
+}
+
+.post-attachment-file span.delete a:hover {
+    background-position: 0 -14px;
+    vertical-align: middle !important;
+}
+
+a:link, a:visited {
+    color: #0066CC;
+    text-decoration: none;
+}
+
+a {
+    outline: medium none;
+}
+
+.post-attachment-file img {
+    vertical-align: middle !important;
+}

@@ -65,7 +65,6 @@
 			<li>
 				<div class="messageDetail">
 					<p class="image" style="position: absolute;">
-						<%--<img src="${contextPath }/${message.createUser.headImage}" title="${message.createUser.truename }">--%>
                         <msg:userHead userId="${message.createUserId}" headType="2"/>
 					</p>
 					<div class="head">
@@ -138,7 +137,7 @@
 					</div>
 					<div class="replyDiv" id="replyDiv${message.pkId }" style="display: none;">
 						<p class="replyimage">
-							<img src="${contextPath }/${loginUser.headImage}">
+                            <msg:userHead userId="${loginUser.pkId}" headType="2"/>
 						</p>
 						<form action="" id="replyForm">
 							<input type="hidden" name="replyUserId" value="${loginUser.pkId}"/>

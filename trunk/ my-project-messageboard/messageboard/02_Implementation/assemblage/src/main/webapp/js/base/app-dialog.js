@@ -12,7 +12,7 @@ YAHOO.app.dialog = function(){
 	var _false = 'false';
 	return{
 		pop : function(args){
-			var id_ = args.id || '';								//dialog框的id
+			var id_ = args.id || 'dialog' + new Date().getTime();	//dialog框的id
 			
 			var closeIcon_ = args.closeIcon || _true;				//右上角是否有关闭图标，默认是true
 			
@@ -163,9 +163,9 @@ YAHOO.app.dialog = function(){
 					zIndex : zIndex_
 				});
 			}
-			
+
+            alertDialog.render(document.body);
 			alertDialog.setHeader(dialogHead_);	//头上显示文字
-			alertDialog.render(document.body);
 			alertDialog.show();
 
             return alertDialog;

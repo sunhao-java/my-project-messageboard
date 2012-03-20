@@ -107,7 +107,7 @@
 								</h4>
 								<p class="image">
 									<a href="${contextPath }/user/userInfo.do?viewUserId=${user.pkId}"> 
-										<img alt="${user.truename}" src="${contextPath }/${user.headImage}"> 
+                                        <msg:userHead userId="${user.pkId}" headType="2"/>
 										<span>
 											<span title="${user.truename}" class="online_width">${user.truename}</span> 
 										</span> 

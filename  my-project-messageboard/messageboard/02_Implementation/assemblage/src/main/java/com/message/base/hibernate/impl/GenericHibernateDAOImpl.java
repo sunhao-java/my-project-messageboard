@@ -6,11 +6,9 @@ import java.util.*;
 import java.util.Map.Entry;
 
 import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
+import org.hibernate.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
@@ -48,7 +46,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findByHQL(final String hql, final List params) {
+    public List findByHQL(final String hql, final List params) throws Exception {
         List result = null;
         try {
             result = (List) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
@@ -80,7 +78,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List findByHQL(final String hql, final Map params) {
+    public List findByHQL(final String hql, final Map params) throws Exception {
         return (List) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException, SQLException {
@@ -105,7 +103,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return 表中受影响的数据条数
      */
     @SuppressWarnings("unchecked")
-    public Integer updateByNativeSQL(final String sql, final Map params) {
+    public Integer updateByNativeSQL(final String sql, final Map params) throws Exception {
         return (Integer) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException, SQLException {
@@ -130,7 +128,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public List queryByNativeSQL(final String sql, final Map params) {
+    public List queryByNativeSQL(final String sql, final Map params) throws Exception {
         return (List) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
                     throws HibernateException, SQLException {
@@ -157,7 +155,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     public PaginationSupport getPaginationByNativeSQL(final String sql, final String countSql, final int start,
-                                                      final int num, final Map params) {
+                                                      final int num, final Map params) throws Exception {
         //如果没有给定countSql，则在程序中计算出countSql
         final String countSql1 = countSql == null ? SqlUtils.getCountSql(sql) : countSql;
         PaginationSupport result = null;
@@ -198,7 +196,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param entity
      * @return
      */
-    public Object saveObject(Object entity) {
+    public Object saveObject(Object entity) throws Exception {
         this.hibernateTemplate.save(entity);
         return entity;
     }
@@ -208,7 +206,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      *
      * @param entity
      */
-    public void updateObject(Object entity) {
+    public void updateObject(Object entity) throws Exception {
         this.hibernateTemplate.update(entity);
     }
 
@@ -223,7 +221,8 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public PaginationSupport getPaginationSupport(final String hql, final String countHql, final int start, final int num, final Map params) {
+    public PaginationSupport getPaginationSupport(final String hql, final String countHql, final int start,
+                                                  final int num, final Map params) throws Exception {
         PaginationSupport result = null;
         try {
             result = (PaginationSupport) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
@@ -263,7 +262,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public Object loadObject(Class clazz, Long id) {
+    public Object loadObject(Class clazz, Long id) throws Exception {
         return this.hibernateTemplate.get(clazz, id);
     }
 
@@ -272,7 +271,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      *
      * @param entity
      */
-    public void deleteObject(Object entity) {
+    public void deleteObject(Object entity) throws Exception {
         this.hibernateTemplate.delete(entity);
     }
 
@@ -293,6 +292,31 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
             trueResult.add(obj[0]);
         }
         return trueResult;
+    }
+
+    /**
+     * 从给定oracle的sequence中获取下一个值
+     *
+     * @param sequenceName
+     * @return
+     */
+    public Long genericId(final String sequenceName) throws Exception{
+        if(StringUtils.isEmpty(sequenceName)){
+            log.warn("given sequence name is null!");
+        }
+        log.debug("given sequence name is '{}'!", sequenceName);
+
+        final String sql = "select " + sequenceName + ".NextVal as id from dual";
+
+        HibernateCallback callback = new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Long pkId = (Long) session.createSQLQuery(sql).addScalar("id", Hibernate.LONG).uniqueResult();
+                log.debug("hibernate get nextVal from sequence named '{}' is '{}'", sequenceName, pkId);
+                return pkId;
+            }
+        };
+
+        return (Long) hibernateTemplate.execute(callback);
     }
 
 }

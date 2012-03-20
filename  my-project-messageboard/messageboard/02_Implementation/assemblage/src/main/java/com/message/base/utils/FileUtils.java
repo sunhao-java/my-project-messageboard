@@ -309,4 +309,44 @@ public class FileUtils {
 		File file = new File(filePath);
 		return openInputStream(file);
 	}
+
+    /**
+     * 获取单个文件的大小
+     *
+     * @param file      要取得文件的大小
+     * @return  文件大小，单位字节
+     */
+    public static Long getFileSize(File file){
+        if(!file.exists() || file.isDirectory()) {
+            logger.warn("this file is not exists or it is not a file! file name is '{}'", file.getName());
+
+            return Long.valueOf(-1);
+        }
+
+        return file.length();
+    }
+
+    /**
+     * 获取单个文件的大小
+     *
+     * @param filePath      要取得文件的path
+     * @return  文件大小，单位字节
+     */
+    public static Long getFileSize(String filePath){
+        if(StringUtils.isEmpty(filePath)){
+            logger.error("given file path is null");
+
+            return Long.valueOf(-1);
+        }
+
+        File file = new File(filePath);
+
+        return getFileSize(file);
+    }
+
+    public static void main(String[] args){
+        String filePath = "E:\\wisedu\\cmsProject\\workspace_cms\\02_Implementation\\" +
+                "src\\main\\java\\com\\wiscom\\base\\util\\FileUtils.java";
+        System.out.println(getFileSize(filePath));
+    }
 }

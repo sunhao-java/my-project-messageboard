@@ -43,7 +43,7 @@
 
 	<tag>
 		<name>cutWord</name>
-		<tag-class>com.message.tags.CutWordTag</tag-class>
+		<tag-class>com.message.base.tags.CutWordTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>cutString</name>
@@ -115,7 +115,7 @@
 
   <tag>
 		<name>text</name>
-		<tag-class>com.message.tags.CutTextTag</tag-class>
+		<tag-class>com.message.base.tags.CutTextTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<name>text</name>

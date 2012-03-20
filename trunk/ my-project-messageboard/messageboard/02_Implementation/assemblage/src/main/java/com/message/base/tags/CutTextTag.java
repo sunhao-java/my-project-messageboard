@@ -1,4 +1,4 @@
-package com.message.tags;
+package com.message.base.tags;
 
 import java.io.IOException;
 
@@ -9,6 +9,13 @@ import javax.servlet.jsp.tagext.TagSupport;
 import com.message.base.utils.HtmlUtils;
 import com.message.base.utils.StringUtils;
 
+/**
+ * 切割字符串的自定义标签
+ *
+ * @author sunhao(sunhao.java@gmail.com)
+ * @version V1.0
+ * @createTime 2012-1-17 上午12:10
+ */
 public class CutTextTag extends TagSupport{
 	private static final long serialVersionUID = -2921502360042121850L;
 	

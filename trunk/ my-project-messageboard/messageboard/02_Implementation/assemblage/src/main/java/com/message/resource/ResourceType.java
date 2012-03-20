@@ -155,5 +155,24 @@ public final class ResourceType {
 	 * 头像尺寸的数组
 	 */
 	public static final String[] IMAGE_SIZE_LIST = new String[]{IMAGE_SIZE_BIG, IMAGE_SIZE_NORMAL, IMAGE_SIZE_SMALL};
+
+    /**
+     * 留言的资源类型
+     */
+    public static final Integer RESOURCE_TYPE_MESSAGE = Integer.valueOf(1);
+
+    //上传的参数MAP中的KEY
+    /**
+     * 资源类型的key
+     */
+    public static final String MAP_KEY_RESOURCE_TYPE = "resourceType";
+    /**
+     * 资源ID的key
+     */
+    public static final String MAP_KEY_RESOURCE_ID = "resourceId";
+    /**
+     * 上传者ID的key
+     */
+    public static final String MAP_KEY_UPLOAD_ID = "uploadId";
 	
 }

@@ -319,8 +319,7 @@ public class FileUtils {
     public static Long getFileSize(File file){
         if(!file.exists() || file.isDirectory()) {
             logger.warn("this file is not exists or it is not a file! file name is '{}'", file.getName());
-
-            return Long.valueOf(-1);
+            return Long.valueOf(0);
         }
 
         return file.length();
@@ -335,8 +334,7 @@ public class FileUtils {
     public static Long getFileSize(String filePath){
         if(StringUtils.isEmpty(filePath)){
             logger.error("given file path is null");
-
-            return Long.valueOf(-1);
+            return Long.valueOf(0);
         }
 
         File file = new File(filePath);
@@ -344,9 +342,54 @@ public class FileUtils {
         return getFileSize(file);
     }
 
+    /**
+     * 获取文件夹的大小
+     * 
+     * @param file  文件夹
+     * @return
+     */
+    public static Long getDirectorySize(File file){
+        if(!file.exists()){
+            logger.warn("given file '{}' is null!", file);
+            return Long.valueOf(0);
+        }
+        Long size = 0L;
+        if(file.isDirectory()){
+            File files[] = file.listFiles();
+            for(int i = 0; i < files.length; i++){
+                if(files[i].isDirectory()){
+                    size = size + getDirectorySize(files[i]);
+                } else {
+                    size += getFileSize(files[i]);
+                }
+            }
+        } else {
+            size += file.length();
+        }
+
+        return size;
+    }
+
+    /**
+     * 获取文件夹的大小
+     *
+     * @param filePath  文件夹路径
+     * @return
+     */
+    public static Long getDirectorySize(String filePath){
+        if(StringUtils.isEmpty(filePath)){
+            logger.error("given file path is null");
+            return Long.valueOf(-1);
+        }
+        File file = new File(filePath);
+
+        return getDirectorySize(file);
+    }
+
     public static void main(String[] args){
-        String filePath = "E:\\wisedu\\cmsProject\\workspace_cms\\02_Implementation\\" +
-                "src\\main\\java\\com\\wiscom\\base\\util\\FileUtils.java";
-        System.out.println(getFileSize(filePath));
+        String filePath = "F:\\workspace\\workspace\\messageboard\\messageboard\\02_Implementation\\" +
+                "assemblage\\src\\main\\java\\com\\message\\base";
+//        System.out.println(getFileSize(filePath));\
+        System.out.println(getDirectorySize(filePath));
     }
 }

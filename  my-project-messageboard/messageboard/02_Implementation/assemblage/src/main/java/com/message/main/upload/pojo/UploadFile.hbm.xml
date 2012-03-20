@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.message.main.upload.pojo.UploadFile" table="T_MESSAGE_UPLOAD">
+        <id name="pkId" type="java.lang.Long">
+            <column name="PK_ID" precision="10" scale="0">
+                <comment>主键</comment>
+            </column>
+            <generator class="sequence">
+                <param name="sequence">SEQ_MESSAGE_UPLOAD</param>
+            </generator>
+        </id>
+        <property name="fileName" type="java.lang.String">
+            <column name="FILE_NAME" length="255">
+                <comment>文件名</comment>
+            </column>
+        </property>
+        <property name="extName" type="java.lang.String">
+            <column name="EXT_NAME" length="50">
+                <comment>文件扩展名，即文件后缀</comment>
+            </column>
+        </property>
+        <property name="filePath" type="java.lang.String">
+            <column name="FILE_PATH" length="255">
+                <comment>文件存储绝对路径</comment>
+            </column>
+        </property>
+        <property name="resourceType" type="java.lang.Integer">
+            <column name="RESOURCE_TYPE" length="2">
+                <comment>资源类型</comment>
+            </column>
+        </property>
+        <property name="resourceId" type="java.lang.Long">
+            <column name="RESOURCE_ID" precision="10" scale="0">
+                <comment>资源ID</comment>
+            </column>
+        </property>
+        <property name="fileSize" type="java.lang.String">
+            <column name="FILE_SIZE" length="100">
+                <comment>文件大小，包括单位</comment>
+            </column>
+        </property>
+        <property name="uploadId" type="java.lang.Long">
+            <column name="UPLOAD_ID" precision="10" scale="0">
+                <comment>上传者ID</comment>
+            </column>
+        </property>
+        <property name="uploadDate" type="java.util.Date">
+            <column name="UPLOAD_DATE">
+                <comment>上传时间</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

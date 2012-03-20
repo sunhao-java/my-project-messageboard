@@ -8,7 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.base.upload.GenericUploadService;
+import com.message.main.upload.service.GenericUploadService;
+import net.sf.json.JSONObject;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,6 +61,9 @@ public class UploadController extends ExtMultiActionController {
         Map<String, Object> params = new HashMap<String, Object>();
         boolean isHeadImage = in.getBoolean("headImage", Boolean.TRUE);
 		Long userId = in.getLong("userId", Long.valueOf(-1));
+        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
+        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
+        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         //是上传头像
@@ -71,8 +75,12 @@ public class UploadController extends ExtMultiActionController {
                 this.uploadService.uploadHead(userId, file);
             }
         } else {
+            Map uploadParams = new HashMap();
+            uploadParams.put(ResourceType.MAP_KEY_RESOURCE_ID, resourceId);
+            uploadParams.put(ResourceType.MAP_KEY_RESOURCE_TYPE, resourceType);
+            uploadParams.put(ResourceType.MAP_KEY_UPLOAD_ID, uploadId);
             //上传文件
-            List<String> results = this.genericUploadService.uploads(multipartRequest);
+            List<String> results = this.genericUploadService.uploads(multipartRequest, uploadParams);
             params.put("results", results);
         }
 
@@ -81,5 +89,28 @@ public class UploadController extends ExtMultiActionController {
 		out.toJson(params);
 		return null;
 	}
+
+    public ModelAndView showUploads(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        out = new WebOutput(request, response);
+		in = new WebInput(request);
+        JSONObject params = new JSONObject();
+
+        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
+        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
+        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Integer.valueOf(-1));
+
+        List json = this.genericUploadService.listUploadFile(resourceId, uploadId, resourceType);
+
+        if(json != null){
+            System.out.println(json);
+            params.put("files", json);
+        } else {
+            logger.warn("can not find any files!");
+        }
+
+        params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		out.toJson(params);
+        return null;
+    }
 
 }

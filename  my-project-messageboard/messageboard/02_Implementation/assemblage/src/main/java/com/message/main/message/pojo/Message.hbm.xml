@@ -6,9 +6,9 @@
 	<class name="com.message.main.message.pojo.Message" table="t_message_msg">
 		<id name="pkId" type="java.lang.Long">
 			<column name="PK_ID" precision="10" scale="0"/>
-			<generator class="sequence">
+			<!--<generator class="sequence">
 				<param name="sequence">SEQ_MESSAGE_MSG</param>
-			</generator>
+			</generator>-->
 		</id>
 		<property name="content" type="org.springframework.orm.hibernate3.support.ClobStringType">
 			<column name="CONTENT" length="2000000000">

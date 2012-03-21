@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.message.base.utils.StringUtils;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -70,32 +71,40 @@ public class GuestController extends ExtMultiActionController {
         logger.debug("username is " + user.getUsername());
         int status = 0;
         try {
-            status = this.userService.userLogin(user, in);
-            if (status == 0) {
-                //跳转到另外一个controller
-                User dbUser = this.userService.getUserByName(user.getUsername());
-                dbUser.setLoginIP(in.getClientIP());
-                /**
-                 * 将登录用户放入session中
-                 * 设置session的生命周期为1小时(即：用户登录后不做任何操作1小时后将被强制登出)
-                 */
-                HttpSession session = in.getSession();
-                session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
-                in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
+            String verityCode = in.getString("inputCode");
+            String codeInSession = (String) in.getSession().getAttribute(ResourceType.VERITY_CODE_KEY);
+            if(StringUtils.isNotEmpty(verityCode) && StringUtils.equalsIgnoreCase(verityCode, codeInSession)){
+                status = this.userService.userLogin(user, in);
+                if (status == 0) {
+                    //跳转到另外一个controller
+                    User dbUser = this.userService.getUserByName(user.getUsername());
+                    dbUser.setLoginIP(in.getClientIP());
+                    /**
+                     * 将登录用户放入session中
+                     * 设置session的生命周期为1小时(即：用户登录后不做任何操作1小时后将被强制登出)
+                     */
+                    HttpSession session = in.getSession();
+                    session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
+                    in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
 
-                return new ModelAndView("redirect:/home/inMessageIndex.do");
-            } else {
-                if (status == 1) {
-                	params.put("message", "用户名错误");
-                } else if (status == 2) {
-                    params.put("message", "密码错误");
-                } else if (status == 3) {
-                	params.put("message", "用户名密码必填");
-                } else if (status == 4) {
-                	params.put("message", "未进行邮箱验证，请验证！");
-                } else if (status == 5) {
-                	params.put("message", "用户已被停用");
+                    return new ModelAndView("redirect:/home/inMessageIndex.do");
+                } else {
+                    if (status == 1) {
+                        params.put("message", "用户名错误！");
+                    } else if (status == 2) {
+                        params.put("message", "密码错误！");
+                    } else if (status == 3) {
+                        params.put("message", "用户名密码必填！");
+                    } else if (status == 4) {
+                        params.put("message", "未进行邮箱验证，请验证！");
+                    } else if (status == 5) {
+                        params.put("message", "用户已被停用！");
+                    }
+                    params.put("status", status);
+                    return new ModelAndView("redirect:/guest/index.do", params);
                 }
+            } else {
+                params.put("message", "验证码错误！");
                 params.put("status", status);
                 return new ModelAndView("redirect:/guest/index.do", params);
             }

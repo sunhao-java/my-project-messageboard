@@ -174,5 +174,7 @@ public final class ResourceType {
      * 上传者ID的key
      */
     public static final String MAP_KEY_UPLOAD_ID = "uploadId";
+
+    public static final String VERITY_CODE_KEY = "verityCode";
 	
 }

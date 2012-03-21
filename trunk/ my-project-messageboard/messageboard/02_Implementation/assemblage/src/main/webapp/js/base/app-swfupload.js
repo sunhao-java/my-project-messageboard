@@ -104,11 +104,14 @@ YAHOO.app.swfupload = function(link, element, p){
         }
     }
 
+    //利用懒加载技术加载上传组件的css样式
+    f.loadCss(contextPath + "/css/base/app-swfupload.css", function(){
+        //加载css之前要做的事
+    });
+
+    dom.addClass(link, "btn-input");
+
     YAHOO.util.Event.on(link, 'click', function(e){
-        //利用懒加载技术加载上传组件的css样式
-        f.loadCss(contextPath + "/css/base/app-swfupload.css", function(){
-            
-        });
         config = p;
         f.init(config)
         f.show();
@@ -140,9 +143,9 @@ function attachUploadComplete(x) {
                 if(uploadFiles && uploadFiles.length > 0){
                     var innerHTML = "";
                     for(var i = 0; i < uploadFiles.length; i++){
-//                        innerHTML += uploadFiles[i].fileName + "<br/>";
+                        var extName = getIcon(uploadFiles[i].fileName);
                         innerHTML += "<div class=\"post-attachment-file \">";
-                        innerHTML += "<span><img src=\"" + contextPath + "/image/file/unknow.gif\">" +
+                        innerHTML += "<span><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
                                 "</span><span class=\"file-name\">" + uploadFiles[i].fileName + "</span>";
                         innerHTML += "<span class=\"delete\"><a class=\"remove-temp-file\"" +
                                 "href=\"#\">删除</a></span>";
@@ -210,4 +213,51 @@ function cancelUpload(){
         panels[i].style.visibility = 'hidden';
     }
     dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+}
+
+/**
+ * 文件后缀名的MAP，以后要是增加文件类型，直接管理此处即可
+ */
+YAHOO.app.extTypeIconMap = {
+    'avi':'avi.gif',
+    'bmp':'bmp.gif',
+    'dll':'dll.gif',
+    'doc':'doc.gif',
+    'docx':'doc.gif',
+    'exe':'exe.gif',
+    'gif':'png.gif',
+    'htm':'htm.gif',
+    'html':'htm.gif',
+    'jpg':'jpg.gif',
+    'jpeg':'jpg.gif',
+    'mdb':'mdb.gif',
+    'mp3':'mp3.gif',
+    'pdf':'pdf.gif',
+    'png':'png.gif',
+    'ppt':'ppt.gif',
+    'pptx':'ppt.gif',
+    'rar':'rar.gif',
+    'rm':'rm.gif',
+    'rmvb':'rm.gif',
+    'swf':'swf.gif',
+    'txt':'txt.gif',
+    'wma':'wma.gif',
+    'wmv':'wmv.gif',
+    'xls':'xls.gif',
+    'zip':'zip.gif',
+    'unknow':'unknow.gif'
+};
+
+function getIcon(filename){
+    var extmap = YAHOO.app.extTypeIconMap;
+    if(!extmap){
+        return "unknow.gif";
+    }
+
+    var split = '.',ext,index = filename.lastIndexOf(split),mapKey = 'unknow';
+    if(filename.indexOf(split) != -1) {
+        mapKey = filename.substring(index + 1, filename.length);
+    }
+    ext = extmap[mapKey];
+    return $L.isUndefined(ext) ? "unknow.gif" : ext;
 }

@@ -45,3 +45,17 @@ a {
 .post-attachment-file img {
     vertical-align: middle !important;
 }
+
+.btn-input{
+    background: none repeat scroll 0 0 #2782D6;
+    border-color: #DDDDDD #264F6E #264F6E #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    height: 21px;
+    letter-spacing: 1px;
+    line-height: 17px;
+    padding: 1px 10px;
+    text-align: center;
+}

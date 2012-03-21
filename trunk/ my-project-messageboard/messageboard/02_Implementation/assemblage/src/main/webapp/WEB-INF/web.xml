@@ -69,6 +69,15 @@
 		<url-pattern>/head.jpg</url-pattern>
 	</servlet-mapping>
 
+    <servlet>
+        <servlet-name>verityCode</servlet-name>
+        <servlet-class>com.message.tags.VerityCode</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>verityCode</servlet-name>
+        <url-pattern>/verityCode.jpg</url-pattern>
+    </servlet-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>

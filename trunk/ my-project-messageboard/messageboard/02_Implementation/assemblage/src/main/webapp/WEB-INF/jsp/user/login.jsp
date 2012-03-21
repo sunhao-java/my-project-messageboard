@@ -148,7 +148,7 @@
 												<tr>
 													<td height="29" style="padding-left: 20px;">
 														<input type="text" style="width: 250px; height: 25px; 
-																background-color: ececec; border: 1 solid #b2b2b2; line-height: 25px;" 
+																background-color: #ececec; border: 1 solid #b2b2b2; line-height: 25px;"
 																name="username" id="username" value="" tabindex="1">
 													</td>
 												</tr>
@@ -159,12 +159,28 @@
 												</tr>
 												<tr>
 													<td height="28" style="padding-left: 20px;">
-														<input type="password" style="width: 250px; height: 25px; background-color: ececec; 
+														<input type="password" style="width: 250px; height: 25px; background-color: #ececec;
 																border: 1 solid #b2b2b2; line-height: 25px;" 
 																name="password" id="password" value="" tabindex="2">
 													</td>
 												</tr>
-												<tr>
+                                                <tr>
+                                                    <td height="28" style="padding-left: 20px; padding-top: 10px;">
+                                                        <input type="text" value="" name="inputCode" id="inputCode"
+                                                               style="width: 120px; height: 25px; background-color: rgb(236, 236, 236);
+                                                               line-height: 25px; vertical-align: middle;">
+                                                        &nbsp;
+                                                        <img width="60" height="25" onclick="changeCode();"
+                                                             style="cursor: pointer; vertical-align: middle;" title="点击更换" id="codeImg"
+                                                             src="${contextPath}/verityCode.jpg">
+                                                        <script type="text/javascript">
+                                                            function changeCode(){
+                                                                $D.get("codeImg").src = "${contextPath}/verityCode.jpg?" + Math.random();
+                                                            }
+                                                        </script>
+                                                    </td>
+                                                </tr>
+                                                <tr>
 													<td height="28" style="padding-left: 20px;">
 														<c:choose>
 															<c:when test="${guestAuth eq 'true' }">
@@ -174,11 +190,11 @@
 																&nbsp;
 															</c:otherwise>
 														</c:choose>
-														
+
 													</td>
 												</tr>
 												<tr>
-													<td height="72" style="padding-left: 20px; font-size: 18px;">
+													<td height="54" style="padding-left: 20px; font-size: 18px;">
 														<img src="${contextPath}/image/wiseduimg/wiscom_login.PNG" 
 																	width="124" height="46" onclick="login()" style="cursor: pointer">
 														<img src="${contextPath}/image/wiseduimg/wiscom_reg.jpg" width="124" 

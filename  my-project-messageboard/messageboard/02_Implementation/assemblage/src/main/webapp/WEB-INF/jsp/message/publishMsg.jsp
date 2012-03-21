@@ -149,7 +149,7 @@
 			</tr>
             <tr>
                 <td class="fb_result_head">
-                    <input type="button" id="upload" value="upload">
+                    <input type="button" id="upload" value="上传附件">
                 </td>
                 <td colspan="3">
                     <div id="showUploadPanel"></div>

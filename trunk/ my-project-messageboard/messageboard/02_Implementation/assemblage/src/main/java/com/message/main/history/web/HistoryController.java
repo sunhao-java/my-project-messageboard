@@ -38,21 +38,14 @@ public class HistoryController extends ExtMultiActionController {
 	 * @param history
 	 * @return
 	 */
-	public ModelAndView listLoginHistory(HttpServletRequest request, HttpServletResponse response, UserLoginHistory history){
+	public ModelAndView listLoginHistory(HttpServletRequest request, HttpServletResponse response, UserLoginHistory history) throws Exception {
 		in = new WebInput(request);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
-		
-		if(user != null){
-			try {
-				params.put("paginationSupport", this.historyService.getHistoryByUserId(user.getPkId(), start, num, history));
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-			}
-		}
+
+        params.put("paginationSupport", this.historyService.getHistory(start, num, history));
+
 		return new ModelAndView("user.login.history.list", params);
 	}
 }

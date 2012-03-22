@@ -74,7 +74,8 @@ public class ImageTag extends TagSupport {
                 size = ResourceType.IMAGE_SIZE_NORMAL;
             }
             
-            content.append(contextPath).append("/image/head/").append(size).append("blank.jpg");
+            content.append("<img src=\"").append(contextPath).append("/image/head/").append(size).append("/blank.jpg")
+                    .append("\" title=\"").append(user.getTruename() == null ? "" : user.getTruename()).append("\"/>");
         } else {
             content.append("<img src=\"").append(contextPath).append("/head.jpg?userId=")
 				.append(userId).append("&headType=").append(headType).append("\" title=\"")

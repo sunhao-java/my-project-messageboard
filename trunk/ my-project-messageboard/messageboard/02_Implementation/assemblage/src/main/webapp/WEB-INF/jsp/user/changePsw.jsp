@@ -80,14 +80,14 @@
 
 <div id="listFrm">
 	<form id="dataFrm" action="" method="post">
-		<input type="hidden" name="pkId" value="${user.pkId }"/>
+		<input type="hidden" name="pkId" value="${loginUser.pkId }"/>
 		<table width="70%" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="12%">
 					您的用户名
 				</td>
 				<td width="42%">
-					${user.username }     
+					${loginUser.username }
 				</td>
 			</tr>
 			<tr>
@@ -95,7 +95,7 @@
 					您的真实姓名
 				</td>
 				<td width="42%">
-					${user.truename }     
+					${loginUser.truename }
 				</td>
 			</tr>
 			<tr>

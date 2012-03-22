@@ -2,6 +2,8 @@ package com.message.main.user.service.impl;
 
 import java.util.Date;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -151,7 +153,8 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	public void saveEdit(User user, User sessionUser) throws Exception {
+	public void saveEdit(User user) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		User dbUser = null;
 		if(user != null){
 			if(user.getPkId() != null){
@@ -165,14 +168,15 @@ public class UserServiceImpl implements UserService{
 					
 					this.userDAO.updateUser(dbUser);
 					String eventMsg = MessageUtils.getProperties("event.message.user.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
-					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
-							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
+					this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(),
+							ResourceType.USER_TYPE, loginUser.getPkId(), loginUser.getLoginIP(), eventMsg));
 				}
 			}
 		}
 	}
 
-	public boolean savePassword(User user, User sessionUser) throws Exception {
+	public boolean savePassword(User user) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		if(StringUtils.isNotEmpty(user.getPassword()) && user.getPkId() != null){
 			User dbUser = this.userDAO.getUserById(user.getPkId());
 			if(dbUser != null){
@@ -180,8 +184,8 @@ public class UserServiceImpl implements UserService{
 				this.userDAO.updateUser(dbUser);
 				
 				String eventMsg = MessageUtils.getProperties("event.message.psw.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
-				this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(), 
-						ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
+				this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(),
+						ResourceType.USER_TYPE, loginUser.getPkId(), loginUser.getLoginIP(), eventMsg));
 				return true;
 			} else {
 				return false;
@@ -196,7 +200,8 @@ public class UserServiceImpl implements UserService{
 		return paginationSupport;
 	}
 
-	public boolean deleteUser(String pkids, User sessionUser) throws Exception {
+	public boolean deleteUser(String pkids) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		String[] pkIds = pkids.split(",");
 		if(pkIds != null && pkIds.length > 0){
 			for(String pkId : pkIds){
@@ -205,8 +210,8 @@ public class UserServiceImpl implements UserService{
 				if(dbUser != null){
 					dbUser.setDeleteFlag(ResourceType.DELETE_YES);
 					String eventMsg = MessageUtils.getProperties("event.message.user.delete", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
-					this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_DELETE, dbUser.getPkId(), 
-							ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
+					this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_DELETE, dbUser.getPkId(),
+							ResourceType.USER_TYPE, loginUser.getPkId(), loginUser.getLoginIP(), eventMsg));
 					this.userDAO.updateUser(dbUser);
 				}
 			}
@@ -216,14 +221,15 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
-	public boolean managerPerm(long pkId, boolean opertion, User sessionUser) throws Exception {
+	public boolean managerPerm(long pkId, boolean opertion) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		User dbUser = this.userDAO.getUserById(pkId);
 		if(dbUser != null){
 			dbUser.setIsAdmin(opertion ? ResourceType.IS_ADMIN_YES : ResourceType.IS_ADMIN_NO);
 			this.userDAO.updateUser(dbUser);
 			String eventMsg = MessageUtils.getProperties("event.message.userPerm", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
-			this.eventService.publishEvent(new BaseEvent(sessionUser.getPkId(), ResourceType.EVENT_EDIT, dbUser.getPkId(), 
-					ResourceType.USER_TYPE, sessionUser.getPkId(), sessionUser.getLoginIP(), eventMsg));
+			this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_EDIT, dbUser.getPkId(),
+					ResourceType.USER_TYPE, loginUser.getPkId(), loginUser.getLoginIP(), eventMsg));
 			return true;
 		}
 		return false;
@@ -294,7 +300,7 @@ public class UserServiceImpl implements UserService{
 		return FileUtils.getFileByte(imagePath.toString());
 	}
 
-	public void updateUser(User user) throws Exception {
+    public void updateUser(User user) throws Exception {
 		this.userDAO.updateUser(user);
 	}
 	

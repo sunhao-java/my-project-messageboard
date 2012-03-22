@@ -12,11 +12,10 @@ public interface InfoService {
 	/**
 	 * 保存留言板描述
 	 * @param info
-	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	Long saveInfo(Info info, User sessionUser) throws Exception;
+	Long saveInfo(Info info) throws Exception;
 	
 	/**
 	 * 获取最新的留言板描述

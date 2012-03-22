@@ -4,6 +4,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="loginService" class="com.message.main.login.service.impl.LoginServiceImpl">
+        <property name="historyService" ref="historyService"/>
+        <property name="userService" ref="userService"/>
+    </bean>
 	
 	<!-- 事件的service -->
 	<bean id="eventService" class="com.message.main.event.service.impl.EventServiceImpl">

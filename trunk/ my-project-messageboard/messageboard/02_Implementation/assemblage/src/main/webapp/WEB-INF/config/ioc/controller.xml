@@ -4,7 +4,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
-	
+
+    <bean id="loginController" class="com.message.main.login.web.LoginController">
+        <property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+				<property name="mappings">
+					<props>
+						<prop key="/login/login.do">login</prop>
+                        <prop key="/login/logout.do">logout</prop>
+					</props>
+				</property>
+			</bean>
+		</property>
+        <property name="loginService" ref="loginService"/>
+    </bean>
+
 	<!-- 事件的controller -->
 	<bean id="eventController" class="com.message.main.event.web.EventController">
 		<property name="methodNameResolver">
@@ -122,7 +136,6 @@
     					<prop key="/user/changePsw.do">inChangePswJsp</prop>
     					<prop key="/user/checkPsw.do">checkPsw</prop>
     					<prop key="/user/savePassword.do">savePassword</prop>
-    					<prop key="/user/logout.do">logout</prop>
     					<prop key="/user/listAllUser.do">listAllUser</prop>
     					<prop key="/user/deleteUser.do">deleteUser</prop>
     					<prop key="/user/managerPerm.do">managerPerm</prop>

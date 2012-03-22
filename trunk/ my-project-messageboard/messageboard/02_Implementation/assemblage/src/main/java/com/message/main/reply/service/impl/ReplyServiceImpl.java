@@ -3,6 +3,8 @@ package com.message.main.reply.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.utils.MessageUtils;
@@ -37,14 +39,15 @@ public class ReplyServiceImpl implements ReplyService {
 		this.eventService = eventService;
 	}
 
-	public boolean deleteReplyById(Long pkId, User user) throws Exception {
+	public boolean deleteReplyById(Long pkId) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		Reply dbReply = this.replyDAO.getReplyByPkId(pkId);
 		if(dbReply != null){
 			dbReply.setDeleteFlag(ResourceType.DELETE_YES);
 			this.replyDAO.updateReply(dbReply);
 			String eventMsg = MessageUtils.getProperties("event.message.reply.delete", new Object[]{dbReply.getTitle(), dbReply.getPkId()});
-			this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_DELETE, dbReply.getReplyUserId(), 
-					ResourceType.REPLY_TYPE, dbReply.getPkId(), user.getLoginIP(), eventMsg));
+			this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_DELETE,
+					dbReply.getReplyUserId(), ResourceType.REPLY_TYPE, dbReply.getPkId(), loginUser.getLoginIP(), eventMsg));
 			return true;
 		}
 		return false;
@@ -63,7 +66,8 @@ public class ReplyServiceImpl implements ReplyService {
 		return replys;
 	}
 
-	public void saveReply(Reply reply, User user) throws Exception {
+	public void saveReply(Reply reply) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		if(reply != null){
 			reply.setDeleteFlag(ResourceType.DELETE_NO);
 			reply.setReplyDate(new Date());
@@ -71,8 +75,8 @@ public class ReplyServiceImpl implements ReplyService {
 			Long pkId = this.replyDAO.saveReply(reply);
 			
 			String eventMsg = MessageUtils.getProperties("event.message.reply.add", new Object[]{reply.getTitle(), pkId});
-			this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_ADD, reply.getReplyUserId(), 
-					ResourceType.REPLY_TYPE, pkId, user.getLoginIP(), eventMsg));
+			this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_ADD, reply.getReplyUserId(),
+					ResourceType.REPLY_TYPE, pkId, loginUser.getLoginIP(), eventMsg));
 		}
 	}
 

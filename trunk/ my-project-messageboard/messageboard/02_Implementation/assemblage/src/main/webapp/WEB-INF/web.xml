@@ -78,14 +78,14 @@
         <url-pattern>/verityCode.jpg</url-pattern>
     </servlet-mapping>
 
-    <error-page>
+    <!--<error-page>
         <error-code>404</error-code>
         <location>/error.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
         <location>/error.jsp</location>
-    </error-page>
+    </error-page>-->
 	
 	<jsp-config>
 		<taglib>

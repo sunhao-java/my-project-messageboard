@@ -1,11 +1,14 @@
 package com.message.main.user.web;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -50,27 +53,24 @@ public class UserController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showUserInfo(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView showUserInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		Long viewUserId = in.getLong("viewUserId");
-		if(user != null){
-			try {
-				if(viewUserId != null){
-					user = new User(viewUserId);
-					params.put("customer", "true");
-					params.put("viewwhoname", this.userService.getUserById(viewUserId).getTruename());
-					params.put("privacy", this.userPrivacyService.getUserPrivacyByUser(user));
-				}
-				user = this.userService.getUserById(user.getPkId());
-				user = this.userService.addLoginInfo(user, viewUserId == null ? false : true);
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-			}
-			params.put("user", user);
-		}
+		Long viewUserId = in.getLong("viewUserId", Long.valueOf(-1));
+        User user = null;
+        LoginUser loginUser = null;
+        if(!Long.valueOf(-1).equals(viewUserId)){
+            user = new User(viewUserId);
+            params.put("customer", "true");
+            params.put("viewwhoname", this.userService.getUserById(viewUserId).getTruename());
+            params.put("privacy", this.userPrivacyService.getUserPrivacy(viewUserId));
+
+            user = this.userService.getUserById(user.getPkId());
+            user = this.userService.addLoginInfo(user, viewUserId == null ? false : true);
+            params.put("user", user);
+        } else {
+            params.put("user", AuthContextHelper.getAuthContext().getLoginUser());
+        }
 		return new ModelAndView("user.info", params);
 	}
 	
@@ -82,15 +82,6 @@ public class UserController extends ExtMultiActionController {
 	 */
 	public ModelAndView inEditUserInfoJsp(HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> params = new HashMap<String, Object>();
-		in = new WebInput(request);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		if(user != null){
-			try {
-				params.put("user", this.userService.getUserById(user.getPkId()));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		return new ModelAndView("user.edit.info", params);
 	}
 	
@@ -105,15 +96,9 @@ public class UserController extends ExtMultiActionController {
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
 		JSONObject obj = new JSONObject();
-		User sessionUser = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		try {
-			this.userService.saveEdit(user, sessionUser);
-			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			logger.error(e.getMessage(), e);
-		}
+        
+        this.userService.saveEdit(user);
+        obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(obj);
 		return null;
 	}
@@ -127,8 +112,6 @@ public class UserController extends ExtMultiActionController {
 	public ModelAndView inChangePswJsp(HttpServletRequest request, HttpServletResponse response){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
-		User userSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		params.put("user", userSession);
 		return new ModelAndView("user.password.change", params);
 	}
 	
@@ -145,17 +128,13 @@ public class UserController extends ExtMultiActionController {
 		in = new WebInput(request);
 		String oldPassword = in.getString("oldPassword", StringUtils.EMPTY);
 		JSONObject obj = new JSONObject();
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		if(userInSession != null){
-			String md5OldPsw = MD5Utils.MD5Encode(oldPassword);
-			if(md5OldPsw.equals(userInSession.getPassword())){
-				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-			} else {
-				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			}
-		} else {
-			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-		}
+        String md5OldPsw = MD5Utils.MD5Encode(oldPassword);
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        if(md5OldPsw.equals(loginUser.getPassword())){
+            obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+        } else {
+            obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
+        }
 		out.toJson(obj);
 		return null;
 	}
@@ -172,37 +151,10 @@ public class UserController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		if(user != null){
-			try {
-				obj.put(ResourceType.AJAX_STATUS, this.userService.savePassword(user, userInSession) ? 
-									ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-				obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			}
-		}
-		out.toJson(obj);
-		return null;
-	}
-	
-	/**
-	 * 登出系统
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		out = new WebOutput(request, response);
-		in = new WebInput(request);
-		JSONObject obj = new JSONObject();
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		if(userInSession != null){
-			in.getSession().removeAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		}
-		obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		if(user != null)
+            obj.put(ResourceType.AJAX_STATUS, this.userService.savePassword(user) ?
+                    ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+        
 		out.toJson(obj);
 		return null;
 	}
@@ -213,21 +165,15 @@ public class UserController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView listAllUser(HttpServletRequest request, HttpServletResponse response, User user){
+	public ModelAndView listAllUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
 		in = new WebInput(request);
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
 		String permission = in.getString("permission", StringUtils.EMPTY);
+
 		Map<String, Object> params = new HashMap<String, Object>();
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		try {
-			params.put("paginationSupport", this.userService.listAllUser(start, num, user));
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			e.printStackTrace();
-		}
+        params.put("paginationSupport", this.userService.listAllUser(start, num, user));
 		params.put("permission", permission);
-		params.put("loginUser", userInSession);
 		return new ModelAndView("user.list.alluser", params);
 	}
 	
@@ -244,15 +190,9 @@ public class UserController extends ExtMultiActionController {
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
 		String pkids = in.getString("pkIds", StringUtils.EMPTY);
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		if(StringUtils.isNotEmpty(pkids)){
-			try {
-				obj.put(ResourceType.AJAX_STATUS, this.userService.deleteUser(pkids, userInSession) ? 
-							ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE );
-			} catch (Exception e) {
-				e.printStackTrace();
-				logger.error(e.getMessage(), e);
-			}
+            obj.put(ResourceType.AJAX_STATUS, this.userService.deleteUser(pkids) ?
+                        ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE );
 		} else {
 			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
 		}
@@ -273,16 +213,10 @@ public class UserController extends ExtMultiActionController {
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
 		Long pkId = in.getLong("userPkId", 0L);
-		User userInSession = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		boolean opertion = in.getBoolean("opertion", Boolean.FALSE);
-		try {
-			obj.put(ResourceType.AJAX_STATUS, this.userService.managerPerm(pkId, opertion, userInSession) ? 
-							ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-			obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-		}
+        
+        obj.put(ResourceType.AJAX_STATUS, this.userService.managerPerm(pkId, opertion) ?
+                        ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(obj);
 		return null;
 	}

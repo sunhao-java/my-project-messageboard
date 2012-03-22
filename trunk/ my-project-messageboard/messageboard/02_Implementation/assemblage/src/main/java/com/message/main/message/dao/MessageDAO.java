@@ -56,7 +56,7 @@ public interface MessageDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception;
+	PaginationSupport getMyMessages(int start, int num, Long userId, Message message) throws Exception;
 	
 	/**
 	 * 列出所有待审核的或者审核未通过的留言

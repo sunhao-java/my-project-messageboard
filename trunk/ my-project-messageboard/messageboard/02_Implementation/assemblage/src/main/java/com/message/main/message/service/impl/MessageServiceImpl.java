@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.message.base.hibernate.GenericHibernateDAO;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -74,20 +76,21 @@ public class MessageServiceImpl implements MessageService {
 		return paginationSupport;
 	}
 
-	public Long saveMessage(Message message, User user) throws Exception {
-		if(user != null && message != null){
-			message.setCreateUserId(user.getPkId());
+	public Long saveMessage(Message message) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		if(loginUser != null && message != null){
+			message.setCreateUserId(loginUser.getPkId());
 			message.setCreateDate(new Date());
 			message.setDeleteFlag(ResourceType.DELETE_NO);
-			message.setCreateUsername(user.getTruename());
+			message.setCreateUsername(loginUser.getTruename());
 			message.setIsAudit(ResourceType.AUDIT_NOAUDIT);
 		}
 		
 		Long messageId = this.messageDAO.saveMessage(message);
 		
 		String eventMsg = MessageUtils.getProperties("event.message.add", new Object[]{message.getTitle(), messageId});
-		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_ADD, user.getPkId(), ResourceType.MESSAGE_TYPE, 
-				messageId, user.getLoginIP(), eventMsg));
+		this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_ADD, loginUser.getPkId(), ResourceType.MESSAGE_TYPE,
+				messageId, loginUser.getLoginIP(), eventMsg));
 		
 		return messageId;
 	}
@@ -108,7 +111,8 @@ public class MessageServiceImpl implements MessageService {
 		return message;
 	}
 
-	public void deleteMessage(String pkIds, User user) throws Exception {
+	public void deleteMessage(String pkIds) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		if(StringUtils.isNotEmpty(pkIds)){
 			String[] pkIdArr = pkIds.split(",");
 			for(String pkId : pkIdArr){
@@ -118,16 +122,19 @@ public class MessageServiceImpl implements MessageService {
 					this.messageDAO.updateMessage(dbMessage);
 					
 					String eventMsg = MessageUtils.getProperties("event.message.delete", new Object[]{dbMessage.getTitle(), Long.valueOf(pkId)});
-					this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_DELETE, dbMessage.getCreateUserId(), 
-							ResourceType.MESSAGE_TYPE, Long.valueOf(pkId), user.getLoginIP(), eventMsg));
+					this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_DELETE, dbMessage.getCreateUserId(),
+							ResourceType.MESSAGE_TYPE, Long.valueOf(pkId), loginUser.getLoginIP(), eventMsg));
 				}
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception {
-		PaginationSupport paginationSupport = this.messageDAO.getMyMessages(start, num, user, message);
+	public PaginationSupport getMyMessages(int start, int num, Long userId, Message message) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+
+		PaginationSupport paginationSupport = this.messageDAO.getMyMessages(start, num,
+                Long.valueOf(-1).equals(userId) ? loginUser.getPkId() : userId, message);
 		List<Message> messages = paginationSupport.getItems();
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){
@@ -162,11 +169,12 @@ public class MessageServiceImpl implements MessageService {
 		return pagination;
 	}
 
-	public void setAudit(Long messageId, String status, User user) throws Exception {
+	public void setAudit(Long messageId, String status) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		Message dbMessage = this.messageDAO.getMessageByPkId(messageId);
 		String eventMsg = "";
-		dbMessage.setAuditUserId(user.getPkId());
-		dbMessage.setAuditUsername(user.getTruename());
+		dbMessage.setAuditUserId(loginUser.getPkId());
+		dbMessage.setAuditUsername(loginUser.getTruename());
 		if(AUDIT_OK.equals(status)) {
 			dbMessage.setIsAudit(ResourceType.AUDIT_YES);
 			eventMsg = MessageUtils.getProperties("audit.yes", new Object[]{dbMessage.getTitle(), messageId});
@@ -175,8 +183,8 @@ public class MessageServiceImpl implements MessageService {
 			eventMsg = MessageUtils.getProperties("audit.no", new Object[]{dbMessage.getTitle(), messageId});
 		}
 		
-		this.eventService.publishEvent(new BaseEvent(user.getPkId(), ResourceType.EVENT_EDIT, dbMessage.getCreateUserId(), 
-				ResourceType.MESSAGE_TYPE, messageId, user.getLoginIP(), eventMsg));
+		this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_EDIT,
+				dbMessage.getCreateUserId(), ResourceType.MESSAGE_TYPE, messageId, loginUser.getLoginIP(), eventMsg));
 		this.messageDAO.updateMessage(dbMessage);
 	}
 

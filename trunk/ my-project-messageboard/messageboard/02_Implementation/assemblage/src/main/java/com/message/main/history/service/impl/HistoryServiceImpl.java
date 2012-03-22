@@ -3,6 +3,8 @@ package com.message.main.history.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +60,11 @@ public class HistoryServiceImpl implements HistoryService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public PaginationSupport getHistoryByUserId(Long userPkId, int start, int num, UserLoginHistory history1)
+	public PaginationSupport getHistory(int start, int num, UserLoginHistory history1)
 			throws Exception {
-		PaginationSupport paginationSupport = this.historyDAO.getHistoryByUserId(userPkId, start, num, history1);
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        
+		PaginationSupport paginationSupport = this.historyDAO.getHistoryByUserId(loginUser.getPkId(), start, num, history1);
 		List<UserLoginHistory> historys = paginationSupport.getItems();
 		if(CollectionUtils.isNotEmpty(historys)){
 			for(UserLoginHistory history : historys){

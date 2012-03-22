@@ -127,9 +127,8 @@ public class MenuController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		String[] menuPerms = in.getStrings("menuPerm");
 		
-		User loginUser = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		JSONObject params = new JSONObject();
-		boolean status = this.menuService.saveMenu(menu, loginUser, menuPerms);
+		boolean status = this.menuService.saveMenu(menu, menuPerms);
 		
 		params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		

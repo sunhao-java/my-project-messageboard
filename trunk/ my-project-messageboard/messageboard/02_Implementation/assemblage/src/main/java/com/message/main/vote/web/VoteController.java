@@ -71,10 +71,9 @@ public class VoteController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		//获得投票的选项内容
 		String[] voteOptions = in.getStrings("choice[]");
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		
 		try {
-			params.put(ResourceType.AJAX_STATUS, this.voteService.saveVote(vote, user, voteOptions) ? 
+			params.put(ResourceType.AJAX_STATUS, this.voteService.saveVote(vote, voteOptions) ?
 															ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,19 +91,14 @@ public class VoteController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView listVote(HttpServletRequest request, HttpServletResponse response, Vote vote){
+	public ModelAndView listVote(HttpServletRequest request, HttpServletResponse response, Vote vote) throws Exception {
 		in = new WebInput(request);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("current", "list");
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		try {
-			params.put("pagination", this.voteService.listVotes(start, num, vote, user));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+
+        params.put("pagination", this.voteService.listVotes(start, num, vote));
 		return new ModelAndView("vote.list", params);
 	}
 	
@@ -120,18 +114,12 @@ public class VoteController extends ExtMultiActionController {
 		JSONObject params = new JSONObject();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Long voteId = in.getLong("voteId", 0);
 		Long[] answers = in.getLongObjects(voteId + "result[]");
 		String comment = in.getString("comment", StringUtils.EMPTY);
-		try {
-			params.put(ResourceType.AJAX_STATUS, this.voteService.saveAnswer(voteId, answers, user, comment) ? 
-												ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
-		} catch (Exception e) {
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        
+        params.put(ResourceType.AJAX_STATUS, this.voteService.saveAnswer(voteId, answers, comment) ?
+                                            ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}
@@ -143,20 +131,14 @@ public class VoteController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView viewVote(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView viewVote(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long voteId = in.getLong("voteId", 0L);
 		params.put("show", "detail");
-		params.put("loginUser", user);
-		try {
-			params.put("vote", this.voteService.getVote(voteId, user));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+
+        params.put("vote", this.voteService.getVote(voteId));
 		return new ModelAndView("vote.detail", params);
 	}
 	
@@ -167,20 +149,14 @@ public class VoteController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView viewVoteResult(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView viewVoteResult(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long voteId = in.getLong("voteId", 0L);
 		params.put("show", "result");
-		params.put("loginUser", user);
-		try {
-			params.put("vote", this.voteService.getVoteResult(voteId, user));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+
+        params.put("vote", this.voteService.getVoteResult(voteId));
 		return new ModelAndView("vote.detail", params);
 	}
 	
@@ -191,22 +167,17 @@ public class VoteController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView listMyVote(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView listMyVote(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		Map<String, Object> params = new HashMap<String, Object>();
         int num = in.getInt("num", 3);
         int num_ = in.getInt("num_", 3);
         int start = SqlUtils.getStartNum(in, num);
         int start_ = SqlUtils.getStartNum_(in, num_);
-		try {
-			params.put("myCreateVote", this.voteService.listMyCreateVote(user, start, num));
-			params.put("myAttendVote", this.voteService.listMyAttendVote(user, start_, num_));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+
+        params.put("myCreateVote", this.voteService.listMyCreateVote(start, num));
+        params.put("myAttendVote", this.voteService.listMyAttendVote(start_, num_));
 		params.put("current", "myVote");
 		return new ModelAndView("vote.listmine", params);
 	}

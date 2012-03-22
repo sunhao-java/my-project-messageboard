@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.message.base.pagination.PaginationUtils;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -57,12 +59,13 @@ public class VoteServiceImpl implements VoteService {
         this.userService = userService;
     }
 
-    public boolean saveVote(Vote vote, User user, String[] choices)
+    public boolean saveVote(Vote vote, String[] choices)
             throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         if (vote != null) {
             vote.setCreateTime(new Date());
-            vote.setCreateUserId(user.getPkId());
-            vote.setCreateUsername(user.getTruename());
+            vote.setCreateUserId(loginUser.getPkId());
+            vote.setCreateUsername(loginUser.getTruename());
             vote.setDeleteFlag(ResourceType.DELETE_NO);
             if (SINGLE_VOTE == vote.getType()) {
                 vote.setMaxOption(1);
@@ -91,14 +94,14 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @SuppressWarnings("unchecked")
-    public PaginationSupport listVotes(int start, int num, Vote vote, User user)
+    public PaginationSupport listVotes(int start, int num, Vote vote)
             throws Exception {
-        PaginationSupport pagination = this.voteDAO.listAllVote(start, num,
-                vote);
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        PaginationSupport pagination = this.voteDAO.listAllVote(start, num, vote);
         List<Vote> votes = pagination.getItems();
         for (Vote v : votes) {
             if (v != null) {
-                this.makeVoteWithAnswerAndOption(v, user);
+                this.makeVoteWithAnswerAndOption(v, loginUser);
                 Date now = new Date();
                 if (v.getEndTime() != null && v.getSetEndTime() == 1L) {
                     if (now.after(v.getEndTime())) {
@@ -112,15 +115,16 @@ public class VoteServiceImpl implements VoteService {
         return pagination;
     }
 
-    public boolean saveAnswer(Long voteId, Long[] optionIds, User user,
+    public boolean saveAnswer(Long voteId, Long[] optionIds,
                               String comment) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         if (optionIds.length > 0) {
             List<VoteAnswer> voteAnswers = new ArrayList<VoteAnswer>();
             for (Long optionId : optionIds) {
                 VoteAnswer answer = new VoteAnswer();
                 answer.setVoteId(voteId);
-                answer.setAnswerUserId(user.getPkId());
-                answer.setAnswerUserName(user.getTruename());
+                answer.setAnswerUserId(loginUser.getPkId());
+                answer.setAnswerUserName(loginUser.getTruename());
                 answer.setAnswer(optionId);
                 answer.setAnswerDate(new Date());
 
@@ -131,8 +135,8 @@ public class VoteServiceImpl implements VoteService {
                 VoteComment voteComment = new VoteComment();
                 voteComment.setCommentContent(comment);
                 voteComment.setCommentDate(new Date());
-                voteComment.setCommentUserId(user.getPkId());
-                voteComment.setCommentUserName(user.getTruename());
+                voteComment.setCommentUserId(loginUser.getPkId());
+                voteComment.setCommentUserName(loginUser.getTruename());
                 voteComment.setDeleteFlag(ResourceType.DELETE_NO);
                 voteComment.setVoteId(voteId);
 
@@ -155,18 +159,21 @@ public class VoteServiceImpl implements VoteService {
         return this.voteDAO.getOptionById(pkId);
     }
 
-    public Vote getVote(Long pkId, User user) throws Exception {
+    public Vote getVote(Long pkId) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         Vote vote = this.voteDAO.getVote(pkId);
         if (vote != null) {
-            this.makeVoteWithAnswerAndOption(vote, user);
+            this.makeVoteWithAnswerAndOption(vote, loginUser);
         }
         return vote;
     }
 
-    public Vote getVoteResult(Long pkId, User user) throws Exception {
+    public Vote getVoteResult(Long pkId) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        
         Vote vote = this.voteDAO.getVote(pkId);
         if (vote != null) {
-            this.makeVoteWithAnswerAndOption(vote, user);
+            this.makeVoteWithAnswerAndOption(vote, loginUser);
 
             List<VoteOption> options = vote.getVoteOptions();
             List<VoteAnswer> answers = vote.getAnswers();
@@ -188,10 +195,6 @@ public class VoteServiceImpl implements VoteService {
 
                 option.setSelectPercent(percent);
             }
-
-            // for(VoteAnswer answer : answers){
-            // this.makeAnswer(answer, user);
-            // }
 
             //TODO by jiaxiuya 2012-01-19
             List<String> repeats = new ArrayList<String>();
@@ -294,34 +297,31 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @SuppressWarnings("unchecked")
-    public PaginationSupport listMyAttendVote(User user, int start, int num)
-            throws Exception {
+    public PaginationSupport listMyAttendVote(int start, int num) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         // 我回答的投票ID
-        PaginationSupport pagination = this.voteDAO.listMyAnswerVoteId(user,
-                start, num);
+        PaginationSupport pagination = this.voteDAO.listMyAnswerVoteId(loginUser.getPkId(), start, num);
         List voteIds = pagination.getItems();
         List<Vote> votes = new ArrayList<Vote>();
         if (CollectionUtils.isNotEmpty(voteIds)) {
             for (int i = 0; i < voteIds.size(); i++) {
                 Long voteId = Long.valueOf(voteIds.get(i).toString());
                 Vote vote = this.voteDAO.getVote(voteId);
-                this.makeVoteWithAnswerAndOption(vote, user);
+                this.makeVoteWithAnswerAndOption(vote, loginUser);
 
                 votes.add(vote);
             }
         }
-        return PaginationUtils.makePagination(votes, pagination.getTotalRow(),
-                num, start);
+        return PaginationUtils.makePagination(votes, pagination.getTotalRow(), num, start);
     }
 
-    public PaginationSupport listMyCreateVote(User user, int start, int num)
-            throws Exception {
-        PaginationSupport pagination = this.voteDAO.listVoteByCreateUser(user,
-                start, num);
+    public PaginationSupport listMyCreateVote(int start, int num) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        PaginationSupport pagination = this.voteDAO.listVoteByCreateUser(loginUser.getPkId(), start, num);
         List<Vote> votes = pagination.getItems();
         if (CollectionUtils.isNotEmpty(votes)) {
             for (Vote vote : votes) {
-                this.makeVoteWithAnswerAndOption(vote, user);
+                this.makeVoteWithAnswerAndOption(vote, loginUser);
 
                 Date now = new Date();
                 if (vote.getEndTime() != null && vote.getSetEndTime() == 1L) {

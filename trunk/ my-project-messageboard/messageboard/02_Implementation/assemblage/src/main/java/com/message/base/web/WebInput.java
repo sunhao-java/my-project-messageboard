@@ -23,7 +23,7 @@ public class WebInput {
 	/**
 	 * session的默认生命周期，是20分钟
 	 */
-	private static final Integer DEFAULT_SESSION_LIFT = 20 * 60 * 1000;
+	private static final Integer DEFAULT_SESSION_LIFE = 20 * 60 * 1000;
 	private HttpServletRequest request;
 	
 	public WebInput(HttpServletRequest request){
@@ -255,7 +255,7 @@ public class WebInput {
 	}
 	
 	public void setMaxInactiveInterval(HttpSession session, Integer maxTime){
-		session.setMaxInactiveInterval(maxTime == null ? DEFAULT_SESSION_LIFT : maxTime);
+		session.setMaxInactiveInterval(maxTime == null ? DEFAULT_SESSION_LIFE : maxTime);
 	}
 	
 	public String getClientIP(){

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -44,16 +45,12 @@ public class InfoController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inViewInfoJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView inViewInfoJsp(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
-		try {
-			params.put("info", this.infoService.getNewestInfo());
-			params.put("isAdmin", ((User)in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION)).getIsAdmin());
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        params.put("info", this.infoService.getNewestInfo());
+        params.put("isAdmin", AuthContextHelper.getAuthContext().getLoginUser().getIsAdmin());
+        
 		return new ModelAndView("message.view.info", params);
 	}
 	
@@ -67,8 +64,6 @@ public class InfoController extends ExtMultiActionController {
 	public ModelAndView inEditInfoJsp(HttpServletRequest request, HttpServletResponse response, Info info){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		params.put("loginUser", user);
 		return new ModelAndView("message.edit.info", params);
 	}
 	
@@ -84,9 +79,8 @@ public class InfoController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
 		JSONObject obj = new JSONObject();
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		try {
-			obj.put(ResourceType.AJAX_STATUS, this.infoService.saveInfo(info, user) == null ? 
+			obj.put(ResourceType.AJAX_STATUS, this.infoService.saveInfo(info) == null ?
 						ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,17 +98,12 @@ public class InfoController extends ExtMultiActionController {
 	 * @param info
 	 * @return
 	 */
-	public ModelAndView inListInfoHistoryJsp(HttpServletRequest request, HttpServletResponse response, Info info){
+	public ModelAndView inListInfoHistoryJsp(HttpServletRequest request, HttpServletResponse response, Info info) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		try {
-			params.put("paginationSupport", this.infoService.getInfoHistroy(start, num, info));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        params.put("paginationSupport", this.infoService.getInfoHistroy(start, num, info));
 		return new ModelAndView("message.list.info.history", params);
 	}
 	

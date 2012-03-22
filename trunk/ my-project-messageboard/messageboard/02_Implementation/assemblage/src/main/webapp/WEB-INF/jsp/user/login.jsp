@@ -138,7 +138,7 @@
 							<c:choose>
 								<c:when test="${empty param.status}">
 									<td width="311" height="309" valign="top" id="yzmtd" background="${contextPath}/image/wiseduimg/wiscom_index_03.jpg">
-										<form action="${contextPath}/guest/login.do" method="post" name="dataFrm" id="dataFrm">
+										<form action="${contextPath}/login/login.do" method="post" name="dataFrm" id="dataFrm">
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
 													<td height="102">
@@ -164,22 +164,25 @@
 																name="password" id="password" value="" tabindex="2">
 													</td>
 												</tr>
-                                                <tr>
-                                                    <td height="28" style="padding-left: 20px; padding-top: 10px;">
-                                                        <input type="text" value="" name="inputCode" id="inputCode"
-                                                               style="width: 120px; height: 25px; background-color: rgb(236, 236, 236);
-                                                               line-height: 25px; vertical-align: middle;">
-                                                        &nbsp;
-                                                        <img width="60" height="25" onclick="changeCode();"
-                                                             style="cursor: pointer; vertical-align: middle;" title="点击更换" id="codeImg"
-                                                             src="${contextPath}/verityCode.jpg">
-                                                        <script type="text/javascript">
-                                                            function changeCode(){
-                                                                $D.get("codeImg").src = "${contextPath}/verityCode.jpg?" + Math.random();
-                                                            }
-                                                        </script>
-                                                    </td>
-                                                </tr>
+
+                                                <c:if test="<msg:message code='system.auth.verity.code'/>">
+                                                    <tr>
+                                                        <td height="28" style="padding-left: 20px; padding-top: 10px;">
+                                                            <input type="text" value="" name="inputCode" id="inputCode"
+                                                                   style="width: 120px; height: 25px; background-color: rgb(236, 236, 236);
+                                                                   line-height: 25px; vertical-align: middle;">
+                                                            &nbsp;
+                                                            <img width="60" height="25" onclick="changeCode();"
+                                                                 style="cursor: pointer; vertical-align: middle;" title="点击更换" id="codeImg"
+                                                                 src="${contextPath}/verityCode.jpg">
+                                                            <script type="text/javascript">
+                                                                function changeCode(){
+                                                                    $D.get("codeImg").src = "${contextPath}/verityCode.jpg?" + Math.random();
+                                                                }
+                                                            </script>
+                                                        </td>
+                                                    </tr>
+                                                </c:if>
                                                 <tr>
 													<td height="28" style="padding-left: 20px;">
 														<c:choose>

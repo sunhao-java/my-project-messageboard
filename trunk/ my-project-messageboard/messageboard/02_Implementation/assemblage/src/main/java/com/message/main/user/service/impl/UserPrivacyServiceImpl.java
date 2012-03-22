@@ -1,5 +1,7 @@
 package com.message.main.user.service.impl;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.dao.UserPrivacyDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
@@ -20,19 +22,20 @@ public class UserPrivacyServiceImpl implements UserPrivacyService {
 		this.userPrivacyDAO = userPrivacyDAO;
 	}
 
-	public UserPrivacy getUserPrivacyByUser(User user) throws Exception {
-		return this.userPrivacyDAO.getUserPrivacyByUser(user);
+	public UserPrivacy getUserPrivacy(Long pkId) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		return this.userPrivacyDAO.getUserPrivacy(pkId == null ? loginUser.getPkId() : pkId);
 	}
 
-	public void saveUserPrivacy(UserPrivacy userPrivacy, User user) throws Exception {
-		if(user != null){
-			UserPrivacy dbUserPrivacy = this.getUserPrivacyByUser(user);
-			if(dbUserPrivacy != null){
-				this.userPrivacyDAO.deleteUserPrivacy(dbUserPrivacy);
-			}
-			userPrivacy.setUsername(ResourceType.LOOK_ALL_PROPLE);
-			userPrivacy.setUserPkId(user.getPkId());
-		}
+	public void saveUserPrivacy(UserPrivacy userPrivacy) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+
+        UserPrivacy dbUserPrivacy = this.getUserPrivacy(loginUser.getPkId());
+        if(dbUserPrivacy != null){
+            this.userPrivacyDAO.deleteUserPrivacy(dbUserPrivacy);
+        }
+        userPrivacy.setUsername(ResourceType.LOOK_ALL_PROPLE);
+        userPrivacy.setUserPkId(loginUser.getPkId());
 		this.userPrivacyDAO.saveUserPrivacy(userPrivacy);
 	}
 

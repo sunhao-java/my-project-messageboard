@@ -100,7 +100,7 @@ public class WebInput {
 		try {
 			result = Long.valueOf(this.request.getParameter(name));
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			return defaultValue;
 		}
 		
 		return result;

@@ -14,11 +14,11 @@ public interface UserPrivacyDAO {
 	/**
 	 * 根据用户获得其隐私配置
 	 * 
-	 * @param user
+	 * @param pkId
 	 * @return
 	 * @throws Exception
 	 */
-	UserPrivacy getUserPrivacyByUser(User user) throws Exception;
+	UserPrivacy getUserPrivacy(Long pkId) throws Exception;
 	
 	/**
 	 * 保存用户隐私配置

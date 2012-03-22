@@ -30,6 +30,7 @@
                 <prop key="/privacy/*.do">userPrivacyController</prop>
                 <prop key="/menu/*.do">menuController</prop>
                 <prop key="/event/*.do">eventController</prop>
+                <prop key="/login/logout.do">loginController</prop>
             </props>
         </property>
     </bean>
@@ -40,6 +41,7 @@
         <property name="mappings">
             <props>
                 <prop key="/guest/*.do">guestController</prop>
+                <prop key="/login/*.do">loginController</prop>
             </props>
         </property>
     </bean>

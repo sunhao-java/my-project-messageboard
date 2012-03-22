@@ -3,6 +3,8 @@ package com.message.main.info.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -37,13 +39,14 @@ public class InfoServiceImpl implements InfoService {
 		this.eventService = eventService;
 	}
 
-	public Long saveInfo(Info info, User sessionUser) throws Exception {
+	public Long saveInfo(Info info) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		info.setModifyDate(new Date());
 		Long pkId = this.infoDAO.saveInfo(info);
 		String eventMsg = MessageUtils.getProperties("event.message.info.add", 
 				new Object[]{MessageUtils.getProperties("info.description"), pkId});
 		this.eventService.publishEvent(new BaseEvent(info.getModifyUserId(), ResourceType.EVENT_EDIT, info.getModifyUserId(), 
-				ResourceType.INFO_TYPE, pkId, sessionUser.getLoginIP(), eventMsg));
+				ResourceType.INFO_TYPE, pkId, loginUser.getLoginIP(), eventMsg));
 		return pkId;
 	}
 

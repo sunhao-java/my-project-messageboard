@@ -83,7 +83,6 @@
 
 <div id="listFrm">
 	<form id="dataFrm" action="" method="post">
-		<input type="hidden" name="user_id" value="${loginUser.pkId}"/>
         <input type="hidden" name="pkId" value="${pkId}"/>
 		<table width="100%" border="1" class="tableform">
 			<tr>

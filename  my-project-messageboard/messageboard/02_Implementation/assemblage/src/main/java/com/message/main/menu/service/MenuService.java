@@ -37,12 +37,11 @@ public interface MenuService {
 	 * 保存菜单
 	 * 
 	 * @param menu			要保持的菜单
-	 * @param loginUser		当前登录者
 	 * @param menuPerms		菜单权限
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveMenu(Menu menu, User loginUser, String[] menuPerms) throws Exception;
+	boolean saveMenu(Menu menu, String[] menuPerms) throws Exception;
 	
 	/**
 	 * 获取parentId指定的菜单集合

@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -57,20 +59,14 @@ public class MessageController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView listMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView listMessage(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		int num = in.getInt("num", 3);
 		int start = SqlUtils.getStartNum(in, num);
-		PaginationSupport paginationSupport = null;
-		try {
-			paginationSupport = this.messageService.getAllMessages(start, num, message);
-			User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-			params.put("loginUser", user);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        
+		PaginationSupport paginationSupport = this.messageService.getAllMessages(start, num, message);
+
 		params.put("paginationSupport", paginationSupport);
 		return new ModelAndView("message.list", params);
 	}
@@ -85,9 +81,7 @@ public class MessageController extends ExtMultiActionController {
 	public ModelAndView inPublishMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
         Long pkId = this.messageService.getPkId();
-		params.put("loginUser", user);
         params.put("pkId", pkId);
 		return new ModelAndView("message.publish", params);
 	}
@@ -104,20 +98,11 @@ public class MessageController extends ExtMultiActionController {
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
 		JSONObject params = new JSONObject();
-		Long user_pkId = in.getLong("user_id", 0L);
-		User user = this.userService.getUserById(user_pkId);
 		String ip = in.getClientIP();
 		message.setIp(ip);
-		user.setLoginIP(ip);
-		Long pkId = null;
-		try {
-			pkId = this.messageService.saveMessage(message, user);
-			params.put(ResourceType.AJAX_STATUS, pkId == null ? ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-		}
+		Long pkId = this.messageService.saveMessage(message);
+        params.put(ResourceType.AJAX_STATUS, pkId == null ? ResourceType.AJAX_FAILURE : ResourceType.AJAX_SUCCESS);
+        
 		out.toJson(params);
 		return null;
 	}
@@ -129,20 +114,15 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView listMessageForAdmin(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView listMessageForAdmin(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		PaginationSupport paginationSupport = null;
-		
-		try {
-			paginationSupport = this.messageService.getAllMessages(start, num, message);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			e.printStackTrace();
-		}
+        
+		PaginationSupport paginationSupport = this.messageService.getAllMessages(start, num, message);
+
 		params.put("paginationSupport", paginationSupport);
 		params.put("truename", in.getString("createUser.truename", StringUtils.EMPTY));
 		return new ModelAndView("message.listMsg.forAdmin", params);
@@ -155,15 +135,10 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView viewMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView viewMessage(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(message.getPkId() != null){
-			try {
-				params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
-			} catch (Exception e) {
-				logger.error(e.getMessage(), e);
-				e.printStackTrace();
-			}
+            params.put("message", this.messageService.getMessageByPkId(message.getPkId()));
 		}
 		return new ModelAndView("message.viewMessage", params);
 	}
@@ -180,17 +155,11 @@ public class MessageController extends ExtMultiActionController {
 		JSONObject params = new JSONObject();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		String pkIds = in.getString("pkIds", StringUtils.EMPTY);
-		user.setLoginIP(in.getClientIP());
-		try {
-			this.messageService.deleteMessage(pkIds, user);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			e.printStackTrace();
-		}
+        
+        this.messageService.deleteMessage(pkIds);
+        params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+        
 		out.toJson(params);
 		return null;
 	}
@@ -202,20 +171,16 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView inDetailJsp(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView inDetailJsp(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		String flag = in.getString("flag", StringUtils.EMPTY);
-		try {
-			Message dbMessage = this.messageService.getMessageByPkId(message.getPkId());
-			params.put("message", dbMessage);
-			params.put("loginUser", (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION));
-			params.put("flag", flag);
-			params.put("messageCount", this.messageService.getLoginUserMessageCount(dbMessage.getCreateUserId()));
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			e.printStackTrace();
-		}
+
+        Message dbMessage = this.messageService.getMessageByPkId(message.getPkId());
+        params.put("message", dbMessage);
+        params.put("flag", flag);
+        params.put("messageCount", this.messageService.getLoginUserMessageCount(dbMessage.getCreateUserId()));
+
 		return new ModelAndView("message.detail.jsp", params);
 	}
 	
@@ -225,26 +190,21 @@ public class MessageController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inListMyMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView inListMyMessageJsp(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		Long viewWhoId = in.getLong("viewWhoId");
-		try {
-			if(viewWhoId != null){
-				user = new User(viewWhoId);
-				params.put("customer", "true");
-				params.put("viewwhoname", this.userService.getUserById(viewWhoId).getTruename());
-				params.put("viewWhoId", viewWhoId);
-			}
-			PaginationSupport paginationSupport = this.messageService.getMyMessages(start, num, user, message);
-			params.put("paginationSupport", paginationSupport);
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+		Long viewWhoId = in.getLong("viewWhoId", Long.valueOf(-1));
+        
+        if(!Long.valueOf(-1).equals(viewWhoId)){
+            params.put("customer", "true");
+            params.put("viewwhoname", this.userService.getUserById(viewWhoId).getTruename());
+            params.put("viewWhoId", viewWhoId);
+        }
+        
+        PaginationSupport paginationSupport = this.messageService.getMyMessages(start, num, viewWhoId, message);
+        params.put("paginationSupport", paginationSupport);
 		return new ModelAndView("message.list.mine", params);
 	}
 	
@@ -255,17 +215,13 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView listToAuditMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView listToAuditMessage(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		try {
-			params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_TO_AUDIT));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        
+        params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_TO_AUDIT));
 		return new ModelAndView("message.list.to.audit", params);
 	}
 	
@@ -276,17 +232,13 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView listAuditNoMessage(HttpServletRequest request, HttpServletResponse response, Message message){
+	public ModelAndView listAuditNoMessage(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
-		try {
-			params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_NO_AUDIT));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        
+        params.put("pagination", this.messageService.listToAuditMessage(start, num, message, GET_NO_AUDIT));
 		return new ModelAndView("message.list.no.audit", params);
 	}
 	
@@ -303,15 +255,9 @@ public class MessageController extends ExtMultiActionController {
 		out = new WebOutput(request, response);
 		Long messageId = in.getLong("messageId", 0L);
 		String status = in.getString("status", StringUtils.EMPTY);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		try {
-			this.messageService.setAudit(messageId, status, user);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			logger.error(e.getMessage(), e);
-		}
+        
+        this.messageService.setAudit(messageId, status);
+        params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
 		return null;
 	}

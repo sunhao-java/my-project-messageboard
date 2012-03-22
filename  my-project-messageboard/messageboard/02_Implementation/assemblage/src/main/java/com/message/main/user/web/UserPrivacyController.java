@@ -46,16 +46,10 @@ public class UserPrivacyController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inPrivacySetting(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView inPrivacySetting(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
-		try {
-			params.put("userPrivacy", this.userPrivacyService.getUserPrivacyByUser(user));
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage(), e);
-		}
+        params.put("userPrivacy", this.userPrivacyService.getUserPrivacy(null));
 		return new ModelAndView("user.privacy.setting", params);
 	}
 	
@@ -71,16 +65,10 @@ public class UserPrivacyController extends ExtMultiActionController {
 	public ModelAndView savePrivacy(HttpServletRequest request, HttpServletResponse response, UserPrivacy userPrivacy) throws Exception{
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		JSONObject params = new JSONObject();
-		try {
-			this.userPrivacyService.saveUserPrivacy(userPrivacy, user);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-		} catch (Exception e) {
-			e.printStackTrace();
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			logger.error(e.getMessage(), e);
-		}
+        
+        this.userPrivacyService.saveUserPrivacy(userPrivacy);
+        params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
 		return null;
 	}

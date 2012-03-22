@@ -21,12 +21,11 @@ public interface VoteService {
 	 * 保存投票以及投票选项实体
 	 * 
 	 * @param vote
-	 * @param user
 	 * @param choices
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveVote(Vote vote, User user, String[] choices) throws Exception;
+	boolean saveVote(Vote vote, String[] choices) throws Exception;
 	
 	/**
 	 * 列出所有投票
@@ -34,23 +33,21 @@ public interface VoteService {
 	 * @param start
 	 * @param num
 	 * @param vote
-	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listVotes(int start, int num, Vote vote, User user) throws Exception;
+	PaginationSupport listVotes(int start, int num, Vote vote) throws Exception;
 	
 	/**
 	 * 保存用户对某个投票的回答
 	 * 
 	 * @param voteId
 	 * @param optionIds
-	 * @param user
 	 * @param comment
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveAnswer(Long voteId, Long[] optionIds, User user, String comment) throws Exception;
+	boolean saveAnswer(Long voteId, Long[] optionIds, String comment) throws Exception;
 	
 	/**
 	 * 根据投票的ID获得参与信息
@@ -77,7 +74,7 @@ public interface VoteService {
 	 * @return
 	 * @throws Exception
 	 */
-	Vote getVote(Long pkId, User user) throws Exception;
+	Vote getVote(Long pkId) throws Exception;
 	
 	/**
 	 * 获得投票结果
@@ -86,27 +83,25 @@ public interface VoteService {
 	 * @return
 	 * @throws Exception
 	 */
-	Vote getVoteResult(Long pkId, User user) throws Exception;
+	Vote getVoteResult(Long pkId) throws Exception;
 	
 	/**
 	 * 获得我所创建的投票
 	 * 
-	 * @param user
      * @param start
      * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listMyCreateVote(User user, int start, int num) throws Exception;
+	PaginationSupport listMyCreateVote(int start, int num) throws Exception;
 
 	/**
 	 * 获得我所参加的投票
 	 *
-	 * @param user
      * @param start
      * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listMyAttendVote(User user, int start, int num) throws Exception;
+	PaginationSupport listMyAttendVote(int start, int num) throws Exception;
 }

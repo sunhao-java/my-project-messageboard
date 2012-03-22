@@ -14,11 +14,10 @@ public interface ReplyService {
 	/**
 	 * 根据id删除回复
 	 * @param pkId
-	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean deleteReplyById(Long pkId, User user) throws Exception;
+	public boolean deleteReplyById(Long pkId) throws Exception;
 	
 	/**
 	 * 根据留言id获取回复
@@ -31,8 +30,7 @@ public interface ReplyService {
 	/**
 	 * 保存回复
 	 * @param reply
-	 * @param user
 	 * @throws Exception
 	 */
-	public void saveReply(Reply reply, User user) throws Exception;
+	public void saveReply(Reply reply) throws Exception;
 }

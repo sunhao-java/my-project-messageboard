@@ -2,6 +2,7 @@ package com.message.main.user.service;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.pojo.User;
 
 /**
@@ -61,10 +62,9 @@ public interface UserService {
 	/**
 	 * 编辑修改的用户
 	 * @param user
-	 * @param sessionUser
 	 * @throws Exception
 	 */
-	void saveEdit(User user, User sessionUser) throws Exception;
+	void saveEdit(User user) throws Exception;
 	
 	/**
 	 * 更新用户
@@ -77,11 +77,10 @@ public interface UserService {
 	/**
 	 * 保存密码
 	 * @param user
-	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	boolean savePassword(User user, User sessionUser) throws Exception;
+	boolean savePassword(User user) throws Exception;
 	
 	/**
 	 * 获取所有用户
@@ -96,21 +95,19 @@ public interface UserService {
 	/**
 	 * 删除用户(软删除)
 	 * @param pkids
-	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	boolean deleteUser(String pkids, User sessionUser) throws Exception;
+	boolean deleteUser(String pkids) throws Exception;
 	
 	/**
 	 * 设置用户权限
 	 * @param pkId
 	 * @param opertion
-	 * @param sessionUser
 	 * @return
 	 * @throws Exception
 	 */
-	boolean managerPerm(long pkId, boolean opertion, User sessionUser) throws Exception;
+	boolean managerPerm(long pkId, boolean opertion) throws Exception;
 	
 	/**
 	 * 当注册人在验证激活用户邮件中点击链接时触发对用户进行激活
@@ -129,5 +126,5 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	byte[] getHeadImage(Long userId, Integer headType) throws Exception;
-	
+
 }

@@ -1,4 +1,4 @@
-package com.message.interceptor;
+package com.message.main.login.web;
 
 /**
  * 往ThreadLocal放入取出当前登录者

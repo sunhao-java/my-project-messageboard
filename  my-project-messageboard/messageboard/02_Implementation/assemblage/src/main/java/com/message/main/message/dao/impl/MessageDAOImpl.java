@@ -79,7 +79,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		this.updateObject(message);
 	}
 
-	public PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception {
+	public PaginationSupport getMyMessages(int start, int num, Long userId, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String hql = "from Message m where m.createUserId = :createUserId and m.deleteFlag = :deleteFlag and isAudit = :isAudit ";
 		if(message != null){
@@ -105,7 +105,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		String countHql = "select count(*) " + hql;
 		
 		params.put("deleteFlag", ResourceType.DELETE_NO);
-		params.put("createUserId", user.getPkId());
+		params.put("createUserId", userId);
 		params.put("isAudit", ResourceType.AUDIT_YES);
 		PaginationSupport paginationSupport = this.getPaginationSupport(hql, countHql, start, num, params);
 		return paginationSupport;

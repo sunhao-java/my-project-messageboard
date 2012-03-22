@@ -55,15 +55,15 @@ public class GuestController extends ExtMultiActionController {
         params.put("guestAuth", SystemConfig.getBooleanProperty("system.auth.guest", Boolean.FALSE));
         return new ModelAndView(view, params);
     }
-
-    /**
+/*
+    *//**
      * 用户登录
      *
      * @param request
      * @param response
      * @param user
      * @return
-     */
+     *//*
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, User user) {
     	Map<String, Object> params = new HashMap<String, Object>();
     	
@@ -78,11 +78,11 @@ public class GuestController extends ExtMultiActionController {
                 if (status == 0) {
                     //跳转到另外一个controller
                     User dbUser = this.userService.getUserByName(user.getUsername());
-                    dbUser.setLoginIP(in.getClientIP());
-                    /**
+                    //dbUser.setLoginIP(in.getClientIP());
+                    *//**
                      * 将登录用户放入session中
                      * 设置session的生命周期为1小时(即：用户登录后不做任何操作1小时后将被强制登出)
-                     */
+                     *//*
                     HttpSession session = in.getSession();
                     session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
                     in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
@@ -115,7 +115,7 @@ public class GuestController extends ExtMultiActionController {
             request.setAttribute("status", status);
             return new ModelAndView("redirect:/guest/index.do");
         }
-    }
+    }*/
 
     /**
      * 判断注册的用户是否已存在

@@ -15,8 +15,8 @@ import com.message.main.user.pojo.UserPrivacy;
 public class UserPrivacyDAOImpl extends GenericHibernateDAOImpl implements
 		UserPrivacyDAO {
 
-	public UserPrivacy getUserPrivacyByUser(User user) throws Exception {
-		return (UserPrivacy) this.loadObject(UserPrivacy.class, user.getPkId());
+	public UserPrivacy getUserPrivacy(Long pkId) throws Exception {
+		return (UserPrivacy) this.loadObject(UserPrivacy.class, pkId);
 	}
 
 	public void saveUserPrivacy(UserPrivacy userPrivacy) throws Exception {

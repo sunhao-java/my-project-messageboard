@@ -101,26 +101,26 @@ public interface VoteDAO {
 	
 	/**
 	 * 根据投票创建者获得投票
-	 * 
-	 * @param user
+	 *
+     * @param pkId
      * @param start
      * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listVoteByCreateUser(User user, int start, int num) throws Exception;
+	PaginationSupport listVoteByCreateUser(Long pkId, int start, int num) throws Exception;
 	
 	/**
 	 * 返回我回答的投票ID
-	 * 
-	 * @param user
+	 *
+     * @param pkId
      * @param start
      * @param num
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	PaginationSupport listMyAnswerVoteId(User user, int start, int num) throws Exception;
+	PaginationSupport listMyAnswerVoteId(Long pkId, int start, int num) throws Exception;
 	
 	/**
 	 * 保存投票评论

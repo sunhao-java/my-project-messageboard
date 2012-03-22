@@ -14,18 +14,16 @@ public interface UserPrivacyService {
 	/**
 	 * 根据用户获得其隐私配置
 	 * 
-	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
-	UserPrivacy getUserPrivacyByUser(User user) throws Exception;
+	UserPrivacy getUserPrivacy(Long pkId) throws Exception;
 
 	/**
 	 * 保存用户隐私配置
 	 * 
 	 * @param userPrivacy
-	 * @param user
 	 * @throws Exception
 	 */
-	void saveUserPrivacy(UserPrivacy userPrivacy, User user) throws Exception;
+	void saveUserPrivacy(UserPrivacy userPrivacy) throws Exception;
 }

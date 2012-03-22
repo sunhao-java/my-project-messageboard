@@ -25,8 +25,8 @@ public class User implements Serializable{
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 	private Long isAdmin;		//是否是管理员的标识, 0不是管理员，1是管理员
 	private Long isMailCheck;	//是否已经邮箱验证过？ 1已验证，0未验证
-	
-	//VO fileds
+
+    //VO fileds
 	private Date lastLoginTime;	//上次登录的时间
 	private int loginCount;		//登录次数
 	private int messageCount;	//留言数目
@@ -37,8 +37,26 @@ public class User implements Serializable{
 	 */
 	public User(){
 	}
-	
-	public User(Long pkId){
+
+    public User(User user) {
+        this.pkId = user.getPkId();
+        this.username = user.getUsername();
+        this.truename = user.getTruename();
+        this.password = user.getPassword();
+        this.createDate = user.getCreateDate();
+        this.sex = user.getSex();
+        this.email = user.getEmail();
+        this.phoneNum = user.getPhoneNum();
+        this.qq = user.getQq();
+        this.headImage = user.getHeadImage();
+        this.address = user.getAddress();
+        this.homePage = user.getHomePage();
+        this.deleteFlag = user.getDeleteFlag();
+        this.isAdmin = user.getIsAdmin();
+        this.isMailCheck = user.getIsMailCheck();
+    }
+
+    public User(Long pkId){
 		this.pkId = pkId;
 	}
 
@@ -146,44 +164,12 @@ public class User implements Serializable{
 		this.homePage = homePage;
 	}
 
-	public Date getLastLoginTime() {
-		return lastLoginTime;
-	}
-
-	public void setLastLoginTime(Date lastLoginTime) {
-		this.lastLoginTime = lastLoginTime;
-	}
-
-	public int getLoginCount() {
-		return loginCount;
-	}
-
-	public void setLoginCount(int loginCount) {
-		this.loginCount = loginCount;
-	}
-
-	public int getMessageCount() {
-		return messageCount;
-	}
-
-	public void setMessageCount(int messageCount) {
-		this.messageCount = messageCount;
-	}
-
 	public Long getIsAdmin() {
 		return isAdmin;
 	}
 
 	public void setIsAdmin(Long isAdmin) {
 		this.isAdmin = isAdmin;
-	}
-
-	public String getLoginIP() {
-		return loginIP;
-	}
-
-	public void setLoginIP(String loginIP) {
-		this.loginIP = loginIP;
 	}
 
 	public Long getIsMailCheck() {
@@ -194,4 +180,35 @@ public class User implements Serializable{
 		this.isMailCheck = isMailCheck;
 	}
 
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public int getLoginCount() {
+        return loginCount;
+    }
+
+    public void setLoginCount(int loginCount) {
+        this.loginCount = loginCount;
+    }
+
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(int messageCount) {
+        this.messageCount = messageCount;
+    }
+
+    public String getLoginIP() {
+        return loginIP;
+    }
+
+    public void setLoginIP(String loginIP) {
+        this.loginIP = loginIP;
+    }
 }

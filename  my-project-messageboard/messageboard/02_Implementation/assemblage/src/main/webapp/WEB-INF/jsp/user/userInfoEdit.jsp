@@ -27,7 +27,7 @@
             title : '上传头像',
             fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
             params : {
-                userId : '${user.pkId}',
+                userId : '${loginUser.pkId}',
                 headImage : 'true'
             },
             completeFunction : 'completeFun'
@@ -77,26 +77,26 @@
 
 <div id="listFrm">
 	<form id="dataFrm" action="" method="post">
-		<input type="hidden" name="pkId" value="${user.pkId }"/>
+		<input type="hidden" name="pkId" value="${loginUser.pkId }"/>
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="9%">
 					登录名
 				</td>
 				<td width="42%">
-					<c:out value="${user.username}"/><span style="color: red;visibility: hidden">（注册后不可修改）</span>              
+					<c:out value="${loginUser.username}"/><span style="color: red;visibility: hidden">（注册后不可修改）</span>
 				</td>
 				<td class="fb_result_head" width="6%">
 					性别
 				</td>
 				<td width="43%">
-					<c:if test="${user.sex == 0}">
+					<c:if test="${loginUser.sex == 0}">
 						<c:out value="不男不女"/>
 					</c:if>
-					<c:if test="${user.sex == 1}">
+					<c:if test="${loginUser.sex == 1}">
 						<c:out value="男"/>
 					</c:if>
-					<c:if test="${user.sex == 2}">
+					<c:if test="${loginUser.sex == 2}">
 						<c:out value="女"/>
 					</c:if>
 					<span style="color: red">（注册后不可修改）</span>
@@ -107,13 +107,13 @@
 					真实姓名
 				</td>
 				<td>
-					${user.truename}<span style="color: red">（注册后不可修改）</span>
+					${loginUser.truename}<span style="color: red">（注册后不可修改）</span>
 				</td>
 				<td class="fb_result_head">
 					邮箱<span style="color: red">*</span>
 				</td>
 				<td>
-					<input type="text" value="${user.email}" name="email" class="f_text"
+					<input type="text" value="${loginUser.email}" name="email" class="f_text"
 						require="true" dataType="Email" msg="不能为空且格式要正确"/>
 				</td>
 			</tr>
@@ -122,14 +122,14 @@
 					电话号码<span style="color: red">*</span>
 				</td>
 				<td>
-					<input type="text" value="${user.phoneNum}" name="phoneNum" class="f_text"
+					<input type="text" value="${loginUser.phoneNum}" name="phoneNum" class="f_text"
 						require="true" dataType="Phone" msg="不能为空且格式要正确"/>
 				</td>
 				<td class="fb_result_head">
 					QQ
 				</td>
 				<td>
-					<input type="text" value="${user.qq}" name="qq" class="f_text"
+					<input type="text" value="${loginUser.qq}" name="qq" class="f_text"
 						require="false" dataType="QQ" msg="QQ号码不存在"/>
 				</td>
 				
@@ -139,7 +139,7 @@
 					主页
 				</td>
 				<td colspan="3">
-					<input type="text" value="${user.homePage}" name="homePage" class="f_text longText"
+					<input type="text" value="${loginUser.homePage}" name="homePage" class="f_text longText"
 						require="false" dataType="Url" msg="非法的Url"/>
 				</td>
 			</tr>
@@ -149,13 +149,13 @@
 				</td>
 				<td colspan="3">
 					<textarea class="f_textarea" name="address"
-						dataType="Limit" max="100" min="0" msg="不超过100字符">${user.address }</textarea>
+						dataType="Limit" max="100" min="0" msg="不超过100字符">${loginUser.address }</textarea>
 				</td>
 			</tr>
 		</table>
 	</form>
     <input id="uploadHeadImage" type="button" class="f-button" value="上传"/>
-	<msg:userHead userId="${user.pkId }" headType="1"/>
+	<msg:userHead userId="${loginUser.pkId }" headType="1"/>
 	<div class="formFunctiondiv">
 		<jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
 			<jsp:param value="保存" name="save"/>

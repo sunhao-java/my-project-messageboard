@@ -39,16 +39,9 @@ public class ReplyController extends ExtMultiActionController {
 	public ModelAndView deleteReply(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		JSONObject params = new JSONObject();
 		Long pkId = in.getLong("replyPkId", 0L);
-		try {
-			params.put(ResourceType.AJAX_STATUS, this.replyService.deleteReplyById(pkId, user) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
-		} catch (Exception e) {
-			logger.error(e.getMessage(), e);
-			params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-			e.printStackTrace();
-		}
+        params.put(ResourceType.AJAX_STATUS, this.replyService.deleteReplyById(pkId) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		
 		return null;
@@ -64,18 +57,11 @@ public class ReplyController extends ExtMultiActionController {
 	public ModelAndView replyMessage(HttpServletRequest request, HttpServletResponse response, Reply reply) throws Exception{
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
-		User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 		JSONObject params = new JSONObject();
 		
 		if(reply != null){
-			try {
-				this.replyService.saveReply(reply, user);
-				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
-			} catch (Exception e) {
-				params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_FAILURE);
-				logger.error(e.getMessage(), e);
-				e.printStackTrace();
-			}
+            this.replyService.saveReply(reply);
+            params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		}
 		out.toJson(params);
 		return null;

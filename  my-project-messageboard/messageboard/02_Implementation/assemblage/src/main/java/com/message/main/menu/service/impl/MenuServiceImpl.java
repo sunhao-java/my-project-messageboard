@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -15,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.utils.StringUtils;
-import com.message.interceptor.AuthContextHelper;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
@@ -142,7 +143,8 @@ public class MenuServiceImpl implements MenuService {
 		return menu;
 	}
 
-	public boolean saveMenu(Menu menu, User loginUser, String[] menuPerms) throws Exception {
+	public boolean saveMenu(Menu menu, String[] menuPerms) throws Exception {
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		String menuPerm = StringUtils.EMPTY;
 		if(menuPerms != null && menuPerms.length > 0){
 			for(String perm : menuPerms){
@@ -200,7 +202,7 @@ public class MenuServiceImpl implements MenuService {
 	}
 
 	public List<Menu> getMenuTree() throws Exception {
-		User loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         String perm = loginUser.getIsAdmin().toString();
 
         List menus = this.menuDAO.listPermMenu(perm);

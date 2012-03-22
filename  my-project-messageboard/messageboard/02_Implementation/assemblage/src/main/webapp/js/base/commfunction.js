@@ -24,7 +24,7 @@ function addFavorite(url,title) {
  */
 function logout(contextPath){
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
-	var requestURL = contextPath + '/user/logout.do';
+	var requestURL = contextPath + '/login/logout.do';
 	$C.asyncRequest("POST", requestURL, {
 		success : function(o){
 			var _e = eval("(" + o.responseText + ")");

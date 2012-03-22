@@ -20,11 +20,10 @@ public interface MessageService {
 	/**
 	 * 保存留言
 	 * @param message
-	 * @param user
 	 * @return
 	 * @throws Exception
 	 */
-	Long saveMessage(Message message, User user) throws Exception;
+	Long saveMessage(Message message) throws Exception;
 	
 	/**
 	 * 获取某个用户的留言条数
@@ -44,21 +43,20 @@ public interface MessageService {
 	/**
 	 * 根据pkId的集合批量删除留言
 	 * @param pkIds
-	 * @param user
 	 * @throws Exception
 	 */
-	void deleteMessage(String pkIds, User user) throws Exception;
+	void deleteMessage(String pkIds) throws Exception;
 	
 	/**
 	 * 获取我的留言
 	 * @param start
 	 * @param num
-	 * @param user
+	 * @param userId
 	 * @param message
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getMyMessages(int start, int num, User user, Message message) throws Exception;
+	PaginationSupport getMyMessages(int start, int num, Long userId, Message message) throws Exception;
 	
 	/**
 	 * 列出所有待审核的或者审核未通过的留言
@@ -75,10 +73,9 @@ public interface MessageService {
 	 * 对留言进行审批
 	 * @param messageId
 	 * @param status
-	 * @param user
 	 * @throws Exception
 	 */
-	void setAudit(Long messageId, String status, User user) throws Exception;
+	void setAudit(Long messageId, String status) throws Exception;
 
     /**
      * 获取留言sequence的下一个主键值

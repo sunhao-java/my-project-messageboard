@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContext;
+import com.message.main.login.web.AuthContextHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
@@ -46,7 +49,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         HttpSession session = request.getSession(true);
         String url = request.getServletPath();
 
-        User loginUser = (User) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
+        LoginUser loginUser = (LoginUser) session.getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
 
         if(url.indexOf(".do") != -1){
 			if(loginUser == null){
@@ -55,6 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 AuthContext authContext = new AuthContext();
                 authContext.setLoginUser(loginUser);
                 AuthContextHelper.setAuthContext(authContext);
+                request.setAttribute("loginUser", loginUser);
 
                 String perm = loginUser.getIsAdmin().toString();
                 MenuService menuService = (MenuService) ApplicationContextUtil.getContext().getBean("menuService");
@@ -88,7 +92,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * @throws Exception
      */
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-		AuthContextHelper.setAuthContext(null);
+		request.setAttribute("loginUser", AuthContextHelper.getAuthContext().getLoginUser());
 	}
 
 }

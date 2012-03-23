@@ -140,6 +140,7 @@
     					<prop key="/user/deleteUser.do">deleteUser</prop>
     					<prop key="/user/managerPerm.do">managerPerm</prop>
     					<prop key="/user/inAddUserJsp.do">inAddUserJsp</prop>
+                        <prop key="/user/inEditHead.do">inEditHead</prop>
     				</props>
     			</property>
     		</bean>
@@ -229,6 +230,7 @@
                     <props>
                     	<prop key="/upload/upload.do">upload</prop>
                         <prop key="/upload/showUploads.do">showUploads</prop>
+                        <prop key="/upload/delete.do">delete</prop>
                     </props>
                 </property>
             </bean>

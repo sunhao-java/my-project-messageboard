@@ -38,4 +38,12 @@ public interface UploadDAO {
      * @throws Exception
      */
     UploadFile loadFile(Long pkId) throws Exception;
+
+    /**
+     * 删除上传文件
+     * 
+     * @param uploadFile
+     * @throws Exception
+     */
+    void deleteFile(UploadFile uploadFile) throws Exception;
 }

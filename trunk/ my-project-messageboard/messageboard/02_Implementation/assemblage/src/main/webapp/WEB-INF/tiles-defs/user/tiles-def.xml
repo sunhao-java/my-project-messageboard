@@ -34,5 +34,9 @@
 	<definition name="user.privacy.setting" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/user/privacySetting.jsp"/>
 	</definition>
+
+    <definition name="user.editHead" extends="message.home">
+        <put-attribute name="content" value="/WEB-INF/jsp/user/user_editHead.jsp"/>
+    </definition>
 	
 </tiles-definitions>

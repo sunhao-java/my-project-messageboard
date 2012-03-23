@@ -90,6 +90,14 @@ public class UploadController extends ExtMultiActionController {
 		return null;
 	}
 
+    /**
+     * 展示上传的文件
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     public ModelAndView showUploads(HttpServletRequest request, HttpServletResponse response) throws Exception {
         out = new WebOutput(request, response);
 		in = new WebInput(request);
@@ -110,6 +118,27 @@ public class UploadController extends ExtMultiActionController {
 
         params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
+        return null;
+    }
+
+    /**
+     * 删除文件
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        out = new WebOutput(request, response);
+		in = new WebInput(request);
+        JSONObject params = new JSONObject();
+
+        Long pkId = in.getLong("fileId", Long.valueOf(-1));
+        boolean result = this.genericUploadService.deleteFile(pkId);
+
+        params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+        out.toJson(params);
         return null;
     }
 

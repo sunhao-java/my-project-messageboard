@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 #listFrm{
 	width: 85%;
-	margin: 0px auto;
+	margin: 10px auto;
 	position: relative;
 }
 
@@ -61,4 +61,10 @@
 .formFunctiondiv{
 	text-align: center; 
 	margin: 10px 0 10px 0;
+}
+
+.uploadField{
+    margin: 10px auto;
+    position: relative;
+    width: 85%;
 }

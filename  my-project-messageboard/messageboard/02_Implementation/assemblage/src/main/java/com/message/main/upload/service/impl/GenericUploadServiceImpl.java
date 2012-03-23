@@ -111,6 +111,29 @@ public class GenericUploadServiceImpl implements GenericUploadService {
         return files;
     }
 
+    public boolean deleteFile(Long pkId) throws Exception {
+        if(Long.valueOf(-1).equals(pkId)){
+            logger.warn("the pkId is null!");
+            return false;
+        }
+        UploadFile uploadFile = this.uploadDAO.loadFile(pkId);
+
+        if(uploadFile == null){
+            logger.warn("can not get any file by given pkId '{}'", pkId);
+            return false;
+        }
+
+        //数据库中删除关系
+        this.uploadDAO.deleteFile(uploadFile);
+
+        //服务器硬盘上删除文件
+        String filePath = uploadFile.getFilePath();
+        boolean result = FileUtils.deleteFiles(filePath);
+
+        return result;
+        
+    }
+
     /**
      * 保存字节码文件到硬盘
      *

@@ -125,7 +125,7 @@
 	<jsp:param value="发起新投票" name="title"/>
 </jsp:include>
 
-<div class="content">
+<div class="content01">
 	<jsp:include page="vote_head.jsp"/>
 	<div class="vote_create">
 		<div class="vote">

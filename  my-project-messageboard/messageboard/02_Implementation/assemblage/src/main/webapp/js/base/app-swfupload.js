@@ -144,11 +144,12 @@ function attachUploadComplete(x) {
                     var innerHTML = "";
                     for(var i = 0; i < uploadFiles.length; i++){
                         var extName = getIcon(uploadFiles[i].fileName);
-                        innerHTML += "<div class=\"post-attachment-file \">";
+                        innerHTML += "<div class=\"post-attachment-file \" id=\"file" + uploadFiles[i].pkId + "\">";
                         innerHTML += "<span><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
                                 "</span><span class=\"file-name\">" + uploadFiles[i].fileName + "</span>";
                         innerHTML += "<span class=\"delete\"><a class=\"remove-temp-file\"" +
-                                "href=\"#\">删除</a></span>";
+                                "href=\"javaScript:void(0);\" onclick=\"deleteFile(" + uploadFiles[i].pkId + ");\">删除</a>" +
+                                "</span>";
                         innerHTML += "</div>";
                     }
                     element.innerHTML = innerHTML;
@@ -195,6 +196,31 @@ function attachUploadComplete(x) {
         }
     });
 
+}
+
+var dialog;
+function deleteFile(pkId){
+    dialog = YAHOO.app.dialog.pop({
+        'dialogHead':'提示',
+        'alertMsg':'你确定要删除选中的文件吗？',
+        'confirmFunction':function(){
+            var action = contextPath + "/upload/delete.do?fileId=" + pkId;
+            $C.asyncRequest("POST", action, {
+                success : function(o){
+                    dialog.cancel();
+                    var res = eval("(" + o.responseText + ")");
+                    if(res.status == '1'){
+                        dom.get("file" + pkId).style.display = 'none';
+                    } else {
+                        alert('删除失败');
+                    }
+                },
+                failure : function(o){
+                    YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+                }
+            });
+        }
+    });
 }
 
 function continueUpload(){

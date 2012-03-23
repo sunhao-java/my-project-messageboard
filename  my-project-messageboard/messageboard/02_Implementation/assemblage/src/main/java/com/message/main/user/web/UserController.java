@@ -82,6 +82,7 @@ public class UserController extends ExtMultiActionController {
 	 */
 	public ModelAndView inEditUserInfoJsp(HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> params = new HashMap<String, Object>();
+        params.put("current", "base");
 		return new ModelAndView("user.edit.info", params);
 	}
 	
@@ -232,6 +233,20 @@ public class UserController extends ExtMultiActionController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		return new ModelAndView("user.add", params);
 	}
+
+    /**
+     * 进入修改头像的页面
+     * 
+     * @param request
+     * @param response
+     * @param user
+     * @return
+     */
+    public ModelAndView inEditHead(HttpServletRequest request, HttpServletResponse response, User user){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("current", "head");
+        return new ModelAndView("user.editHead", params);
+    }
 	
 }
 

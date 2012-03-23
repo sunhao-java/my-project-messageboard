@@ -34,4 +34,8 @@ public class UploadDAOImpl extends GenericHibernateDAOImpl implements UploadDAO 
     public UploadFile loadFile(Long pkId) throws Exception {
         return (UploadFile) this.loadObject(UploadFile.class, pkId);
     }
+
+    public void deleteFile(UploadFile uploadFile) throws Exception {
+        this.deleteObject(uploadFile);
+    }
 }

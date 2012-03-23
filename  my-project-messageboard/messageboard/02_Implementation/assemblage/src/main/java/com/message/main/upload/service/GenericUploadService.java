@@ -41,4 +41,13 @@ public interface GenericUploadService {
      * @throws Exception
      */
     List listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception;
+
+    /**
+     * 删除上传文件的方法
+     *
+     * @param pkId              上传文件的pkId
+     * @return 
+     * @throws Exception
+     */
+    boolean deleteFile(Long pkId) throws Exception;
 }

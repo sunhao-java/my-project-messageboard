@@ -31,6 +31,7 @@
                 <prop key="/menu/*.do">menuController</prop>
                 <prop key="/event/*.do">eventController</prop>
                 <prop key="/login/logout.do">loginController</prop>
+                <prop key="/upload/*.do">uploadController</prop>
             </props>
         </property>
     </bean>

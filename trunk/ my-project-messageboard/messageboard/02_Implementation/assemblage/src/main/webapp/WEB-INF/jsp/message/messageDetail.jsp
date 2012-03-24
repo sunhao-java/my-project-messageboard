@@ -9,10 +9,20 @@
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 
+<msg:js src="js/base/app-swfupload.js"/>
+
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect;
  	var dom = YAHOO.util.Dom;
  	var event = YAHOO.util.Event;
+
+    $(document).ready(function(){
+        YAHOO.app.swfupload.showAttachments('showAttachmentPanel', {
+            resourceId : ${message.pkId},
+            resourceType : 1,
+            uploadId: ${message.createUser.pkId}
+        });
+    });
  	
 	function reply(){
 		var replyForm = dom.get("reply-form");
@@ -110,7 +120,42 @@
 					</div>
 				</div>
 			</div>
-			
+
+            <!-- 展示附件的地方 -->
+            <div id="showAttachmentPanel">
+                
+            </div>
+
+            <%--<div class="attachment">
+                <div class="post-attachments-div">
+                    <div class="post-attachments-title">
+                        附件：
+                    </div>
+                    <div class="post-attachments-files">
+                        <p>
+                            <img src="${contextPath}/image/file/ppt.gif" alt="常州信息职业技术学院--曹贵婷--乔木开发.pptx">
+                            <a href="/downloadattachment/3513/常州信息职业技术学院--曹贵婷--乔木开发.pptx">
+                                常州信息职业技术学院--曹贵婷--乔木开发.pptx
+                            </a>
+                        </p>
+
+                        <p>
+                            <img src="${contextPath}/image/file/ppt.gif" alt="钟山学院--严丹--测试.ppt">
+                            <a href="/downloadattachment/3518/钟山学院--严丹--测试.ppt">
+                                钟山学院--严丹--测试.ppt
+                            </a>
+                        </p>
+
+                        <p>
+                            <img src="${contextPath}/image/file/ppt.gif" alt="安徽理工大学--孙昊--产品中心开发.pptx">
+                            <a href="/downloadattachment/3522/安徽理工大学--孙昊--产品中心开发.pptx">
+                                安徽理工大学--孙昊--产品中心开发.pptx
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>--%>
+            
 			<!-- 日志评论-->
 			<div class="blog-cmts" id="blog-cmtsft">
 				<ol style="padding-left: 0px;overflow: hidden;">

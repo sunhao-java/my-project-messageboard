@@ -122,46 +122,8 @@ YAHOO.app.swfupload = function(link, element, p){
 
 var alertDialog;
 function attachUploadComplete(x) {
-    //TODO @2012-03-19 23:44 by sunhao
     var res = YAHOO.app.resources;
-    var element = res.element, resourceId = res.resourceId, resourceType = res.resourceType, uploadId = res.uploadId,
-            resourceId = res.resourceId;
-    var action = contextPath + "/upload/showUploads.do?resourceId=" + resourceId +"&resourceType=" + resourceType + "&uploadId="
-            + uploadId;
-
-    if(!resourceId)
-        return;
-
-    if('string' == typeof element){
-        element = dom.get(element);
-    }
-
-    var callback = {
-        success : function(o) {
-            var res = eval("(" + o.responseText + ")"),uploadFiles = res.files;
-            if(res.status == '1'){
-                if(uploadFiles && uploadFiles.length > 0){
-                    var innerHTML = "";
-                    for(var i = 0; i < uploadFiles.length; i++){
-                        var extName = getIcon(uploadFiles[i].fileName);
-                        innerHTML += "<div class=\"post-attachment-file \" id=\"file" + uploadFiles[i].pkId + "\">";
-                        innerHTML += "<span><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
-                                "</span><span class=\"file-name\">" + uploadFiles[i].fileName + "</span>";
-                        innerHTML += "<span class=\"delete\"><a class=\"remove-temp-file\"" +
-                                "href=\"javaScript:void(0);\" onclick=\"deleteFile(" + uploadFiles[i].pkId + ");\">删除</a>" +
-                                "</span>";
-                        innerHTML += "</div>";
-                    }
-                    element.innerHTML = innerHTML;
-                }
-            }
-        },
-        failure : function(o) {
-            
-        }
-    }
-
-    $C.asyncRequest("GET", action, callback);
+    showAttachments(res, true);
 
     // 提示信息
     if(x) {
@@ -196,6 +158,66 @@ function attachUploadComplete(x) {
         }
     });
 
+}
+
+function showAttachments(res, onlyShow){
+    var element = res.element, resourceId = res.resourceId, resourceType = res.resourceType, uploadId = res.uploadId,
+            resourceId = res.resourceId;
+    var action = contextPath + "/upload/showUploads.do?resourceId=" + resourceId +
+            "&resourceType=" + resourceType + "&uploadId=" + uploadId;
+
+    if(!resourceId)
+        return;
+
+    if('string' == typeof element){
+        element = dom.get(element);
+    }
+
+    var callback = {
+        success : function(o) {
+            var res = eval("(" + o.responseText + ")"),uploadFiles = res.files;
+            if(res.status == '1'){
+                if(uploadFiles && uploadFiles.length > 0){
+                    var innerHTML = createShowHTML(uploadFiles, onlyShow);
+                    
+                    element.innerHTML = innerHTML;
+                }
+            }
+        },
+        failure : function(o) {
+
+        }
+    }
+
+    $C.asyncRequest("GET", action, callback);
+}
+
+function createShowHTML(uploadFiles, onlyShow){
+    var innerHTML = "";
+    var innerHtml2 = "";
+    innerHtml2 += "<div class=\"post-attachments-div\">" +
+                "<div class=\"post-attachments-title\">附件：</div><div class=\"post-attachments-files\">";
+    for(var i = 0; i < uploadFiles.length; i++){
+        var extName = getIcon(uploadFiles[i].fileName);
+        if(!onlyShow){
+            innerHtml2 += "<p><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
+                    "<a href=\"javaScript:void(0)\" onclick=\"alert('下载功能正在开发中，敬请期待！');return false;\">" +
+                    uploadFiles[i].fileName + "</a></p>"
+        } else {
+            innerHTML += "<div class=\"post-attachment-file\" id=\"file" + uploadFiles[i].pkId + "\">";
+            innerHTML += "<span><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
+                    "</span><span class=\"file-name\">" + uploadFiles[i].fileName + "</span>";
+            innerHTML += "<span class=\"delete\"><a class=\"remove-temp-file\"" +
+                "href=\"javaScript:void(0);\" onclick=\"deleteFile(" + uploadFiles[i].pkId + ");\">删除</a>" +
+                "</span>";
+        }
+        
+        innerHTML += "</div>";
+    }
+
+    innerHtml2 += "</div></div>";
+
+    return onlyShow ? innerHTML : innerHtml2;
 }
 
 var dialog;
@@ -284,6 +306,48 @@ function getIcon(filename){
     if(filename.indexOf(split) != -1) {
         mapKey = filename.substring(index + 1, filename.length);
     }
-    ext = extmap[mapKey];
+    ext = extmap[mapKey.toLocaleLowerCase()];
     return $L.isUndefined(ext) ? "unknow.gif" : ext;
+}
+
+/**
+ * 展示附件的方法
+ * @param elemnt   附件展示div的ID
+ * @param p         一些参数
+ */
+YAHOO.app.swfupload.showAttachments = function(elemnt, p){
+    var location = window.location;
+    contextPath = "/" + location.pathname.split("/")[1];
+    
+    var fun = {
+        init : function(args){
+            p.resourceId = args.resourceId || '';
+            p.resourceType = args.resourceType || '';
+            p.uploadId = args.uploadId;
+            p.element = elemnt;
+        },
+        show : function(p){
+            showAttachments(p, false);
+        },
+        loadCss : function(css, callback){
+            var link = document.createElement("link");
+            link.rel = "stylesheet";
+            link.type = "text/css";
+            link.media = "screen";
+            link.href = css;
+            document.getElementsByTagName("head")[0].appendChild(link);
+            if (callback) {
+                callback.call(link);
+            }
+        }
+    }
+
+    //利用懒加载技术加载上传组件的css样式
+    fun.loadCss(contextPath + "/css/base/app-swfupload.css", function(){
+        //加载css之前要做的事
+    });
+
+    fun.init(p);
+    fun.show(p);
+
 }

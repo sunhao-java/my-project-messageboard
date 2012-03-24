@@ -1,5 +1,7 @@
 package com.message.main.upload.web;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,8 +10,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.message.base.exception.FileExistException;
+import com.message.base.utils.FileUtils;
+import com.message.main.upload.pojo.UploadFile;
 import com.message.main.upload.service.GenericUploadService;
 import net.sf.json.JSONObject;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -139,6 +145,45 @@ public class UploadController extends ExtMultiActionController {
 
         params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
         out.toJson(params);
+        return null;
+    }
+
+    /**
+     * 文件下载
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView download(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        in = new WebInput(request);
+        out = new WebOutput(request, response);
+        Long fileId = in.getLong("fileId", Long.valueOf(-1));
+
+        //先从数据库中取出实体类
+        UploadFile file = this.genericUploadService.loadFile(fileId);
+
+        String path = file.getFilePath();
+
+        File downFile = new File(path);
+
+        if(!downFile.exists()){
+            throw new FileExistException("文件不存在，读取文件失败！！");
+        }
+
+        Long fileSize = FileUtils.getFileSize(downFile);
+
+        String fileName = file.getFileName();
+        fileName = new String(fileName.getBytes("GBK"), "ISO-8859-1");
+
+        out.getResponse().setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        out.getResponse().setHeader("Content-Length", "" + fileSize);
+        out.getResponse().setHeader("Content-Range", "bytes " + fileSize);
+
+        FileInputStream fis = new FileInputStream(downFile);
+        FileCopyUtils.copy(fis,  out.getResponse().getOutputStream());
+
         return null;
     }
 

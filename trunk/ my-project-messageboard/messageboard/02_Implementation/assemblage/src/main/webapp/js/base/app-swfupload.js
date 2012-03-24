@@ -201,7 +201,8 @@ function createShowHTML(uploadFiles, onlyShow){
         var extName = getIcon(uploadFiles[i].fileName);
         if(!onlyShow){
             innerHtml2 += "<p><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
-                    "<a href=\"javaScript:void(0)\" onclick=\"alert('下载功能正在开发中，敬请期待！');return false;\">" +
+//                    "<a href=\"" + contextPath + "/downloadfile/" + uploadFiles[i].pkId + "\">" +
+                    "<a href=\"" + contextPath + "/upload/download.do?fileId=" + uploadFiles[i].pkId + "\">" +
                     uploadFiles[i].fileName + "</a></p>"
         } else {
             innerHTML += "<div class=\"post-attachment-file\" id=\"file" + uploadFiles[i].pkId + "\">";

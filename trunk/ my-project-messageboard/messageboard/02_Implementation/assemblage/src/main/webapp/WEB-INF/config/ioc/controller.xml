@@ -231,12 +231,18 @@
                     	<prop key="/upload/upload.do">upload</prop>
                         <prop key="/upload/showUploads.do">showUploads</prop>
                         <prop key="/upload/delete.do">delete</prop>
+                        <prop key="/upload/download.do">download</prop>
                     </props>
                 </property>
             </bean>
         </property>
         <property name="uploadService" ref="uploadService"/>
         <property name="genericUploadService" ref="genericUploadService"/>
+    </bean>
+
+    <!-- 文件下载的controller -->
+    <bean id="downloadFileController" class="com.message.main.upload.web.DownloadFileController">
+        <property name="viewName" value="${file.download.redirect}"/>
     </bean>
 	
 </beans>

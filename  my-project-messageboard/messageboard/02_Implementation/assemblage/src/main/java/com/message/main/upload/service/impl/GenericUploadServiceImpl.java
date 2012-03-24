@@ -1,6 +1,7 @@
 package com.message.main.upload.service.impl;
 
 import com.message.base.Constants;
+import com.message.base.exception.FileExistException;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
@@ -132,6 +133,14 @@ public class GenericUploadServiceImpl implements GenericUploadService {
 
         return result;
         
+    }
+
+    public UploadFile loadFile(Long pkId) throws Exception {
+        if(Long.valueOf(-1).equals(pkId)){
+            logger.error("given pkId is null!");
+            return null;
+        }
+        return this.uploadDAO.loadFile(pkId);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.message.main.upload.service;
 
+import com.message.main.upload.pojo.UploadFile;
 import net.sf.json.JSONArray;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
@@ -50,4 +51,13 @@ public interface GenericUploadService {
      * @throws Exception
      */
     boolean deleteFile(Long pkId) throws Exception;
+
+    /**
+     * 取出一个上传文件的DB实体
+     * 
+     * @param pkId      主键
+     * @return
+     * @throws Exception
+     */
+    UploadFile loadFile(Long pkId) throws Exception;
 }

@@ -43,6 +43,7 @@
             <props>
                 <prop key="/guest/*.do">guestController</prop>
                 <prop key="/login/*.do">loginController</prop>
+                <prop key="/downloadfile/**/*">downloadFileController</prop>
             </props>
         </property>
     </bean>

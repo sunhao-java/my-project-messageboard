@@ -59,3 +59,29 @@ a {
     padding: 1px 10px;
     text-align: center;
 }
+
+.attachment{
+    margin-top: 13px;
+    padding-top: 5px;
+    border-top: 1px solid #DDDDDD;
+}
+
+.post-attachments-div {
+    border: 1px dashed #D0CFCF;
+    margin: 10px 10em 1em;
+    padding: 0.5em;
+}
+
+.post-attachments-title{
+    font-weight: bold;
+}
+
+.post-attachments-files img{
+    vertical-align: middle !important;
+    margin-right: 10px;
+}
+
+.post-attachments-files p {
+    padding: 0px;
+    margin: 5px 0px 0px 0px;
+}

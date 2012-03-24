@@ -110,7 +110,7 @@ public class UploadController extends ExtMultiActionController {
         List json = this.genericUploadService.listUploadFile(resourceId, uploadId, resourceType);
 
         if(json != null){
-            System.out.println(json);
+            logger.debug(json);
             params.put("files", json);
         } else {
             logger.warn("can not find any files!");

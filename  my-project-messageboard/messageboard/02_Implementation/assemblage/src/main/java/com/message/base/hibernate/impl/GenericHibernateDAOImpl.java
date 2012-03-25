@@ -196,8 +196,12 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param entity
      * @return
      */
-    public Object saveObject(Object entity) throws Exception {
-        this.hibernateTemplate.save(entity);
+    public Object saveObject(Object entity) {
+        try {
+            this.hibernateTemplate.save(entity);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
         return entity;
     }
 

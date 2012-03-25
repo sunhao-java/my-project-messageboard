@@ -76,7 +76,7 @@ public interface GenericHibernateDAO {
 	 * @param entity
 	 * @return
 	 */
-	public Object saveObject(Object entity) throws Exception;
+	public Object saveObject(Object entity);
 
 	/**
 	 * 更新实体

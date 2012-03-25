@@ -201,8 +201,8 @@ function createShowHTML(uploadFiles, onlyShow){
         var extName = getIcon(uploadFiles[i].fileName);
         if(!onlyShow){
             innerHtml2 += "<p><img src=\"" + contextPath + "/image/file/" + extName + "\">" +
-//                    "<a href=\"" + contextPath + "/downloadfile/" + uploadFiles[i].pkId + "\">" +
-                    "<a href=\"" + contextPath + "/upload/download.do?fileId=" + uploadFiles[i].pkId + "\">" +
+                    "<a href=\"" + contextPath + "/downloadfile/" + uploadFiles[i].pkId + "\">" +
+//                    "<a href=\"" + contextPath + "/upload/download.do?fileId=" + uploadFiles[i].pkId + "\">" +
                     uploadFiles[i].fileName + "</a></p>"
         } else {
             innerHTML += "<div class=\"post-attachment-file\" id=\"file" + uploadFiles[i].pkId + "\">";

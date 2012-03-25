@@ -16,7 +16,7 @@
 			</column>
 		</property>
 		<property name="title" type="java.lang.String">
-			<column name="TITLE" length="255">
+			<column name="TITLE" length="4000">
 				<comment>标题</comment>
 			</column>
 		</property>

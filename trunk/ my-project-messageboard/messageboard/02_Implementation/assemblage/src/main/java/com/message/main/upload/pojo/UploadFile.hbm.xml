@@ -51,5 +51,10 @@
                 <comment>上传时间</comment>
             </column>
         </property>
+        <property name="downloadCount" type="java.lang.Integer">
+            <column name="DOWNLOAD_COUNT" length="10">
+                <comment>下载次数</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

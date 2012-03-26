@@ -60,4 +60,12 @@ public interface GenericUploadService {
      * @throws Exception
      */
     UploadFile loadFile(Long pkId) throws Exception;
+
+    /**
+     * 更新附件的下载次数
+     * 
+     * @param pkId
+     * @throws Exception
+     */
+    void updateDownloadCount(Long pkId) throws Exception;
 }

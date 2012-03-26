@@ -46,4 +46,12 @@ public interface UploadDAO {
      * @throws Exception
      */
     void deleteFile(UploadFile uploadFile) throws Exception;
+
+    /**
+     * 更新附件实体
+     * 
+     * @param uploadFile
+     * @throws Exception
+     */
+    void updateFile(UploadFile uploadFile) throws Exception;
 }

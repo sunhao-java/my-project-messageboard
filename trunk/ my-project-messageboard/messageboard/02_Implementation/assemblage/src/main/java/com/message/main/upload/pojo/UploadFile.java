@@ -15,10 +15,11 @@ public class UploadFile {
     private String extName;                             //文件扩展名
     private String filePath;                            //文件存储路径
     private Integer resourceType;                       //资源类型，定义在constant.java中
-    private Long resourceId;                             //资源ID，关联的是哪个资源
+    private Long resourceId;                            //资源ID，关联的是哪个资源
     private String fileSize;                            //文件大小
     private Long uploadId;                              //上传者ID
     private Date uploadDate;                            //上传时间
+    private Integer downloadCount;                      //下载次数
 
     public Long getPkId() {
         return pkId;
@@ -90,5 +91,13 @@ public class UploadFile {
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
+    }
+
+    public Integer getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(Integer downloadCount) {
+        this.downloadCount = downloadCount;
     }
 }

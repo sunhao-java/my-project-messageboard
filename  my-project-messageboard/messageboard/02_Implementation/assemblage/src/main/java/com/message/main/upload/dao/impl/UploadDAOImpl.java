@@ -38,4 +38,8 @@ public class UploadDAOImpl extends GenericHibernateDAOImpl implements UploadDAO 
     public void deleteFile(UploadFile uploadFile) throws Exception {
         this.deleteObject(uploadFile);
     }
+
+    public void updateFile(UploadFile uploadFile) throws Exception {
+        this.updateObject(uploadFile);
+    }
 }

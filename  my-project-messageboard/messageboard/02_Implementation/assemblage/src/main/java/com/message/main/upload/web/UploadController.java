@@ -172,6 +172,8 @@ public class UploadController extends ExtMultiActionController {
             throw new FileExistException("文件不存在，读取文件失败！！");
         }
 
+        this.genericUploadService.updateDownloadCount(file.getPkId());
+
         Long fileSize = FileUtils.getFileSize(downFile);
 
         String fileName = file.getFileName();

@@ -77,6 +77,7 @@ public class GenericUploadServiceImpl implements GenericUploadService {
         uploadFile.setResourceType((Integer) params.get(ResourceType.MAP_KEY_RESOURCE_TYPE));
         uploadFile.setUploadId((Long) params.get(ResourceType.MAP_KEY_UPLOAD_ID));
         uploadFile.setUploadDate(new Date());
+        uploadFile.setDownloadCount(Integer.valueOf(0));
 
         uploadFile = (UploadFile) this.uploadDAO.saveUpload(uploadFile);
 
@@ -141,6 +142,14 @@ public class GenericUploadServiceImpl implements GenericUploadService {
             return null;
         }
         return this.uploadDAO.loadFile(pkId);
+    }
+
+    public void updateDownloadCount(Long pkId) throws Exception {
+        UploadFile file = this.loadFile(pkId);
+        if(file != null)
+            file.setDownloadCount(file.getDownloadCount() + 1);
+
+        this.uploadDAO.updateFile(file);
     }
 
     /**

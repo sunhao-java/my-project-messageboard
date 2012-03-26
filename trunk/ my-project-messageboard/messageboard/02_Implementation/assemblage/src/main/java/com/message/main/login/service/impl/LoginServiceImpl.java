@@ -117,9 +117,9 @@ public class LoginServiceImpl implements LoginService {
                 session.removeAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
                 result = 0;
             }
-        }
-
-        result = 1;
+        } else
+            result = 1;
+        
 		return result;
     }
 }

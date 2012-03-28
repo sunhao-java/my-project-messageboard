@@ -6,6 +6,7 @@
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/mouse-over-out.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/validate.js"/>
@@ -18,6 +19,10 @@
 	    $('table').each(function(){
 			$(this).find('tr:even').css("background","#f7f6f6");
 		});
+
+        using(['imagepreview'], function(){
+            $("span.preview").preview();
+        });
 	});
 	
 	function deleteUser(pkId){
@@ -56,6 +61,20 @@
         });
 	}
 </script>
+
+<style type="text/css">
+    html {
+        overflow-y: scroll;
+    }
+
+    a.preview, a.preview:hover {
+        text-decoration: none;
+    }
+
+    a.preview img {
+        margin: 20px 10px;
+    }
+</style>
 
 <c:choose>
 	<c:when test="${empty permission}">
@@ -107,7 +126,9 @@
 						<input type="checkbox" name="pkId" id="pkId" value="${user.pkId}">
 					</td>
 					<td>
-						${user.username}
+						<span class="preview" href="${contextPath}/head.jpg?userId=${user.pkId}&headType=0" title="${user.truename}">
+						    ${user.username}
+                        </span>
 					</td>
 					<td>
 						${user.truename}

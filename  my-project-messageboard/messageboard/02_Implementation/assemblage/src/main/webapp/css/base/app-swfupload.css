@@ -85,3 +85,29 @@ a {
     padding: 0px;
     margin: 5px 0px 0px 0px;
 }
+
+.sucTip{
+    background: url("img/prompt_bg.gif") repeat-x scroll center top #F4F1BC;
+    border: 1px solid #E1BE55;
+    border-radius: 3px 3px 3px 3px;
+    color: #666666;
+    display: inline-block;
+    height: 19px;
+    line-height: 19px;
+    margin-left: 0;
+    padding: 0 3px;
+    white-space: nowrap;
+}
+
+.errTip {
+    background: url("img/errtip_bg.gif") repeat-x scroll center top red;
+    border: 1px solid #E1BE55;
+    border-radius: 3px 3px 3px 3px;
+    color: #000000;
+    display: inline-block;
+    height: 19px;
+    line-height: 19px;
+    margin-left: 0;
+    padding: 0 3px;
+    white-space: nowrap;
+}

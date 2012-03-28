@@ -233,8 +233,9 @@ function deleteFile(pkId){
                     var res = eval("(" + o.responseText + ")");
                     if(res.status == '1'){
                         dom.get("file" + pkId).style.display = 'none';
+                        showTip('suc', pkId);
                     } else {
-                        alert('删除失败');
+                        showTip('err', pkId);
                     }
                 },
                 failure : function(o){
@@ -247,6 +248,17 @@ function deleteFile(pkId){
 
 function continueUpload(){
     alertDialog.cancel();
+}
+
+function showTip(type, pkId){
+    var sucTip = window.document.createElement('div');
+    sucTip.id = 'tip' + pkId;
+    sucTip.innerHTML = type == 'suc' ? '删除成功' : '删除失败';
+    sucTip.className = type == 'suc' ? 'sucTip' : 'errTip';
+    dom.insertAfter(sucTip, 'file' + pkId);
+    window.setTimeout(function(){
+        dom.get('tip' + pkId).style.display = 'none';
+    }, 500);
 }
 
 function cancelUpload(){

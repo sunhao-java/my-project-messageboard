@@ -864,7 +864,7 @@ var Dom = YAHOO.util.Dom,
             this.setAttributeConfig('handles', {
                 validator: YAHOO.lang.isArray,
                 writeOnce: true,
-                value: attr.handles || [all]
+                value: attr.handles || ['t','b','r','l','bl','br','tl','tr']
             });
 
         },

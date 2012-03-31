@@ -6,16 +6,16 @@ FCKConfig.ToolbarSets["myToolBar"] = [
 	['Bold','Italic','Underline','StrikeThrough'],
 	['TextColor','BGColor','-','Style'],
 	'/',
-	['Smiley','FontFormat','FontName','FontSize'],
+	['Smiley','FontFormat','FontName','FontSize']
 ] ;
 
 FCKConfig.ToolbarSets["Font"] = [
 	['Cut','Copy','Paste','PasteText','-'],
 	['Undo','Redo','-'],
  	['Bold','Italic','Underline','StrikeThrough','-'],
- 	['TextColor','BGColor'],['Smiley'],
+ 	['TextColor','BGColor'],['Smiley'],['Image'],
  	['Style','FontSize'],
- 	['FontName','FontFormat'],
+ 	['FontName','FontFormat']
 ] ;
 
 FCKConfig.EnterMode = 'br' ;

@@ -11,9 +11,9 @@ FCKConfig.ToolbarSets["myToolBar"] = [
 
 FCKConfig.ToolbarSets["Font"] = [
 	['Source', 'FitWindow'],
-    ['Cut','Copy','Paste','PasteText','-'],
-	['Undo','Redo','-'],
- 	['Bold','Italic','Underline','StrikeThrough','-'],
+    ['Cut','Copy','Paste','PasteText'],
+	['Undo','Redo'],
+ 	['Bold','Italic','Underline','StrikeThrough'],
  	['TextColor','BGColor'],['Smiley'],['Image'],
  	['Style','FontSize'],
  	['FontName','FontFormat']

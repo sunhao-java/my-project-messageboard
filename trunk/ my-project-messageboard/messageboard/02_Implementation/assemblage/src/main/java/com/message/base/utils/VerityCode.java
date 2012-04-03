@@ -1,9 +1,8 @@
-package com.message.tags;
+package com.message.base.utils;
 
 import com.message.resource.ResourceType;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

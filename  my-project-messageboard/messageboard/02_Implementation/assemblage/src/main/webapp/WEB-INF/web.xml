@@ -75,7 +75,7 @@
 
     <servlet>
         <servlet-name>verityCode</servlet-name>
-        <servlet-class>com.message.tags.VerityCode</servlet-class>
+        <servlet-class>com.message.base.utils.VerityCode</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>verityCode</servlet-name>

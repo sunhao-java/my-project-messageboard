@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
+import com.message.main.menu.exception.NoPermException;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -223,8 +224,8 @@ public class MenuServiceImpl implements MenuService {
             if(menuUrl.indexOf("home") != -1){
                 return true;
             } else {
+                //TODO 此处有BUG by sunhao 2012-04-04 23：14
                 return true;
-                //throw new NoPermException("不存在\"" + menuUrl + "\"链接");
             }
         } else {
             String menuPerm = menu.getMenuPerm();

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*,java.io.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp"%>
 
@@ -59,3 +59,10 @@
 
 	</div>
 </div>
+
+<p style="display: none">
+    <%
+        Exception ex = (Exception) request.getAttribute("ex");
+        ex.printStackTrace(new java.io.PrintWriter(out));
+    %>
+</p>

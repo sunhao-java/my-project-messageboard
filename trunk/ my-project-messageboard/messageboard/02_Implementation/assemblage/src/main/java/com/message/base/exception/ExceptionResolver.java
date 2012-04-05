@@ -116,6 +116,7 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
 		} else {
 			mv.addObject(DEFAULT_EXCEPTION_ATTRIBUTE, ex.getClass().getName());
 		}
+        mv.addObject("ex", ex);
 		
 		ViewResolver vr = this.viewResolver;
 

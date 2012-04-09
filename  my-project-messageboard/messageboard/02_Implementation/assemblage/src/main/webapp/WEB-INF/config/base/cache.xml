@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <!--
+        init-method : when create this bean run the method named init
+        destroy-method : when destory this bean run the method named destory
+    -->
+    <bean id="cacheManager" class="com.message.base.cache.impl.EHCacheManagerImpl" init-method="init" destroy-method="destory">
+        <property name="maxElementsInMemory" value="2000"/>
+        <property name="overflowToDisk" value="false"/>
+        <property name="eternal" value="false"/>
+        <property name="timeToLiveSeconds" value="60"/>
+        <property name="timeToIdleSeconds" value="60"/>
+        <property name="diskPersistent" value="false"/>
+        <property name="diskExpiryThreadIntervalSeconds" value="0"/>
+        <property name="configuration" value="${config.root}/ehcache.xml"/>
+    </bean>
+
+    <bean id="abstractCache" class="com.message.base.cache.utils.CacheFactoryBean" lazy-init="true">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <bean id="menuCache" parent="abstractCache">
+        <property name="cacheName" value="menuCache"/>
+    </bean>
+
+    <bean id="moduleObjectCache" class="com.message.base.cache.utils.ObjectCache">
+        <property name="cache" ref="menuCache"/>
+    </bean>
+</beans>

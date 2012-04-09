@@ -57,19 +57,19 @@
 	<bean id="applicationContextListener" class="com.message.base.spring.ApplicationContextListener"/>
 
 	<!-- properties文件解析器 -->
-    <bean id="propertiesConfig" class="com.message.base.utils.PropertiesFactoryBean">
+    <bean id="propertiesConfig" class="com.message.base.properties.PropertiesFactoryBean">
         <property name="propertiesFilePath">
        		<value>/opt/config/message/root.properties</value>
         </property>
     </bean>
 
 	<!-- 系统配置解析器 -->
-    <bean id="systemConfig" class="com.message.base.utils.SystemConfig">
+    <bean id="systemConfig" class="com.message.base.properties.SystemConfig">
         <property name="configuration" ref="propertiesConfig"/>
     </bean>
     
     <!-- i18n国际化资源文件解析器 -->
-    <bean id="messageUtils" class="com.message.base.utils.MessageUtils">
+    <bean id="messageUtils" class="com.message.base.properties.MessageUtils">
     	<property name="properties" ref="propertiesConfig"/>
     </bean>
     

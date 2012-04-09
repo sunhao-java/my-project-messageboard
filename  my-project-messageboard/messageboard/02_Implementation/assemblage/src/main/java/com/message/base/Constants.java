@@ -22,4 +22,10 @@ public class Constants {
      * 上传路径
      */
     public static final String DEFAULT_UPLOAD_PAYH = SystemConfig.getProperty("message.upload.dir", "/opt/data/");
+
+    /**
+     * 缓存中默认存在时间(30天)30 * 24 * 60 * 60 = 2592000
+     * 单位：秒
+     */
+    public static final Integer DEFAULT_EXPIRE_TIME = 2592000;
 }

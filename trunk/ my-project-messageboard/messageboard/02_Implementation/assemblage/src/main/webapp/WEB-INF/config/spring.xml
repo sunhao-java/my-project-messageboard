@@ -31,5 +31,8 @@
 	
 	<!-- spring的interceptor引入 -->
 	<import resource="base/interceptor.xml"/>
+
+    <!-- 缓存的配置 -->
+    <import resource="base/cache.xml"/>
 	
 </beans>

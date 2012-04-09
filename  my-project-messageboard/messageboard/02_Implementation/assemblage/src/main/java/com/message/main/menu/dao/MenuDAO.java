@@ -73,5 +73,13 @@ public interface MenuDAO {
      * @throws Exception
      */
     Menu findMenu(String menuUrl) throws Exception;
+    
+    /**
+     * 根据pkId删除菜单
+     * 
+     * @param pkId
+     * @throws Exception
+     */
+    void deleteMenu(Long pkId) throws Exception;
 	
 }

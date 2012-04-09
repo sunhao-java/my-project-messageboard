@@ -99,7 +99,7 @@
 <form id="menuFrm">
 	<input type="hidden" name="pkId" value="${menu.pkId }">
 	<input type="hidden" name="deleteStatus" value="${menu.deleteStatus }">
-	<input type="hidden" name="createDate" value="${menu.createDate }">
+	<input type="hidden" name="createDate" value='<fmt:formatDate value="${menu.createDate }" pattern="yyyy-MM-dd HH:mm"/>'>
 	<input type="hidden" name="createUserId" value="${menu.createUserId }">
 	
 	<table width="80%" class="dialog_table">

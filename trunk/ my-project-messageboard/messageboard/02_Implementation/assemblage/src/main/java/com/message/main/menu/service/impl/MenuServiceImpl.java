@@ -95,7 +95,17 @@ public class MenuServiceImpl implements MenuService {
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<Menu> getOrderMenu(Long parentId) throws Exception{
-		List menus = this.menuDAO.listAllMenu();
+//		List<Long> menuIds = this.menuDAO.listAllMenuId();
+//        List<Menu> menus = new ArrayList<Menu>();
+//
+//        if(!menuIds.isEmpty()){
+//            for(Long id : menuIds){
+//                Menu menu = this.menuDAO.loadMenu(id);
+//                if(menu != null)
+//                    menus.add(menu);
+//            }
+//        }
+        List<Menu> menus = this.menuDAO.listAllMenu();
 		Collections.sort(menus);
 		return this.orderMenu(menus, parentId);
 	}
@@ -189,16 +199,7 @@ public class MenuServiceImpl implements MenuService {
 			return false;
 		}
 		
-		Menu dbMenu = this.menuDAO.loadMenu(menuId);
-		
-		if(dbMenu == null){
-			logger.error("there is no menu entry what pkId is " + menuId);
-			return false;
-		}
-		
-		dbMenu.setDeleteStatus(ResourceType.DELETE_YES);
-		this.menuDAO.updateMenu(dbMenu);
-		
+		this.menuDAO.deleteMenu(menuId);
 		return true;
 	}
 

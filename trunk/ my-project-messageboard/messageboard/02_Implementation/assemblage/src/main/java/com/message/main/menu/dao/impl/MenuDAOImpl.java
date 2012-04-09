@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.utils.SqlUtils;
 import com.message.main.menu.dao.MenuDAO;
@@ -18,8 +19,13 @@ import com.message.resource.ResourceType;
  * @createTime 2012-3-2 下午09:11:10
  */
 public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
+    private ObjectCache cache;
 
-	@SuppressWarnings("unchecked")
+    public void setCache(ObjectCache cache) {
+        this.cache = cache;
+    }
+
+    @SuppressWarnings("unchecked")
 	public List<Menu> listAllMenu() throws Exception {
 		String hql = "from Menu m where m.deleteStatus = :flag order by m.menuSort desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -27,16 +33,27 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 		return this.findByHQL(hql, params);
 	}
 
-	public Menu loadMenu(Long pkId) throws Exception {
-		return (Menu) this.loadObject(Menu.class, pkId);
+    public Menu loadMenu(Long pkId) throws Exception {
+        Menu menu = (Menu) this.cache.get(Menu.class, pkId);
+        if(menu == null){
+            menu = (Menu) this.loadObject(Menu.class, pkId);
+            this.cache.put(menu, pkId);
+        }
+		return menu;
 	}
 
 	public Menu saveMenu(Menu menu) throws Exception {
-		return (Menu) this.saveObject(menu);
+		menu = (Menu) this.saveObject(menu);
+		
+		this.cache.put(menu, menu.getPkId());
+		return menu;
 	}
 
 	public void updateMenu(Menu menu) throws Exception {
 		this.updateObject(menu);
+		//update the cache
+		this.cache.remove(Menu.class, menu.getPkId());
+		this.cache.put(menu, menu.getPkId());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -72,5 +89,16 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
         
         return null;
     }
+
+	public void deleteMenu(Long pkId) throws Exception {
+		String sql = "update t_message_menu m set m.delete_status = :status where m.pk_id = :pkId ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("status", ResourceType.DELETE_YES);
+		params.put("pkId", pkId);
+		
+		this.updateByNativeSQL(sql, params);
+		//remove from cache
+		this.cache.remove(Menu.class, pkId);
+	}
 
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.message.base.utils.GenericDateFormat;
+import com.message.base.utils.DateFormat;
 import com.message.base.utils.StringUtils;
 
 /**
@@ -140,7 +140,7 @@ public class WebInput {
 	}
 	
 	public Date getDate(String name, String pattern, Date defaultValue) {
-		GenericDateFormat format = new GenericDateFormat(pattern);
+		DateFormat format = new DateFormat(pattern);
 		Date result = defaultValue;
 		try {
 			String value = this.request.getParameter(name);
@@ -155,7 +155,7 @@ public class WebInput {
 	}
 	
 	public Date getDate(String name) {
-		GenericDateFormat format = new GenericDateFormat(TIME_PATTERN);
+		DateFormat format = new DateFormat(TIME_PATTERN);
 		String value = this.request.getParameter(name);
 		try {
 			return value == null ? null : format.parse(value);

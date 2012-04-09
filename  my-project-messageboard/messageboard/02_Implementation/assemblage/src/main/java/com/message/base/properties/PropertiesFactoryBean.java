@@ -1,16 +1,7 @@
-package com.message.base.utils;
+package com.message.base.properties;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
-
+import com.message.base.spring.ApplicationHelper;
+import com.message.base.utils.StringUtils;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +13,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.util.DefaultPropertiesPersister;
 import org.springframework.util.PropertiesPersister;
 
-import com.message.base.spring.ApplicationHelper;
+import java.io.*;
+import java.util.*;
 
 /**
  * 读取系统的配置文件<br/><br/>
@@ -171,28 +163,28 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param result    存放配置读取的map
      * @param fileProps 存放读取文件内容的map
      * @param rootProps 存放配置文件root的最基础的配置信息
-     * @throws IOException IOException
+     * @throws java.io.IOException IOException
      */
     @SuppressWarnings("unchecked")
 	private void initLocations(Properties result, Properties fileProps, Properties rootProps) throws IOException {
     	List locs = new ArrayList();
-    	
+
     	String rootPath = ApplicationHelper.getInstance().getRootPath();
     	StringBuffer path = new StringBuffer(128);
     	path.append("file:///").append(rootPath).append(this.DEFAULT_PROPERTIES_CONFIG_PATH);
     	//默认的配置文件路径
     	String defaultRealPath = path.toString().replace("\\", "/");
-    	
+
     	if(logger.isInfoEnabled()){
     		logger.info("the default properties config real path is '{}'!", defaultRealPath);
     	}
-    	
+
     	try {
 			this.loadPropByPath(defaultRealPath, locs, fileProps, false);
-    		
+
     		if(StringUtils.isNotEmpty(this.getPropertiesFilePath())){
     			File file = new File(this.getPropertiesFilePath());
-    			
+
     			//判读文件存在并且是文件并且可读
     			if(file.exists() && file.isFile() && file.canRead()){
     				Properties config = new Properties();
@@ -201,20 +193,20 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
     				fs.close();		//关闭流
     				rootProps.putAll(config);
     				result.putAll(rootProps);
-    				
+
     				String secondPath = StringUtils.trimToNull(config.getProperty(this.defaultConfigKey));
-    				
+
     				if(StringUtils.isNotEmpty(secondPath)){
     					String configPath = secondPath + this.getConfigFolderName();
     					String messagePath = secondPath + this.getMessageFolderName();
-    					
+
     					//加载配置文件
     					if(!configPath.startsWith("file://")){
     						this.loadPropByPath("file://" + configPath, locs, fileProps, true);
     					} else {
     						this.loadPropByPath(configPath, locs, fileProps, true);
     					}
-    					
+
     					//加载国际化资源文件
     					if(!messagePath.startsWith("file://")){
     						this.loadPropByPath("file://" + messagePath, locs, fileProps, true);
@@ -224,7 +216,7 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
     				} else {
     					logger.error("the '{}' is not found!", this.defaultConfigKey);
     				}
-    				
+
     			} else {
     				logger.error("this project config files is not found with path:'{}' given!", this.getPropertiesFilePath());
     			}
@@ -235,7 +227,7 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 			logger.error("can not load config file from given path '{}'!", this.getPropertiesFilePath());
 		}
     }
-    
+
     /**
      * 根据路径将配置文件列表放到路径列表中
      *
@@ -243,23 +235,23 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param locations         返回的文件具体路径
      * @param fileProps         文件内容存放的容器
      * @param isSupportLastFile 是否支持最后文件加载
-     * @throws IOException 异常
+     * @throws java.io.IOException 异常
      */
 	@SuppressWarnings("unchecked")
 	private void loadPropByPath(String location, List locations, Properties fileProps, boolean isSupportLastFile) throws IOException {
 		UrlResource ur = new UrlResource(location);
 		Collection files = FileUtils.listFiles(ur.getFile(), null, false);
-		
+
 		if(!files.isEmpty()){
 			Iterator it = files.iterator();
 			File file;
 			String fileName;
 			File lastFile = null;
-			
+
 			while(it.hasNext()){
 				file = (File) it.next();
 				fileName = StringUtils.trimToNull(file.getName());
-				
+
 				if(fileName.endsWith(PROPERTIES_FILE_EXTENSION)){
 					if(isSupportLastFile && fileName.startsWith(this.fileLastLoadPrefix)){
 						lastFile = file;
@@ -282,7 +274,7 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 			}
 		}
 	}
-	
+
 	private void loadProperties(Properties props, Resource[] locs) throws IOException {
 		if(locs != null && locs.length > 0){
 			Resource location;
@@ -290,7 +282,7 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 				location = locs[i];
 				logger.info("loading config from {}", location);
 				InputStream is = null;
-				
+
 				try {
 					is = location.getInputStream();
 					if(this.isSupportXmlFile && location.getFilename().endsWith(XML_FILE_EXTENSION)){
@@ -315,7 +307,7 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
 			logger.error("the resources is null!");
 		}
 	}
-	
+
 	/**
      * 获取文件名除去扩展名的部分.
      *
@@ -325,20 +317,20 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
     private String getMainFileName(final String fileName) {
     	int pos = fileName.lastIndexOf(".");
     	String mainName = fileName;
-    	
+
     	if(pos > 0){
     		mainName = fileName.substring(0, pos);
     	}
-    	
+
     	return mainName;
     }
-    
+
     /**
      * 读取文件内容.
      *
      * @param file 文件.
      * @return 文件内容.
-     * @throws IOException IO错误.
+     * @throws java.io.IOException IO错误.
      */
     private String getFileContent(final File file) throws IOException {
     	return FileUtils.readFileToString(file, fileEncoding);

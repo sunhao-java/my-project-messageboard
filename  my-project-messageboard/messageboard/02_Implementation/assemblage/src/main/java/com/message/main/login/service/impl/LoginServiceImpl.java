@@ -2,7 +2,7 @@ package com.message.main.login.service.impl;
 
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
-import com.message.base.utils.SystemConfig;
+import com.message.base.properties.SystemConfig;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.history.service.HistoryService;

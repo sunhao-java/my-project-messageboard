@@ -1,4 +1,4 @@
-package com.message.base.utils;
+package com.message.base.properties;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

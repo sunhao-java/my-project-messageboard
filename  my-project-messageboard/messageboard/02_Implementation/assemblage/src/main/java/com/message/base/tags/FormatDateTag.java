@@ -8,7 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 
 import com.message.base.Constants;
-import com.message.base.utils.MessageUtils;
+import com.message.base.properties.MessageUtils;
 
 /**
  * 自定义的格式化时间标签

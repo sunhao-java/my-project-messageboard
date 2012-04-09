@@ -1,9 +1,11 @@
-package com.message.base.utils;
+package com.message.base.properties;
 
-import java.util.Map;
-
+import com.message.base.utils.ReplaceStringUtils;
+import com.message.base.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
 
 
 /**

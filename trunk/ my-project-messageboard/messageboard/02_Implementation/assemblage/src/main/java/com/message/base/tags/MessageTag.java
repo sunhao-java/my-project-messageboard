@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.message.base.utils.HtmlUtils;
 import com.message.base.utils.ReplaceStringUtils;
 import com.message.base.utils.StringUtils;
-import com.message.base.utils.SystemConfig;
+import com.message.base.properties.SystemConfig;
 
 /**
  * 取得系统配置文件中的配置<br/><br/>

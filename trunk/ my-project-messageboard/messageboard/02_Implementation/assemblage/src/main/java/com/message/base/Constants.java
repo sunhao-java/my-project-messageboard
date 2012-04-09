@@ -1,6 +1,6 @@
 package com.message.base;
 
-import com.message.base.utils.SystemConfig;
+import com.message.base.properties.SystemConfig;
 
 /**
  * 资源类型类

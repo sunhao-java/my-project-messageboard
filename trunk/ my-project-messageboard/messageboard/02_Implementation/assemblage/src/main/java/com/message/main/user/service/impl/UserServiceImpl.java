@@ -12,7 +12,7 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
-import com.message.base.utils.MessageUtils;
+import com.message.base.properties.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.event.pojo.BaseEvent;

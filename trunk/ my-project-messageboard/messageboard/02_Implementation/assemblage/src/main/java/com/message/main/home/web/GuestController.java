@@ -13,7 +13,7 @@ import net.sf.json.JSONObject;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
-import com.message.base.utils.SystemConfig;
+import com.message.base.properties.SystemConfig;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.user.pojo.User;

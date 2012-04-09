@@ -8,7 +8,7 @@ import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
-import com.message.base.utils.MessageUtils;
+import com.message.base.properties.MessageUtils;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.info.dao.InfoDAO;

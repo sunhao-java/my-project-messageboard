@@ -8,10 +8,10 @@ import java.util.Date;
  * 对date类型的操作
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class GenericDateFormat {
+public class DateFormat {
 	SimpleDateFormat dateFormat;
 	
-	public GenericDateFormat(String pattern){
+	public DateFormat(String pattern){
 		this.dateFormat = new SimpleDateFormat(pattern);
 	}
 	

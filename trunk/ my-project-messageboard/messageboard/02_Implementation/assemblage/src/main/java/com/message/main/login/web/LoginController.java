@@ -1,22 +1,23 @@
 package com.message.main.login.web;
 
-import com.message.base.spring.ExtMultiActionController;
-import com.message.base.utils.StringUtils;
-import com.message.base.utils.SystemConfig;
-import com.message.base.web.WebInput;
-import com.message.base.web.WebOutput;
-import com.message.main.login.service.LoginService;
-import com.message.main.user.pojo.User;
-import com.message.resource.ResourceType;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.StringUtils;
+import com.message.base.web.WebInput;
+import com.message.base.web.WebOutput;
+import com.message.main.login.service.LoginService;
+import com.message.resource.ResourceType;
 
 /**
  * @author sunhao(sunhao.java@gmail.com)

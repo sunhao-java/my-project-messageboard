@@ -18,9 +18,9 @@
 
     $(document).ready(function(){
         YAHOO.app.swfupload.showAttachments('showAttachmentPanel', {
-            resourceId : ${message.pkId},
+            resourceId : '${message.pkId}',
             resourceType : 1,
-            uploadId: ${message.createUser.pkId}
+            uploadId: '${message.createUser.pkId}'
         });
     });
  	

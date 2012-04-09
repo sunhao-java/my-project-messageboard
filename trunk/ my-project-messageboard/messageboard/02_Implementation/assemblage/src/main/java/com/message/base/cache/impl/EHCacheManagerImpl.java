@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * eh cache manager implement
+ *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午7:30
  */

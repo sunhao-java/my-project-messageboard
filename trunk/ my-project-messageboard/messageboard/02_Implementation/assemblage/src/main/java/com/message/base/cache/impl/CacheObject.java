@@ -3,6 +3,8 @@ package com.message.base.cache.impl;
 import java.io.Serializable;
 
 /**
+ * cache object
+ *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午6:54
  */

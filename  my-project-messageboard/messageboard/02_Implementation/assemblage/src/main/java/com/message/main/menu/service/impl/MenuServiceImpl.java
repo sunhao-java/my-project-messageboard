@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
-import com.message.main.menu.exception.NoPermException;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -18,10 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.utils.StringUtils;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
-import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 /**
@@ -93,19 +91,16 @@ public class MenuServiceImpl implements MenuService {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "unchecked" })
 	private List<Menu> getOrderMenu(Long parentId) throws Exception{
-//		List<Long> menuIds = this.menuDAO.listAllMenuId();
-//        List<Menu> menus = new ArrayList<Menu>();
-//
-//        if(!menuIds.isEmpty()){
-//            for(Long id : menuIds){
-//                Menu menu = this.menuDAO.loadMenu(id);
-//                if(menu != null)
-//                    menus.add(menu);
-//            }
-//        }
-        List<Menu> menus = this.menuDAO.listAllMenu();
+		List<Long> pkIds = this.menuDAO.listAllMenuIds();
+		
+		List<Menu> menus = new ArrayList<Menu>();
+		for(Long pkId : pkIds){
+			if(pkId != null)
+				menus.add(this.menuDAO.loadMenu(pkId));
+		}
+		
 		Collections.sort(menus);
 		return this.orderMenu(menus, parentId);
 	}

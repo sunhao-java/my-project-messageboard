@@ -1,11 +1,16 @@
 package com.message.main.menu.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.jdbc.core.RowMapper;
+
 import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.utils.SqlUtils;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
@@ -20,17 +25,35 @@ import com.message.resource.ResourceType;
  */
 public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
     private ObjectCache cache;
+    private GenericJdbcDAO genericJdbcDAO;
 
     public void setCache(ObjectCache cache) {
         this.cache = cache;
     }
 
-    @SuppressWarnings("unchecked")
+	public void setGenericJdbcDAO(GenericJdbcDAO genericJdbcDAO) {
+		this.genericJdbcDAO = genericJdbcDAO;
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<Menu> listAllMenu() throws Exception {
 		String hql = "from Menu m where m.deleteStatus = :flag order by m.menuSort desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("flag", ResourceType.DELETE_NO);
 		return this.findByHQL(hql, params);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Long> listAllMenuIds() throws Exception {
+		String sql = "select m.pk_id as pk from t_message_menu m where m.delete_status = :flag order by m.menu_sort desc ";
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("flag", ResourceType.DELETE_NO);
+		
+		return this.genericJdbcDAO.queryForList(sql, params, new RowMapper(){
+			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+				return rs.getLong("pk");
+			}
+		});
 	}
 
     public Menu loadMenu(Long pkId) throws Exception {

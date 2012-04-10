@@ -22,6 +22,14 @@ public interface MenuDAO {
 	List<Menu> listAllMenu() throws Exception;
 	
 	/**
+	 * 获取所有的菜单
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	List<Long> listAllMenuIds() throws Exception;
+	
+	/**
 	 * 根据ID查到菜单
 	 * 
 	 * @param pkId

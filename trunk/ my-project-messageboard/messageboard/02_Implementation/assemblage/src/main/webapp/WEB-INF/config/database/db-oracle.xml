@@ -10,5 +10,21 @@
 	<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true">
 		<!-- <property name="nativeJdbcExtractor" ref="nativeJdbcExtractor"/> -->
 	</bean>
+	
+	<!-- under here: all is spring jdbc config -->
+	<bean id="jdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" lazy-init="true"/>
+	
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler">
+		<property name="nativeJdbcExtractor" ref="jdbcExtractor"/>
+	</bean>
+	
+	<bean id="oracleHelper" class="com.message.base.jdbc.OracleSqlHelper">
+		<property name="lobHandler" ref="lobHandler"/>
+	</bean>
+	
+	<bean id="genericJdbcDAO" class="com.message.base.jdbc.GenericJdbcDAO">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sqlHelper" ref="oracleHelper"/>
+	</bean>
 
 </beans>

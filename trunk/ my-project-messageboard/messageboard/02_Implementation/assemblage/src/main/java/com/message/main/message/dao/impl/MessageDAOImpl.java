@@ -13,7 +13,6 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
-import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 /**
@@ -56,7 +55,7 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		return ((Message)this.saveObject(message)).getPkId();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int getLoginUserMessageCount(Long pkId) throws Exception {
 		String hql = "select count(*) from Message m where m.createUserId = ? and m.deleteFlag = ?";
 		List params = new ArrayList();

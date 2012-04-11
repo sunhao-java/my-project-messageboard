@@ -30,7 +30,8 @@ public class SystemInfo {
         }
     }
 
-    public static void main(String[] args) {
+    @SuppressWarnings("static-access")
+	public static void main(String[] args) {
         SystemInfo systemInfo = SystemInfo.getInstance();
         System.out.println(systemInfo.getDiskNumber());
         System.out.println(systemInfo.getHostName());

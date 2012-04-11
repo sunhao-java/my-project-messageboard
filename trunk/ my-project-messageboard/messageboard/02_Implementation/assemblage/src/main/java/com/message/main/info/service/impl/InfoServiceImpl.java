@@ -3,8 +3,6 @@ package com.message.main.info.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
@@ -14,7 +12,8 @@ import com.message.main.event.service.EventService;
 import com.message.main.info.dao.InfoDAO;
 import com.message.main.info.pojo.Info;
 import com.message.main.info.service.InfoService;
-import com.message.main.user.pojo.User;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.service.UserService;
 import com.message.resource.ResourceType;
 

@@ -19,7 +19,8 @@ public class UploadDAOImpl extends GenericHibernateDAOImpl implements UploadDAO 
         return this.saveObject(uploadFile);
     }
 
-    public List<Long> listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception {
+    @SuppressWarnings("unchecked")
+	public List<Long> listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception {
         String hql = "select gf.pkId from UploadFile gf where gf.resourceId = :resourceId and gf.uploadId = :uploadId " +
                 " and gf.resourceType = :resourceType order by gf.pkId desc ";
 

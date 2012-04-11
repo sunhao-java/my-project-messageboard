@@ -1,6 +1,5 @@
 package com.message.main.user.service;
 
-import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
 
 /**

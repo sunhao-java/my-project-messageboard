@@ -19,13 +19,13 @@ import com.message.main.history.pojo.UserLoginHistory;
  * 登录历史操作的DAO的实现
  * @author sunhao(sunhao.java@gmail.com)
  */
+@SuppressWarnings("rawtypes")
 public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDAO {
 
 	public void saveLoginHistory(UserLoginHistory history) throws Exception {
 		this.saveObject(history);
 	}
 
-	@SuppressWarnings("unchecked")
 	public int getLoginCount(Long userPkId) throws Exception {
 		String hql = "select count(*) from UserLoginHistory t where t.loginUserPkId = ?";
 		List<Object> params = new ArrayList<Object>();
@@ -39,7 +39,6 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		return 0;
 	}
 
-	@SuppressWarnings("unchecked")
 	public Date getLastLoginTime(Long userPkId, boolean view) throws Exception {
 		String hql = "select t.loginTime from UserLoginHistory t where t.loginUserPkId = ? order by t.loginTime desc";
 		List<Object> params = new ArrayList<Object>();

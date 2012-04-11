@@ -109,7 +109,8 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 			}});
     }
 
-    public Menu findMenu(String menuUrl) throws Exception {
+    @SuppressWarnings("unchecked")
+	public Menu findMenu(String menuUrl) throws Exception {
         String hql = "from Menu m where m.deleteStatus = :flag and m.menuStatus = :status and m.menuUrl = :url";
         Map<String, Object> params = new HashMap<String, Object>();
 		params.put("flag", ResourceType.DELETE_NO);

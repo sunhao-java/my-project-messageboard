@@ -23,6 +23,7 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 2012-2-12 下午12:40:44
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 
 	public Vote saveVote(Vote vote) throws Exception {
@@ -45,7 +46,6 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<VoteOption> listOptionByVote(Long voteId) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String hql = "from VoteOption vo where vo.voteId = :voteId ";
@@ -61,7 +61,6 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<VoteAnswer> listAnswerByVote(Long voteId) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String hql = "from VoteAnswer va where va.voteId = :voteId order by va.pkId desc ";
@@ -69,7 +68,6 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		return this.findByHQL(hql, params);
 	}
 
-	@SuppressWarnings("unchecked")
 	public int getParticipantNum(Long voteId) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "select count(*) from (select distinct answer_userid from t_message_vote_answer where vote_id = :voteId)";
@@ -86,7 +84,6 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		return (Vote) this.loadObject(Vote.class, pkId);
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport listVoteByCreateUser(Long pkId, int start, int num) throws Exception {
 		String hql = "from Vote v where v.createUserId = :userId order by v.pkId desc ";
         String countHql = "select count(*) " + hql;
@@ -95,7 +92,6 @@ public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport listMyAnswerVoteId(Long pkId, int start, int num) throws Exception {
 		String sql = "select distinct va.vote_id from t_message_vote_answer va where va.answer_userid = :userId order by va.vote_id desc  ";
 		Map<String, Object> params = new HashMap<String, Object>();

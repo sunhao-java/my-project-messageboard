@@ -1,6 +1,5 @@
 package com.message.main.user.dao;
 
-import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
 
 /**

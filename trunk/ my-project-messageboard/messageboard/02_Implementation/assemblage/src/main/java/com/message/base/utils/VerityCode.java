@@ -20,8 +20,9 @@ import java.util.Random;
  * @createTime 12-3-21 下午8:56
  */
 public class VerityCode extends HttpServlet{
-
-    private static String key = ResourceType.VERITY_CODE_KEY; // 默认的session key
+	private static final long serialVersionUID = -4395293913583955749L;
+	
+	private static String key = ResourceType.VERITY_CODE_KEY; // 默认的session key
 
     private static Color getRandomColor(int fontColor, int backColor){
         Random random = new Random();

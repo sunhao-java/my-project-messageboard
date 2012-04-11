@@ -2,7 +2,6 @@ package com.message.main.message.service;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.message.pojo.Message;
-import com.message.main.user.pojo.User;
 
 /**
  * 留言操作的service 

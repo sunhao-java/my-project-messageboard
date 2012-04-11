@@ -6,7 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -19,7 +18,7 @@ import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.info.pojo.Info;
 import com.message.main.info.service.InfoService;
-import com.message.main.user.pojo.User;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.resource.ResourceType;
 
 /**

@@ -25,7 +25,8 @@ import com.message.resource.ResourceType;
  * @createTime 12-3-22 下午2:08
  */
 public class LoginController extends ExtMultiActionController {
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+    @SuppressWarnings("unused")
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private WebInput in;
     private WebOutput out;
 

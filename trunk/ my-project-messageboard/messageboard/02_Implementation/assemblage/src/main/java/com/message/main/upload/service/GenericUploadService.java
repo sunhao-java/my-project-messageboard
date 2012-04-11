@@ -1,12 +1,12 @@
 package com.message.main.upload.service;
 
-import com.message.main.upload.pojo.UploadFile;
-import net.sf.json.JSONArray;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import java.util.List;
-import java.util.Map;
+import com.message.main.upload.pojo.UploadFile;
 
 /**
  * 上传文件的通用类的接口
@@ -15,6 +15,7 @@ import java.util.Map;
  * @version V1.0
  * @createTime 12-3-18 上午11:39
  */
+@SuppressWarnings("rawtypes")
 public interface GenericUploadService {
     /**
      * 一次上传多个文件
@@ -22,7 +23,7 @@ public interface GenericUploadService {
      * @param request           上传文件的request
      * @throws Exception
      */
-    List<String> uploads(MultipartRequest request, Map params) throws Exception;
+	List<String> uploads(MultipartRequest request, Map params) throws Exception;
 
     /**
      * 上传单个文件

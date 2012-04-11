@@ -3,9 +3,6 @@ package com.message.main.login.service;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0

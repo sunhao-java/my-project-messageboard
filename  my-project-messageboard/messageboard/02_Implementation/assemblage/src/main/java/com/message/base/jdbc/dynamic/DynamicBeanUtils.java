@@ -1,4 +1,4 @@
-package com.message.base.jdbc;
+package com.message.base.jdbc.dynamic;
 
 import javassist.ClassPool;
 import javassist.LoaderClassPath;

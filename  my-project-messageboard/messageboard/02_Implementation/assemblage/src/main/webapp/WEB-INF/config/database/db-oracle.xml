@@ -18,13 +18,19 @@
 		<property name="nativeJdbcExtractor" ref="jdbcExtractor"/>
 	</bean>
 	
-	<bean id="oracleHelper" class="com.message.base.jdbc.OracleSqlHelper">
+	<bean id="oracleHelper" class="com.message.base.jdbc.utils.OracleSqlHelper">
 		<property name="lobHandler" ref="lobHandler"/>
+	</bean>
+	
+	<bean id="oracleIdGenerator" class="com.message.base.jdbc.key.impl.sequence.OracleSequenceMaxValueIncrementer">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="keyLength" value="5"/>
 	</bean>
 	
 	<bean id="genericJdbcDAO" class="com.message.base.jdbc.GenericJdbcDAO">
 		<property name="dataSource" ref="dataSource"/>
 		<property name="sqlHelper" ref="oracleHelper"/>
+		<property name="idGenerator" ref="oracleIdGenerator"/>
 	</bean>
 
 </beans>

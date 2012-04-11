@@ -81,13 +81,11 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Long> listMenuByParentId(Long parentId) throws Exception {
-//		String hql = "from Menu m where m.parentId = :parentId and m.deleteStatus = :flag order by m.menuSort asc ";
 		String sql = "select m.pk_id as pk from t_message_menu m where m.parent_id = :parentId " +
 				" and m.delete_status = :flag order by m.menu_sort asc";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("flag", ResourceType.DELETE_NO);
 		params.put("parentId", parentId);
-//		return this.findByHQL(hql, params);
 		
 		return this.genericJdbcDAO.queryForList(sql, params, new RowMapper(){
 			public Object mapRow(ResultSet rs, int rowNum) throws SQLException {

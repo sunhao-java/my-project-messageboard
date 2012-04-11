@@ -185,7 +185,15 @@ public class MenuServiceImpl implements MenuService {
 			return Collections.EMPTY_LIST;
 		}
 		
-		return this.menuDAO.listMenuByParentId(parentId);
+		List<Long> pkIds = this.menuDAO.listMenuByParentId(parentId);
+		List<Menu> menus = new ArrayList<Menu>();
+		for(Long p : pkIds){
+			Menu menu = this.menuDAO.loadMenu(p);
+			if(menu != null)
+				menus.add(menu);
+		}
+			
+		return menus;
 	}
 
 	public boolean deleteMenu(Long menuId) throws Exception {
@@ -198,11 +206,19 @@ public class MenuServiceImpl implements MenuService {
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Menu> getMenuTree() throws Exception {
 		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         String perm = loginUser.getIsAdmin().toString();
 
-        List menus = this.menuDAO.listPermMenu(perm);
+        List<Long> pkIds = this.menuDAO.listPermMenu(perm);
+        List<Menu> menus = new ArrayList<Menu>();
+        for(Long p : pkIds){
+			Menu menu = this.menuDAO.loadMenu(p);
+			if(menu != null)
+				menus.add(menu);
+		}
+        
         Collections.sort(menus);
         menus = this.orderMenu(menus, 0L);
 		return menus;

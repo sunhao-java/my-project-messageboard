@@ -56,22 +56,22 @@ public interface MenuDAO {
 	void updateMenu(Menu menu) throws Exception;
 	
 	/**
-	 * 获取parentId指定的菜单集合
+	 * 获取parentId指定的菜单Id集合
 	 * 
 	 * @param parentId
 	 * @return
 	 * @throws Exception
 	 */
-	List<Menu> listMenuByParentId(Long parentId) throws Exception;
+	List<Long> listMenuByParentId(Long parentId) throws Exception;
 
     /**
-     * 获得当前登录者能看到的菜单
+     * 获得当前登录者能看到的菜单ID
      *
      * @param perm
      * @return
      * @throws Exception
      */
-    List<Menu> listPermMenu(String perm) throws Exception;
+    List<Long> listPermMenu(String perm) throws Exception;
 
     /**
      * 根据URL获取菜单

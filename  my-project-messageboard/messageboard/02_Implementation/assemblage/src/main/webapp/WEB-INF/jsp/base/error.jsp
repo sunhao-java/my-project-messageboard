@@ -63,6 +63,7 @@
 <p style="display: none">
     <%
         Exception ex = (Exception) request.getAttribute("ex");
-        ex.printStackTrace(new java.io.PrintWriter(out));
+    	if(ex != null)
+        	ex.printStackTrace(new java.io.PrintWriter(out));
     %>
 </p>

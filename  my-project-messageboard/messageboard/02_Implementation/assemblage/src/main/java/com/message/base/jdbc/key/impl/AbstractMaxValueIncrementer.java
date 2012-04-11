@@ -7,6 +7,7 @@ import org.springframework.dao.DataAccessException;
 import com.message.base.jdbc.key.IDGenerator;
 
 /**
+ * 主键生成器实现
  *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-11 上午08:26:42

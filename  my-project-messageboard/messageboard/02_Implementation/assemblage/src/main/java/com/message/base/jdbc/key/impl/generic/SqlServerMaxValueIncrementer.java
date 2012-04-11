@@ -13,67 +13,63 @@ import org.springframework.jdbc.support.JdbcUtils;
 import com.message.base.jdbc.key.impl.AbstractMaxValueIncrementer;
 
 /**
- * MySQL主键自增长策略
+ * SQL Server主键自增长策略
  *
  * @author sunhao(sunhao.java@gmail.com)
- * @version V1.0, 2012-4-11 上午09:15:08
- * @see
+ * @version V1.0, 2012-4-11 上午10:40:59
  */
-public class MySQLMaxValueIncrementer extends AbstractMaxValueIncrementer {
-	/** The SQL string for retrieving the new sequence value */
-	private static final String VALUE_SQL = "select last_insert_id()";
+public class SqlServerMaxValueIncrementer extends AbstractMaxValueIncrementer {
 
-	/** The next id to serve */
-	private long nextId = 0;
+	/** The current cache of values */
+	private long[] valueCache;
 
-	/** The max id to serve */
-	private long maxId = 0;
+	/** The next id to serve from the value cache */
+	private int nextValueIndex = -1;
 	
 	/** The number of keys buffered in a cache */
 	private int cacheSize = 1;
 
 	protected synchronized long getNextKey(String name) throws DataAccessException {
-		if (this.maxId == this.nextId) {
+		if (this.nextValueIndex < 0 || this.nextValueIndex >= getCacheSize()) {
 			/*
 			* Need to use straight JDBC code because we need to make sure that the insert and select
-			* are performed on the same connection (otherwise we can't be sure that last_insert_id()
-			* returned the correct value)
+			* are performed on the same connection (otherwise we can't be sure that @@identity
+			* returnes the correct value)
 			*/
 			Connection con = DataSourceUtils.getConnection(getDataSource());
 			Statement stmt = null;
 			try {
 				stmt = con.createStatement();
 				DataSourceUtils.applyTransactionTimeout(stmt, getDataSource());
-				// Increment the sequence column...
-				stmt.executeUpdate("update "+ name + " set " + name +
-						" = last_insert_id(" + name + " + " + getCacheSize() + ")");
-				// Retrieve the new max of the sequence column...
-				ResultSet rs = stmt.executeQuery(VALUE_SQL);
-				try {
-					if (!rs.next()) {
-						throw new DataAccessResourceFailureException("last_insert_id() failed after executing an update");
+				this.valueCache = new long[getCacheSize()];
+				this.nextValueIndex = 0;
+				for (int i = 0; i < getCacheSize(); i++) {
+					stmt.executeUpdate("insert into " + name + " default values");
+					ResultSet rs = stmt.executeQuery("select @@identity");
+					try {
+						if (!rs.next()) {
+							throw new DataAccessResourceFailureException("@@identity failed after executing an update");
+						}
+						this.valueCache[i] = rs.getLong(1);
 					}
-					this.maxId = rs.getLong(1);
+					finally {
+						JdbcUtils.closeResultSet(rs);
+					}
 				}
-				finally {
-					JdbcUtils.closeResultSet(rs);
-				}
-				this.nextId = this.maxId - getCacheSize() + 1;
+				long maxValue = this.valueCache[(this.valueCache.length - 1)];
+				stmt.executeUpdate("delete from " +name + " where " + name + " < " + maxValue);
 			}
 			catch (SQLException ex) {
-				throw new DataAccessResourceFailureException("Could not obtain last_insert_id()", ex);
+				throw new DataAccessResourceFailureException("Could not increment identity", ex);
 			}
 			finally {
 				JdbcUtils.closeStatement(stmt);
 				DataSourceUtils.releaseConnection(con, getDataSource());
 			}
 		}
-		else {
-			this.nextId++;
-		}
-		return this.nextId;
+		return this.valueCache[this.nextValueIndex++];
 	}
-
+	
 	/**
 	 * Return the number of buffered keys.
 	 */

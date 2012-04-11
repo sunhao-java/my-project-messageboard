@@ -1,4 +1,4 @@
-package com.message.base.jdbc.utils;
+package com.message.base.jdbc.utils.helper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

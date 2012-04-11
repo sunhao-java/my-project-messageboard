@@ -30,7 +30,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.StringUtils;
 
 import com.message.base.jdbc.utils.PersistentField;
-import com.message.base.jdbc.utils.SqlHelper;
+import com.message.base.jdbc.utils.helper.SqlHelper;
 
 /**
  * 动态创建rowMapper

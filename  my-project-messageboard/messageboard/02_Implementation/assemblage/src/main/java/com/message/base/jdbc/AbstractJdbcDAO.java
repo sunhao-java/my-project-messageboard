@@ -13,7 +13,7 @@ import com.message.base.jdbc.dynamic.ColumnMapRowMapper;
 import com.message.base.jdbc.dynamic.DynamicBeanRowMapper;
 import com.message.base.jdbc.ext.ExtNamedParameterJdbcDaoSupport;
 import com.message.base.jdbc.key.IDGenerator;
-import com.message.base.jdbc.utils.SqlHelper;
+import com.message.base.jdbc.utils.helper.SqlHelper;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.pagination.PaginationUtils;
 

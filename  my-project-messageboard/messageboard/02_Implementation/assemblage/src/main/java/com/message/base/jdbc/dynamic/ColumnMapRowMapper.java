@@ -10,7 +10,7 @@ import org.springframework.core.CollectionFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 
-import com.message.base.jdbc.utils.SqlHelper;
+import com.message.base.jdbc.utils.helper.SqlHelper;
 
 /**
  * row mapper

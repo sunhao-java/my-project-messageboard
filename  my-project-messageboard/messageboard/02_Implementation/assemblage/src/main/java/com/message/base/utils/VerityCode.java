@@ -1,12 +1,13 @@
 package com.message.base.utils;
 
-import com.message.resource.ResourceType;
-
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.message.base.Constants;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.Random;
 public class VerityCode extends HttpServlet{
 	private static final long serialVersionUID = -4395293913583955749L;
 	
-	private static String key = ResourceType.VERITY_CODE_KEY; // 默认的session key
+	private static String key = Constants.VERITY_CODE_KEY; // 默认的session key
 
     private static Color getRandomColor(int fontColor, int backColor){
         Random random = new Random();

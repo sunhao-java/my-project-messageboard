@@ -13,9 +13,11 @@
     <!-- 项目webapp -->
     <property name="webapp.dir" value="${basedir}\webapp"/>
 	<!-- 编译源文件class类存放的路径 -->
-	<property name="build.dir" value="${webapp.dir}\WEB-INF\classes"/>
+	<property name="build.dir" value="F:\message"/>
     <!-- 项目配置文件 -->
     <property name="project.config" value="${basedir}\resource"/>
+	<!-- jar包名称 -->
+	<property name="jar.name" value="message"/>
 
 
 	<!-- 使用到的一些jar包 -->
@@ -50,6 +52,7 @@
         
     </target>
 
+	<!-- 复制配置文件 -->
     <target name="deployConfigFile" description="复制配置文件" >
         <copy todir="${build.dir}">
             <fileset dir="${project.config}">
@@ -61,13 +64,18 @@
 
 	<!-- 定义一个打包的任务 -->
 	<target name="makejar" depends="compile" description="创建发布jar包" >
-		<!-- 打包之后放在${basedir}下，文件名为${ant.project.name}.jar -->
-		<jar destfile="${basedir}\${ant.project.name}-core-2.0.jar">
+		<!-- 打包之后放在${build.dir}下，文件名为${ant.project.name}.jar -->
+		<jar destfile="${build.dir}\${jar.name}-core-3.1.jar">
 			<!-- 需要打包的class文件路径 -->
 			<fileset dir="${build.dir}">
 				<!-- 把所有class文件打包进去 -->
 				<include name="**/*.class" />
 			</fileset>
 		</jar>
+	</target>
+	
+	<!-- 删除目录 -->
+	<target name="delete" description="删除编译后的文件夹">
+		<delete dir="${build.dir}" />
 	</target>
 </project>

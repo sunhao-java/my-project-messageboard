@@ -28,4 +28,9 @@ public class Constants {
      * 单位：秒
      */
     public static final Integer DEFAULT_EXPIRE_TIME = 2592000;
+    
+    /**
+     * 验证码在session中默认的ID
+     */
+    public static final String VERITY_CODE_KEY = "verityCode";
 }

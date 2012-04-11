@@ -1,4 +1,4 @@
-package com.message.base.jdbc.utils;
+package com.message.base.jdbc.utils.helper;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.support.lob.LobHandler;
+
+
 
 /**
  * oracle sql helper implement

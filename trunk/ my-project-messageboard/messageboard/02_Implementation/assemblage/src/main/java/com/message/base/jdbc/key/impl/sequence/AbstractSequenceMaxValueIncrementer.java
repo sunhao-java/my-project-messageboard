@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import com.message.base.jdbc.key.impl.AbstractMaxValueIncrementer;
 
 /**
+ * 所有利用sequence实现主键自增长的数据库均需继承此类，并实现getQuerySequence方法
  *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-11 上午08:45:39

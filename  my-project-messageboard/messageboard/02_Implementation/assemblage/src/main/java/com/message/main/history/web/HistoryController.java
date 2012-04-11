@@ -16,10 +16,9 @@ import com.message.base.web.WebInput;
 import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
 import com.message.main.message.web.MessageController;
-import com.message.main.user.pojo.User;
-import com.message.resource.ResourceType;
 
 public class HistoryController extends ExtMultiActionController {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	private WebInput in = null;

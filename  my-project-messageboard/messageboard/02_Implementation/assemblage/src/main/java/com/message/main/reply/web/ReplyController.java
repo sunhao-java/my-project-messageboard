@@ -14,10 +14,10 @@ import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
-import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 public class ReplyController extends ExtMultiActionController {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	
 	private WebInput in = null;

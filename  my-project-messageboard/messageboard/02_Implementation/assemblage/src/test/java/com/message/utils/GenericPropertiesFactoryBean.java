@@ -53,6 +53,7 @@ import org.springframework.util.PropertiesPersister;
  * Version: V1.0
  * History:
  */
+@SuppressWarnings("rawtypes")
 public final class GenericPropertiesFactoryBean
         implements FactoryBean, InitializingBean {
 
@@ -115,7 +116,8 @@ public final class GenericPropertiesFactoryBean
      * @param rootProps  存放配置文件root的最基础的配置信息
      * @throws IOException IOException
      */
-    private void initCcsLocations(Properties result,Properties fileProps,Properties rootProps) throws IOException {
+    @SuppressWarnings("unchecked")
+	private void initCcsLocations(Properties result,Properties fileProps,Properties rootProps) throws IOException {
 
         List/*<Resource>*/ locs = new ArrayList/*<Resource>*/(32);
 
@@ -188,7 +190,8 @@ public final class GenericPropertiesFactoryBean
      * @param isSupportLastFile 是否支持最后文件加载
      * @throws IOException   异常
      */
-    private void loadPropByPath(String location,List locations,Properties fileProps,boolean isSupportLastFile) throws IOException{
+    @SuppressWarnings("unchecked")
+	private void loadPropByPath(String location,List locations,Properties fileProps,boolean isSupportLastFile) throws IOException{
         UrlResource ur = new UrlResource(location);
         Collection fs = FileUtils.listFiles(ur.getFile(), null, false);
         if (!fs.isEmpty()) {
@@ -299,7 +302,8 @@ public final class GenericPropertiesFactoryBean
      * @param map 要替换值的map
      * @param valueMap 提供替换值的Map
      */
-    private void replaceValue(Map map,Map valueMap){
+    @SuppressWarnings("unchecked")
+	private void replaceValue(Map map,Map valueMap){
         Iterator it =map.entrySet().iterator();
         Map.Entry me;
         String key,val;

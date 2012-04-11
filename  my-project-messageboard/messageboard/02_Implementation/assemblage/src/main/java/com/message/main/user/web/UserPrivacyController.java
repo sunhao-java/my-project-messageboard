@@ -8,14 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
-import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.resource.ResourceType;
@@ -28,14 +25,13 @@ import com.message.resource.ResourceType;
  * @createTime 2012-2-10 下午09:00:45
  */
 public class UserPrivacyController extends ExtMultiActionController {
-	private static final Logger logger = LoggerFactory.getLogger(UserPrivacyController.class);
-
 	private UserPrivacyService userPrivacyService;
 
 	public void setUserPrivacyService(UserPrivacyService userPrivacyService) {
 		this.userPrivacyService = userPrivacyService;
 	}
 
+	@SuppressWarnings("unused")
 	private WebInput in = null;
 	private WebOutput out = null;
 

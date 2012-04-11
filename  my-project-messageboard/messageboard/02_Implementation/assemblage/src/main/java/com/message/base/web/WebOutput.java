@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * 封装HttpServletResponse
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class WebOutput {
 	private HttpServletResponse response;
 	private HttpServletRequest request;

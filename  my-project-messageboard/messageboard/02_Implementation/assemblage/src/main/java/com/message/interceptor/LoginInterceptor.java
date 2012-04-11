@@ -4,18 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContext;
-import com.message.main.login.web.AuthContextHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.message.base.spring.ApplicationContextUtil;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContext;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.menu.exception.NoPermException;
 import com.message.main.menu.service.MenuService;
-import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 /**

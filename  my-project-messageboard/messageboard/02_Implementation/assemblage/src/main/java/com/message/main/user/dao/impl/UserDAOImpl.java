@@ -30,7 +30,7 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public User getUserByName(String username) throws Exception {
 		String hql = "from User where username = ?";
 		List<Object> params = new ArrayList<Object>();

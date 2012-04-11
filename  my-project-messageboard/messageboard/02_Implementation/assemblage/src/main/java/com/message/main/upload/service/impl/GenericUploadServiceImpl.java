@@ -1,7 +1,19 @@
 package com.message.main.upload.service.impl;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
+
 import com.message.base.Constants;
-import com.message.base.exception.FileExistException;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
@@ -9,14 +21,6 @@ import com.message.main.upload.dao.UploadDAO;
 import com.message.main.upload.pojo.UploadFile;
 import com.message.main.upload.service.GenericUploadService;
 import com.message.resource.ResourceType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * 上传文件的通用类的实现
@@ -25,6 +29,7 @@ import java.util.*;
  * @version V1.0
  * @createTime 12-3-18 上午11:39
  */
+@SuppressWarnings("rawtypes")
 public class GenericUploadServiceImpl implements GenericUploadService {
     private static final Logger logger = LoggerFactory.getLogger(GenericUploadServiceImpl.class);
 
@@ -34,7 +39,7 @@ public class GenericUploadServiceImpl implements GenericUploadService {
         this.uploadDAO = uploadDAO;
     }
 
-    public List<String> uploads(MultipartRequest request, Map params) throws Exception {
+	public List<String> uploads(MultipartRequest request, Map params) throws Exception {
         Iterator it = request.getFileNames();
 
         List<String> result = new ArrayList<String>();

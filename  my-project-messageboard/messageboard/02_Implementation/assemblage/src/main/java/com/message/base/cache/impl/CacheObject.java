@@ -9,7 +9,9 @@ import java.io.Serializable;
  * @version V1.0, 12-4-9 上午6:54
  */
 public class CacheObject implements Serializable {
-    /**
+	private static final long serialVersionUID = -8487170685493403025L;
+	
+	/**
      * cache object
      */
     private Object value;

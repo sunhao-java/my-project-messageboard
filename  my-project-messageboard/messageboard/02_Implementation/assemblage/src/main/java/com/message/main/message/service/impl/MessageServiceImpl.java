@@ -26,7 +26,6 @@ import com.message.resource.ResourceType;
  * 留言操作的service 
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("deprecation")
 public class MessageServiceImpl implements MessageService {
 	
 	private static final String AUDIT_OK = "ok";

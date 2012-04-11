@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.message.base.pagination.PaginationUtils;
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
-import com.message.base.utils.DateUtils;
+import com.message.base.pagination.PaginationUtils;
 import com.message.base.utils.StringUtils;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 import com.message.main.vote.dao.VoteDAO;
@@ -29,6 +28,7 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 2012-2-12 下午12:41:25
  */
+@SuppressWarnings("rawtypes")
 public class VoteServiceImpl implements VoteService {
     /**
      * 单选
@@ -285,19 +285,7 @@ public class VoteServiceImpl implements VoteService {
         return vote;
     }
 
-    /**
-     * 往投票中加入所有投票回答（除了当前登录人的自己的回答）
-     *
-     * @param vote 需要处理的投票
-     * @param user 当前登录人
-     * @return
-     */
-    private Vote setAllAnswerInVote(Vote vote, User user) {
-        return vote;
-    }
-
-    @SuppressWarnings("unchecked")
-    public PaginationSupport listMyAttendVote(int start, int num) throws Exception {
+	public PaginationSupport listMyAttendVote(int start, int num) throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         // 我回答的投票ID
         PaginationSupport pagination = this.voteDAO.listMyAnswerVoteId(loginUser.getPkId(), start, num);
@@ -315,7 +303,8 @@ public class VoteServiceImpl implements VoteService {
         return PaginationUtils.makePagination(votes, pagination.getTotalRow(), num, start);
     }
 
-    public PaginationSupport listMyCreateVote(int start, int num) throws Exception {
+    @SuppressWarnings("unchecked")
+	public PaginationSupport listMyCreateVote(int start, int num) throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         PaginationSupport pagination = this.voteDAO.listVoteByCreateUser(loginUser.getPkId(), start, num);
         List<Vote> votes = pagination.getItems();

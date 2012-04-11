@@ -1,31 +1,36 @@
 package com.message.base.hibernate.impl;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
-import com.message.base.utils.SqlUtils;
-import com.message.base.utils.StringUtils;
 import org.apache.commons.collections.CollectionUtils;
-import org.hibernate.*;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.pagination.PaginationUtils;
-
-import static com.message.base.utils.SqlUtils.*;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 
 /**
  * hibernate主要方法的封装的实现
  *
  * @author sunhao(sunhao.java@gmail.com)
  */
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GenericHibernateDAOImpl implements GenericHibernateDAO {
     private static final Logger log = LoggerFactory.getLogger(GenericHibernateDAOImpl.class);
     private HibernateTemplate hibernateTemplate;
@@ -45,8 +50,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param params
      * @return
      */
-    @SuppressWarnings("unchecked")
-    public List findByHQL(final String hql, final List params) throws Exception {
+	public List findByHQL(final String hql, final List params) throws Exception {
         List result = (List) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
             Query query = null;
 
@@ -72,7 +76,6 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param params
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List findByHQL(final String hql, final Map params) throws Exception {
         return (List) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -97,7 +100,6 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param params
      * @return 表中受影响的数据条数
      */
-    @SuppressWarnings("unchecked")
     public Integer updateByNativeSQL(final String sql, final Map params) throws Exception {
         return (Integer) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -122,7 +124,6 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param params
      * @return
      */
-    @SuppressWarnings("unchecked")
     public List queryByNativeSQL(final String sql, final Map params) throws Exception {
         return (List) this.hibernateTemplate.execute(new HibernateCallback() {
             public Object doInHibernate(Session session)
@@ -211,7 +212,6 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param params   参数
      * @return
      */
-    @SuppressWarnings("unchecked")
     public PaginationSupport getPaginationSupport(final String hql, final String countHql, final int start,
                                                   final int num, final Map params) throws Exception {
         PaginationSupport result =  (PaginationSupport) this.hibernateTemplate.executeWithNativeSession(new HibernateCallback() {
@@ -246,7 +246,6 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
      * @param id    主键
      * @return
      */
-    @SuppressWarnings("unchecked")
     public Object loadObject(Class clazz, Long id) throws Exception {
         return this.hibernateTemplate.get(clazz, id);
     }
@@ -294,7 +293,8 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
         final String sql = "select " + sequenceName + ".NextVal as id from dual";
 
         HibernateCallback callback = new HibernateCallback() {
-            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+            @SuppressWarnings("deprecation")
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
                 Long pkId = (Long) session.createSQLQuery(sql).addScalar("id", Hibernate.LONG).uniqueResult();
                 log.debug("hibernate get nextVal from sequence named '{}' is '{}'", sequenceName, pkId);
                 return pkId;

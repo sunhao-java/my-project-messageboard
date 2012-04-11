@@ -3,7 +3,6 @@ package com.message.main.user.service.impl;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.dao.UserPrivacyDAO;
-import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.resource.ResourceType;

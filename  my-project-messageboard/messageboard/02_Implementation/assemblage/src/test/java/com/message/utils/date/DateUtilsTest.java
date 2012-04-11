@@ -210,7 +210,7 @@ public class DateUtilsTest {
 		System.out.println(System.currentTimeMillis());
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	@Test
 	public void testgetWeekMap(){
 		String nowDate = "2012-01-25";

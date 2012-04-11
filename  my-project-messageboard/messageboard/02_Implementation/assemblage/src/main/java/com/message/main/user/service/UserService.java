@@ -2,7 +2,6 @@ package com.message.main.user.service;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
-import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.pojo.User;
 
 /**

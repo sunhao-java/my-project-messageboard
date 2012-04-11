@@ -2,7 +2,6 @@ package com.message.main.user.dao.impl;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.main.user.dao.UserPrivacyDAO;
-import com.message.main.user.pojo.User;
 import com.message.main.user.pojo.UserPrivacy;
 
 /**

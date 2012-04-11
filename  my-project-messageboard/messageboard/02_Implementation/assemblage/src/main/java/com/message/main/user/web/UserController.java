@@ -1,14 +1,11 @@
 package com.message.main.user.web;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
@@ -21,6 +18,8 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.main.user.service.UserService;
@@ -31,6 +30,7 @@ import com.message.resource.ResourceType;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class UserController extends ExtMultiActionController {
+	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private static WebInput in = null;
@@ -58,7 +58,6 @@ public class UserController extends ExtMultiActionController {
 		in = new WebInput(request);
 		Long viewUserId = in.getLong("viewUserId", Long.valueOf(-1));
         User user = null;
-        LoginUser loginUser = null;
         if(!Long.valueOf(-1).equals(viewUserId)){
             user = new User(viewUserId);
             params.put("customer", "true");

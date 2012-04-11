@@ -119,7 +119,6 @@ public interface VoteDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	PaginationSupport listMyAnswerVoteId(Long pkId, int start, int num) throws Exception;
 	
 	/**

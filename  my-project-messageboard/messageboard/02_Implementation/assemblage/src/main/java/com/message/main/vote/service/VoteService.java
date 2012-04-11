@@ -3,7 +3,6 @@ package com.message.main.vote.service;
 import java.util.List;
 
 import com.message.base.pagination.PaginationSupport;
-import com.message.main.user.pojo.User;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteOption;

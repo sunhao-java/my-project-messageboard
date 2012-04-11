@@ -5,7 +5,6 @@ import java.util.List;
 import net.sf.json.JSONArray;
 
 import com.message.main.menu.pojo.Menu;
-import com.message.main.user.pojo.User;
 
 /**
  * 菜单service接口

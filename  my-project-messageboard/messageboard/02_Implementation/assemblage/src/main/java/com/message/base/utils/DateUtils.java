@@ -14,6 +14,7 @@ import java.util.TimeZone;
  * @see org.apache.commons.lang.time.DateUtils
  * @author sunhao(sunhao.java@gmail.com)
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	
 	/**
@@ -652,7 +653,6 @@ public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
      * @return
      */
     //TODO 需要理解是什么意思
-    @SuppressWarnings("unchecked")
 	public static Map getWeekMap(Date start, Date end) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(start);
@@ -661,7 +661,7 @@ public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
         if (dayOfWeek <= 0) {
             dayOfWeek = 7;
         }
-        Map weekMap = new HashMap();
+		Map weekMap = new HashMap();
         Map weekDayMap = new HashMap();
         weekMap.put("1", weekDayMap);
         Date dateNext = null;
@@ -686,7 +686,6 @@ public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
     }
     
     //TODO 需要理解是什么意思
-    @SuppressWarnings("unchecked")
 	public static Date getDateByWeekcountAndWeekday(Date start, Date end, int weekcount, int weekday) {
         Map weekMap = getWeekMap(start, end);
         Map weekDayMap = (Map) weekMap.get(String.valueOf(weekcount));

@@ -16,7 +16,6 @@ import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
-import com.message.main.user.pojo.User;
 import com.message.resource.ResourceType;
 
 /**

@@ -15,6 +15,7 @@ import java.util.List;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午7:10
  */
+@SuppressWarnings("rawtypes")
 public class EHCacheImpl implements Cache {
     private static final Logger logger = LoggerFactory.getLogger(EHCacheImpl.class);
 
@@ -28,7 +29,7 @@ public class EHCacheImpl implements Cache {
         this.cache = cache;
     }
 
-    public List getKeys() {
+	public List getKeys() {
         return this.cache.getKeys();
     }
 
@@ -58,7 +59,8 @@ public class EHCacheImpl implements Cache {
         return element.getValue();
     }
 
-    public List get(String[] keys) {
+    @SuppressWarnings("unchecked")
+	public List get(String[] keys) {
         if(keys == null || keys.length < 1) {
             logger.warn("given keys is null!");
             return null;

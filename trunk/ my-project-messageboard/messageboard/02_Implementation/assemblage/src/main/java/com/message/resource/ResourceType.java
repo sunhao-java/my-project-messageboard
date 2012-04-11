@@ -175,6 +175,9 @@ public final class ResourceType {
      */
     public static final String MAP_KEY_UPLOAD_ID = "uploadId";
 
+    /**
+     * 验证码在session中默认的ID
+     */
     public static final String VERITY_CODE_KEY = "verityCode";
 	
 }

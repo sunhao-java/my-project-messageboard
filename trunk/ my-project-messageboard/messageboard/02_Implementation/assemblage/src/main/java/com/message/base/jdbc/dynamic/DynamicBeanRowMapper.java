@@ -1,4 +1,4 @@
-package com.message.base.jdbc;
+package com.message.base.jdbc.dynamic;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Constructor;
@@ -28,6 +28,9 @@ import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.StringUtils;
+
+import com.message.base.jdbc.utils.PersistentField;
+import com.message.base.jdbc.utils.SqlHelper;
 
 /**
  * 动态创建rowMapper

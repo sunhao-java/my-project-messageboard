@@ -9,6 +9,11 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import com.message.base.jdbc.dynamic.ColumnMapRowMapper;
+import com.message.base.jdbc.dynamic.DynamicBeanRowMapper;
+import com.message.base.jdbc.ext.ExtNamedParameterJdbcDaoSupport;
+import com.message.base.jdbc.key.IDGenerator;
+import com.message.base.jdbc.utils.SqlHelper;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.pagination.PaginationUtils;
 
@@ -22,6 +27,7 @@ import com.message.base.pagination.PaginationUtils;
 public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	private RowMapper rowMapper;
 	private SqlHelper sqlHelper;
+	private IDGenerator idGenerator;
 	
 	/**
 	 * 查询得到int型
@@ -282,6 +288,40 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 		PaginationSupport ps = PaginationUtils.makePagination(result, count, num, start);
 		return ps;
 	}
+	
+	/**
+	 * get next long pkId from database by given sequence
+	 * 
+	 * @param name	sequence name
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public long generateLongId(String name) throws DataAccessException {
+		return this.idGenerator.nextLongValue(name);
+	}
+	
+	/**
+	 * get next int pkId from database by given sequence
+	 * 
+	 * @param name	sequence name
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int generateIntId(String name) throws DataAccessException {
+		return this.idGenerator.nextIntValue(name);
+	}
+	
+	/**
+	 * get next string pkId from database by given sequence
+	 * 
+	 * @param name	sequence name
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public String generateStringId(String name) throws DataAccessException {
+		return this.idGenerator.nextStringValue(name);
+	}
+	
 
 	protected void initDao() throws Exception {
 		super.initDao();
@@ -306,6 +346,10 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 
 	public void setSqlHelper(SqlHelper sqlHelper) {
 		this.sqlHelper = sqlHelper;
+	}
+
+	public void setIdGenerator(IDGenerator idGenerator) {
+		this.idGenerator = idGenerator;
 	}
 	
 }

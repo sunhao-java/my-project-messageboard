@@ -1,4 +1,4 @@
-package com.message.base.jdbc;
+package com.message.base.jdbc.dynamic;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -9,6 +9,8 @@ import java.util.Map;
 import org.springframework.core.CollectionFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
+
+import com.message.base.jdbc.utils.SqlHelper;
 
 /**
  * row mapper

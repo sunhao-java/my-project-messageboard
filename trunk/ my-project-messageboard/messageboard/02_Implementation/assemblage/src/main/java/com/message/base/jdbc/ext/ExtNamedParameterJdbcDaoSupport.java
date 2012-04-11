@@ -1,4 +1,4 @@
-package com.message.base.jdbc;
+package com.message.base.jdbc.ext;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

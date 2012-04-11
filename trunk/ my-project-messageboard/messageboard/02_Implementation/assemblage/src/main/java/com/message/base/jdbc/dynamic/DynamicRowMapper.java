@@ -1,6 +1,8 @@
-package com.message.base.jdbc;
+package com.message.base.jdbc.dynamic;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import com.message.base.jdbc.utils.SqlHelper;
 
 /**
  * 动态行映射

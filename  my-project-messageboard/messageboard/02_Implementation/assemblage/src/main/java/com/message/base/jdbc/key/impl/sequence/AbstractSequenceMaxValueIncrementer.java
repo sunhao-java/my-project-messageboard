@@ -43,6 +43,12 @@ public abstract class AbstractSequenceMaxValueIncrementer extends AbstractMaxVal
 		}
 	}
 	
+	/**
+	 * query next sequence sql
+	 * 
+	 * @param name		sequence name
+	 * @return
+	 */
 	public abstract String getQuerySequence(String name);
 
 }

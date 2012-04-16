@@ -51,24 +51,30 @@
 				$C.setForm(registerFrm);
 				var flag = Validator.Validate(registerFrm, 3);
 				if(flag){
-					$C.asyncRequest("POST", action, {
-						success : function(o){
-							var _e = eval("(" + o.responseText + ")");
-							if(_e.status == '1'){
-								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册成功！请及时到您所输入的邮箱中激活帐号！',
-									'confirmFunction':function(){
-										this.cancel();
-										closeDiv();
-										reset();
-									}});
-							} else {
-								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册失败！'});
+					var password = $D.get("passwordReg").value;
+					var password_ = $D.get("password_").value;
+					if(password == password_){
+						$C.asyncRequest("POST", action, {
+							success : function(o){
+								var _e = eval("(" + o.responseText + ")");
+								if(_e.status == '1'){
+									YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册成功！请及时到您所输入的邮箱中激活帐号！',
+										'confirmFunction':function(){
+											this.cancel();
+											closeDiv();
+											reset();
+										}});
+								} else {
+									YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'注册失败！'});
+								}
+							},
+							failure : function(o){
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 							}
-						},
-						failure : function(o){
-							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
-						}
-					});
+						});
+					} else {
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'两次密码输入不相等！'});
+					}
 				}
 			}
 			
@@ -297,8 +303,8 @@
 	                 				<msg:message code="message.password.again"/><span style="color: red">*</span>
 	                 			</td>
 				                <td align="left" style="width: 80%">
-									<input type="password" name="password_" id="password_" class="f_text"
-										dataType="Repeat" to="password" msg="两次输入的密码不一致"/>
+									<input type="password" name="password_" id="password_" class="f_text"/>
+									<span style="color: red">*密码最短10位</span>
 								</td>
 	              			</tr>
 	              			<tr>
@@ -311,7 +317,7 @@
 									<input type="radio" value="2" name="sex" id="2"><label for="2"><msg:message code="message.sex.woman"/></label>
 								</td>
 	              			</tr>
-	              			<tr>
+	              			<%--<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
 	                 				<msg:message code="message.head.image"/>
 	                 			</td>
@@ -381,7 +387,7 @@
 									</select>
 									<img src="${contextPath }/image/pic1.gif" width="90" height="90" id="imgs" />
 								</td>
-	              			</tr>
+	              			</tr>--%>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
 	                 				<msg:message code="message.email"/><span style="color: red">*</span>

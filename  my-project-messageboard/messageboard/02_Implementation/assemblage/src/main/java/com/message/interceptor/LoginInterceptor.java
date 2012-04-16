@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.message.base.spring.ApplicationContextUtil;
+import com.message.base.utils.RequestUtils;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContext;
 import com.message.main.login.web.AuthContextHelper;
@@ -44,7 +45,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      * @return
      * @throws Exception
      */
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession(true);
         String url = request.getServletPath();
 
@@ -52,7 +53,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         if(url.indexOf(".do") != -1){
 			if(loginUser == null){
-				response.sendRedirect(request.getContextPath() + "/guest/index.do");
+				String redirectUrl = request.getContextPath() + "/guest/index.do?goUrl=" + RequestUtils.getRequestUrl(request, true);
+				//加上参数：跳转前的url
+				response.sendRedirect(redirectUrl);
 			} else {
                 AuthContext authContext = new AuthContext();
                 authContext.setLoginUser(loginUser);

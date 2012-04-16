@@ -145,6 +145,7 @@
 								<c:when test="${empty param.status}">
 									<td width="311" height="309" valign="top" id="yzmtd" background="${contextPath}/image/wiseduimg/wiscom_index_03.jpg">
 										<form action="${contextPath}/login/login.do" method="post" name="dataFrm" id="dataFrm">
+											<input type="hidden" name="goUrl" value="${goUrl}"/>
 											<table width="100%" border="0" cellspacing="0" cellpadding="0">
 												<tr>
 													<td height="102">

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.properties.SystemConfig;
@@ -44,76 +45,17 @@ public class GuestController extends ExtMultiActionController {
         in = new WebInput(request);
         Map<String, Object> params = new HashMap<String, Object>();
         String view = "";
+        String goUrl = in.getString("goUrl", StringUtils.EMPTY);
         User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
         if (user != null) {
             view = "redirect:/home/inMessageIndex.do";
         } else {
+        	params.put("goUrl", goUrl);
             view = "user.login";
         }
         params.put("guestAuth", SystemConfig.getBooleanProperty("system.auth.guest", Boolean.FALSE));
         return new ModelAndView(view, params);
     }
-/*
-    *//**
-     * 用户登录
-     *
-     * @param request
-     * @param response
-     * @param user
-     * @return
-     *//*
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, User user) {
-    	Map<String, Object> params = new HashMap<String, Object>();
-    	
-        in = new WebInput(request);
-        logger.debug("username is " + user.getUsername());
-        int status = 0;
-        try {
-            String verityCode = in.getString("inputCode");
-            String codeInSession = (String) in.getSession().getAttribute(ResourceType.VERITY_CODE_KEY);
-            if(StringUtils.isNotEmpty(verityCode) && StringUtils.equalsIgnoreCase(verityCode, codeInSession)){
-                status = this.userService.userLogin(user, in);
-                if (status == 0) {
-                    //跳转到另外一个controller
-                    User dbUser = this.userService.getUserByName(user.getUsername());
-                    //dbUser.setLoginIP(in.getClientIP());
-                    *//**
-                     * 将登录用户放入session中
-                     * 设置session的生命周期为1小时(即：用户登录后不做任何操作1小时后将被强制登出)
-                     *//*
-                    HttpSession session = in.getSession();
-                    session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, dbUser);
-                    in.setMaxInactiveInterval(session, 1 * 60 * 60 * 1000);
-
-                    return new ModelAndView("redirect:/home/inMessageIndex.do");
-                } else {
-                    if (status == 1) {
-                        params.put("message", "用户名错误！");
-                    } else if (status == 2) {
-                        params.put("message", "密码错误！");
-                    } else if (status == 3) {
-                        params.put("message", "用户名密码必填！");
-                    } else if (status == 4) {
-                        params.put("message", "未进行邮箱验证，请验证！");
-                    } else if (status == 5) {
-                        params.put("message", "用户已被停用！");
-                    }
-                    params.put("status", status);
-                    return new ModelAndView("redirect:/guest/index.do", params);
-                }
-            } else {
-                params.put("message", "验证码错误！");
-                params.put("status", status);
-                return new ModelAndView("redirect:/guest/index.do", params);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            status = 3;        //网络有错误
-            logger.error(e.getMessage(), e);
-            request.setAttribute("status", status);
-            return new ModelAndView("redirect:/guest/index.do");
-        }
-    }*/
 
     /**
      * 判断注册的用户是否已存在

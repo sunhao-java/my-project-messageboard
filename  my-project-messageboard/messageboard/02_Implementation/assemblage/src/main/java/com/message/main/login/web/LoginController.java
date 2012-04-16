@@ -50,13 +50,18 @@ public class LoginController extends ExtMultiActionController {
         Map<String, Object> params = new HashMap<String, Object>();
         String loginName = in.getString("username", StringUtils.EMPTY);
         String password = in.getString("password", StringUtils.EMPTY);
+        String goUrl = in.getString("goUrl", StringUtils.EMPTY);
 
         Integer result = this.loginService.login(in, out, loginName, password);
 
         String view = StringUtils.EMPTY;
 
         if(Integer.valueOf(0).equals(result)){
-            view = "redirect:/home/inMessageIndex.do";
+        	if(StringUtils.isEmpty(goUrl)){
+        		view = "redirect:/home/inMessageIndex.do";
+        	} else {
+        		view = "redirect:" + goUrl;
+        	}
         } else {
             if (Integer.valueOf(1).equals(result)) {
                 params.put("message", "用户名错误！");

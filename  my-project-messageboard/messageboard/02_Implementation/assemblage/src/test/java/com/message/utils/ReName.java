@@ -57,7 +57,7 @@ public class ReName {
             } else {
                 System.out.println("the file named " + fName + " is not a file!!");
             }
-            f.renameTo(new File(path + newFileName));
+            f.renameTo(new File(path + "/" + newFileName));
         }
 	}
 }

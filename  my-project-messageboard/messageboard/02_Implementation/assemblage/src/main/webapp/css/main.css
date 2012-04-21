@@ -43,6 +43,14 @@ input:focus {
     width: 250px;
 }
 
+.width300{
+	width: 300px;
+}
+
+.width350{
+	width: 350px;
+}
+
 .content01{
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #ADADAD;
@@ -124,4 +132,12 @@ a:hover {
     float: left;
     line-height: 120%;
     padding: 2px 15px;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
 }

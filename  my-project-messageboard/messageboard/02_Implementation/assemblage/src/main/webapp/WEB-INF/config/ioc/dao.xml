@@ -31,11 +31,17 @@
 	
 	<!-- 菜单的DAO -->
 	<bean id="menuDAO" class="com.message.main.menu.dao.impl.MenuDAOImpl" parent="genericHibernateDAOImpl">
-        <property name="cache" ref="moduleObjectCache"/>
+        <property name="cache" ref="menuObjectCache"/>
         <property name="genericJdbcDAO" ref="genericJdbcDAO"/>
 	</bean>
 
     <!-- 文件上传的DAO -->
     <bean id="uploadDAO" class="com.message.main.upload.dao.impl.UploadDAOImpl" parent="genericHibernateDAOImpl"/>
+    
+    <!-- 相册的DAO -->
+    <bean id="albumDAO" class="com.message.main.album.dao.impl.AlbumDAOImpl" parent="genericHibernateDAOImpl">
+    	<property name="cache" ref="albumObjectCache"/>
+    	<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
+    </bean>
 	
 </beans>

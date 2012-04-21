@@ -78,5 +78,10 @@
     <bean id="genericUploadService" class="com.message.main.upload.service.impl.GenericUploadServiceImpl">
         <property name="uploadDAO" ref="uploadDAO"/>
     </bean>
+    
+    <!-- 相册的service -->
+    <bean id="albumService" class="com.message.main.album.service.impl.AlbumServiceImpl">
+    	<property name="albumDAO" ref="albumDAO"/>
+    </bean>
 	
 </beans>

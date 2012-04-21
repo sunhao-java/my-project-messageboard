@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.message.main.album.pojo.Album" table="T_MESSAGE_ALBUM">
+    	<id name="pkId" type="java.lang.Long">
+    		<column name="PK_ID" precision="10" scale="0"/>
+    		<generator class="sequence">
+    			<param name="sequence">SEQ_MESSAGE_ALBUM</param>
+    		</generator>
+    	</id>
+    	<property name="albumName" type="java.lang.String">
+    		<column name="ALBUM_NAME" length="255">
+    			<comment>相册名称</comment>
+    		</column>
+    	</property>
+    	<property name="owerId" type="java.lang.Long">
+    		<column name="OWER_ID" precision="10" scale="0">
+    			<comment>拥有者ID</comment>
+    		</column>
+    	</property>
+    	<property name="createTime" type="java.util.Date">
+    		<column name="CREATE_TIME">
+    			<comment>创建时间</comment>
+    		</column>
+    	</property>
+    	<property name="summary" type="java.lang.String">
+    		<column name="SUMMARY" length="2000">
+    			<comment>相册描述</comment>
+    		</column>
+    	</property>
+    	<property name="cover" type="java.lang.String">
+    		<column name="cover" length="100">
+    			<comment>相册封面</comment>
+    		</column>
+    	</property>
+    	<property name="viewFlag" type="java.lang.Long">
+    		<column name="VIEW_FLAG" length="1">
+    			<comment>可见标识(1:所有人可见；2:本人可见；3:注册的人可见)</comment>
+    		</column>
+    	</property>
+    	<property name="deleteFlag" type="java.lang.Long">
+    		<column name="DELETE_FLAG" length="1">
+    			<comment>删除标识，0未删除；1已删除</comment>
+    		</column>
+    	</property>
+    </class>
+</hibernate-mapping>

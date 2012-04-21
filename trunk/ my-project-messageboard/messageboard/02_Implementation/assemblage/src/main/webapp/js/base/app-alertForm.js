@@ -79,6 +79,7 @@ YAHOO.app.alertForm = function(){
 			 */
 			 var str = '<div class="hd"><span style="font-size: 12px;">' + title_ + '</span></div>';
 				str += '<div class="formbd">';
+			  name_ = name_ + new Date().getTime();
 				
 			  str += '<iframe src="' + url_ + '" id="' + name_ + '" name="' + name_ + '" frameborder="0" ' +
 			  				'style="width: 100%;height:100%;overflow-x : hidden;" scrolling="' + overflow_ + '"></iframe>';

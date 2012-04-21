@@ -13,7 +13,7 @@ Validator = {
     Currency : /^\d+(\.\d+)?$/,
     Number : /^\d+$/,
     Zip : /^[1-9]\d{5}$/,
-    QQ : /^[1-9]\d{4,8}$/,
+    QQ : /^[1-9]\d{4,10}$/,
     Integer : /^[-\+]?\d+$/,
     positiveInteger : /^[0-9]*[1-9][0-9]*$/,
     Double : /^[-\+]?\d+(\.\d+)?$/,

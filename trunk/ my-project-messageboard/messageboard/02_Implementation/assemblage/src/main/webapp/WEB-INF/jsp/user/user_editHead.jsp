@@ -37,7 +37,12 @@
     <jsp:include page="user_edit_head.jsp"/>
 
     <div class="uploadField">
-        <input id="uploadHeadImage" type="button" class="f-button" value="上传"/>
-        <msg:userHead userId="${loginUser.pkId }" headType="1"/>
+    	<div class="float-left">
+		    <input id="uploadHeadImage" type="button" class="f-button" value="上传"/>
+    	</div>
+    	<div style="margin-left: 65px;">
+		    <msg:userHead userId="${loginUser.pkId }" headType="1"/>
+    	</div>
     </div>
+    
 </div>

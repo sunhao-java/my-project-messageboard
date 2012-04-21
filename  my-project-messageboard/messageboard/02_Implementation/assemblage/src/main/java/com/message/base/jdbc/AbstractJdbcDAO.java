@@ -232,7 +232,7 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	public List queryForBeanList(String sql, int start, int num, Map params, Class clazz) throws DataAccessException {
 		String pageSql = this.getSqlHelper().getPageSql(sql, start, num);
 		
-		return this.queryForList(pageSql, params, DynamicBeanRowMapper.getInstance(clazz, getSqlHelper(), sql));
+		return this.queryForList(pageSql, params, DynamicBeanRowMapper.getInstance(clazz, this.getSqlHelper(), sql));
 	}
 	
 	/**
@@ -256,7 +256,7 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 		if(count == 0)
 			result = Collections.EMPTY_LIST;
 		else
-			result = this.queryForBeanList(countSql, start, num, params, clazz);
+			result = this.queryForBeanList(sql, start, num, params, clazz);
 		
 		PaginationSupport ps = PaginationUtils.makePagination(result, count, num, start);
 		return ps;

@@ -46,7 +46,7 @@ a {
     vertical-align: middle !important;
 }
 
-.btn-input{
+.btn-input1{
     background: none repeat scroll 0 0 #2782D6;
     border-color: #DDDDDD #264F6E #264F6E #DDDDDD;
     border-style: solid;
@@ -58,6 +58,28 @@ a {
     line-height: 17px;
     padding: 1px 10px;
     text-align: center;
+}
+
+.btn-input {
+	background: url('../../image/btn-bg.png');
+	border: 1px solid #8B8B8B;
+	color: #535353;
+    display: inline-block;
+    height: 23px;
+    line-height: 21px;
+    font-weight: bold;
+    padding-left: 16px;
+    cursor: pointer;
+}
+
+.btn-hover {
+	border-color: #333333;
+}
+
+.plus-icon {
+	position: absolute;
+	margin-top: 6px; 
+	margin-left: 5px;
 }
 
 .attachment{

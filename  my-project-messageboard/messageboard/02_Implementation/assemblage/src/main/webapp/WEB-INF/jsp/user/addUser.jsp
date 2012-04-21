@@ -37,7 +37,7 @@
 </script>
 
 <div id="listFrm" style="width: 100%">
-	<form id="regFrm" action="${contextPath}/guest/register.do" method="post">
+	<form id="regFrm" action="" method="post">
 		<table width="100%" border="1" class="tableform">
 			<tr>
 				<td class="fb_result_head" width="50%">

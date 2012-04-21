@@ -109,7 +109,29 @@ YAHOO.app.swfupload = function(link, element, p){
         //加载css之前要做的事
     });
 
+    /**
+     * 创建一个IMG元素，并放在input之前
+     */
+    var image = document.createElement("IMG");
+    image.setAttribute('src', contextPath + '/image/plus-gray.png');
+    dom.addClass(image, 'plus-icon');
+    dom.insertBefore(image,link);
+    
     dom.addClass(link, "btn-input");
+    
+    /**
+     * 鼠标悬浮在按钮上，出现悬浮的样式
+     */
+    YAHOO.util.Event.on(link, 'mouseover', function(e){
+    	dom.addClass(link,'btn-hover');
+    });
+    
+    /**
+     * 鼠标移出按钮，消失悬浮的样式
+     */
+    YAHOO.util.Event.on(link, 'mouseout', function(e){
+    	dom.removeClass(link,'btn-hover');
+    });
 
     YAHOO.util.Event.on(link, 'click', function(e){
         config = p;
@@ -118,6 +140,7 @@ YAHOO.app.swfupload = function(link, element, p){
 
         return uploadDialog;
     });
+    
 }
 
 var alertDialog;

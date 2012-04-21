@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.message.main.album.pojo.AlbumPhoto" table="T_MESSAGE_ALBUM_PHOTO">
+    	<id name="pkId" type="java.lang.Long">
+    		<column name="PK_ID" precision="10" scale="0"/>
+    		<generator class="sequence">
+    			<param name="sequence">SEQ_MESSAGE_ALBUM_PHOTO</param>
+    		</generator>
+    	</id>
+    	<property name="albumId" type="java.lang.Long">
+    		<column name="ALBUM_ID" precision="10" scale="0">
+    			<comment>相册ID</comment>
+    		</column>
+    	</property>
+    	<property name="photoId" type="java.lang.Long">
+    		<column name="PHOTO_ID" precision="10" scale="0">
+    			<comment>照片ID</comment>
+    		</column>
+    	</property>
+    	<property name="deleteFlag" type="java.lang.Long">
+    		<column name="DELETE_FLAG" length="1">
+    			<comment>删除标识，0未删除；1已删除（为单个相册做图片回收站准备）</comment>
+    		</column>
+    	</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions
+        PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<!-- 相册列表 -->
+	<definition name="album.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/album_list.jsp"/>
+	</definition>
+	
+	<!-- 新建相册 -->
+	<definition name="album.new" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/album_new.jsp"/>
+	</definition>
+	
+	<!-- 照片列表 -->
+	<definition name="photo.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/photo_list.jsp"/>
+	</definition>
+</tiles-definitions>

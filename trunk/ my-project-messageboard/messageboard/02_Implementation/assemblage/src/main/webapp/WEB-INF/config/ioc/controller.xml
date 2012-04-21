@@ -244,5 +244,22 @@
     <bean id="downloadFileController" class="com.message.main.upload.web.DownloadFileController">
         <property name="viewName" value="${file.download.redirect}"/>
     </bean>
+    
+    <!-- 相册的controller -->
+    <bean id="albumController" class="com.message.main.album.web.AlbumController">
+    	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+    			<property name="mappings">
+    				<props>
+    					<prop key="/album/index.do">index</prop>
+    					<prop key="/album/createAlbum.do">createAlbum</prop>
+    					<prop key="/album/saveAlbum.do">saveAlbum</prop>
+    					<prop key="/album/listPhotos.do">listPhotos</prop>
+    				</props>
+    			</property>
+    		</bean>
+    	</property>
+    	<property name="albumService" ref="albumService"/>
+    </bean>
 	
 </beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.message.main.album.pojo.Photo" table="T_MESSAGE_PHOTO">
+    	<id name="pkId" type="java.lang.Long">
+    		<column name="PK_ID" precision="10" scale="0"/>
+    		<generator class="sequence">
+    			<param name="sequence">SEQ_MESSAGE_PHOTO</param>
+    		</generator>
+    	</id>
+    	<property name="photoName" type="java.lang.String">
+    		<column name="PHOTO_NAME" length="255">
+    			<comment>照片名称</comment>
+    		</column>
+    	</property>
+    	<property name="fileId" type="java.lang.Long">
+    		<column name="FILE_ID" precision="10" scale="0">
+    			<comment>对应文件的ID</comment>
+    		</column>
+    	</property>
+    	<property name="owerId" type="java.lang.Long">
+    		<column name="OWER_ID" precision="10" scale="0">
+    			<comment>拥有者ID</comment>
+    		</column>
+    	</property>
+    	<property name="createDate" type="java.util.Date">
+    		<column name="CREATE_DATE">
+    			<comment>创建时间</comment>
+    		</column>
+    	</property>
+    	<property name="summary" type="java.lang.String">
+    		<column name="SUMMARY" length="2000">
+    			<comment>照片描述</comment>
+    		</column>
+    	</property>
+    	<property name="deleteFlag" type="java.lang.Long">
+    		<column name="DELETE_FLAG" length="1">
+    			<comment>删除标识，0未删除；1已删除</comment>
+    		</column>
+    	</property>
+    </class>
+</hibernate-mapping>

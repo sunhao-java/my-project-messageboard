@@ -51,12 +51,13 @@ public class AlbumController extends ExtMultiActionController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
-		int num = in.getInt("num", 3);
+		//每页显示10个相册
+		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
 		Long userId = in.getLong("userId");
 		PaginationSupport pagination = this.albumService.getAlbumList(userId, start, num);
 		
-		params.put("pagination", pagination);
+		params.put("paginationSupport", pagination);
 		return new ModelAndView("album.list", params);
 	}
 	
@@ -66,9 +67,16 @@ public class AlbumController extends ExtMultiActionController {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws Exception 
 	 */
-	public ModelAndView createAlbum(HttpServletRequest request, HttpServletResponse response){
-		return new ModelAndView("album.new");
+	public ModelAndView formbackAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		Long albumId = in.getLong("albumId");
+		
+		Album album = this.albumService.loadAlbum(albumId);
+		params.put("album", album);
+		return new ModelAndView("album.new", params);
 	}
 	
 	/**
@@ -106,5 +114,25 @@ public class AlbumController extends ExtMultiActionController {
 		
 		params.put("album", album);
 		return new ModelAndView("photo.list", params);
+	}
+	
+	/**
+	 * 删除相册
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView deleteAlbum(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		JSONObject params = new JSONObject();
+		Long albumId = in.getLong("albumId");
+		boolean result = this.albumService.deleteAlbum(albumId);
+		
+		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
 	}
 }

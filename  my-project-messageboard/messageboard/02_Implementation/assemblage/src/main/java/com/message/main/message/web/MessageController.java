@@ -81,6 +81,7 @@ public class MessageController extends ExtMultiActionController {
 		in = new WebInput(request);
         Long pkId = this.messageService.getPkId();
         params.put("pkId", pkId);
+        params.put("resourceType", ResourceType.RESOURCE_TYPE_MESSAGE);
 		return new ModelAndView("message.publish", params);
 	}
 	

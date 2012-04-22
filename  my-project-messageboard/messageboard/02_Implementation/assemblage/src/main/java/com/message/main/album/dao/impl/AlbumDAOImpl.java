@@ -3,6 +3,9 @@ package com.message.main.album.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.jdbc.GenericJdbcDAO;
@@ -20,6 +23,7 @@ import com.message.resource.ResourceType;
  * @createTime 2012-4-21 下午05:53:00
  */
 public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
+	private static final Logger logger = LoggerFactory.getLogger(AlbumDAOImpl.class);
 	
 	/**
 	 * 缓存
@@ -67,6 +71,27 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		} else if(entity instanceof Photo){
 			this.cache.put(entity, ((Photo) entity).getPkId());
 		}
+	}
+
+	public void updateEntity(Object entity) throws Exception {
+		this.updateObject(entity);
+		if(entity instanceof Album){
+			this.cache.remove(Album.class, ((Album) entity).getPkId());
+			this.cache.put(entity, ((Album) entity).getPkId());
+		} else if(entity instanceof Photo){
+			this.cache.remove(Album.class, ((Photo) entity).getPkId());
+			this.cache.put(entity, ((Photo) entity).getPkId());
+		}
+	}
+
+	public int updateBySQL(String table, String column, Object value, Object pkValue) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("update ").append(table).append(" t set t.").append(column).append(" = ").append(value);
+		sql.append(" where t.pk_id = ").append(pkValue);
+		if(logger.isDebugEnabled())
+			logger.debug("the update sql is '{}'", sql.toString());
+		
+		return this.genericJdbcDAO.update(sql.toString());
 	}
 
 }

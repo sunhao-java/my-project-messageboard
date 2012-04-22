@@ -252,9 +252,10 @@
     			<property name="mappings">
     				<props>
     					<prop key="/album/index.do">index</prop>
-    					<prop key="/album/createAlbum.do">createAlbum</prop>
+    					<prop key="/album/formbackAlbum.do">formbackAlbum</prop>
     					<prop key="/album/saveAlbum.do">saveAlbum</prop>
     					<prop key="/album/listPhotos.do">listPhotos</prop>
+    					<prop key="/album/deleteAlbum.do">deleteAlbum</prop>
     				</props>
     			</property>
     		</bean>

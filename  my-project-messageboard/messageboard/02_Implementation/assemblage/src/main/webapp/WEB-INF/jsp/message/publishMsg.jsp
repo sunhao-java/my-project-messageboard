@@ -37,7 +37,7 @@
             params : {
                 headImage : 'false',
                 resourceId : '${pkId}',
-                resourceType : 1,
+                resourceType : ${resourceType},
                 uploadId : '${loginUser.pkId}'
             }
         });

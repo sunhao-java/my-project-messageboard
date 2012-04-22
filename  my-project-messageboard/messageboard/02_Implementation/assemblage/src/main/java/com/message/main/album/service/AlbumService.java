@@ -39,5 +39,14 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	Album loadAlbum(Long pkId) throws Exception;
+	
+	/**
+	 * 根据主键删除相册
+	 * 
+	 * @param pkId			主键
+	 * @return
+	 * @throws Exception
+	 */
+	boolean deleteAlbum(Long pkId) throws Exception;
 
 }

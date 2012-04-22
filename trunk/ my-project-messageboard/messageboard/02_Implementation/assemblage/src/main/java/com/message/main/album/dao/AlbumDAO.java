@@ -40,5 +40,25 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	Album loadAlbum(Long pkId) throws Exception;
+	
+	/**
+	 * 更新实体
+	 * 
+	 * @param entity		实体
+	 * @throws Exception
+	 */
+	void updateEntity(Object entity) throws Exception;
+	
+	/**
+	 * 根据原生SQL更新
+	 * 
+	 * @param table			表名
+	 * @param column		字段名
+	 * @param value			更新后的值
+	 * @param pkValue		主键（列名为pk_id）
+	 * @return				更新的数据库行数
+	 * @throws Exception
+	 */
+	int updateBySQL(String table, String column, Object value, Object pkValue) throws Exception;
 
 }

@@ -27,7 +27,7 @@
 	
 	function createNewAlbum(){
 		YAHOO.app.alertForm.show({
-            'reqUrl':'${contextPath}/album/createAlbum.do',
+            'reqUrl':'${contextPath}/album/formbackAlbum.do',
             'title':'新建相册',
             'diaWidth':'450',
             'diaHeight':'180',
@@ -51,7 +51,7 @@
 	<div class="photo-main-content">
 		<div class="toolbar">
 			<div class="opera-bar">
-				<span class="numbers" style="">共${pagination.totalRow }个相册</span>
+				<span class="numbers" style="">共${paginationSupport.totalRow }个相册</span>
 			</div>
 			<%--<div class="left">
 				<input type="button" id="upload" value="上传附件">
@@ -67,7 +67,7 @@
 			<div class="album-list">
 				<div class="first-page clearfix">
 					<ul>
-						<c:forEach items="${pagination.items}" var="album">
+						<c:forEach items="${paginationSupport.items}" var="album">
 							<li>
 								<a class="album-cover" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');">
 									<img src="${contextPath}/image/a.gif"
@@ -91,3 +91,6 @@
 		<!-- end of album-home -->
 	</div>
 </div>
+
+<c:url var="paginationAction" value="album/index.do"/>
+<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

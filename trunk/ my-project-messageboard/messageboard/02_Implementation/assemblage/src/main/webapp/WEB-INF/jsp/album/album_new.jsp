@@ -5,10 +5,11 @@
 <msg:css href="css/menu.css"/>
 
 <form id="albumForm">
-	<input type="hidden" name="pkId" value="${menu.pkId }">
-	<input type="hidden" name="deleteStatus" value="${menu.deleteStatus }">
-	<input type="hidden" name="createDate" value='<fmt:formatDate value="${menu.createDate }" pattern="yyyy-MM-dd HH:mm"/>'>
-	<input type="hidden" name="createUserId" value="${menu.createUserId }">
+	<input type="hidden" name="pkId" value="${album.pkId }">
+	<input type="hidden" name="deleteFlag" value="${album.deleteFlag }">
+	<input type="hidden" name="createTime" value='<fmt:formatDate value="${album.createTime }" pattern="yyyy-MM-dd HH:mm"/>'>
+	<input type="hidden" name="owerId" value="${album.owerId }">
+	<input type="hidden" name="cover" value="${album.cover }">
 	
 	<table width="100%" height="100%" class="dialog_table">
 		<tr>
@@ -16,7 +17,7 @@
 				相册名称&nbsp;<span style="color: #CC0000;font-weight: bolder;">*</span>
 			</td>
 			<td>
-				<input type="text" name="albumName" class="width300" id="albumName" dataType="Limit"
+				<input type="text" name="albumName" class="width300" id="albumName" dataType="Limit" value="${album.albumName }"
 						require="true" max="100" min="1" msg="不能为空,且不超过50字符"/>
 			</td>
 		</tr>
@@ -27,7 +28,7 @@
 			<td>
 				<textarea style="height: 58px;background: none repeat scroll 0 0 #FFFFFF;" 
 					id="summary" name="summary" class="width300" dataType="Limit"
-						max="200" min="0" msg="不超过200字符"></textarea>
+						max="200" min="0" msg="不超过200字符">${album.summary }</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -36,9 +37,9 @@
 			</td>
 			<td>
 				<select name="viewFlag" id="viewFlag">
-					<option value="1">所有人可见</option>
-					<option value="2">本人可见</option>
-					<option value="3">会员可见</option>
+					<option value="1" <c:if test="${album.viewFlag eq '1'}">selected="selected"</c:if>>所有人可见</option>
+					<option value="2" <c:if test="${album.viewFlag eq '2'}">selected="selected"</c:if>>本人可见</option>
+					<option value="3" <c:if test="${album.viewFlag eq '3'}">selected="selected"</c:if>>会员可见</option>
 				</select>
 			</td>
 		</tr>

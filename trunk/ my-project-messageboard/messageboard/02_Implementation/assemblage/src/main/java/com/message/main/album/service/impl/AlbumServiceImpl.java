@@ -3,6 +3,9 @@ package com.message.main.album.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
@@ -19,7 +22,11 @@ import com.message.resource.ResourceType;
  * @createTime 2012-4-20 上午01:30:22
  */
 public class AlbumServiceImpl implements AlbumService {
+	private static final Logger logger = LoggerFactory.getLogger(AlbumServiceImpl.class);
 	
+	/**
+	 * 默认相册的封面
+	 */
 	private static final String DEFAULT_ALBUM_COVER = "/image/default.png";
 	
 	/**
@@ -44,6 +51,7 @@ public class AlbumServiceImpl implements AlbumService {
 			this.albumDAO.saveEntity(album);
 		} else {
 			//编辑
+			this.albumDAO.updateEntity(album);
 		}
 	}
 
@@ -67,6 +75,19 @@ public class AlbumServiceImpl implements AlbumService {
 		Album album = this.albumDAO.loadAlbum(pkId);
 		
 		return album;
+	}
+
+	public boolean deleteAlbum(Long pkId) throws Exception {
+		if(pkId == null){
+			logger.error("you give no album pkId!");
+			return false;
+		}
+		
+		int result = this.albumDAO.updateBySQL("t_message_album", "delete_flag", ResourceType.DELETE_YES, pkId);
+		if(result == 1)
+			return true;
+		else
+			return false;
 	}
 
 }

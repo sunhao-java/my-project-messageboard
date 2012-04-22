@@ -6,6 +6,10 @@
 <msg:js src="js/base/app-swfupload.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/app-dialog.js"/>
+<msg:js src="js/base/app-dialog.js"/>
+<msg:js src="js/base/app-alertForm.js"/>
+<msg:js src="js/validate.js"/>
+<msg:js src="js/base/commfunction.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
@@ -23,10 +27,6 @@
         });
         
     });
-	
-	function editAlbum(){
-		alert('编辑相册');
-	}
 	
 	function editPhoto(photoId){
 		var photoLis = dom.getElementsByClassName('select');
@@ -54,6 +54,25 @@
 		event.removeListener(window, 'keydown');
 		dom.removeClass(photoLi, 'select');
 	}
+	
+	function editAlbum(albumId){
+		YAHOO.app.alertForm.show({
+            'reqUrl':'${contextPath}/album/formbackAlbum.do?albumId=' + albumId,
+            'title':'编辑相册',
+            'diaWidth':'450',
+            'diaHeight':'180',
+            'submitUrl':'${contextPath}/album/saveAlbum.do',
+            'formId': 'albumForm',
+            'success' : '编辑相册成功',
+            'failure' : '编辑相册失败'
+        });
+	}
+	
+	function deleteAlbum(albumId){
+		var requestURL = '${contextPath }/album/deleteAlbum.do?albumId=' + albumId;
+		var responseURL = '${contextPath}/album/index.do';
+		deleteOne(requestURL, responseURL, 'false');
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -64,17 +83,17 @@
 	<div class="album-main">
 		<div class="function-nav clearfix">
 			<div class="float-left">
-				<input type="button" id="upload" value="上传附件">
+				<input type="button" id="upload" value="上传图片">
 			</div>
 			<ul class="nav-btn">
 				<li class="editi-button">
-					<a href="javascript:void(0);" onclick="editAlbum();">编辑</a>
+					<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}');">编辑</a>
 				</li>
 				<li class="pipe">
 					|
 				</li>
 				<li class="delete-button">
-					<a href="javascript:void(0);" onclick="">删除相册</a>
+					<a href="javascript:void(0);" onclick="deleteAlbum('${album.pkId}');">删除相册</a>
 				</li>
 			</ul>
 		</div>
@@ -94,7 +113,7 @@
 							还没有相册描述...
 						</c:otherwise>
 					</c:choose>
-					<a href="javascript:void(0);" onclick="editAlbum()">编辑</a>
+					<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}')">编辑</a>
 				</p>
 			</div>
 		</div>

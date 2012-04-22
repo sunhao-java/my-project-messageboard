@@ -1826,6 +1826,9 @@ label {
 .function-nav .nav-btn .delete-button a {
     background-position: -38px -57px;
 }
+.function-nav .nav-btn li a, .function-nav a.upload {
+    background: url("../image/album-newicon.png") no-repeat scroll -113px -152px transparent;
+}
 .function-nav a.upload {
     color: #333333;
     display: block;

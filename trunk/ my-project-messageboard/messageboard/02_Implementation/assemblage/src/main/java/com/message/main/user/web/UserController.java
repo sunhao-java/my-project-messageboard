@@ -53,7 +53,7 @@ public class UserController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView showUserInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		Long viewUserId = in.getLong("viewUserId", Long.valueOf(-1));
@@ -79,7 +79,7 @@ public class UserController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inEditUserInfoJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView editUserInfo(HttpServletRequest request, HttpServletResponse response){
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("current", "base");
 		return new ModelAndView("user.edit.info", params);
@@ -92,7 +92,7 @@ public class UserController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception 
 	 */
-	public ModelAndView saveEdit(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
+	public ModelAndView saveUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception{
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
 		JSONObject obj = new JSONObject();
@@ -109,7 +109,7 @@ public class UserController extends ExtMultiActionController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inChangePswJsp(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView changePsw(HttpServletRequest request, HttpServletResponse response){
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		return new ModelAndView("user.password.change", params);

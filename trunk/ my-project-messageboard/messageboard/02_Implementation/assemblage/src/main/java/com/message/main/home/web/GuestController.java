@@ -66,7 +66,7 @@ public class GuestController extends ExtMultiActionController {
      * @return
      * @throws Exception
      */
-    public ModelAndView checkUser(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
+    public ModelAndView check(HttpServletRequest request, HttpServletResponse response, User user) throws Exception {
         out = new WebOutput(request, response);
         JSONObject obj = new JSONObject();
         String status = "";

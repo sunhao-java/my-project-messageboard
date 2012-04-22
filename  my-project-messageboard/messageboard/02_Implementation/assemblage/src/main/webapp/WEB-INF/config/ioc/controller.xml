@@ -7,13 +7,8 @@
 
     <bean id="loginController" class="com.message.main.login.web.LoginController">
         <property name="methodNameResolver">
-			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-				<property name="mappings">
-					<props>
-						<prop key="/login/login.do">login</prop>
-                        <prop key="/login/logout.do">logout</prop>
-					</props>
-				</property>
+			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+				<property name="controller" ref="loginController"/>
 			</bean>
 		</property>
         <property name="loginService" ref="loginService"/>
@@ -22,12 +17,8 @@
 	<!-- 事件的controller -->
 	<bean id="eventController" class="com.message.main.event.web.EventController">
 		<property name="methodNameResolver">
-			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-				<property name="mappings">
-					<props>
-						<prop key="/event/listEvent.do">listEvent</prop>
-					</props>
-				</property>
+			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+				<property name="controller" ref="eventController"/>
 			</bean>
 		</property>
 		<property name="eventService" ref="eventService"/>
@@ -36,17 +27,8 @@
 	<!-- 主页的controller -->
 	<bean id="homeController" class="com.message.main.home.web.HomeController">
 		<property name="methodNameResolver">
-			<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-				<property name="mappings">
-					<props>
-						<prop key="/home/index.do">index</prop>
-						<prop key="/home/left.do">left</prop>
-						<prop key="/home/top.do">top</prop>
-						<prop key="/home/tail.do">tail</prop>
-						<prop key="/home/inMessageIndex.do">inMessageIndex</prop>
-                        <prop key="/home/checkPerm.do">checkPerm</prop>
-					</props>
-				</property>
+			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+				<property name="controller" ref="homeController"/>
 			</bean>
 		</property>
 		<property name="historyService" ref="historyService"/>
@@ -56,13 +38,9 @@
 	<!-- 登录历史的controller -->
 	<bean id="historyController" class="com.message.main.history.web.HistoryController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/history/listLoginHistory.do">listLoginHistory</prop>
-    				</props>
-    			</property>
-    		</bean>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+				<property name="controller" ref="historyController"/>
+			</bean>
     	</property>
     	<property name="historyService" ref="historyService"/>
     </bean>
@@ -70,16 +48,9 @@
     <!-- 留言板信息的controller -->
     <bean id="infoController" class="com.message.main.info.web.InfoController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/info/inViewInfoJsp.do">inViewInfoJsp</prop>
-    					<prop key="/info/inEditInfoJsp.do">inEditInfoJsp</prop>
-    					<prop key="/info/saveInfo.do">saveInfo</prop>
-    					<prop key="/info/inListInfoHistoryJsp.do">inListInfoHistoryJsp</prop>
-    				</props>
-    			</property>
-    		</bean>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+				<property name="controller" ref="infoController"/>
+			</bean>
     	</property>
     	<property name="infoService" ref="infoService"/>
     </bean>
@@ -87,22 +58,8 @@
     <!-- 留言的controller -->
     <bean id="messageController" class="com.message.main.message.web.MessageController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/message/listMessage.do">listMessage</prop>
-    					<prop key="/message/inPublishMessageJsp.do">inPublishMessageJsp</prop>
-    					<prop key="/message/saveMessage.do">saveMessage</prop>
-    					<prop key="/message/listMessageAdmin.do">listMessageForAdmin</prop>
-    					<prop key="/message/viewMessage.do">viewMessage</prop>
-    					<prop key="/message/deleteMessage.do">deleteMessage</prop>
-    					<prop key="/message/inDetailJsp.do">inDetailJsp</prop>
-    					<prop key="/message/inListMyMessageJsp.do">inListMyMessageJsp</prop>
-    					<prop key="/message/listToAuditMessage.do">listToAuditMessage</prop>
-    					<prop key="/message/setAudit.do">setAudit</prop>
-    					<prop key="/message/listAuditNoMessage.do">listAuditNoMessage</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="messageController"/>
     		</bean>
     	</property>
     	<property name="messageService" ref="messageService"/>
@@ -112,13 +69,8 @@
     <!-- 回复的controller -->
     <bean id="replyController" class="com.message.main.reply.web.ReplyController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/reply/deleteReply.do">deleteReply</prop>
-    					<prop key="/reply/replyMessage.do">replyMessage</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="replyController"/>
     		</bean>
     	</property>
     	<property name="replyService" ref="replyService"/>
@@ -127,22 +79,8 @@
     <!-- 用户的controller -->
     <bean id="userController" class="com.message.main.user.web.UserController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/user/userInfo.do">showUserInfo</prop>
-    					<prop key="/user/editUserInfo.do">inEditUserInfoJsp</prop>
-    					<prop key="/user/saveUser.do">saveEdit</prop>
-    					<prop key="/user/changePsw.do">inChangePswJsp</prop>
-    					<prop key="/user/checkPsw.do">checkPsw</prop>
-    					<prop key="/user/savePassword.do">savePassword</prop>
-    					<prop key="/user/listAllUser.do">listAllUser</prop>
-    					<prop key="/user/deleteUser.do">deleteUser</prop>
-    					<prop key="/user/managerPerm.do">managerPerm</prop>
-    					<prop key="/user/inAddUserJsp.do">inAddUserJsp</prop>
-                        <prop key="/user/inEditHead.do">inEditHead</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="userController"/>
     		</bean>
     	</property>
     	<property name="userService" ref="userService"/>
@@ -152,13 +90,8 @@
     <!-- 用户隐私配置的controller -->
     <bean id="userPrivacyController" class="com.message.main.user.web.UserPrivacyController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/privacy/inPrivacySetting.do">inPrivacySetting</prop>
-    					<prop key="/privacy/savePrivacy.do">savePrivacy</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="userPrivacyController"/>
     		</bean>
     	</property>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
@@ -167,18 +100,8 @@
     <!-- 投票的controller -->
     <bean id="voteController" class="com.message.main.vote.web.VoteController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/vote/createVote.do">createVote</prop>
-    					<prop key="/vote/saveVote.do">saveVote</prop>
-    					<prop key="/vote/listVote.do">listVote</prop>
-    					<prop key="/vote/saveVoteResult.do">saveVoteResult</prop>
-    					<prop key="/vote/viewVote.do">viewVote</prop>
-    					<prop key="/vote/viewVoteResult.do">viewVoteResult</prop>
-    					<prop key="/vote/listMyVote.do">listMyVote</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="voteController"/>
     		</bean>
     	</property>
     	<property name="voteService" ref="voteService"/>
@@ -187,17 +110,8 @@
     <!-- 菜单的controller -->
     <bean id="menuController" class="com.message.main.menu.web.MenuController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/menu/inMenuJsp.do">inMenuJsp</prop>
-    					<prop key="/menu/ajaxLoadMenu.do">ajaxLoadMenu</prop>
-    					<prop key="/menu/inEditJsp.do">inEditJsp</prop>
-    					<prop key="/menu/inShowIcon.do">inShowIcon</prop>
-    					<prop key="/menu/saveMenu.do">saveMenu</prop>
-    					<prop key="/menu/delete.do">delete</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="menuController"/>
     		</bean>
     	</property>
     	<property name="menuService" ref="menuService"/>
@@ -206,18 +120,9 @@
     <!-- 不用登录就可访问的controller -->
     <bean id="guestController" class="com.message.main.home.web.GuestController">
         <property name="methodNameResolver">
-            <bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-                <property name="mappings">
-                    <props>
-                        <prop key="/guest/login.do">login</prop>
-                        <prop key="/guest/check.do">checkUser</prop>
-                        <prop key="/guest/register.do">register</prop>
-                        <prop key="/guest/emailConfirm.do">emailConfirm</prop>
-                        <prop key="/guest/index.do">index</prop>
-                        <prop key="/guest/error.do">error</prop>
-                    </props>
-                </property>
-            </bean>
+            <bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="guestController"/>
+    		</bean>
         </property>
         <property name="userService" ref="userService"/>
     </bean>
@@ -225,16 +130,9 @@
     <!-- 文件上传的controller -->
     <bean id="uploadController" class="com.message.main.upload.web.UploadController">
     	<property name="methodNameResolver">
-            <bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-                <property name="mappings">
-                    <props>
-                    	<prop key="/upload/upload.do">upload</prop>
-                        <prop key="/upload/showUploads.do">showUploads</prop>
-                        <prop key="/upload/delete.do">delete</prop>
-                        <prop key="/upload/download.do">download</prop>
-                    </props>
-                </property>
-            </bean>
+            <bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="uploadController"/>
+    		</bean>
         </property>
         <property name="uploadService" ref="uploadService"/>
         <property name="genericUploadService" ref="genericUploadService"/>
@@ -248,16 +146,8 @@
     <!-- 相册的controller -->
     <bean id="albumController" class="com.message.main.album.web.AlbumController">
     	<property name="methodNameResolver">
-    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
-    			<property name="mappings">
-    				<props>
-    					<prop key="/album/index.do">index</prop>
-    					<prop key="/album/formbackAlbum.do">formbackAlbum</prop>
-    					<prop key="/album/saveAlbum.do">saveAlbum</prop>
-    					<prop key="/album/listPhotos.do">listPhotos</prop>
-    					<prop key="/album/deleteAlbum.do">deleteAlbum</prop>
-    				</props>
-    			</property>
+    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
+    			<property name="controller" ref="albumController"/>
     		</bean>
     	</property>
     	<property name="albumService" ref="albumService"/>

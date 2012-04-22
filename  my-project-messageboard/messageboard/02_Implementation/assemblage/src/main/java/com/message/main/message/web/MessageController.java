@@ -113,7 +113,7 @@ public class MessageController extends ExtMultiActionController {
 	 * @param message
 	 * @return
 	 */
-	public ModelAndView listMessageForAdmin(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
+	public ModelAndView listMessageAdmin(HttpServletRequest request, HttpServletResponse response, Message message) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);

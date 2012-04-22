@@ -57,42 +57,8 @@ public class GenericUploadServiceImpl implements GenericUploadService {
     }
 
     public String upload(MultipartFile file, Map params) throws Exception {
-        String fileName = file.getOriginalFilename();
-        if(logger.isDebugEnabled()){
-            logger.debug("the fileName is '{}'", fileName);
-        }
-        String extName = FileUtils.getExt(fileName);
-        if(StringUtils.isEmpty(extName)){
-            logger.error("can not find suffix from given fileName '{}'!", fileName);
-        }
-
-        fileName = MD5Utils.MD5Encode(fileName) + extName;
-
-        String path = Constants.DEFAULT_UPLOAD_PAYH;
-
-        String fileRealPath = makeImageBySize(path, file, fileName);
-
-        UploadFile uploadFile = new UploadFile();
-        uploadFile.setFileName(file.getOriginalFilename());
-        uploadFile.setExtName(extName);
-        uploadFile.setFilePath(fileRealPath);
-        //文件大小的单位是字节
-        uploadFile.setFileSize(FileUtils.getFileSize(fileRealPath) + "b");
-        uploadFile.setResourceId((Long) params.get(ResourceType.MAP_KEY_RESOURCE_ID));
-        uploadFile.setResourceType((Integer) params.get(ResourceType.MAP_KEY_RESOURCE_TYPE));
-        uploadFile.setUploadId((Long) params.get(ResourceType.MAP_KEY_UPLOAD_ID));
-        uploadFile.setUploadDate(new Date());
-        uploadFile.setDownloadCount(Integer.valueOf(0));
-
-        uploadFile = (UploadFile) this.uploadDAO.saveUpload(uploadFile);
-
-        if(uploadFile.getPkId() == null){
-            logger.error("save upload file failured!please check!");
-
-            return StringUtils.EMPTY;
-        }
-        
-        return fileName;
+    	this.genericUpload(file, params);
+    	return file.getOriginalFilename();
     }
 
     public List listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception {
@@ -185,4 +151,59 @@ public class GenericUploadServiceImpl implements GenericUploadService {
 
         return fileRealPath;
     }
+
+	public UploadFile genericUpload(MultipartFile file, Map params) throws Exception {
+		String fileName = file.getOriginalFilename();
+        if(logger.isDebugEnabled()){
+            logger.debug("the fileName is '{}'", fileName);
+        }
+        String extName = FileUtils.getExt(fileName);
+        if(StringUtils.isEmpty(extName)){
+            logger.error("can not find suffix from given fileName '{}'!", fileName);
+        }
+
+        fileName = MD5Utils.MD5Encode(fileName) + extName;
+
+        String path = Constants.DEFAULT_UPLOAD_PAYH;
+
+        String fileRealPath = makeImageBySize(path, file, fileName);
+
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.setFileName(file.getOriginalFilename());
+        uploadFile.setExtName(extName);
+        uploadFile.setFilePath(fileRealPath);
+        //文件大小的单位是字节
+        uploadFile.setFileSize(FileUtils.getFileSize(fileRealPath) + "b");
+        uploadFile.setResourceId((Long) params.get(ResourceType.MAP_KEY_RESOURCE_ID));
+        uploadFile.setResourceType((Integer) params.get(ResourceType.MAP_KEY_RESOURCE_TYPE));
+        uploadFile.setUploadId((Long) params.get(ResourceType.MAP_KEY_UPLOAD_ID));
+        uploadFile.setUploadDate(new Date());
+        uploadFile.setDownloadCount(Integer.valueOf(0));
+
+        uploadFile = (UploadFile) this.uploadDAO.saveUpload(uploadFile);
+
+        if(uploadFile.getPkId() == null){
+            logger.error("save upload file failured!please check!");
+
+            return null;
+        }
+        
+        return uploadFile;
+	}
+
+	public List<UploadFile> genericUploads(MultipartRequest request, Map params) throws Exception {
+		Iterator it = request.getFileNames();
+
+		List<UploadFile> result = new ArrayList<UploadFile>();
+        while(it.hasNext()){
+            String key = (String) it.next();
+            if(logger.isDebugEnabled()){
+                logger.debug("the filaName key is '{}'!", key);
+            }
+            MultipartFile file = request.getFile(key);
+            result.add(this.genericUpload(file, params));
+        }
+
+        return result;
+	}
 }

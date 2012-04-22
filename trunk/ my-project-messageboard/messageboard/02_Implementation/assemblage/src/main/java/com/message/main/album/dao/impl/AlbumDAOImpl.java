@@ -64,13 +64,15 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		return album;
 	}
 
-	public void saveEntity(Object entity) throws Exception {
+	public <T> T saveEntity(T entity) throws Exception {
 		this.saveObject(entity);
 		if(entity instanceof Album){
 			this.cache.put(entity, ((Album) entity).getPkId());
 		} else if(entity instanceof Photo){
 			this.cache.put(entity, ((Photo) entity).getPkId());
 		}
+		
+		return entity;
 	}
 
 	public void updateEntity(Object entity) throws Exception {
@@ -92,6 +94,35 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 			logger.debug("the update sql is '{}'", sql.toString());
 		
 		return this.genericJdbcDAO.update(sql.toString());
+	}
+
+	public int getPhotoCount(Long albumId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(*) from t_message_album_photo p where p.album_id = :albumId and p.delete_flag = :deleteFlag";
+		params.put("albumId", albumId);
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		
+		return this.genericJdbcDAO.queryForInt(sql, params);
+	}
+
+	public PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select p.pk_id from t_message_photo p where p.pk_id in ");
+		sql.append("(select ap.photo_id from t_message_album_photo ap where ap.album_id = :albumId)");
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("albumId", albumId);
+		
+		return this.genericJdbcDAO.getBeanPaginationSupport(sql.toString(), null, start, num, params, Photo.class);
+	}
+
+	public Photo loadPhoto(Long pkId) throws Exception {
+		Photo p = (Photo) this.cache.get(Photo.class, pkId);
+		if(p == null){
+			p = (Photo) this.loadObject(Photo.class, pkId);
+			this.cache.put(p, pkId);
+		}
+		
+		return p;
 	}
 
 }

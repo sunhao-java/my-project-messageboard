@@ -2,6 +2,7 @@ package com.message.main.album.dao;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.Photo;
 
 
 /**
@@ -19,7 +20,7 @@ public interface AlbumDAO {
 	 * @param obj			实体
 	 * @throws Exception
 	 */
-	void saveEntity(Object entity) throws Exception;
+	<T> T saveEntity(T entity) throws Exception;
 	
 	/**
 	 * 获取某个用户的所有相册分页对象
@@ -60,5 +61,34 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	int updateBySQL(String table, String column, Object value, Object pkValue) throws Exception;
+	
+	/**
+	 * 获取某个相册中的照片张数
+	 * 
+	 * @param albumId
+	 * @return
+	 * @throws Exception
+	 */
+	int getPhotoCount(Long albumId) throws Exception;
+	
+	/**
+	 * 获取某个相册中照片的分页对象
+	 * 
+	 * @param albumId
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception;
+	
+	/**
+	 * 根据主键获得照片对象
+	 * 
+	 * @param pkId			主键
+	 * @return
+	 * @throws Exception
+	 */
+	Photo loadPhoto(Long pkId) throws Exception;
 
 }

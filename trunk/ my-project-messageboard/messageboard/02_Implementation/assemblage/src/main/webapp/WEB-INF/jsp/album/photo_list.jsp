@@ -16,17 +16,26 @@
 
 	$(document).ready(function(){
         YAHOO.app.swfupload("upload", "showUploadPanel", {
-            title : '上传附件',
-            fileTypes : '*.*',
+            title : '上传图片',
+            fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
+            fileTypeDescription : '请选择图片',
+            uploadUrl : '${contextPath}/album/uploadPhoto.do',
             params : {
                 headImage : 'false',
-                resourceId : '${pkId}',
-                resourceType : 1,
+                resourceId : '${album.pkId}',
+                resourceType : ${resourceType},
                 uploadId : '${loginUser.pkId}'
-            }
+            },
+            completeFunction : 'completeFun'
         });
-        
     });
+	
+	function completeFun(){
+        uploadDialog.cancel();
+        YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'上传图片成功！','confirmFunction':function(){
+             window.location.reload(true);
+        }});
+    }
 	
 	function editPhoto(photoId){
 		var photoLis = dom.getElementsByClassName('select');
@@ -102,7 +111,7 @@
 			<div class="ablum-infor">
 				<h1>
 					${album.albumName}
-					<span class="num">(27张照片)</span>
+					<span class="num">(${album.photoCount }张照片)</span>
 				</h1>
 				<p class="describe" id="describeAlbum">
 					<c:choose>
@@ -122,54 +131,36 @@
 		<div class="photo-list my-list" style="">
 			<div class="first-page clearfix">
 				<ul>
-					<li id="li#1">
-						<a class="picture" href="#" style="cursor: move"> 
-							<img src="${contextPath}/image/a.gif" style="opacity: 1; 
-									background-image: url('${contextPath}/image/default.png');">
-						</a>
-						<div class="photo-oper">
-							<a href="javascript:void(0);" class="photo-edit" onclick="editPhoto('1')">编辑</a>
-						</div>
-						<div class="myphoto-info">
-							<span class="descript">1111</span>
-						</div>
-						<div class="edit-desc" style="" id="edit#1">
-							<div class="edit-content">
-								<input type="text" value="">
-								<p>
-									可按
-									<span class="">回车</span>保存、
-									<span class="">Esc</span><a href="javascript:;" onclick="cancel('1')">取消</a>
-								</p>
+					<c:forEach items="${paginationSupport.items}" var="photo">
+						<li id="li#${photo.pkId}">
+							<a class="picture" href="#" style="cursor: move"> 
+								<%--<img src="${contextPath}/image/a.gif" style="opacity: 1; 
+										background-image: url('${contextPath}/photo.jpg?fileId=${photo.file.pkId}');">--%>
+								<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}"/>
+							</a>
+							<div class="photo-oper">
+								<a href="javascript:void(0);" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
 							</div>
-						</div>
-					</li>
-					
-					<li id="li#2">
-						<a class="picture" href="#" style="cursor: move"> 
-							<img src="${contextPath}/image/a.gif" style="opacity: 1; 
-									background-image: url('${contextPath}/image/default.png');">
-						</a>
-						<div class="photo-oper">
-							<a href="javascript:void(0);" class="photo-edit" onclick="editPhoto('2')">编辑</a>
-						</div>
-						<div class="myphoto-info">
-							<span class="descript">1111</span>
-						</div>
-						<div class="edit-desc" style="" id="edit#2">
-							<div class="edit-content">
-								<input type="text" value="">
-								<p>
-									可按
-									<span class="">回车</span>保存、
-									<span class="">Esc</span><a href="javascript:;" onclick="cancel('2')">取消</a>
-								</p>
+							<div class="myphoto-info">
+								<span class="descript">${photo.summary}</span>
 							</div>
-						</div>
-					</li>
+							<div class="edit-desc" style="" id="edit#${photo.pkId}">
+								<div class="edit-content">
+									<input type="text" value="">
+									<p>
+										可按
+										<span class="">回车</span>保存、
+										<span class="">Esc</span><a href="javascript:;" onclick="cancel('${photo.pkId}')">取消</a>
+									</p>
+								</div>
+							</div>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
+		<c:url var="paginationAction" value="album/listPhotos.do?albumId=${album.pkId}"/>
+		<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>
 	</div>
 	<!-- end of album-main -->
 	<div class="album-sidebar">

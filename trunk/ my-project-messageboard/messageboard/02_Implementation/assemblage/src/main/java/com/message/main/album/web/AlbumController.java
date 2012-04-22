@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
@@ -112,7 +113,15 @@ public class AlbumController extends ExtMultiActionController {
 		Long albumId = in.getLong("albumId");
 		Album album = this.albumService.loadAlbum(albumId);
 		
+		//获取这个相册中所有图片
+		//每页显示12张照片
+		int num = in.getInt("num", 12);
+		int start = SqlUtils.getStartNum(in, num);
+		PaginationSupport ps = this.albumService.getPhotosByAlbum(albumId, start, num);
+		
+		params.put("paginationSupport", ps);
 		params.put("album", album);
+		params.put("resourceType", ResourceType.RESOURCE_TYPE_PHOTO);
 		return new ModelAndView("photo.list", params);
 	}
 	
@@ -132,6 +141,36 @@ public class AlbumController extends ExtMultiActionController {
 		boolean result = this.albumService.deleteAlbum(albumId);
 		
 		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ModelAndView uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+        Map<String, Object> params = new HashMap<String, Object>();
+        
+        /**
+         * 从页面获取一些参数
+         */
+        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));					//上传者
+        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));				//资源ID，即相册的ID
+        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));		//资源类型
+        
+        /**
+         * 将HttpServletRequest强制转换成spring的MultipartHttpServletRequest
+         */
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        
+        Map uploadParams = new HashMap();
+        uploadParams.put(ResourceType.MAP_KEY_RESOURCE_ID, resourceId);
+        uploadParams.put(ResourceType.MAP_KEY_RESOURCE_TYPE, resourceType);
+        uploadParams.put(ResourceType.MAP_KEY_UPLOAD_ID, uploadId);
+        //上传文件
+        this.albumService.uploadPhoto(multipartRequest, uploadParams);
+        
+        params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
 		return null;
 	}

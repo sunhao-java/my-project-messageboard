@@ -69,4 +69,23 @@ public interface GenericUploadService {
      * @throws Exception
      */
     void updateDownloadCount(Long pkId) throws Exception;
+    
+    /**
+     * 上传单个文件
+     * 
+     * @param file			需要上传的文件
+     * @param params		所需参数的MAP
+     * @return		通用文件类
+     * @throws Exception
+     */
+    UploadFile genericUpload(MultipartFile file, Map params) throws Exception;
+    
+    /**
+     * 一次上传多个文件
+     *
+     * @param request           上传文件的request
+     * @param params			所需参数的MAP
+     * @throws Exception
+     */
+    List<UploadFile> genericUploads(MultipartRequest request, Map params) throws Exception;
 }

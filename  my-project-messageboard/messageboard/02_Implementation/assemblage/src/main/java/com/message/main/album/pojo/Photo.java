@@ -3,6 +3,8 @@ package com.message.main.album.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.message.main.upload.pojo.UploadFile;
+
 /**
  * 照片实体.
  * 
@@ -20,6 +22,9 @@ public class Photo implements Serializable {
 	private Date createDate;				//创建时间
 	private String summary;					//照片描述
 	private Long deleteFlag;				//删除标识，0未删除；1已删除
+	
+	//VO Fields
+	private UploadFile file;				//对应的上传文件
 
 	public Long getPkId() {
 		return pkId;
@@ -75,6 +80,14 @@ public class Photo implements Serializable {
 
 	public void setDeleteFlag(Long deleteFlag) {
 		this.deleteFlag = deleteFlag;
+	}
+
+	public UploadFile getFile() {
+		return file;
+	}
+
+	public void setFile(UploadFile file) {
+		this.file = file;
 	}
 
 }

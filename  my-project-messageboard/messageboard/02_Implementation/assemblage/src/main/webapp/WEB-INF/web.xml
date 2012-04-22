@@ -72,6 +72,15 @@
 		<servlet-name>userHeadServlet</servlet-name>
 		<url-pattern>/head.jpg</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>photoServlet</servlet-name>
+		<servlet-class>com.message.main.album.PhotoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>photoServlet</servlet-name>
+		<url-pattern>/photo.jpg</url-pattern>
+	</servlet-mapping>
 
     <servlet>
         <servlet-name>verityCode</servlet-name>

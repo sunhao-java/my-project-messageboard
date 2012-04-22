@@ -160,6 +160,10 @@ public final class ResourceType {
      * 留言的资源类型
      */
     public static final Integer RESOURCE_TYPE_MESSAGE = Integer.valueOf(1);
+    /**
+     * 相册图片的资源类型
+     */
+    public static final Integer RESOURCE_TYPE_PHOTO = Integer.valueOf(2);
 
     //上传的参数MAP中的KEY
     /**

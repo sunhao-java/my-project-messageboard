@@ -1,7 +1,12 @@
 package com.message.main.album.service;
 
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartRequest;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.Photo;
 
 /**
  * 相册service接口.
@@ -48,5 +53,35 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	boolean deleteAlbum(Long pkId) throws Exception;
+	
+	/**
+	 * 上传图片
+	 * 
+	 * @param request		上传图片的request
+	 * @param params
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	void uploadPhoto(MultipartRequest request, Map params) throws Exception;
+	
+	/**
+	 * 获取某个相册中照片的分页对象
+	 * 
+	 * @param albumId		相册主键
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception;
+	
+	/**
+	 * 根据主键删除照片
+	 * 
+	 * @param pkId			主键
+	 * @return
+	 * @throws Exception
+	 */
+	Photo loadPhoto(Long pkId) throws Exception;
 
 }

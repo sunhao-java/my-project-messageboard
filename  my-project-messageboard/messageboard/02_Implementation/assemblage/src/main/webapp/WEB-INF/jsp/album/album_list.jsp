@@ -73,7 +73,7 @@
 									<img src="${contextPath}/image/a.gif"
 										style="opacity: 1; background-image: url('${contextPath}/${album.cover}');">
 									<div class="photo-num">
-										1
+										${album.photoCount}
 									</div> 
 								</a>
 								<a class="album-title" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');">

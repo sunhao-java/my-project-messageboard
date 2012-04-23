@@ -258,18 +258,18 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
         	CtClass ctClass = cp.makeClass("com.message.base.jdbc.DynamicBeanRowMapperImpl$" + System.currentTimeMillis());
         	
         	//创建一个接口(DynamicRowMapper)
-        	CtClass ctInterface = cp.makeInterface("com.message.base.jdbc.DynamicRowMapper");
+        	CtClass ctInterface = cp.makeInterface("com.message.base.jdbc.dynamic.DynamicRowMapper");
         	//上面创建的类实现上面的接口
         	ctClass.addInterface(ctInterface);
         	
         	//创建一个字段(SqlHelper)
-        	CtField sqlHelperField = CtField.make("private com.message.base.jdbc.SqlHelper sqlHelper", ctClass);
+        	CtField sqlHelperField = CtField.make("private com.message.base.jdbc.utils.helper.SqlHelper sqlHelper;", ctClass);
         	//加入这个字段
         	ctClass.addField(sqlHelperField);
         	
         	//创建一个setter方法
         	CtMethod setterMethod = CtMethod.make("" +
-        			"public void setSqlHelper(com.message.base.jdbc.SqlHelper sh){" +
+        			"public void setSqlHelper(com.message.base.jdbc.utils.helper.SqlHelper sh){" +
         			"	this.sqlHelper = sh;" +
         			"}", ctClass);
         	//加入这个方法
@@ -277,7 +277,7 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
         	
         	//创建一个getter方法
         	CtMethod getterMethod = CtMethod.make("" +
-        			"public com.message.base.jdbc.SqlHelper getSqlHelper(){" +
+        			"public com.message.base.jdbc.utils.helper.SqlHelper getSqlHelper(){" +
         			"	return this.sqlHelper;" +
         			"}", ctClass);
         	//加入这个方法
@@ -292,9 +292,9 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
         	StringBuffer body = new StringBuffer();
         	body.append("{\n");
         	body.append(scriptContent);
-        	body.append("return bean");
+        	body.append("return bean;");
         	body.append("}\n");
-        	mapRowMethod.setBody(scriptContent);
+        	mapRowMethod.setBody(body.toString());
         	//加入这个方法
         	ctClass.addMethod(mapRowMethod);
         	

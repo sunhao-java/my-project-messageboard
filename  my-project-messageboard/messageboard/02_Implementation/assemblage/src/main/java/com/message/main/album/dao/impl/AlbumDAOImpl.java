@@ -88,12 +88,27 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 
 	public int updateBySQL(String table, String column, Object value, Object pkValue) throws Exception {
 		StringBuffer sql = new StringBuffer();
-		sql.append("update ").append(table).append(" t set t.").append(column).append(" = ").append(value);
+		sql.append("update ").append(table).append(" t set t.").append(column).append(" = ");
+		
+		if(value instanceof String){
+			sql.append(" '").append(value.toString()).append("'");
+		} else {
+			sql.append(value);
+		}
+		
 		sql.append(" where t.pk_id = ").append(pkValue);
 		if(logger.isDebugEnabled())
 			logger.debug("the update sql is '{}'", sql.toString());
 		
-		return this.genericJdbcDAO.update(sql.toString());
+		int result = this.genericJdbcDAO.update(sql.toString());
+		if(table.indexOf("photo") != -1) {
+			Photo p = (Photo) this.loadObject(Photo.class, (Long) pkValue);
+			this.cache.put(p, (Long) pkValue);
+		} else if(table.indexOf("album") != -1) {
+			Album a = (Album) this.loadObject(Album.class, (Long) pkValue);
+			this.cache.put(a, (Long) pkValue);
+		}
+		return result;
 	}
 
 	public int getPhotoCount(Long albumId) throws Exception {

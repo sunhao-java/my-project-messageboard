@@ -14,7 +14,7 @@ a:hover {
     overflow: hidden;
     width: auto;
 }
-.opera-bar .select-btn2, .opera-bar .left-btn, .opera-bar .right-btn, .album-list li .infor .password, .album-list li .infor .phone, .album-list li .infor .userhead, .photo-comment, .photo-del, .photo-edit, .photo-comment span, .album-list li, .enter-ico {
+.opera-bar .select-btn2, .opera-bar .left-btn, .opera-bar .right-btn, .album-list li .infor .password, .album-list li .infor .phone, .album-list li .infor .userhead, .photo-comment, .photo-del, .photo-edit, .photo-cover, .photo-comment span, .album-list li, .enter-ico {
     background: url("../image/icons2.png") no-repeat scroll 0 0 transparent;
 }
 .numbers {
@@ -347,7 +347,7 @@ a.upload-btn .add-ico {
     width: 170px;
     z-index: 1;
 }
-.my-list li:hover .photo-del, .my-list li:hover .photo-edit, .my-list li:hover .myphoto-info, .my-list li.hover .photo-del, .my-list li.hover .photo-edit, .my-list li.hover .myphoto-info, .photo-list li.select .photo-edit, .photo-list li.select .edit-desc {
+.my-list li:hover .photo-del, .my-list li:hover .photo-edit, .my-list li:hover .photo-cover, .my-list li:hover .myphoto-info, .my-list li.hover .photo-del, .my-list li.hover .photo-edit, .my-list li.hover .myphoto-info, .photo-list li.select .photo-edit, .photo-list li.select .photo-cover, .photo-list li.select .edit-desc {
     display: block;
 }
 .my-list li:hover .photo-comment, .photo-list li.select .photo-comment, .photo-list li.select .myphoto-info, .photo-list li.select .photo-del, .photo-list li.select .move-ico {
@@ -379,8 +379,23 @@ a.upload-btn .add-ico {
     width: 21px;
     z-index: 3;
 }
+.photo-cover {
+    background-position: -55px -322px;
+    display: none;
+    height: 20px;
+    outline: medium none;
+    position: absolute;
+    right: 23px;
+    text-indent: -9999em;
+    width: 21px;
+    z-index: 3;
+}
 .photo-edit {
     background-position: -33px -322px;
+    top: 111px;
+}
+.photo-cover {
+    background-position: -52px -367px;
     top: 111px;
 }
 a.photo-del:hover {
@@ -388,6 +403,9 @@ a.photo-del:hover {
 }
 a.photo-edit:hover, .photo-list li.select .photo-edit {
     background-position: -76px -322px;
+}
+a.photo-cover:hover, .photo-list li.select .photo-cover {
+    background-position: -30px -367px;
 }
 .photo-list li.select {
     border-bottom: 1px solid #FFFFFF;
@@ -2162,6 +2180,12 @@ a.gray-btn:hover {
     border-style: solid none none solid;
     border-width: 1px 0 0 1px;
 }
+
+ul.album-list-me li a img{
+	width: 100px;
+	height: 75px;
+}
+
 .album-list-me li span.tag {
     display: block;
     line-height: 16px;

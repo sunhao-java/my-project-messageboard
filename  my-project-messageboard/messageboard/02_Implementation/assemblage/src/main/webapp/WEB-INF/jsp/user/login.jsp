@@ -94,10 +94,10 @@
 							if(_e.status == '1'){
 								$D.get('regNo').style.display = 'none';
 								$D.get('reg').style.display = '';
-								$D.get('username').fouce;
 							} else {
 								$D.get('reg').style.display = 'none';
 								$D.get('regNo').style.display = '';
+								$D.get('usernameReg').focus();
 							}
 						},
 						failure : function(o){

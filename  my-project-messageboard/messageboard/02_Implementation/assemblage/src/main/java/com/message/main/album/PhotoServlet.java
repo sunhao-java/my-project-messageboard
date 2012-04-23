@@ -41,14 +41,6 @@ public class PhotoServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		WebInput in = new WebInput(request);
-		Long fileId = in.getLong("fileId", Long.valueOf(-1));
-		
-		if(Integer.valueOf(-1).equals(fileId)){
-			logger.error("given fileId is null!");
-			return;
-		}
-		
 		response.setContentType("image/jpeg");
 
         // 设置页面不缓存
@@ -56,35 +48,57 @@ public class PhotoServlet extends HttpServlet {
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
         
-        GenericUploadService genericUploadService = (GenericUploadService) ApplicationHelper.getInstance().getBean(BEAN_NAME);
-        
-        if(genericUploadService == null){
-			logger.error("can not find userService in spring context whit beanname '{}'!", BEAN_NAME);
-			return;
-		}
-        
-        logger.info("userService: '{}' bean is get success!", genericUploadService);
-        
-        UploadFile file = null;
-        try {
-			file = genericUploadService.loadFile(fileId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		WebInput in = new WebInput(request);
+		String filePath = in.getString("filePath", StringUtils.EMPTY);
+		Long fileId = in.getLong("fileId", Long.valueOf(-1));
 		
-		if(file == null || StringUtils.isEmpty(file.getFilePath())){
-			logger.error("can't get UploadFile with given fileId:'{}'", fileId);
-			return;
-		}
+		String path = this.getFilePath(filePath, fileId);
 		
 		byte[] imageChar = null;
 		try {
-			imageChar = FileUtils.getFileByte(file.getFilePath());
+			imageChar = FileUtils.getFileByte(path);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		BufferedImage image =ImageIO.read(new ByteArrayInputStream(imageChar));
 		ImageIO.write(image, "JPEG", response.getOutputStream());
+	}
+	
+	private String getFilePath(String filePath, Long fileId){
+		String path = StringUtils.EMPTY;
+		if(Integer.valueOf(-1).equals(fileId) && StringUtils.isEmpty(filePath)){
+			logger.error("fileId or filePath, you must be given one at last!");
+			return StringUtils.EMPTY;
+		}
+		
+        if(StringUtils.isNotEmpty(filePath)){
+        	path = filePath;
+        } else if(fileId != null){
+        	GenericUploadService genericUploadService = (GenericUploadService) ApplicationHelper.getInstance().getBean(BEAN_NAME);
+            
+            if(genericUploadService == null){
+    			logger.error("can not find userService in spring context whit beanname '{}'!", BEAN_NAME);
+    			return StringUtils.EMPTY;
+    		}
+            
+            logger.info("userService: '{}' bean is get success!", genericUploadService);
+            
+            UploadFile file = null;
+            try {
+    			file = genericUploadService.loadFile(fileId);
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		if(file == null || StringUtils.isEmpty(file.getFilePath())){
+    			logger.error("can't get UploadFile with given fileId:'{}'", fileId);
+    			return StringUtils.EMPTY;
+    		}
+    		
+    		path = file.getFilePath();
+        }
+        
+        return path;
 	}
 	
 }

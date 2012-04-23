@@ -153,4 +153,31 @@ public class AlbumServiceImpl implements AlbumService {
 		return p;
 	}
 
+	public boolean updatePhotoSummary(String summary, Long pkId) throws Exception {
+		if(StringUtils.isEmpty(summary) || pkId == null){
+			logger.error("params summary, pkId is required!");
+			return false;
+		}
+		
+		int result = this.albumDAO.updateBySQL("t_message_photo", "summary", summary, pkId);
+		return result == 1;
+	}
+
+	public boolean setCover(Long photoId, Long albumId) throws Exception {
+		if(photoId == null || albumId == null){
+			logger.error("params photoId, albumId is required!");
+			return false;
+		}
+		Photo photo = this.loadPhoto(photoId);
+		if(photo == null || photo.getFile() == null){
+			logger.error("get photo is null or get photo has not UploadFile by given photoId:'{}'", photoId);
+			return false;
+		}
+		
+		String path = photo.getFile().getFilePath();
+		int i = this.albumDAO.updateBySQL("t_message_album", "cover", path, albumId);
+		
+		return i == 1;
+	}
+
 }

@@ -83,5 +83,24 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	Photo loadPhoto(Long pkId) throws Exception;
+	
+	/**
+	 * 更新照片的描述
+	 * 
+	 * @param summary		描述
+	 * @param pkId			照片ID
+	 * @throws Exception
+	 */
+	boolean updatePhotoSummary(String summary, Long pkId) throws Exception;
+	
+	/**
+	 * 设置相册封面
+	 * 
+	 * @param photoId		照片ID
+	 * @param albumId		相册ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean setCover(Long photoId, Long albumId) throws Exception;
 
 }

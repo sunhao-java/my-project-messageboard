@@ -3,28 +3,12 @@
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <msg:css href="css/album.css"/>
-<msg:js src="js/base/app-swfupload.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/validate.js"/>
 
 <script type="text/javascript">
-	/*
-	$(document).ready(function(){
-        YAHOO.app.swfupload("upload", "showUploadPanel", {
-            title : '上传附件',
-            fileTypes : '*.*',
-            params : {
-                headImage : 'false',
-                resourceId : '${pkId}',
-                resourceType : 1,
-                uploadId : '${loginUser.pkId}'
-            }
-        });
-    });
-	*/
-	
 	function createNewAlbum(){
 		YAHOO.app.alertForm.show({
             'reqUrl':'${contextPath}/album/formbackAlbum.do',
@@ -53,9 +37,6 @@
 			<div class="opera-bar">
 				<span class="numbers" style="">共${paginationSupport.totalRow }个相册</span>
 			</div>
-			<%--<div class="left">
-				<input type="button" id="upload" value="上传附件">
-			</div>--%>
 			<div class="left">
 				<a class="upload-btn flashUploader" href="javaScript:void(0);" onclick="createNewAlbum();">
 					<span class="add-ico">新建相册</span>
@@ -69,14 +50,20 @@
 					<ul>
 						<c:forEach items="${paginationSupport.items}" var="album">
 							<li>
-								<a class="album-cover" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');">
-									<img src="${contextPath}/image/a.gif"
-										style="opacity: 1; background-image: url('${contextPath}/${album.cover}');">
+								<a class="album-cover" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');" title="${album.albumName}">
+									<c:choose>
+										<c:when test="${album.cover eq '/image/default.png'}">
+											<img src="${contextPath}/${album.cover}"/>
+										</c:when>
+										<c:otherwise>
+											<img src="${contextPath}/photo.jpg?filePath=${album.cover}"/>
+										</c:otherwise>
+									</c:choose>
 									<div class="photo-num">
 										${album.photoCount}
 									</div> 
 								</a>
-								<a class="album-title" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');">
+								<a class="album-title" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');" title="${album.albumName}">
 									<div class="infor">
 										<span class="album-name">${album.albumName}</span>
 									</div> 

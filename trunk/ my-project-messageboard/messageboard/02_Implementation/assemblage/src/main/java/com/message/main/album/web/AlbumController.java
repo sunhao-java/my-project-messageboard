@@ -1,6 +1,7 @@
 package com.message.main.album.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.service.AlbumService;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.resource.ResourceType;
 
 /**
@@ -107,6 +111,7 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
 	public ModelAndView listPhotos(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -118,8 +123,11 @@ public class AlbumController extends ExtMultiActionController {
 		int num = in.getInt("num", 12);
 		int start = SqlUtils.getStartNum(in, num);
 		PaginationSupport ps = this.albumService.getPhotosByAlbum(albumId, start, num);
+		LoginUser lu = AuthContextHelper.getAuthContext().getLoginUser();
+		List<Album> albums = this.albumService.getAlbumList(lu.getPkId(), -1, -1).getItems();
 		
 		params.put("paginationSupport", ps);
+		params.put("albums", albums);
 		params.put("album", album);
 		params.put("resourceType", ResourceType.RESOURCE_TYPE_PHOTO);
 		return new ModelAndView("photo.list", params);
@@ -145,6 +153,14 @@ public class AlbumController extends ExtMultiActionController {
 		return null;
 	}
 	
+	/**
+	 * 上传图片的方法
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("unchecked")
 	public ModelAndView uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		out = new WebOutput(request, response);
@@ -171,6 +187,48 @@ public class AlbumController extends ExtMultiActionController {
         this.albumService.uploadPhoto(multipartRequest, uploadParams);
         
         params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 保存照片的描述
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView saveSummary(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject params = new JSONObject();
+		
+		String summary = in.getString("summary", StringUtils.EMPTY);
+		Long pkId = in.getLong("photoId");
+		params.put(ResourceType.AJAX_STATUS, this.albumService.updatePhotoSummary(summary, pkId) ? 
+				ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 设置相册封面
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView setCover(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject params = new JSONObject();
+		
+		Long photoId = in.getLong("photoId");
+		Long albumId = in.getLong("albumId");
+		params.put(ResourceType.AJAX_STATUS, this.albumService.setCover(photoId, albumId) ? 
+				ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}

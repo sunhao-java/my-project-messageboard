@@ -123,7 +123,7 @@
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
-	<jsp:param value="<a href='http://sunhao.wiscom.com.cn:8089/message/album/index.do'>我的相册</a>&nbsp;--&gt;&nbsp;${album.albumName}" name="title"/>
+	<jsp:param value="<a href='${contextPath}/album/index.do'>我的相册</a>&nbsp;--&gt;&nbsp;${album.albumName}" name="title"/>
 </jsp:include>
 
 <div class="clearfix" id="main">

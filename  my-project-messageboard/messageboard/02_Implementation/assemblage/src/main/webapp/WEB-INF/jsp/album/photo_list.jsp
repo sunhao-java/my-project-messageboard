@@ -5,6 +5,7 @@
 <msg:css href="css/photo.css"/>
 <msg:js src="js/base/app-swfupload.js"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-alertForm.js"/>
@@ -15,6 +16,21 @@
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
 
 	$(document).ready(function(){
+		using(['fancybox'], function(){
+			$("a[rel=fancyshow_group]").fancybox({
+				'transitionIn'	:	'elastic',
+				'transitionOut'	:	'elastic',
+				'speedIn'		:	600, 
+				'speedOut'		:	200, 
+				'overlayShow'	:	true,
+				'titlePosition' 	: 'over',
+				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+					return '<span id="fancybox-title-over"> ' + (currentIndex + 1) + ' / ' 
+									+ currentArray.length + (title.length ? ' &nbsp; ' + title : ' &nbsp; 没有描述！') + '</span>';
+				}
+			});
+		});
+		
         YAHOO.app.swfupload("upload", "showUploadPanel", {
             title : '上传图片',
             fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
@@ -50,17 +66,23 @@
 		event.addListener(window, 'keydown', function(e){
         	var keyCode = e.which;
         	if(keyCode == 27){
+        		//ESC
         		cancel(photoId);
         		event.removeListener(window, 'keydown');
         	} else if(keyCode == 13){
+        		//ENTRY
         		var summary = dom.get('summary#' + photoId);
-        		
+        		if(summary.value == ''){
+        			cancel(photoId);
+        			return;
+        		}
         		var requestURL = '${contextPath}/album/saveSummary.do?summary=' + summary.value + '&photoId=' + photoId;
 				$C.asyncRequest('POST', requestURL, {
 					success : function(o){
 						var _e = eval("(" + o.responseText + ")");
 						if(_e.status == '1'){
 							dom.get('descript#' + photoId).innerHTML = summary.value;
+							dom.get('link#' + photoId).title = summary.value;
 							cancel(photoId);
 						} else {
 							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'保存描述失败！'});
@@ -172,7 +194,8 @@
 					<c:forEach items="${paginationSupport.items}" var="photo">
 						<li id="li#${photo.pkId}">
 							<%-- TODO --%>
-							<a class="picture" href="#" style="cursor: move" title="${photo.photoName}"> 
+							<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.file.pkId}" style="cursor: move" 
+									title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" ondblclick="alert('');"> 
 								<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}"/>
 							</a>
 							<div class="photo-oper">
@@ -182,7 +205,16 @@
 								<a href="javascript:void(0);" title="编辑" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
 							</div>
 							<div class="myphoto-info">
-								<span class="descript" id="descript#${photo.pkId}">${photo.summary}</span>
+								<span class="descript" id="descript#${photo.pkId}">
+									<c:choose>
+										<c:when test="${empty photo.summary}">
+											没有描述！
+										</c:when>
+										<c:otherwise>
+											${photo.summary}
+										</c:otherwise>
+									</c:choose>
+								</span>
 							</div>
 							<div class="edit-desc" style="" id="edit#${photo.pkId}">
 								<div class="edit-content">

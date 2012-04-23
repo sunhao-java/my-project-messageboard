@@ -162,6 +162,14 @@
 		},
         imagepreview : {
             js : "jquery.imagePreview.js"
+        },
+        mousewheel : {
+        	js : "jquery.mousewheel-3.0.4.pack.js"
+        },
+        fancybox : {
+        	js : "jquery.fancybox-1.3.4.pack.js",
+        	css : "/../../../css/fancy/jquery.fancybox-1.3.4.css",
+        	dependencies : [ "mousewheel" ]
         }
 	};
 	var _2 = {

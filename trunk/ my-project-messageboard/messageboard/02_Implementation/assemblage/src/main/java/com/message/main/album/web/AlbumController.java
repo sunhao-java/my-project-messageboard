@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.RandomUtils;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
@@ -79,8 +80,10 @@ public class AlbumController extends ExtMultiActionController {
 		in = new WebInput(request);
 		Long albumId = in.getLong("albumId");
 		
-		Album album = this.albumService.loadAlbum(albumId);
-		params.put("album", album);
+		if(albumId != null){
+			Album album = this.albumService.loadAlbum(albumId);
+			params.put("album", album);
+		}
 		return new ModelAndView("album.new", params);
 	}
 	
@@ -111,7 +114,6 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception 
 	 */
-	@SuppressWarnings("unchecked")
 	public ModelAndView listPhotos(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -124,8 +126,11 @@ public class AlbumController extends ExtMultiActionController {
 		int start = SqlUtils.getStartNum(in, num);
 		PaginationSupport ps = this.albumService.getPhotosByAlbum(albumId, start, num);
 		LoginUser lu = AuthContextHelper.getAuthContext().getLoginUser();
-		List<Album> albums = this.albumService.getAlbumList(lu.getPkId(), -1, -1).getItems();
+		PaginationSupport albums = this.albumService.getAlbumList(lu.getPkId(), 0, 4);
 		
+		String randomTag = RandomUtils.genRandomString(5);
+		
+		params.put("randomTag", randomTag);
 		params.put("paginationSupport", ps);
 		params.put("albums", albums);
 		params.put("album", album);
@@ -229,6 +234,26 @@ public class AlbumController extends ExtMultiActionController {
 		Long albumId = in.getLong("albumId");
 		params.put(ResourceType.AJAX_STATUS, this.albumService.setCover(photoId, albumId) ? 
 				ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public ModelAndView showAllMine(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		JSONObject params = new JSONObject();
+		
+		List<Album> albums = this.albumService.getAlbumList(null, -1, -1).getItems();
+		params.put("albums", albums);
+		
 		out.toJson(params);
 		return null;
 	}

@@ -1,6 +1,7 @@
 package com.message.base.jdbc;
 
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ import com.message.base.jdbc.key.IDGenerator;
 import com.message.base.jdbc.utils.helper.SqlHelper;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.pagination.PaginationUtils;
+import com.message.base.utils.StringUtils;
 
 /**
  * query for more types
@@ -320,6 +322,70 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	 */
 	public String generateStringId(String name) throws DataAccessException {
 		return this.idGenerator.nextStringValue(name);
+	}
+	
+	/**
+	 * update
+	 * 
+	 * @param tableName
+	 * @param columnParams
+	 * @param whereParams
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int commUpdate(String tableName, Map columnParams, Map whereParams) throws DataAccessException {
+		if(StringUtils.isEmpty(tableName) || columnParams == null || columnParams.size() < 1) {
+			return 0;
+		}
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("update ").append(tableName).append(" t ").append(" set ");
+		
+		Iterator<String> it1 = columnParams.keySet().iterator();
+		while(it1.hasNext()) {
+			String key = it1.next();
+			Object value = columnParams.get(key);
+			
+			if(value instanceof String) {
+				sql.append(" t.").append(key).append(" = ").append("'").append(value.toString()).append("', ");
+			} else {
+				sql.append(" t.").append(key).append(" = ").append(value.toString()).append(", ");
+			}
+		}
+		
+		if(sql.lastIndexOf(",") != -1){
+			sql = StringUtils.substringbuffer(sql, 0, sql.length() - 2);
+		}
+		
+		if(whereParams != null && whereParams.size() > 0){
+			sql.append(" where 1 = 1 ");
+			Iterator<String> it2 = whereParams.keySet().iterator();
+			while(it2.hasNext()){
+				String key = it2.next();
+				Object value = whereParams.get(key);
+				
+				if(value instanceof String) {
+					sql.append(" and t.").append(key).append(" = ").append("'").append(value.toString()).append("' ");
+				} else {
+					sql.append(" and t.").append(key).append(" = ").append(value.toString());
+				}
+			}
+		}
+		
+		System.out.println("update sql is : " + sql.toString());
+		return this.update(sql.toString());
+	}
+	
+	/**
+	 * update
+	 * 
+	 * @param tableName
+	 * @param columnParams
+	 * @return
+	 * @throws DataAccessException
+	 */
+	public int commUpdate(String tableName, Map columnParams) throws DataAccessException {
+		return this.commUpdate(tableName, columnParams, null);
 	}
 	
 

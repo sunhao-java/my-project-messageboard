@@ -1391,6 +1391,7 @@ a.photo-edit:hover, .photo-list li.select .photo-edit {
 .photo-main-content {
     float: left;
     width: 90%;
+    margin-left: 50px;
 }
 .photo-main-sidebar2 {
     float: right;

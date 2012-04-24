@@ -142,6 +142,76 @@
 		var responseURL = '${contextPath}/album/index.do';
 		deleteOne(requestURL, responseURL, 'false');
 	}
+	
+	function showAllMine(){
+		var htmlCookie = YAHOO.util.Cookie.get('htmlCookie${randomTag}');
+		if(htmlCookie == null){
+			var requestURL = '${contextPath}/album/showAllMine.do';
+			$C.asyncRequest('POST',requestURL,{
+				success : function(o){
+					var _e = eval('(' + o.responseText + ')');
+					htmlCookie = makeHTML(_e.albums);
+					YAHOO.util.Cookie.set('htmlCookie${randomTag}', htmlCookie);
+					
+					dom.get('showPanel').innerHTML = htmlCookie;
+					dom.get('show').style.display = 'none';
+					dom.get('close').style.display = '';
+				}
+			});
+		} else {
+			dom.get('showPanel').innerHTML = htmlCookie;
+			dom.get('show').style.display = 'none';
+			dom.get('close').style.display = '';
+		}
+	}
+	
+	function makeHTML(albums){
+		var html = '';
+		for(var i = 0; i < albums.length; i++){
+			var album = albums[i];
+			html += '<li>';
+			html += '	<a class="album-name" href="${contextPath}/album/listPhotos.do?albumId=' + album.pkId + '">';
+			if(album.cover == '/image/default.png'){
+				html += '		<img title="' + album.albumName + '" src="${contextPath}/' + album.cover + '"/>';
+			} else {
+				html += '		<img title="' + album.albumName + '" src="${contextPath}/photo.jpg?filePath=' + album.cover + '"/>';
+			}
+			html += '	</a>';
+			html += '<span class="tag">';
+			html += '	<a class="album-name" href="${contextPath}/album/listPhotos.do?albumId=' + album.pkId + '">';
+			html += 		album.albumName;
+			html += '	</a>';
+			html += '</span>';
+			html += '<span class="statis">' + album.photoCount + '张</span>';
+		}
+		
+		return html;
+	}
+	
+	function closePanel(){
+		var html = '';
+		
+		<c:forEach items="${albums.items}" var="album1">
+			html += '<li>';
+			html += '	<a class="album-name" href="${contextPath}/album/listPhotos.do?albumId=${album1.pkId}">';
+			if('${album1.cover}' == '/image/default.png'){
+				html += '	<img title="${album1.albumName}" src="${contextPath}/${album1.cover}"/>';
+			} else {
+				html += '	<img title="${album1.albumName}" src="${contextPath}/photo.jpg?filePath=${album1.cover}"/>';
+			}
+			html += '	</a>';
+			html += '<span class="tag">';
+			html += '	<a class="album-name" href="${contextPath}/album/listPhotos.do?albumId=${album1.pkId}">';
+			html += 		'${album1.albumName}';
+			html += '	</a>';
+			html += '</span>';
+			html += '<span class="statis">${album1.photoCount}张</span>';
+		</c:forEach>
+		
+		dom.get('showPanel').innerHTML = html;
+		dom.get('show').style.display = '';
+		dom.get('close').style.display = 'none';
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -239,9 +309,13 @@
 		<div class="corner-body">
 			<h2>
 				我的相册
+				<c:if test="${albums.totalRow ne fn:length(albums.items)}">
+					<a id="show" class="more" href="javascript:void(0);" onclick="showAllMine();">全部</a>
+					<a id="close" class="more" href="javascript:void(0);" onclick="closePanel();" style="display: none;">收起</a>
+				</c:if>
 			</h2>
-			<ul class="album-list-me">
-				<c:forEach items="${albums}" var="a">
+			<ul class="album-list-me" id="showPanel">
+				<c:forEach items="${albums.items}" var="a">
 					<li>
 						<a href="${contextPath}/album/listPhotos.do?albumId=${a.pkId}" class="album-mame"> 
 							<c:choose>

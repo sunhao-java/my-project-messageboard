@@ -1781,6 +1781,7 @@ label {
     border-top: 1px solid #DDDDDD;
     float: left;
     width: 720px;
+    margin-left: 50px;
 }
 .function-nav {
     background-color: #F7F7F7;
@@ -2119,6 +2120,7 @@ a.gray-btn:hover {
     float: right;
     overflow: hidden;
     width: 240px;
+    margin-right: 50px
 }
 .no-content {
     margin: 20px 0;
@@ -2149,6 +2151,14 @@ a.gray-btn:hover {
     font-weight: lighter;
     position: absolute;
     right: 0;
+    padding-right: 15px;
+}
+
+.corner-body h2 a#show{
+	background: url("../image/album-newicon.png") no-repeat scroll 31px -306px transparent;
+}
+.corner-body h2 a#close{
+	background: url("../image/album-newicon.png") no-repeat scroll 31px -294px transparent;
 }
 .album-list-me {
     margin: 10px;
@@ -2163,6 +2173,11 @@ a.gray-btn:hover {
 .album-list-me li {
     line-height: 1.5em;
     margin-bottom: 15px;
+    width: 100px;
+    float: left;
+    overflow: hidden;
+    padding: 5px;
+    position: relative;
 }
 * + html .album-list-me li {
     display: inline-block;

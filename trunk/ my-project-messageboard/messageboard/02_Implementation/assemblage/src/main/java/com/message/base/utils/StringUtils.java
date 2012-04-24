@@ -189,6 +189,31 @@ public class StringUtils extends org.apache.commons.lang.StringUtils {
 		}
 	}
 	
+	/**
+	 * 对StringBuffer切割
+	 * 
+	 * @param src		源
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static StringBuffer substringbuffer(StringBuffer src, int start, int end){
+		String result = substring(src.toString(), start, end);
+		
+		return new StringBuffer(result);
+	}
 	
+	/**
+	 * 对StringBuffer切割
+	 * 
+	 * @param src		源
+	 * @param start
+	 * @return
+	 */
+	public static StringBuffer substringbuffer(StringBuffer src, int start){
+		String result = substring(src.toString(), start);
+		
+		return new StringBuffer(result);
+	}
 	
 }

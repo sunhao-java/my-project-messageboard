@@ -138,7 +138,7 @@ public final class ResourceType {
 	/**
 	 * 用户上传头像放置的路径
 	 */
-	public static final String USER_IMAGE_FOLDER_PATH = SystemConfig.getProperty("user.image.upload.dir", "/opt/data/head/");
+	public static final String USER_IMAGE_FOLDER_PATH = SystemConfig.getProperty("user.image.upload.dir", "/opt/application/data/head/");
 	/**
 	 * 大头像
 	 */

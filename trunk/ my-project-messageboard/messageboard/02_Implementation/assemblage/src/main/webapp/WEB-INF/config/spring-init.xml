@@ -60,7 +60,7 @@
 	<!-- properties文件解析器 -->
     <bean id="propertiesConfig" class="com.message.base.properties.PropertiesFactoryBean">
         <property name="propertiesFilePath">
-       		<value>/opt/config/message/root.properties</value>
+       		<value>/opt/application/config/message/root.properties</value>
         </property>
     </bean>
 

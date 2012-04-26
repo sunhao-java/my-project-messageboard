@@ -5,6 +5,8 @@ import com.message.base.pagination.PaginationSupport;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataAccessException;
+
 /**
  * hibernate主要方法的封装
  * @author sunhao(sunhao.java@gmail.com)
@@ -106,4 +108,47 @@ public interface GenericHibernateDAO {
      * @return
      */
     Long genericId(final String sequenceName) throws Exception;
+    
+    /**
+	 * update
+	 * 
+	 * @param clazz				table name
+	 * @param columnParams		colum
+	 * @param whereParams		where
+	 * @return					update column rows num
+	 * @throws DataAccessException
+	 */
+    int commUpdateByHQL(final Class clazz, final Map columnParams, final Map whereParams) throws Exception;
+    
+    /**
+	 * update
+	 * 
+	 * @param clazz				table name
+	 * @param columnParams		colum
+	 * @return					update column rows num
+	 * @throws DataAccessException
+	 */
+    int commUpdateByHQL(final Class clazz, final Map columnParams) throws Exception;
+    
+    /**
+	 * update
+	 * 
+	 * @param table				table name
+	 * @param columnParams		colum
+	 * @param whereParams		where
+	 * @return					update column rows num
+	 * @throws DataAccessException
+	 */
+    int commUpdateByNativeSQL(final String table, final Map columnParams, final Map whereParams) throws Exception;
+    
+    /**
+	 * update
+	 * 
+	 * @param table				table name
+	 * @param columnParams		colum
+	 * @return					update column rows num
+	 * @throws DataAccessException
+	 */
+    int commUpdateByNativeSQL(final String table, final Map columnParams) throws Exception;
+    
 }

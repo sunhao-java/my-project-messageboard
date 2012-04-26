@@ -7,7 +7,6 @@
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-dialog.js"/>
-<msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/validate.js"/>
 <msg:js src="js/base/commfunction.js"/>

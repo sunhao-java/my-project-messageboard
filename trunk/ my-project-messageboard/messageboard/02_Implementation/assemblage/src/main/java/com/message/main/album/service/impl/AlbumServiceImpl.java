@@ -226,8 +226,14 @@ public class AlbumServiceImpl implements AlbumService {
 		whereParams.put("album_id", albumId);
 		
 		int result = this.albumDAO.updateBySQL("t_message_album_photo", columnParams, whereParams);
-		if(result == 1)
-			return true;
+		if(result == 1){
+			whereParams.clear();
+			whereParams.put("pk_id", photoId);
+			
+			result = this.albumDAO.updateBySQL("t_message_photo", columnParams, whereParams);
+			
+			return result == 1;
+		}
 		else
 			return false;
 	}

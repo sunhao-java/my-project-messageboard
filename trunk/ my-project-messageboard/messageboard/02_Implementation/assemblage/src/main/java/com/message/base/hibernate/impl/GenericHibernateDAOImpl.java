@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.aspectj.weaver.ast.Call;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -303,5 +304,111 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 
         return (Long) hibernateTemplate.execute(callback);
     }
+
+	public int commUpdateByHQL(final Class clazz, final Map columnParams, final Map whereParams) throws Exception {
+		if(clazz == null || columnParams == null || columnParams.size() < 1) {
+			return 0;
+		}
+		
+		HibernateCallback callback = new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				StringBuffer sql = new StringBuffer();
+				sql.append("update ").append(clazz.getSimpleName()).append(" t ").append(" set ");
+				
+				Iterator<String> it1 = columnParams.keySet().iterator();
+				while(it1.hasNext()) {
+					String key = it1.next();
+					Object value = columnParams.get(key);
+					
+					if(value instanceof String) {
+						sql.append(" t.").append(key).append(" = ").append("'").append(value.toString()).append("', ");
+					} else {
+						sql.append(" t.").append(key).append(" = ").append(value.toString()).append(", ");
+					}
+				}
+				
+				if(sql.lastIndexOf(",") != -1){
+					sql = StringUtils.substringbuffer(sql, 0, sql.length() - 2);
+				}
+				
+				if(whereParams != null && whereParams.size() > 0){
+					sql.append(" where 1 = 1 ");
+					Iterator<String> it2 = whereParams.keySet().iterator();
+					while(it2.hasNext()){
+						String key = it2.next();
+						Object value = whereParams.get(key);
+						
+						if(value instanceof String) {
+							sql.append(" and t.").append(key).append(" = ").append("'").append(value.toString()).append("' ");
+						} else {
+							sql.append(" and t.").append(key).append(" = ").append(value.toString());
+						}
+					}
+				}
+				
+				Query query = session.createQuery(sql.toString());
+				return query.executeUpdate();
+			}
+		};
+			
+		return this.hibernateTemplate.execute(callback);
+	}
+
+	public int commUpdateByHQL(Class clazz, Map columnParams) throws Exception {
+		return this.commUpdateByHQL(clazz, columnParams, null);
+	}
+
+	public int commUpdateByNativeSQL(final String table, final Map columnParams, final Map whereParams) throws Exception {
+		if(StringUtils.isEmpty(table) || columnParams == null || columnParams.size() < 1) {
+			return 0;
+		}
+		
+		HibernateCallback callback = new HibernateCallback() {
+			public Object doInHibernate(Session session) throws HibernateException, SQLException {
+				StringBuffer sql = new StringBuffer();
+				sql.append("update ").append(table).append(" t ").append(" set ");
+				
+				Iterator<String> it1 = columnParams.keySet().iterator();
+				while(it1.hasNext()) {
+					String key = it1.next();
+					Object value = columnParams.get(key);
+					
+					if(value instanceof String) {
+						sql.append(" t.").append(key).append(" = ").append("'").append(value.toString()).append("', ");
+					} else {
+						sql.append(" t.").append(key).append(" = ").append(value.toString()).append(", ");
+					}
+				}
+				
+				if(sql.lastIndexOf(",") != -1){
+					sql = StringUtils.substringbuffer(sql, 0, sql.length() - 2);
+				}
+				
+				if(whereParams != null && whereParams.size() > 0){
+					sql.append(" where 1 = 1 ");
+					Iterator<String> it2 = whereParams.keySet().iterator();
+					while(it2.hasNext()){
+						String key = it2.next();
+						Object value = whereParams.get(key);
+						
+						if(value instanceof String) {
+							sql.append(" and t.").append(key).append(" = ").append("'").append(value.toString()).append("' ");
+						} else {
+							sql.append(" and t.").append(key).append(" = ").append(value.toString());
+						}
+					}
+				}
+				
+				SQLQuery sqlQuery = session.createSQLQuery(sql.toString());
+				return sqlQuery.executeUpdate();
+			}
+		};
+			
+		return this.hibernateTemplate.execute(callback);
+	}
+
+	public int commUpdateByNativeSQL(final String table, final Map columnParams) throws Exception {
+		return this.commUpdateByNativeSQL(table, columnParams, null);
+	}
 
 }

@@ -20,6 +20,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
@@ -239,6 +240,7 @@ public class AlbumController extends ExtMultiActionController {
 	}
 	
 	/**
+	 * 显示我所有的相册
 	 * 
 	 * @param request
 	 * @param response
@@ -257,4 +259,42 @@ public class AlbumController extends ExtMultiActionController {
 		out.toJson(params);
 		return null;
 	}
+	
+	/**
+	 * 照片详情
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView showDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		Long photoId = in.getLong("photoId");
+		Long albumId = in.getLong("albumId");
+		String type = in.getString("type", StringUtils.EMPTY);
+		
+		Photo photo = this.albumService.loadPhoto(photoId, type + "#" + albumId);
+		Album album = this.albumService.loadAlbum(albumId);
+		
+		boolean previous = false;
+		boolean next = false;
+		if(StringUtils.isNotEmpty(type)){
+			previous = this.albumService.loadPhoto(photo.getPkId(), "previous#" + albumId) == null;
+			next = this.albumService.loadPhoto(photo.getPkId(), "next#" + albumId) == null;
+		} else {
+			previous = this.albumService.loadPhoto(photoId, "previous#" + albumId) == null;
+			next = this.albumService.loadPhoto(photoId, "next#" + albumId) == null;
+		}
+		
+		params.put("album", album);
+		params.put("photo", photo);
+		params.put("previous", previous);
+		params.put("next", next);
+		
+		return new ModelAndView("photo.detail", params);
+	}
+	
 }

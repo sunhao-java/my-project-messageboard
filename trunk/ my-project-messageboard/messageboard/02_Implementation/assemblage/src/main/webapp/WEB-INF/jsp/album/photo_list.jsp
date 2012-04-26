@@ -24,9 +24,16 @@
 				'speedOut'		:	200, 
 				'overlayShow'	:	true,
 				'titlePosition' 	: 'over',
-				'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-					return '<span id="fancybox-title-over"> ' + (currentIndex + 1) + ' / ' 
-									+ currentArray.length + (title.length ? ' &nbsp; ' + title : ' &nbsp; 没有描述！') + '</span>';
+				'titleFormat'		: function(title, pkId, currentArray, currentIndex, currentOpts) {
+					var returnValue = "";
+					returnValue += '<span id="fancybox-title-over"> ' + (currentIndex + 1) + ' / ' 
+									+ currentArray.length + (title.length ? ' &nbsp; ' + title : ' &nbsp; 没有描述！');
+					returnValue += '<span class="float-right">';
+					returnValue += '<a href="javascript:void(0)" class="show-bigpic" onclick="showDetail(&quot;' + pkId + '&quot;);">查看详情</a>';
+					returnValue += '</span>';
+					returnValue += '</span>';
+					
+					return returnValue;
 				}
 			});
 		});
@@ -212,10 +219,16 @@
 		dom.get('show').style.display = '';
 		dom.get('close').style.display = 'none';
 	}
+	
+	function showDetail(pkId){
+		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}';
+	}
 </script>
 
-<jsp:include page="/WEB-INF/jsp/base/head.jsp">
-	<jsp:param value="<a href='${contextPath}/album/index.do'>我的相册</a>&nbsp;--&gt;&nbsp;${album.albumName}" name="title"/>
+<jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
+	<jsp:param value="我的相册" name="title"/>
+	<jsp:param value="${album.albumName}" name="title"/>
+	<jsp:param value="${contextPath}/album/index.do" name="link"/>
 </jsp:include>
 
 <div class="clearfix" id="main">
@@ -265,8 +278,9 @@
 						<li id="li#${photo.pkId}">
 							<%-- TODO --%>
 							<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.file.pkId}" style="cursor: move" 
-									title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" ondblclick="alert('');"> 
-								<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}"/>
+									title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
+								<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}"  style="opacity: 1; 
+									background-image: url('${contextPath}/image/a.gif');" alt="${photo.photoName}"/>
 							</a>
 							<div class="photo-oper">
 								<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>

@@ -90,5 +90,16 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	Photo loadPhoto(Long pkId) throws Exception;
+	
+	/**
+	 * 根据主键、相册ID、获取类型获得上一张或者下一张图片ID
+	 * 
+	 * @param pkId
+	 * @param albumId
+	 * @param type
+	 * @return
+	 * @throws Exception
+	 */
+	Long loadPhoto(Long pkId, Long albumId, String type) throws Exception;
 
 }

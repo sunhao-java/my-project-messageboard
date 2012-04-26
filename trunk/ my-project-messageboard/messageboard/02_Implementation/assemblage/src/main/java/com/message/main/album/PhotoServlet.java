@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
+import com.message.base.utils.ImageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.upload.pojo.UploadFile;
@@ -35,6 +36,9 @@ public class PhotoServlet extends HttpServlet {
 	 * GenericUploadService在spring中bean的id
 	 */
 	private static final String BEAN_NAME = "genericUploadService";
+	
+	private static final int IMAGE_DIV_WIDTH = 720;
+	private static final int IMAGE_DIV_HEIGHT = 540;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
@@ -51,6 +55,7 @@ public class PhotoServlet extends HttpServlet {
 		WebInput in = new WebInput(request);
 		String filePath = in.getString("filePath", StringUtils.EMPTY);
 		Long fileId = in.getLong("fileId", Long.valueOf(-1));
+		boolean check = in.getBoolean("check", false);
 		
 		String path = this.getFilePath(filePath, fileId);
 		
@@ -60,7 +65,28 @@ public class PhotoServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		BufferedImage image =ImageIO.read(new ByteArrayInputStream(imageChar));
+		BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageChar));
+		
+		//TODO need to 计算图片大小比例  
+		if(check){
+			//查看详情的页面需要做此判断
+			int height = image.getHeight();
+			int width = image.getWidth();
+
+			int[] size = null;
+			if(height > IMAGE_DIV_HEIGHT || width > IMAGE_DIV_WIDTH){
+				size = ImageUtils.getSizeByPercent(width, height, IMAGE_DIV_WIDTH, IMAGE_DIV_HEIGHT);
+			} else {
+				size = new int[]{width, height};
+			}
+			
+			width = size[0];
+			height = size[1];
+			BufferedImage image2 = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+			image2.getGraphics().drawImage(image, 0, 0, width, height, null);
+			image = image2;
+		}
+		
 		ImageIO.write(image, "JPEG", response.getOutputStream());
 	}
 	

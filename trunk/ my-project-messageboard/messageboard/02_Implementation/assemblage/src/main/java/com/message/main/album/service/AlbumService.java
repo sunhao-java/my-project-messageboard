@@ -76,13 +76,23 @@ public interface AlbumService {
 	PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception;
 	
 	/**
-	 * 根据主键删除照片
+	 * 根据主键获取照片
 	 * 
 	 * @param pkId			主键
 	 * @return
 	 * @throws Exception
 	 */
 	Photo loadPhoto(Long pkId) throws Exception;
+	
+	/**
+	 * 根据主键和获取类型取得照片
+	 * 
+	 * @param pkId			主键
+	 * @param type			previous取上一张;next取下一张;''取本张
+	 * @return
+	 * @throws Exception
+	 */
+	Photo loadPhoto(Long pkId, String type) throws Exception;
 	
 	/**
 	 * 更新照片的描述
@@ -102,5 +112,5 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	boolean setCover(Long photoId, Long albumId) throws Exception;
-
+	
 }

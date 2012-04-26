@@ -13,8 +13,15 @@
 		<!--[if lte IE 6]>
 			<msg:js src="/js/base/ie-pngbug.js"/>
 		<![endif]-->
+		
+		<style type="text/css">
+			.no-scroll{
+				overflow-x: hidden;
+				overflow-y: auto; 
+			}
+		</style>
 	</head>
-	<body class="yui-skin-sam">
+	<body class="no-scroll yui-skin-sam">
 		<tiles:insertAttribute name="content"/>
 	</body>
 </html>

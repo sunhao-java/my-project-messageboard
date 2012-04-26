@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
+<!-- 导航 -->
 <msg:css href="css/head.css"/>
 <style type="text/css">
 	.buttonlist{
@@ -26,7 +27,19 @@
 	<span style="float:left">
 		<img alt="" src="${contextPath }/image/wiseduimg/clock.gif.png" width="32" height="32">
 	</span>
-	<h2>&nbsp;&nbsp;<%=request.getParameter("title") %></h2>
+	<ul class="navigation">&nbsp;&nbsp;
+	<%
+		String[] titles = request.getParameterValues("title");
+		String[] links = request.getParameterValues("link");
+		for(int i = 0; i < links.length; i++){
+			out.print("<li>");
+			out.print("<a href=\"" + links[i] + "\">" + titles[i] + "</a>");
+			out.print("</li>");
+			out.print("<li class=\"split\"></li>");
+		}
+		out.print("<li class=\"light\">" + titles[titles.length - 1] + "</li>");
+	%>
+	</ul>
 </div>
 
 <p class="actions" style="margin: 5px;border:0px solid">

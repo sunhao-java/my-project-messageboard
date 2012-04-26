@@ -141,3 +141,28 @@ a:hover {
 .float-right {
 	float: right;
 }
+
+ul.navigation{
+	list-style: none outside none;
+	padding: 10px 0 5px 40px;
+    border-bottom: 1px solid #ccc;
+    font-size: 14px;
+    line-height: 24px;
+    color: #000000 !important;
+    font-weight: bold;
+}
+
+ul.navigation li{
+	float: left;
+    margin: 0 2px;
+}
+
+ul.navigation li.light{
+	font-weight: lighter;
+}
+
+ul.navigation li.split {
+	background: url("../image/album-terminal-v1.png") no-repeat scroll 0px -218px transparent;
+    height: 22px;
+    width: 20px;
+}

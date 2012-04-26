@@ -83,13 +83,17 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		}
 	}
 
+	public int updateBySQL(String table, Map<String, Object> columnParams, Map<String, Object> whereParams) throws Exception {
+		return this.genericJdbcDAO.commUpdate(table, columnParams, whereParams);
+	}
+	
 	public int updateBySQL(String table, String column, Object value, Object pkValue) throws Exception {
 		Map<String, Object> columnParams = new HashMap<String, Object>();
 		Map<String, Object> whereParams = new HashMap<String, Object>();
 		columnParams.put(column, value);
 		whereParams.put("pk_id", pkValue);
 		
-		return this.genericJdbcDAO.commUpdate(table, columnParams, whereParams);
+		return this.updateBySQL(table, columnParams, whereParams);
 	}
 
 	public int getPhotoCount(Long albumId) throws Exception {
@@ -104,9 +108,11 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 	public PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select p.pk_id from t_message_photo p where p.pk_id in ");
-		sql.append("(select ap.photo_id from t_message_album_photo ap where ap.album_id = :albumId) order by p.pk_id desc");
+		sql.append("(select ap.photo_id from t_message_album_photo ap where ap.album_id = :albumId and ap.delete_flag = :deleteFlag)");
+		sql.append(" order by p.pk_id desc");
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("albumId", albumId);
+		params.put("deleteFlag", ResourceType.DELETE_NO);
 		
 		return this.genericJdbcDAO.getBeanPaginationSupport(sql.toString(), null, start, num, params, Photo.class);
 	}
@@ -136,11 +142,12 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		}
 		sql.append("select ").append(maxOrMin).append("(app.photo_id)")
 			.append(" from t_message_album_photo app where app.album_id = :albumId and app.photo_id ")
-			.append(gtOrLt).append(" :photoId");
+			.append(gtOrLt).append(" :photoId").append(" and app.delete_flag = :deleteFlag ");
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("photoId", pkId);
 		params.put("albumId", albumId);
+		params.put("deleteFlag", ResourceType.DELETE_NO);
 		
 		return this.genericJdbcDAO.queryForLong(sql.toString(), params);
 	}

@@ -1,6 +1,7 @@
 package com.message.main.album.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -210,6 +211,42 @@ public class AlbumServiceImpl implements AlbumService {
 		int i = this.albumDAO.updateBySQL("t_message_album", "cover", path, albumId);
 		
 		return i == 1;
+	}
+
+	public boolean deletePhoto(Long photoId, Long albumId) throws Exception {
+		if(photoId == null || albumId == null){
+			logger.error("you give no photo Id or no album Id!");
+			return false;
+		}
+		
+		Map<String, Object> columnParams = new HashMap<String, Object>();
+		Map<String, Object> whereParams = new HashMap<String, Object>();
+		columnParams.put("delete_flag", ResourceType.DELETE_YES);
+		whereParams.put("photo_id", photoId);
+		whereParams.put("album_id", albumId);
+		
+		int result = this.albumDAO.updateBySQL("t_message_album_photo", columnParams, whereParams);
+		if(result == 1)
+			return true;
+		else
+			return false;
+	}
+
+	public boolean movePhoto(Long photoId, Long toAlbumId, Long fromAlbumId) throws Exception {
+		if(photoId == null || toAlbumId == null || fromAlbumId == null){
+			logger.error("you give no photo Id or no toAlbum Id or no fromAlbum Id!");
+			return false;
+		}
+		
+		Map<String, Object> columnParams = new HashMap<String, Object>();
+		Map<String, Object> whereParams = new HashMap<String, Object>();
+		columnParams.put("album_id", toAlbumId);
+		whereParams.put("photo_id", photoId);
+		whereParams.put("album_id", fromAlbumId);
+		
+		int size = this.albumDAO.updateBySQL("t_message_album_photo", columnParams, whereParams);
+		
+		return size == 1;
 	}
 
 }

@@ -113,4 +113,25 @@ public interface AlbumService {
 	 */
 	boolean setCover(Long photoId, Long albumId) throws Exception;
 	
+	/**
+	 * 根据照片主键和相册主键删除照片
+	 * 
+	 * @param photoId		照片主键
+	 * @param albumId		相册主键
+	 * @return
+	 * @throws Exception
+	 */
+	boolean deletePhoto(Long photoId, Long albumId) throws Exception;
+	
+	/**
+	 * 根据照片主键和相册主键删除照片
+	 * 
+	 * @param photoId		照片主键
+	 * @param toAlbumId		目标相册主键
+	 * @param fromAlbumId	原相册ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean movePhoto(Long photoId, Long toAlbumId, Long fromAlbumId) throws Exception;
+	
 }

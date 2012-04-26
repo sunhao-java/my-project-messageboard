@@ -1,5 +1,7 @@
 package com.message.main.album.dao;
 
+import java.util.Map;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.Photo;
@@ -49,6 +51,17 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	void updateEntity(Object entity) throws Exception;
+	
+	/**
+	 * 根据原生SQL更新
+	 * 
+	 * @param table				表名
+	 * @param columnParams		字段
+	 * @param whereParams		条件
+	 * @return				更新的数据库行数
+	 * @throws Exception
+	 */
+	int updateBySQL(String table, Map<String, Object> columnParams, Map<String, Object> whereParams) throws Exception;
 	
 	/**
 	 * 根据原生SQL更新

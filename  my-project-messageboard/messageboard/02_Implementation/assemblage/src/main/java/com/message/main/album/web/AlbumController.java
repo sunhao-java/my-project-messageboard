@@ -268,6 +268,7 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception 
 	 */
+	@SuppressWarnings("unchecked")
 	public ModelAndView showDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		out = new WebOutput(request, response);
@@ -289,12 +290,50 @@ public class AlbumController extends ExtMultiActionController {
 			next = this.albumService.loadPhoto(photoId, "next#" + albumId) == null;
 		}
 		
+		List<Album> albums = this.albumService.getAlbumList(null, -1, -1).getItems();
+		
 		params.put("album", album);
 		params.put("photo", photo);
 		params.put("previous", previous);
 		params.put("next", next);
+		params.put("albums", albums);
 		
 		return new ModelAndView("photo.detail", params);
+	}
+	
+	/**
+	 * 删除照片
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		JSONObject params = new JSONObject();
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		Long photoId = in.getLong("photoId");
+		Long albumId = in.getLong("albumId");
+		
+		boolean result = this.albumService.deletePhoto(photoId, albumId);
+		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
+	public ModelAndView movePhoto(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		JSONObject params = new JSONObject();
+		out = new WebOutput(request, response);
+		in = new WebInput(request);
+		Long photoId = in.getLong("photoId");
+		Long toAlbumId = in.getLong("toAlbumId");
+		Long fromAlbumId = in.getLong("fromAlbumId");
+		
+		params.put(ResourceType.AJAX_STATUS, this.albumService.movePhoto(photoId, toAlbumId, fromAlbumId) 
+				? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
 	}
 	
 }

@@ -327,10 +327,10 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	/**
 	 * update
 	 * 
-	 * @param tableName
-	 * @param columnParams
-	 * @param whereParams
-	 * @return
+	 * @param table				table name
+	 * @param columnParams		colum
+	 * @param whereParams		where
+	 * @return					update column rows num
 	 * @throws DataAccessException
 	 */
 	public int commUpdate(String tableName, Map columnParams, Map whereParams) throws DataAccessException {
@@ -372,7 +372,6 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 			}
 		}
 		
-		System.out.println("update sql is : " + sql.toString());
 		return this.update(sql.toString());
 	}
 	

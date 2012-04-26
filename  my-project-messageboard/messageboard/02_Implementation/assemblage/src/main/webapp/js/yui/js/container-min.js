@@ -3042,7 +3042,7 @@
                         }
                     }
                     if (D.indexOf(".") == -1) {
-                        I = document.createElement("span");
+                		I = document.createElement("span");
                         I.className = (F + " " + D);
                         I.innerHTML = "&#160;";
                     } else {

@@ -17,4 +17,9 @@
 	<definition name="photo.list" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/album/photo_list.jsp"/>
 	</definition>
+	
+	<!-- 照片详情 -->
+	<definition name="photo.detail" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/photo_detail.jsp"/>
+	</definition>
 </tiles-definitions>

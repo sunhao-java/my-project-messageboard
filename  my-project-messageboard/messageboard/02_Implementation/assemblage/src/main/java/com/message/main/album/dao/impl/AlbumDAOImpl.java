@@ -3,6 +3,8 @@ package com.message.main.album.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.jdbc.GenericJdbcDAO;
@@ -102,7 +104,7 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 	public PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select p.pk_id from t_message_photo p where p.pk_id in ");
-		sql.append("(select ap.photo_id from t_message_album_photo ap where ap.album_id = :albumId)");
+		sql.append("(select ap.photo_id from t_message_album_photo ap where ap.album_id = :albumId) order by p.pk_id desc");
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("albumId", albumId);
 		
@@ -117,6 +119,30 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		}
 		
 		return p;
+	}
+
+	public Long loadPhoto(Long pkId, Long albumId, String type) throws Exception {
+		StringBuffer sql = new StringBuffer();
+		String maxOrMin = "";
+		String gtOrLt = "";
+		if(StringUtils.equals("previous", type)){
+			//上一张
+			maxOrMin = "min";
+			gtOrLt = ">";
+		} else {
+			//下一张
+			maxOrMin = "max";
+			gtOrLt = "<";
+		}
+		sql.append("select ").append(maxOrMin).append("(app.photo_id)")
+			.append(" from t_message_album_photo app where app.album_id = :albumId and app.photo_id ")
+			.append(gtOrLt).append(" :photoId");
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("photoId", pkId);
+		params.put("albumId", albumId);
+		
+		return this.genericJdbcDAO.queryForLong(sql.toString(), params);
 	}
 
 }

@@ -2321,3 +2321,77 @@ ul.album-list-me li a img{
     margin-bottom: 10px;
     padding: 10px;
 }
+.show-bigpic{
+    background: url("../image/album-terminal-v1.png") no-repeat scroll 0 -396px transparent;
+    margin: 15px 0 0;
+    padding-left: 20px;
+}
+a.show-bigpic{
+	color : #FFFFFF !important;
+	text-decoration: none;
+}
+
+/**TODO show photo detail css*/
+.function-nav2 {
+	margin-bottom: 0px;
+}
+
+.function-nav2 .nav-btn {
+	margin-left: 10px;
+}
+
+.function-nav2 .nav-btn li a {
+    padding-left: 25px;
+    background: url("../image/album-icons61.png") no-repeat scroll 0px 0px transparent;
+}
+
+.function-nav2 .nav-btn .move a{
+	background-position: 5px -604px;
+}
+
+.function-nav2 .nav-btn .cover a{
+	background-position: 5px -582px;
+}
+	
+.function-nav2 .nav-btn .delete a{
+	background-position: -45px -57px;
+}
+
+.album-main .photo {
+	background: none repeat scroll 0 0 #F7F7F7;
+    display: table-cell;
+    height: 450px;
+    line-height: 450px;
+    min-height: 450px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 720px;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+}
+
+.album-main .photo a {
+    background: none repeat scroll 0 0 #F7F7F7;
+    display: table-cell;
+    height: 450px;
+    line-height: 450px;
+    min-height: 450px;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    width: 720px;
+}
+
+.album-main .photo img {
+    vertical-align: middle;
+}
+
+.pre-cur{
+	cursor: url('../js/jquery/css/fancy/pre.cur'), auto;
+}
+
+.next-cur{
+	cursor: url('../js/jquery/css/fancy/next.cur'), auto;
+}

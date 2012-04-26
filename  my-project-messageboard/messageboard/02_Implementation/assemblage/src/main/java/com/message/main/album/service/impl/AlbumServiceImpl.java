@@ -119,7 +119,9 @@ public class AlbumServiceImpl implements AlbumService {
 			photo.setDeleteFlag(ResourceType.DELETE_NO);
 			photo.setFileId(file.getPkId());
 			photo.setOwerId(loginUser.getPkId());
-			photo.setPhotoName(file.getFileName());
+			String fileName = file.getFileName();
+			fileName = fileName.substring(0, fileName.lastIndexOf("."));
+			photo.setPhotoName(fileName);
 			photo.setSummary(StringUtils.EMPTY);
 			
 			photo = this.albumDAO.saveEntity(photo);
@@ -147,10 +149,40 @@ public class AlbumServiceImpl implements AlbumService {
 	public Photo loadPhoto(Long pkId) throws Exception {
 		Photo p = this.albumDAO.loadPhoto(pkId);
 		
-		Long fileId = p.getFileId();
-		UploadFile file = this.genericUploadService.loadFile(fileId);
-		p.setFile(file);
+		if(p != null){
+			Long fileId = p.getFileId();
+			UploadFile file = this.genericUploadService.loadFile(fileId);
+			p.setFile(file);
+		}
 		return p;
+	}
+	
+	public Photo loadPhoto(Long pkId, String type) throws Exception {
+		if(pkId == null || StringUtils.isEmpty(type)){
+			logger.error("pkId and type is required!");
+			return null;
+		}
+		
+		String tmp[] = type.split("#");
+		if(tmp == null || tmp.length != 2){
+			logger.error("can't get type and albumId! given type is '{}'", type);
+			return null;
+		}
+		
+		type = tmp[0];
+		Long albumId = Long.valueOf(tmp[1]);
+		Photo photo = null;
+		if(StringUtils.isEmpty(type)){
+			logger.debug("get photo pkId is '{}'", pkId);
+			photo = this.loadPhoto(pkId);
+		} else if(StringUtils.contain(type, new String[]{"previous", "next"})){
+			logger.debug("get photo pkId is '{}' previous photo", pkId);
+			photo = this.loadPhoto(this.albumDAO.loadPhoto(pkId, albumId, type));
+		} else {
+			logger.error("given type is only 'previous', 'next' or ''!you give type is '{}'", type);
+		}
+		
+		return photo;
 	}
 
 	public boolean updatePhotoSummary(String summary, Long pkId) throws Exception {

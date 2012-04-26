@@ -104,5 +104,35 @@ public class ImageUtils {
 
 		return file;
 	}
+	
+	/**
+	 * 根据图像实际宽高和给定宽高，通过比例计算应该得到图像的宽高
+	 * 
+	 * @param width			实际图像宽度
+	 * @param height		实际图像高度
+	 * @param destWidth		给定宽度
+	 * @param destHeight	给定高度
+	 * @return				new int[]{应得图像宽度, 应得图像高度}
+	 */
+	public static int[] getSizeByPercent(int width, int height, int destWidth, int destHeight){
+		/**
+		 * width/height = destWidth/destHeight
+		 * width	100		destWidth	720	-->270		240	-->	360(error)	240
+		 * height	200		destHeight	540	-->540		720	-->	720			480
+		 */
+		double percent = Double.valueOf(width).doubleValue() / Double.valueOf(height).doubleValue();		//-->0.5
+		double destPercent = Double.valueOf(destWidth).doubleValue() / Double.valueOf(destHeight).doubleValue();
+		int w = 0;
+		int h = 0;
+		if(percent > destPercent){
+			w = destWidth;
+			h = (int) (destWidth / destPercent);
+		} else {
+			w = (int) (destHeight * percent);
+			h = destHeight;
+		}
+		
+		return new int[]{w, h};
+	}
   
 }  

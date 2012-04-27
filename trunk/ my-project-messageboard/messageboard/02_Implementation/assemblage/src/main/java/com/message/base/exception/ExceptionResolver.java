@@ -39,7 +39,6 @@ public class ExceptionResolver extends SimpleMappingExceptionResolver {
     
 	private ViewResolver viewResolver;
 	
-	@SuppressWarnings("rawtypes")
 	public ModelAndView resolveException(HttpServletRequest request,
 			HttpServletResponse response, Object handler, Exception ex) {
 		if (RequestUtils.isAjaxRequest(request)) {

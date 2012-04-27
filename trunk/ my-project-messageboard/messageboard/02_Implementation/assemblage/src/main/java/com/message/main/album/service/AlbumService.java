@@ -61,7 +61,6 @@ public interface AlbumService {
 	 * @param params
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	void uploadPhoto(MultipartRequest request, Map params) throws Exception;
 	
 	/**

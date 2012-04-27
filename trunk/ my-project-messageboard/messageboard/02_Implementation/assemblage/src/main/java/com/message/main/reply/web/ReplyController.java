@@ -17,7 +17,6 @@ import com.message.main.reply.service.ReplyService;
 import com.message.resource.ResourceType;
 
 public class ReplyController extends ExtMultiActionController {
-	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);
 	
 	private WebInput in = null;

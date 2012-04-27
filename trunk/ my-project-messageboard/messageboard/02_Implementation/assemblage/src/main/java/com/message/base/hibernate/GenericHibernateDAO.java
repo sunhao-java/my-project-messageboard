@@ -11,7 +11,6 @@ import org.springframework.dao.DataAccessException;
  * hibernate主要方法的封装
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("rawtypes")
 public interface GenericHibernateDAO {
 	/**
 	 * 根据hql和参数list对象获取数值.

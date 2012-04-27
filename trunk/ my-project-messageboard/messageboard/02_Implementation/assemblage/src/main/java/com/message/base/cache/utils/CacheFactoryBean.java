@@ -10,7 +10,6 @@ import org.springframework.beans.factory.FactoryBean;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午9:11
  */
-@SuppressWarnings("rawtypes")
 public class CacheFactoryBean implements FactoryBean {
     private CacheManager cacheManager;
     private String cacheName;

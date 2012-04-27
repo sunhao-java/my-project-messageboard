@@ -33,7 +33,6 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 2012-3-15 下午11:10:35
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class UploadController extends ExtMultiActionController {
 
     /**

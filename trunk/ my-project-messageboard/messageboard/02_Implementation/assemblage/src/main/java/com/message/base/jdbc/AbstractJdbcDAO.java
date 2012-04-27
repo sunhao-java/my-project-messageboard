@@ -25,7 +25,6 @@ import com.message.base.utils.StringUtils;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-10 上午12:32:41
  */
-@SuppressWarnings({"rawtypes", "unchecked"})
 public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	private RowMapper rowMapper;
 	private SqlHelper sqlHelper;

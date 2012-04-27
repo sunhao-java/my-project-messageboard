@@ -31,7 +31,6 @@ import com.message.base.utils.StringUtils;
  *
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class GenericHibernateDAOImpl implements GenericHibernateDAO {
     private static final Logger log = LoggerFactory.getLogger(GenericHibernateDAOImpl.class);
     private HibernateTemplate hibernateTemplate;

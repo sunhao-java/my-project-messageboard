@@ -14,7 +14,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
  * @version V1.0
  * @createTime 2012-3-8 下午10:16:10
  */
-@SuppressWarnings("rawtypes")
 public class ApplicationContextListener implements ApplicationListener {
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationContextListener.class);
 

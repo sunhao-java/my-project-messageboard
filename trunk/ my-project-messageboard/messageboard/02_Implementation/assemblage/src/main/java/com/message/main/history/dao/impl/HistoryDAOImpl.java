@@ -19,7 +19,6 @@ import com.message.main.history.pojo.UserLoginHistory;
  * 登录历史操作的DAO的实现
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("rawtypes")
 public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDAO {
 
 	public void saveLoginHistory(UserLoginHistory history) throws Exception {
@@ -86,7 +85,6 @@ public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDA
 		this.deleteObject(history);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<UserLoginHistory> getAllHistory() throws Exception {
 		String hql = "from UserLoginHistory order by pkId desc ";
 		Map<String, Object> params = new HashMap<String, Object>();

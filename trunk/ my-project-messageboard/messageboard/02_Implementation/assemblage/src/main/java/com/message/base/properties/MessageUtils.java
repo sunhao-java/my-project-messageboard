@@ -15,7 +15,6 @@ import java.util.Map;
  * @version V1.0
  * @createTime 2012-3-14 下午07:59:37
  */
-@SuppressWarnings("rawtypes")
 public class MessageUtils {
 	private static final Logger logger = LoggerFactory.getLogger(MessageUtils.class);
 	

@@ -24,7 +24,6 @@ import com.message.main.user.service.UserService;
 import com.message.resource.ResourceType;
 
 public class MessageController extends ExtMultiActionController {
-	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	/**

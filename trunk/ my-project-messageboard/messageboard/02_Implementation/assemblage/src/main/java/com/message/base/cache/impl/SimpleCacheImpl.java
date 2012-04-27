@@ -10,7 +10,6 @@ import java.util.*;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午8:31
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class SimpleCacheImpl implements Cache {
 	private Map cacheMap = new HashMap(2000);
 

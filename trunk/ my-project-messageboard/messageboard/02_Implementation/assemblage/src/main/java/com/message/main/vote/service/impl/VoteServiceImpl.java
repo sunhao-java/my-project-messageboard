@@ -28,7 +28,6 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 2012-2-12 下午12:41:25
  */
-@SuppressWarnings("rawtypes")
 public class VoteServiceImpl implements VoteService {
     /**
      * 单选
@@ -93,7 +92,6 @@ public class VoteServiceImpl implements VoteService {
         return false;
     }
 
-    @SuppressWarnings("unchecked")
     public PaginationSupport listVotes(int start, int num, Vote vote)
             throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
@@ -303,7 +301,6 @@ public class VoteServiceImpl implements VoteService {
         return PaginationUtils.makePagination(votes, pagination.getTotalRow(), num, start);
     }
 
-    @SuppressWarnings("unchecked")
 	public PaginationSupport listMyCreateVote(int start, int num) throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         PaginationSupport pagination = this.voteDAO.listVoteByCreateUser(loginUser.getPkId(), start, num);

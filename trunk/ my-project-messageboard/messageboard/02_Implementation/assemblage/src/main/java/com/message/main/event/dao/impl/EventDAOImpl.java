@@ -30,7 +30,6 @@ public class EventDAOImpl extends GenericHibernateDAOImpl implements EventDAO {
 		this.deleteObject(baseEvent);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<BaseEvent> getAllEvent() throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String hql = "from BaseEvent order by pkId desc ";

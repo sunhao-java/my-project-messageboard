@@ -91,7 +91,6 @@ public class MenuServiceImpl implements MenuService {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings({ "unchecked" })
 	private List<Menu> getOrderMenu(Long parentId) throws Exception{
 		List<Long> pkIds = this.menuDAO.listAllMenuIds();
 		
@@ -113,7 +112,6 @@ public class MenuServiceImpl implements MenuService {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private List<Menu> orderMenu(List unOrderMenu, Long parentId) throws Exception {
 		List<Menu> orderMenu = new ArrayList<Menu>();
 		
@@ -178,7 +176,6 @@ public class MenuServiceImpl implements MenuService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Menu> listParentMenu(Long parentId) throws Exception {
 		if(parentId == null){
 			logger.error("the parentId is null, this is error!");
@@ -206,7 +203,6 @@ public class MenuServiceImpl implements MenuService {
 		return true;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Menu> getMenuTree() throws Exception {
 		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
         String perm = loginUser.getIsAdmin().toString();

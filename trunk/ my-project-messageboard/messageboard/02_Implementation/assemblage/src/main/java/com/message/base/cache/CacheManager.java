@@ -15,7 +15,6 @@ public interface CacheManager {
      * 
      * @return
      */
-    @SuppressWarnings("rawtypes")
 	List getCacheNames();
 
     /**

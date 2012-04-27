@@ -8,7 +8,6 @@ import java.io.Serializable;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-10 上午02:00:37
  */
-@SuppressWarnings("rawtypes")
 public class PersistentField implements Serializable {
 	private static final long serialVersionUID = -2932429421268936487L;
 

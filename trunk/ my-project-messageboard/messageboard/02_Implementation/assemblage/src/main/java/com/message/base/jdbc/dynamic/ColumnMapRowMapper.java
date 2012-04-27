@@ -18,12 +18,10 @@ import com.message.base.jdbc.utils.helper.SqlHelper;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-10 上午12:37:24
  */
-@SuppressWarnings("rawtypes")
 public class ColumnMapRowMapper implements RowMapper {
 	
 	private SqlHelper sqlHelper;
 
-	@SuppressWarnings("unchecked")
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		/**
 		 * ResultSetMetaData : 可用于获取关于 ResultSet 对象中列的类型和属性信息的对象
@@ -64,7 +62,6 @@ public class ColumnMapRowMapper implements RowMapper {
 		return valueMap;
 	}
 	
-	@SuppressWarnings("deprecation")
 	protected Map createColumnMap(int columnCount){
 		//TODO what is LinkedCaseInsensitiveMap?
 		return CollectionFactory.createLinkedCaseInsensitiveMapIfPossible(columnCount);

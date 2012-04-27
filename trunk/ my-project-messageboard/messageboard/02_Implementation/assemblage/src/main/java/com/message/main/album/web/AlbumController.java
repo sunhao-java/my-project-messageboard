@@ -129,7 +129,7 @@ public class AlbumController extends ExtMultiActionController {
 		LoginUser lu = AuthContextHelper.getAuthContext().getLoginUser();
 		PaginationSupport albums = this.albumService.getAlbumList(lu.getPkId(), 0, 4);
 		
-		String randomTag = RandomUtils.genRandomString(5);
+		String randomTag = RandomUtils.randomString(5, true, true, true);
 		
 		params.put("randomTag", randomTag);
 		params.put("paginationSupport", ps);
@@ -247,7 +247,6 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	public ModelAndView showAllMine(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
@@ -268,7 +267,6 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception 
 	 */
-	@SuppressWarnings("unchecked")
 	public ModelAndView showDetail(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		out = new WebOutput(request, response);

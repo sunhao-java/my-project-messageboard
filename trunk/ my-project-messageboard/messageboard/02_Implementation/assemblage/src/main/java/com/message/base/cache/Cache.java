@@ -8,7 +8,6 @@ import java.util.List;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午6:49
  */
-@SuppressWarnings("rawtypes")
 public interface Cache {
 
     /**

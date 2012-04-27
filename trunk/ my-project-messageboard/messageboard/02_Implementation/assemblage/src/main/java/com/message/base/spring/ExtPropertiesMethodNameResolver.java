@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.multiaction.AbstractUrlMethodNameReso
  * @version V1.0
  * @createTime 2012-4-22 下午03:49:49
  */
-@SuppressWarnings("unchecked")
 public class ExtPropertiesMethodNameResolver extends AbstractUrlMethodNameResolver {
 	private static final Logger logger = LoggerFactory.getLogger(ExtPropertiesMethodNameResolver.class);
 

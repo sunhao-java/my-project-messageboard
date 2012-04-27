@@ -9,7 +9,6 @@ import javassist.LoaderClassPath;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-10 上午12:56:03
  */
-@SuppressWarnings("rawtypes")
 public class DynamicBeanUtils {
 	
 	public final static ClassPool classPool;

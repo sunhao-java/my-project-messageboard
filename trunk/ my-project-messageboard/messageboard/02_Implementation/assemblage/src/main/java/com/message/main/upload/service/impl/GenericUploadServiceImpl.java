@@ -29,7 +29,6 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 12-3-18 上午11:39
  */
-@SuppressWarnings("rawtypes")
 public class GenericUploadServiceImpl implements GenericUploadService {
     private static final Logger logger = LoggerFactory.getLogger(GenericUploadServiceImpl.class);
 

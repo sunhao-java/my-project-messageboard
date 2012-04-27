@@ -57,7 +57,6 @@ public class InfoServiceImpl implements InfoService {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getInfoHistroy(int start, int num, Info info)
 			throws Exception {
 		PaginationSupport paginationSupport = this.infoDAO.getInfoHistroy(start, num, info);

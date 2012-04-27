@@ -31,7 +31,6 @@ public class RequestUtils {
 	 * @param needParams	是否需要参数
 	 * @return				URL
 	 */
-	@SuppressWarnings("unchecked")
 	public static String getRequestUrl(HttpServletRequest request, boolean needParams){
 		StringBuffer requestUrl = new StringBuffer(request.getServletPath());
 		if(!needParams){

@@ -10,7 +10,6 @@ import java.io.Serializable;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午9:34
  */
-@SuppressWarnings("rawtypes")
 public class ObjectCache {
     private static final String KEY_SEPARATOR = "#";
     private Cache cache;

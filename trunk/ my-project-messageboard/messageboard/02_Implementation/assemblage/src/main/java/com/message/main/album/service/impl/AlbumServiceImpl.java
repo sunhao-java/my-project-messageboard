@@ -71,7 +71,6 @@ public class AlbumServiceImpl implements AlbumService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getAlbumList(Long userId, int start, int num) throws Exception {
 		if(userId == null){
 			LoginUser lu = AuthContextHelper.getAuthContext().getLoginUser();
@@ -109,7 +108,6 @@ public class AlbumServiceImpl implements AlbumService {
 			return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void uploadPhoto(MultipartRequest request, Map params) throws Exception {
 		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		List<UploadFile> files = this.genericUploadService.genericUploads(request, params);
@@ -135,7 +133,6 @@ public class AlbumServiceImpl implements AlbumService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception {
 		PaginationSupport ps = this.albumDAO.getPhotosByAlbum(albumId, start, num);
 		List<Photo> photos = ps.getItems();

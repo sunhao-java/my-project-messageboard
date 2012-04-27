@@ -30,7 +30,6 @@ public class SystemInfo {
         }
     }
 
-    @SuppressWarnings("static-access")
 	public static void main(String[] args) {
         SystemInfo systemInfo = SystemInfo.getInstance();
         System.out.println(systemInfo.getDiskNumber());

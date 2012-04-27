@@ -55,7 +55,6 @@ public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDA
 		return ((Message)this.saveObject(message)).getPkId();
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int getLoginUserMessageCount(Long pkId) throws Exception {
 		String hql = "select count(*) from Message m where m.createUserId = ? and m.deleteFlag = ?";
 		List params = new ArrayList();

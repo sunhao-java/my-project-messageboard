@@ -59,7 +59,6 @@ public class HistoryServiceImpl implements HistoryService {
 		return this.historyDAO.getLastLoginTime(userPkId, view);
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getHistory(int start, int num, UserLoginHistory history1)
 			throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();

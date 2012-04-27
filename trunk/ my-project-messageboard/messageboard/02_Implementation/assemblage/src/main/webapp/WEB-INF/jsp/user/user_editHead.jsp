@@ -41,7 +41,7 @@
 		    <input id="uploadHeadImage" type="button" class="f-button" value="上传"/>
     	</div>
     	<div style="margin-left: 65px;">
-		    <msg:userHead userId="${loginUser.pkId }" headType="1"/>
+		    <msg:head userId="${loginUser.pkId }" headType="1"/>
     	</div>
     </div>
     

@@ -85,7 +85,7 @@
 			<div class="vote-owner">
 				<p class="image">
 					<a href="${contextPath }/user/userInfo.do?viewUserId=${vote.createUser.pkId}"> 
-                        <msg:userHead userId="${vote.createUser.pkId}" headType="2"/>
+                        <msg:head userId="${vote.createUser.pkId}" headType="2"/>
                     </a>
 				</p>
 				<div class="txt">
@@ -117,7 +117,7 @@
 											<li>
 												<p class="u-image">
 													<a href="${contextPath }/user/userInfo.do?viewUserId=${loginUser.pkId}"> 
-                                                        <msg:userHead userId="${loginUser.pkId}" headType="2"/>
+                                                        <msg:head userId="${loginUser.pkId}" headType="2"/>
 														<span>${loginUser.truename }</span>
 													</a>
 												</p>
@@ -194,7 +194,7 @@
 										<li>
 											<p class="u-image">
 												<a href="#"> 
-                                                    <msg:userHead userId="${loginUser.pkId}" headType="2"/>
+                                                    <msg:head userId="${loginUser.pkId}" headType="2"/>
 													<span>${loginUser.truename }</span>
 												</a>
 											</p>
@@ -226,7 +226,7 @@
 												<li>
 													<p class="u-image">
 														<a href="#"> 
-                                                            <msg:userHead userId="${answer_.answerUser.pkId}" headType="2"/>
+                                                            <msg:head userId="${answer_.answerUser.pkId}" headType="2"/>
 															<span>${answer_.answerUser.truename }</span>
 														</a>
 													</p>

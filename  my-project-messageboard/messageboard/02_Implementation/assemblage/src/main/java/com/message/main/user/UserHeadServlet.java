@@ -1,4 +1,4 @@
-package com.message.tags;
+package com.message.main.user;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -26,7 +26,7 @@ import com.message.main.user.service.UserService;
  */
 public class UserHeadServlet extends HttpServlet {
 	private static final long serialVersionUID = -4366691937695711574L;
-	private static final Logger logger = LoggerFactory.getLogger(ImageTag.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserHeadServlet.class);
 	
 	/**
 	 * UserService在spring中bean的id

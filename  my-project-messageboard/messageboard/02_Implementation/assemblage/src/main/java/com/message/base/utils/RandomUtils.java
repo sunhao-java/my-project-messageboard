@@ -133,7 +133,7 @@ public class RandomUtils {
         Random randGen = new Random();
         char[] numbersAndLetters = ArrayUtils.addAll(null, DIGIT.toCharArray());
         numbersAndLetters = ArrayUtils.addAll(numbersAndLetters, LETTER_LOWER.toCharArray());
-        numbersAndLetters = ArrayUtils.addAll(null, DIGIT.toCharArray());
+        numbersAndLetters = ArrayUtils.addAll(numbersAndLetters, DIGIT.toCharArray());
         numbersAndLetters = ArrayUtils.addAll(numbersAndLetters, LETTER_UPPER.toCharArray());
 
         char[] randBuffer = new char[length];

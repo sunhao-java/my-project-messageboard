@@ -3,22 +3,21 @@ package com.message.main.history.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.pagination.PaginationSupport;
-import com.message.base.utils.DateUtils;
 import com.message.base.properties.MessageUtils;
+import com.message.base.utils.DateUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
-import com.message.main.event.job.CleanEventJob;
 import com.message.main.history.dao.HistoryDAO;
 import com.message.main.history.exception.HistoryException;
 import com.message.main.history.pojo.UserLoginHistory;
 import com.message.main.history.service.HistoryService;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 
 /**
@@ -26,7 +25,7 @@ import com.message.main.user.pojo.User;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class HistoryServiceImpl implements HistoryService {
-	private static final Logger logger = LoggerFactory.getLogger(CleanEventJob.class);
+	private static final Logger logger = LoggerFactory.getLogger(HistoryServiceImpl.class);
 	
 	/**
 	 * 31天的分钟数

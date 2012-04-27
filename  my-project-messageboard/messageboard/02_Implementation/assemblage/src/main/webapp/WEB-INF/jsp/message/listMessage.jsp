@@ -65,7 +65,7 @@
 			<li>
 				<div class="messageDetail">
 					<p class="image" style="position: absolute;">
-                        <msg:userHead userId="${message.createUserId}" headType="2"/>
+                        <msg:head userId="${message.createUserId}" headType="2"/>
 					</p>
 					<div class="head">
 						<h4>
@@ -137,7 +137,7 @@
 					</div>
 					<div class="replyDiv" id="replyDiv${message.pkId }" style="display: none;">
 						<p class="replyimage">
-                            <msg:userHead userId="${loginUser.pkId}" headType="2"/>
+                            <msg:head userId="${loginUser.pkId}" headType="2"/>
 						</p>
 						<form action="" id="replyForm">
 							<input type="hidden" name="replyUserId" value="${loginUser.pkId}"/>

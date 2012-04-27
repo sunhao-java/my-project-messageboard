@@ -5,7 +5,7 @@
 	<bean id="cleanEventJob" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail">
 			<bean class="org.springframework.scheduling.quartz.JobDetailBean">
-				<property name="jobClass" value="com.message.main.event.job.CleanEventJob"/>
+				<property name="jobClass" value="com.message.main.event.CleanEventJob"/>
 				<property name="description" value="定时检查清除一个星期之前的操作日志"/>
 				<property name="jobDataAsMap">
 					<map>
@@ -25,7 +25,7 @@
 	<bean id="cleanLoginHistoryJob" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
 		<property name="jobDetail">
 			<bean class="org.springframework.scheduling.quartz.JobDetailBean">
-				<property name="jobClass" value="com.message.main.history.job.CleanLoginHistoryJob"/>
+				<property name="jobClass" value="com.message.main.history.CleanLoginHistoryJob"/>
 				<property name="description" value="定时清除一个月前的登录日志"/>
 				<property name="jobDataAsMap">
 					<map>

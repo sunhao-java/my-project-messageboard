@@ -20,9 +20,9 @@ import com.message.main.user.service.UserService;
  * @version V1.0
  * @createTime 2012-3-16 下午11:12:51
  */
-public class ImageTag extends TagSupport {
+public class HeadTag extends TagSupport {
 	private static final long serialVersionUID = 6744047241720109064L;
-	private static final Logger logger = LoggerFactory.getLogger(ImageTag.class);
+	private static final Logger logger = LoggerFactory.getLogger(HeadTag.class);
 	
 	/**
 	 * UserService在spring中bean的id
@@ -39,7 +39,7 @@ public class ImageTag extends TagSupport {
 	 */
 	private Integer headType;
 	
-	public ImageTag(){
+	public HeadTag(){
 		this.setUserId(Long.valueOf(-1));
 		this.setHeadType(Integer.valueOf(0));
 	}

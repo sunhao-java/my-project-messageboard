@@ -1,4 +1,4 @@
-package com.message.main.history.job;
+package com.message.main.history;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

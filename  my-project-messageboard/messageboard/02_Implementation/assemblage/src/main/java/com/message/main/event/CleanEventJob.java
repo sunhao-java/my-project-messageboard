@@ -1,4 +1,4 @@
-package com.message.main.event.job;
+package com.message.main.event;
 
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;

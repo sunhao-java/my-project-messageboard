@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.DateUtils;
+import com.message.main.event.CleanEventJob;
 import com.message.main.event.dao.EventDAO;
 import com.message.main.event.exception.EventException;
-import com.message.main.event.job.CleanEventJob;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.user.service.UserService;

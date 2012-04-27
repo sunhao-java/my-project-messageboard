@@ -63,7 +63,7 @@
 	<div class="header">
 		<p class="image">
 			<a href="#">
-                <msg:userHead userId="${message.createUser.pkId}" headType="2"/>
+                <msg:head userId="${message.createUser.pkId}" headType="2"/>
 			</a>
 		</p>
 		<h2>
@@ -165,7 +165,7 @@
 							<div class="post">
 								<p class="image">
 									<a href="#">
-                                        <msg:userHead userId="${reply.replyUser.pkId}" headType="2"/>
+                                        <msg:head userId="${reply.replyUser.pkId}" headType="2"/>
 									</a>
 								</p>
 								<div class="info">

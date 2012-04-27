@@ -31,7 +31,6 @@ public class UserPrivacyController extends ExtMultiActionController {
 		this.userPrivacyService = userPrivacyService;
 	}
 
-	@SuppressWarnings("unused")
 	private WebInput in = null;
 	private WebOutput out = null;
 

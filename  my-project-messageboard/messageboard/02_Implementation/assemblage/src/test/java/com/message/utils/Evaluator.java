@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
  * .替换字符串中的简单变量表达式如：${ccs.file.path.root}/ccs/meetingattachments
  *  替换${xx}中的内容
  */
-@SuppressWarnings("rawtypes")
 public final class Evaluator {
     /**
      * The open brace character.

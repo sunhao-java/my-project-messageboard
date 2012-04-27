@@ -10,7 +10,6 @@ import java.util.*;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-4-9 上午8:22
  */
-@SuppressWarnings({ "unchecked", "rawtypes" })
 public class SimpleCacheManagerImpl implements CacheManager {
 	private Map cacheMap = Collections.synchronizedMap(new LinkedHashMap(200));
 

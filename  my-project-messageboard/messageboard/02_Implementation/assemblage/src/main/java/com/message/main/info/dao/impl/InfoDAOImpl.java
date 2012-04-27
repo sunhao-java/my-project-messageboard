@@ -19,7 +19,6 @@ public class InfoDAOImpl extends GenericHibernateDAOImpl implements InfoDAO {
 		return ((Info) this.saveObject(info)).getPkId();
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Info> getAllInfo() throws Exception {
 		String hql = "from Info i order by i.pkId desc";
 		Map<String, Object> params = new HashMap<String, Object>();

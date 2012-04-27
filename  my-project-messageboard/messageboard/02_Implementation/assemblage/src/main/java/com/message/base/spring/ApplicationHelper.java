@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
  * @version V1.0
  * @createTime 2012-3-8 下午09:56:58
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class ApplicationHelper {
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationHelper.class);
 	

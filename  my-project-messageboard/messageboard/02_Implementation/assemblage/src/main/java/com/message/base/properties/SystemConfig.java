@@ -15,7 +15,6 @@ import java.util.Map;
  * @version V1.0
  * @createTime 2012-3-8 上午12:17:21
  */
-@SuppressWarnings("rawtypes")
 public final class SystemConfig implements InitializingBean {
     private static Logger log = LoggerFactory.getLogger(SystemConfig.class);
 

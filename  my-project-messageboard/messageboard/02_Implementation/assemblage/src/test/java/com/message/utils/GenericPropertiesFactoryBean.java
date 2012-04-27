@@ -53,7 +53,6 @@ import org.springframework.util.PropertiesPersister;
  * Version: V1.0
  * History:
  */
-@SuppressWarnings("rawtypes")
 public final class GenericPropertiesFactoryBean
         implements FactoryBean, InitializingBean {
 
@@ -190,7 +189,6 @@ public final class GenericPropertiesFactoryBean
      * @param isSupportLastFile 是否支持最后文件加载
      * @throws IOException   异常
      */
-    @SuppressWarnings("unchecked")
 	private void loadPropByPath(String location,List locations,Properties fileProps,boolean isSupportLastFile) throws IOException{
         UrlResource ur = new UrlResource(location);
         Collection fs = FileUtils.listFiles(ur.getFile(), null, false);
@@ -302,7 +300,6 @@ public final class GenericPropertiesFactoryBean
      * @param map 要替换值的map
      * @param valueMap 提供替换值的Map
      */
-    @SuppressWarnings("unchecked")
 	private void replaceValue(Map map,Map valueMap){
         Iterator it =map.entrySet().iterator();
         Map.Entry me;

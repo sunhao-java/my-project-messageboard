@@ -7,7 +7,6 @@ package com.message.main.login.web;
  * @version V1.0
  * @createTime 2012-3-4 上午09:09:29
  */
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class AuthContextHelper {
     private static ThreadLocal authContextHolder = new ThreadLocal();
 

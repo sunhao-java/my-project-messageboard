@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import com.message.base.utils.DateUtils;
 
-@SuppressWarnings("deprecation")
 public class DateUtilsTest {
 
 	@Test
@@ -210,7 +209,6 @@ public class DateUtilsTest {
 		System.out.println(System.currentTimeMillis());
 	}
 	
-	@SuppressWarnings("rawtypes")
 	@Test
 	public void testgetWeekMap(){
 		String nowDate = "2012-01-25";

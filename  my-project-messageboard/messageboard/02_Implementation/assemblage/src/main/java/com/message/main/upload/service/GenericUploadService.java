@@ -15,7 +15,6 @@ import com.message.main.upload.pojo.UploadFile;
  * @version V1.0
  * @createTime 12-3-18 上午11:39
  */
-@SuppressWarnings("rawtypes")
 public interface GenericUploadService {
     /**
      * 一次上传多个文件

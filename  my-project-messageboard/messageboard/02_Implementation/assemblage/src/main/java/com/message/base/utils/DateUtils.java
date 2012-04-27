@@ -14,7 +14,6 @@ import java.util.TimeZone;
  * @see org.apache.commons.lang.time.DateUtils
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public final class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	
 	/**

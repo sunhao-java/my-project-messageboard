@@ -30,7 +30,6 @@ import com.message.resource.ResourceType;
  * @author sunhao(sunhao.java@gmail.com)
  */
 public class UserController extends ExtMultiActionController {
-	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private static WebInput in = null;

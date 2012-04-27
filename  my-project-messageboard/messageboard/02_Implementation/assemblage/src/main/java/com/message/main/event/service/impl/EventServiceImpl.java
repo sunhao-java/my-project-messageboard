@@ -48,7 +48,6 @@ public class EventServiceImpl implements EventService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getEvents(int start, int num) throws Exception {
 		PaginationSupport paginationSupport = this.eventDAO.getEvents(start, num);
 		List<BaseEvent> events = paginationSupport.getItems();

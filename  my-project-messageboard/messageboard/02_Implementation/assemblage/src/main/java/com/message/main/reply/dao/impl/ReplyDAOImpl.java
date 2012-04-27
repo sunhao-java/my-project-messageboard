@@ -23,7 +23,6 @@ public class ReplyDAOImpl extends GenericHibernateDAOImpl implements ReplyDAO {
 		return (Reply) this.loadObject(Reply.class, pkId);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Reply> getReplysByMessageId(Long messageId) throws Exception {
 		String hql = "from Reply r where r.messageId = :messageId and r.deleteFlag = :deleteFlag order by r.pkId desc";
 		Map<String, Object> params = new HashMap<String, Object>();

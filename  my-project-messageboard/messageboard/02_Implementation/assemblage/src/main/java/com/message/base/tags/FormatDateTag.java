@@ -14,7 +14,6 @@ import com.message.base.properties.MessageUtils;
  * 自定义的格式化时间标签
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("deprecation")
 public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.FormatDateTag {
 	private static final long serialVersionUID = 5556661395114907904L;
 	

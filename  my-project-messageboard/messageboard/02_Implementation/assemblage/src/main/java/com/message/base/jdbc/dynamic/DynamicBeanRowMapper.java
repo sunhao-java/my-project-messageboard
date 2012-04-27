@@ -38,7 +38,6 @@ import com.message.base.jdbc.utils.helper.SqlHelper;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 2012-4-10 上午12:37:12
  */
-@SuppressWarnings("rawtypes")
 public class DynamicBeanRowMapper extends ColumnMapRowMapper {
 	private static final Logger logger = LoggerFactory.getLogger(DynamicBeanRowMapper.class);
 	
@@ -74,7 +73,6 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
 		return mapper;
 	}
 	
-	@SuppressWarnings("unchecked")
 	protected void initialize() {
 		try {
 			this.constructor = clazz.getConstructor((Class[])null);
@@ -115,7 +113,6 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
 		DynamicRowMapper dynamicRowMapper = (DynamicRowMapper) this.mappers.get(this.mapperKey);
 		
@@ -242,7 +239,6 @@ public class DynamicBeanRowMapper extends ColumnMapRowMapper {
 		return result;
 	}
 	
-	@SuppressWarnings({ "unchecked", "static-access" })
 	private void createDynamicMapper(String string) {
 		StringBuffer script = new StringBuffer();
 		script.append(this.clazz.getName());

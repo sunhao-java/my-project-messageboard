@@ -23,7 +23,6 @@ import com.message.resource.ResourceType;
  * @version V1.0
  * @createTime 2012-2-12 下午12:40:44
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
 
 	public Vote saveVote(Vote vote) throws Exception {

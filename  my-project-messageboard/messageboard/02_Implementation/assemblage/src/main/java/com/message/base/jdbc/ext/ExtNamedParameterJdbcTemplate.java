@@ -35,7 +35,6 @@ public class ExtNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
 		super(jdbcOperations);
 	}
 	
-	@SuppressWarnings("rawtypes")
 	public int[] updateBatch(String sql, final List paramSource) throws Exception {
 		if(StringUtils.isEmpty(sql) || paramSource.isEmpty())
 			return null;

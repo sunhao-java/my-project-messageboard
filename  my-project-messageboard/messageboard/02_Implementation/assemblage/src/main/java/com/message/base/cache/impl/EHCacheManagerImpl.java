@@ -160,7 +160,6 @@ public class EHCacheManagerImpl implements CacheManager {
         return new EHCacheImpl(cache);
     }
 
-    @SuppressWarnings("rawtypes")
 	public List getCacheNames() {
         String names[] = this.manager.getCacheNames();
         if(names == null || names.length < 1) {

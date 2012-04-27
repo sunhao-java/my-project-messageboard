@@ -7,7 +7,6 @@ import java.util.List;
  * 分页组件的bean
  * @author sunhao(sunhao.java@gmail.com)
  */
-@SuppressWarnings("rawtypes")
 public class PaginationSupport implements Serializable {
 	private static final long serialVersionUID = -1963816523264131890L;
 	

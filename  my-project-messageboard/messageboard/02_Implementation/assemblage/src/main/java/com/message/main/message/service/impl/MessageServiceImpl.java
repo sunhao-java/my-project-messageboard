@@ -61,7 +61,6 @@ public class MessageServiceImpl implements MessageService {
         this.genericHibernateDAO = genericHibernateDAO;
     }
 
-    @SuppressWarnings("unchecked")
 	public PaginationSupport getAllMessages(int start, int num, Message message) throws Exception {
 		PaginationSupport paginationSupport = this.messageDAO.getAllMessages(start, num, message);
 		List<Message> messages = paginationSupport.getItems();
@@ -128,7 +127,6 @@ public class MessageServiceImpl implements MessageService {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport getMyMessages(int start, int num, Long userId, Message message) throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 
@@ -147,7 +145,6 @@ public class MessageServiceImpl implements MessageService {
 		return paginationSupport;
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaginationSupport listToAuditMessage(int start, int num, Message message, boolean flag) throws Exception {
 		PaginationSupport pagination = this.messageDAO.listToAuditMessage(start, num, message, flag);
 		List<Message> messages = pagination.getItems();

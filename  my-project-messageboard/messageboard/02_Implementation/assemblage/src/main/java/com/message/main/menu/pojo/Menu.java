@@ -13,7 +13,6 @@ import com.message.main.user.pojo.User;
  * @version V1.0
  * @createTime 2012-3-2 下午08:54:20
  */
-@SuppressWarnings("rawtypes")
 public class Menu implements Serializable, Comparable {
 	private static final long serialVersionUID = 8286203139252526426L;
 	

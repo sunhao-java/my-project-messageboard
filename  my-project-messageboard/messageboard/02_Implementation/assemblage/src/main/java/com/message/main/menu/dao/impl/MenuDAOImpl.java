@@ -35,7 +35,6 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 		this.genericJdbcDAO = genericJdbcDAO;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Menu> listAllMenu() throws Exception {
 		String hql = "from Menu m where m.deleteStatus = :flag order by m.menuSort desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -43,7 +42,6 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 		return this.findByHQL(hql, params);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<Long> listAllMenuIds() throws Exception {
 		String sql = "select m.pk_id as pk from t_message_menu m where m.delete_status = :flag order by m.menu_sort desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -79,7 +77,6 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 		this.cache.put(menu, menu.getPkId());
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Long> listMenuByParentId(Long parentId) throws Exception {
 		String sql = "select m.pk_id as pk from t_message_menu m where m.parent_id = :parentId " +
 				" and m.delete_status = :flag order by m.menu_sort asc";
@@ -93,7 +90,6 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 			}});
 	}
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
 	public List<Long> listPermMenu(String perm) throws Exception {
     	String sql = "select m.pk_id as pk from t_message_menu m where m.delete_status = :flag and m.menu_status = :status " +
     			" and m.menu_perm like :perm order by m.menu_sort asc ";
@@ -109,7 +105,6 @@ public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
 			}});
     }
 
-    @SuppressWarnings("unchecked")
 	public Menu findMenu(String menuUrl) throws Exception {
         String hql = "from Menu m where m.deleteStatus = :flag and m.menuStatus = :status and m.menuUrl = :url";
         Map<String, Object> params = new HashMap<String, Object>();

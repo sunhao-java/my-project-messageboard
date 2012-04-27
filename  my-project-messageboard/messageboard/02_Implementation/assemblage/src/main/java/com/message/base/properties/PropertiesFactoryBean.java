@@ -53,7 +53,6 @@ import java.util.*;
  * @version V1.0
  * @createTime 2012-3-10 下午07:28:05
  */
-@SuppressWarnings( "rawtypes" )
 public final class PropertiesFactoryBean implements FactoryBean, InitializingBean {
 	private static Logger logger = LoggerFactory.getLogger(PropertiesFactoryBean.class);
 	
@@ -165,7 +164,6 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param rootProps 存放配置文件root的最基础的配置信息
      * @throws java.io.IOException IOException
      */
-    @SuppressWarnings("unchecked")
 	private void initLocations(Properties result, Properties fileProps, Properties rootProps) throws IOException {
     	List locs = new ArrayList();
 
@@ -237,7 +235,6 @@ public final class PropertiesFactoryBean implements FactoryBean, InitializingBea
      * @param isSupportLastFile 是否支持最后文件加载
      * @throws java.io.IOException 异常
      */
-	@SuppressWarnings("unchecked")
 	private void loadPropByPath(String location, List locations, Properties fileProps, boolean isSupportLastFile) throws IOException {
 		UrlResource ur = new UrlResource(location);
 		Collection files = FileUtils.listFiles(ur.getFile(), null, false);

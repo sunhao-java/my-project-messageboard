@@ -13,7 +13,6 @@ import org.springframework.web.context.support.ServletRequestHandledEvent;
  * @version V1.0
  * @createTime 2012-3-12 上午05:50:23
  */
-@SuppressWarnings("rawtypes")
 public class DebugRequestListener implements ApplicationListener {
 	private static final Logger logger = LoggerFactory.getLogger(DebugRequestListener.class);
 	

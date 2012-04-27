@@ -2,6 +2,8 @@ package com.message.base.utils;
 
 import java.util.Random;
 
+import org.apache.commons.lang.ArrayUtils;
+
 /**
  * 随机生成数字或者字符串的工具类.
  * 
@@ -10,50 +12,65 @@ import java.util.Random;
  * @createTime 2012-4-24 下午08:25:57
  */
 public class RandomUtils {
-    //获取随机数
-    public static String getRandomNum(int len) {
-        String RandomNum = "";
-        long lRand = 0;
-        long val_1 = 1;
-        long val_2 = 1;
+	private static final String LETTER_LOWER = "abcdefghijklmnopqrstuvwxyz";
+	private static final String LETTER_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private static final String DIGIT = "0123456789";
+    
+	/**
+	 * 获取长度为length的随机数
+	 * 
+	 * @param length		长度
+	 * @return		获取的随机数(String)
+	 */
+    public static String getRandomNum(int length) {
+    	if(length < 1){
+    		return StringUtils.EMPTY;
+    	}
+    	
+        long returnRandom = 0;
+        long min = 1;
+        long max = 1;
 
-        for (int i = 0; i < len - 1; i++) {
-            val_1 *= 10;
+        for (int i = 0; i < length - 1; i++) {
+        	min *= 10;
         }
-        for (int j = 0; j < len; j++) {
-            val_2 *= 10;
+        for (int j = 0; j < length; j++) {
+        	max *= 10;
         }
 
-        while (lRand <= val_1) {
-            lRand = (long) (Math.random() * val_2);
+        while (returnRandom <= min) {
+        	returnRandom = (long) (Math.random() * max);
         }
 
-        RandomNum = Long.toString(lRand);
-
-        return RandomNum;
+        return Long.toString(returnRandom);
     }
 
     /**
-     * 生成随即密码
+     * 生成随机数字
      *
-     * @param lenght 生成的密码的总长度
-     * @return 密码的字符串
+     * @param length 生成的密码的总长度
+     * @return 数字的字符串
      */
-    public static String genRandomNum(int lenght) {
-        // 35是因为数组是从0开始的，26个字母+10个数字
+    public static String randomNum(int length) {
+    	if(length < 1){
+    		return StringUtils.EMPTY;
+    	}
+        // 10个数字
         final int maxNum = 10;
         int i; // 生成的随机数
         int count = 0; // 生成的密码的长度
-        /*char[] str = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-                'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
-                'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };*/
-        char[] str = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] str = DIGIT.toCharArray();
 
         StringBuffer tempString = new StringBuffer(100);
         Random random = new Random();
-        while (count < lenght) {
-            // 生成随机数，取绝对值，防止生成负数，
-            i = Math.abs(random.nextInt(maxNum)); // 生成的数最大为36-1
+        while (count < length) {
+        	/**
+        	 * 生成随机数，取绝对值，防止生成负数
+        	 * 
+        	 * Random.nextInt(int num)	返回一个在[0, n)
+        	 * 所以不会造成数组下标越界的情况
+        	 */
+            i = Math.abs(random.nextInt(maxNum));
             if (i >= 0 && i < str.length) {
                 tempString.append(str[i]);
                 count++;
@@ -64,27 +81,35 @@ public class RandomUtils {
     }
 
     /**
-     * 生成随即密码
+     * 生成随机字符串
      *
-     * @param lenght 生成的密码的总长度
-     * @return 密码的字符串
+     * @param length 生成的密码的总长度
+     * @return 字符串(大小写字母+数字)
      */
-    public static String genRandomString(int lenght) {
-        // 35是因为数组是从0开始的，26个字母+10个数字
-        final int maxNum = 35;
+    public static String randomString(int length, boolean lower, boolean upper, boolean digit) {
+    	if(length < 1){
+    		return StringUtils.EMPTY;
+    	}
+    	//26个字母*2 + 10个数字
+        final int maxNum = 62;
         int i; // 生成的随机数
         int count = 0; // 生成的密码的长度
-        char[] str = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
-                'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
-                'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
-                'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-                'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] str = {};
 
+        if(lower)	str = ArrayUtils.addAll(str, LETTER_LOWER.toCharArray());
+        if(upper)	str = ArrayUtils.addAll(str, LETTER_UPPER.toCharArray());
+        if(digit)	str = ArrayUtils.addAll(str, DIGIT.toCharArray());
+        
         StringBuffer tempString = new StringBuffer(100);
         Random random = new Random();
-        while (count < lenght) {
-            // 生成随机数，取绝对值，防止生成负数，
-            i = Math.abs(random.nextInt(maxNum)); // 生成的数最大为36-1
+        while (count < length) {
+        	/**
+        	 * 生成随机数，取绝对值，防止生成负数
+        	 * 
+        	 * Random.nextInt(int num)	返回一个在[0, n)
+        	 * 所以不会造成数组下标越界的情况
+        	 */
+            i = Math.abs(random.nextInt(maxNum));
             if (i >= 0 && i < str.length) {
                 tempString.append(str[i]);
                 count++;
@@ -94,24 +119,27 @@ public class RandomUtils {
         return tempString.toString();
     }
 
+    /**
+     * 生成随机字符串
+     *
+     * @param length 生成的密码的总长度
+     * @return 字符串(大小写字母+数字)
+     */
     public static synchronized String randomString(int length) {
         if (length < 1) {
-            return null;
+        	return StringUtils.EMPTY;
         }
 
         Random randGen = new Random();
-        char[] numbersAndLetters = ("0123456789abcdefghijklmnopqrstuvwxyz"
-                + "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ").toCharArray();
+        char[] numbersAndLetters = ArrayUtils.addAll(null, DIGIT.toCharArray());
+        numbersAndLetters = ArrayUtils.addAll(numbersAndLetters, LETTER_LOWER.toCharArray());
+        numbersAndLetters = ArrayUtils.addAll(null, DIGIT.toCharArray());
+        numbersAndLetters = ArrayUtils.addAll(numbersAndLetters, LETTER_UPPER.toCharArray());
 
         char[] randBuffer = new char[length];
         for (int i = 0; i < randBuffer.length; i++) {
-            randBuffer[i] = numbersAndLetters[randGen.nextInt(71)];
+            randBuffer[i] = numbersAndLetters[randGen.nextInt(72)];
         }
         return new String(randBuffer);
     }
-
-    public static void main(String[] args) {
-        System.out.println(genRandomNum(3));
-    }
-
 }

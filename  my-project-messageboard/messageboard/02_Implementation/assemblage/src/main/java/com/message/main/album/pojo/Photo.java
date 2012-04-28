@@ -3,7 +3,7 @@ package com.message.main.album.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.message.main.upload.pojo.UploadFile;
+import com.message.base.attachment.pojo.Attachment;
 
 /**
  * 照片实体.
@@ -24,7 +24,7 @@ public class Photo implements Serializable {
 	private Long deleteFlag;				//删除标识，0未删除；1已删除
 	
 	//VO Fields
-	private UploadFile file;				//对应的上传文件
+	private Attachment attachment;			//对应的上传文件
 
 	public Long getPkId() {
 		return pkId;
@@ -82,12 +82,12 @@ public class Photo implements Serializable {
 		this.deleteFlag = deleteFlag;
 	}
 
-	public UploadFile getFile() {
-		return file;
+	public Attachment getAttachment() {
+		return attachment;
 	}
 
-	public void setFile(UploadFile file) {
-		this.file = file;
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 
 }

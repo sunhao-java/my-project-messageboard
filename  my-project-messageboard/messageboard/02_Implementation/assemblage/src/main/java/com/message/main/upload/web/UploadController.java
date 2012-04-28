@@ -17,14 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.Constants;
+import com.message.base.attachment.pojo.Attachment;
+import com.message.base.attachment.service.AttachmentService;
 import com.message.base.exception.FileExistException;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.FileUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
-import com.message.main.upload.pojo.UploadFile;
-import com.message.main.upload.service.GenericUploadService;
 import com.message.main.upload.service.UploadService;
 
 /**
@@ -41,17 +42,17 @@ public class UploadController extends ExtMultiActionController {
      */
 	private UploadService uploadService;
 
-    private GenericUploadService genericUploadService;
+    private AttachmentService attachmentService;
 	
 	public void setUploadService(UploadService uploadService) {
 		this.uploadService = uploadService;
 	}
 
-    public void setGenericUploadService(GenericUploadService genericUploadService) {
-        this.genericUploadService = genericUploadService;
-    }
+    public void setAttachmentService(AttachmentService attachmentService) {
+		this.attachmentService = attachmentService;
+	}
 
-    private static WebOutput out = null;
+	private static WebOutput out = null;
 	private static WebInput in = null;
 	
 	/**
@@ -68,9 +69,9 @@ public class UploadController extends ExtMultiActionController {
         Map<String, Object> params = new HashMap<String, Object>();
         boolean isHeadImage = in.getBoolean("headImage", Boolean.TRUE);
 		Long userId = in.getLong("userId", Long.valueOf(-1));
-        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
-        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
-        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));
+        Long resourceId = in.getLong(Constants.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
+        Integer resourceType = in.getInt(Constants.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
+        Long uploadId = in.getLong(Constants.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));
 
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         //是上传头像
@@ -83,11 +84,11 @@ public class UploadController extends ExtMultiActionController {
             }
         } else {
             Map uploadParams = new HashMap();
-            uploadParams.put(ResourceType.MAP_KEY_RESOURCE_ID, resourceId);
-            uploadParams.put(ResourceType.MAP_KEY_RESOURCE_TYPE, resourceType);
-            uploadParams.put(ResourceType.MAP_KEY_UPLOAD_ID, uploadId);
+            uploadParams.put(Constants.MAP_KEY_RESOURCE_ID, resourceId);
+            uploadParams.put(Constants.MAP_KEY_RESOURCE_TYPE, resourceType);
+            uploadParams.put(Constants.MAP_KEY_UPLOAD_ID, uploadId);
             //上传文件
-            List<String> results = this.genericUploadService.uploads(multipartRequest, uploadParams);
+            List<String> results = this.attachmentService.uploads(multipartRequest, uploadParams);
             params.put("results", results);
         }
 
@@ -110,11 +111,11 @@ public class UploadController extends ExtMultiActionController {
 		in = new WebInput(request);
         JSONObject params = new JSONObject();
 
-        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
-        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
-        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Integer.valueOf(-1));
+        Long resourceId = in.getLong(Constants.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));
+        Integer resourceType = in.getInt(Constants.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));
+        Long uploadId = in.getLong(Constants.MAP_KEY_UPLOAD_ID, Integer.valueOf(-1));
 
-        List json = this.genericUploadService.listUploadFile(resourceId, uploadId, resourceType);
+        List json = this.attachmentService.listAttachment(resourceId, uploadId, resourceType);
 
         if(json != null){
             logger.debug(json);
@@ -142,7 +143,7 @@ public class UploadController extends ExtMultiActionController {
         JSONObject params = new JSONObject();
 
         Long pkId = in.getLong("fileId", Long.valueOf(-1));
-        boolean result = this.genericUploadService.deleteFile(pkId);
+        boolean result = this.attachmentService.deleteAttachment(pkId);
 
         params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
         out.toJson(params);
@@ -163,9 +164,9 @@ public class UploadController extends ExtMultiActionController {
         Long fileId = in.getLong("fileId", Long.valueOf(-1));
 
         //先从数据库中取出实体类
-        UploadFile file = this.genericUploadService.loadFile(fileId);
+        Attachment attachment = this.attachmentService.loadAttachment(fileId);
 
-        String path = file.getFilePath();
+        String path = attachment.getFilePath();
 
         File downFile = new File(path);
 
@@ -173,11 +174,11 @@ public class UploadController extends ExtMultiActionController {
             throw new FileExistException("文件不存在，读取文件失败！！");
         }
 
-        this.genericUploadService.updateDownloadCount(file.getPkId());
+        this.attachmentService.updateDownloadCount(attachment.getPkId());
 
         Long fileSize = FileUtils.getFileSize(downFile);
 
-        String fileName = file.getFileName();
+        String fileName = attachment.getFileName();
         fileName = new String(fileName.getBytes("GBK"), "ISO-8859-1");
 
         out.getResponse().setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");

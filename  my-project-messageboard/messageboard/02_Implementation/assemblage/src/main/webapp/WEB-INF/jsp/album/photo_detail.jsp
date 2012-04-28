@@ -173,7 +173,7 @@
 		</div>
 		<div class="photo">
 			<a style="height: 450px;" id="imageLink">
-				<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}&check=true"  style="opacity: 1; 
+				<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&check=true"  style="opacity: 1; 
 					background-image: url('${contextPath}/image/a.gif');"/>
 			</a>
 		</div>

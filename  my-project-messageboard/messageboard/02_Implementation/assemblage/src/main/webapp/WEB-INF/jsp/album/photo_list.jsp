@@ -276,9 +276,9 @@
 					<c:forEach items="${paginationSupport.items}" var="photo">
 						<li id="li#${photo.pkId}">
 							<%-- TODO --%>
-							<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.file.pkId}" style="cursor: move" 
+							<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" style="cursor: move" 
 									title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
-								<img src="${contextPath}/photo.jpg?fileId=${photo.file.pkId}"  style="opacity: 1; 
+								<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}"  style="opacity: 1; 
 									background-image: url('${contextPath}/image/a.gif');" alt="${photo.photoName}"/>
 							</a>
 							<div class="photo-oper">

@@ -1,4 +1,4 @@
-package com.message.main.upload.exception;
+package com.message.base.attachment;
 
 import com.message.base.exception.ApplicationRuntimeException;
 

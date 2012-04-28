@@ -1,15 +1,15 @@
-package com.message.main.upload.pojo;
+package com.message.base.attachment.pojo;
 
 import java.util.Date;
 
 /**
- * 通用文件类
+ * 通用附件类
  *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
  * @createTime 12-3-20 下午9:45
  */
-public class UploadFile {
+public class Attachment {
     private Long pkId;                                  //主键
     private String fileName;                            //文件名
     private String extName;                             //文件扩展名
@@ -20,8 +20,29 @@ public class UploadFile {
     private Long uploadId;                              //上传者ID
     private Date uploadDate;                            //上传时间
     private Integer downloadCount;                      //下载次数
+    
+    public Attachment() {
+		super();
+	}
 
-    public Long getPkId() {
+	public Attachment(Long pkId, String fileName, String extName,
+			String filePath, Integer resourceType, Long resourceId,
+			String fileSize, Long uploadId, Date uploadDate,
+			Integer downloadCount) {
+		super();
+		this.pkId = pkId;
+		this.fileName = fileName;
+		this.extName = extName;
+		this.filePath = filePath;
+		this.resourceType = resourceType;
+		this.resourceId = resourceId;
+		this.fileSize = fileSize;
+		this.uploadId = uploadId;
+		this.uploadDate = uploadDate;
+		this.downloadCount = downloadCount;
+	}
+
+	public Long getPkId() {
         return pkId;
     }
 

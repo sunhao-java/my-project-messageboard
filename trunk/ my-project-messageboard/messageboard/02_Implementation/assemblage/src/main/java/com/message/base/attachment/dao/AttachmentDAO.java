@@ -1,23 +1,25 @@
-package com.message.main.upload.dao;
-
-import com.message.main.upload.pojo.UploadFile;
+package com.message.base.attachment.dao;
 
 import java.util.List;
 
+import com.message.base.attachment.pojo.Attachment;
+
 /**
+ * 附件的DAO接口
+ * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
  * @createTime 12-3-20 下午10:42
  */
-public interface UploadDAO {
+public interface AttachmentDAO {
 
     /**
      * 保存上传文件的信息
      *
-     * @param uploadFile
+     * @param attachment		附件实体
      * @throws Exception
      */
-    Object saveUpload(UploadFile uploadFile) throws Exception;
+    Object saveAttachment(Attachment attachment) throws Exception;
 
     /**
      * 获取刚刚上传的文件
@@ -28,7 +30,7 @@ public interface UploadDAO {
      * @return
      * @throws Exception
      */
-    List<Long> listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception;
+    List<Long> listAttachment(Long resourceId, Long uploadId, Integer resourceType) throws Exception;
 
     /**
      * 通过pkId获取文件
@@ -37,7 +39,7 @@ public interface UploadDAO {
      * @return
      * @throws Exception
      */
-    UploadFile loadFile(Long pkId) throws Exception;
+    Attachment loadAttachment(Long pkId) throws Exception;
 
     /**
      * 删除上传文件
@@ -45,7 +47,7 @@ public interface UploadDAO {
      * @param uploadFile
      * @throws Exception
      */
-    void deleteFile(UploadFile uploadFile) throws Exception;
+    void deleteAttachment(Attachment attachment) throws Exception;
 
     /**
      * 更新附件实体
@@ -53,5 +55,5 @@ public interface UploadDAO {
      * @param uploadFile
      * @throws Exception
      */
-    void updateFile(UploadFile uploadFile) throws Exception;
+    void updateAttachment(Attachment attachment) throws Exception;
 }

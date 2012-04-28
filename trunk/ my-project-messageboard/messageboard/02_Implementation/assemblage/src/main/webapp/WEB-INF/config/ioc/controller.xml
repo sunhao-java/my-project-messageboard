@@ -135,7 +135,7 @@
     		</bean>
         </property>
         <property name="uploadService" ref="uploadService"/>
-        <property name="genericUploadService" ref="genericUploadService"/>
+        <property name="attachmentService" ref="attachmentService"/>
     </bean>
 
     <!-- 文件下载的controller -->

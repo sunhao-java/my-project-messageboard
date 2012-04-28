@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.message.base.Constants;
+import com.message.base.attachment.pojo.Attachment;
+import com.message.base.attachment.service.AttachmentService;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.StringUtils;
 import com.message.main.ResourceType;
@@ -19,8 +22,6 @@ import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
-import com.message.main.upload.pojo.UploadFile;
-import com.message.main.upload.service.GenericUploadService;
 
 /**
  * 相册service实现.
@@ -44,10 +45,10 @@ public class AlbumServiceImpl implements AlbumService {
 	/**
 	 * 上传文件的通用类的接口
 	 */
-	private GenericUploadService genericUploadService;
+	private AttachmentService attachmentService;
 
-	public void setGenericUploadService(GenericUploadService genericUploadService) {
-		this.genericUploadService = genericUploadService;
+	public void setAttachmentService(AttachmentService attachmentService) {
+		this.attachmentService = attachmentService;
 	}
 
 	public void setAlbumDAO(AlbumDAO albumDAO) {
@@ -110,15 +111,15 @@ public class AlbumServiceImpl implements AlbumService {
 
 	public void uploadPhoto(MultipartRequest request, Map params) throws Exception {
 		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
-		List<UploadFile> files = this.genericUploadService.genericUploads(request, params);
+		List<Attachment> attachments = this.attachmentService.genericUploads(request, params);
 		
-		for(UploadFile file : files){
+		for(Attachment attachment : attachments){
 			Photo photo = new Photo();
 			photo.setCreateDate(new Date());
 			photo.setDeleteFlag(ResourceType.DELETE_NO);
-			photo.setFileId(file.getPkId());
+			photo.setFileId(attachment.getPkId());
 			photo.setOwerId(loginUser.getPkId());
-			String fileName = file.getFileName();
+			String fileName = attachment.getFileName();
 			fileName = fileName.substring(0, fileName.lastIndexOf("."));
 			photo.setPhotoName(fileName);
 			photo.setSummary(StringUtils.EMPTY);
@@ -126,7 +127,7 @@ public class AlbumServiceImpl implements AlbumService {
 			photo = this.albumDAO.saveEntity(photo);
 			
 			AlbumPhoto ap = new AlbumPhoto();
-			ap.setAlbumId((Long)params.get(ResourceType.MAP_KEY_RESOURCE_ID));
+			ap.setAlbumId((Long)params.get(Constants.MAP_KEY_RESOURCE_ID));
 			ap.setPhotoId(photo.getPkId());
 			ap.setDeleteFlag(ResourceType.DELETE_NO);
 			this.albumDAO.saveEntity(ap);
@@ -149,8 +150,8 @@ public class AlbumServiceImpl implements AlbumService {
 		
 		if(p != null){
 			Long fileId = p.getFileId();
-			UploadFile file = this.genericUploadService.loadFile(fileId);
-			p.setFile(file);
+			Attachment attachment = this.attachmentService.loadAttachment(fileId);
+			p.setAttachment(attachment);
 		}
 		return p;
 	}
@@ -199,12 +200,12 @@ public class AlbumServiceImpl implements AlbumService {
 			return false;
 		}
 		Photo photo = this.loadPhoto(photoId);
-		if(photo == null || photo.getFile() == null){
+		if(photo == null || photo.getAttachment() == null){
 			logger.error("get photo is null or get photo has not UploadFile by given photoId:'{}'", photoId);
 			return false;
 		}
 		
-		String path = photo.getFile().getFilePath();
+		String path = photo.getAttachment().getFilePath();
 		int i = this.albumDAO.updateBySQL("t_message_album", "cover", path, albumId);
 		
 		return i == 1;

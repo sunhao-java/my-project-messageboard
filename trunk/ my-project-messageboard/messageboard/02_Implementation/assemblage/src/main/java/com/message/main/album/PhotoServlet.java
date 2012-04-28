@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.message.base.attachment.pojo.Attachment;
+import com.message.base.attachment.service.AttachmentService;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.ImageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
-import com.message.main.upload.pojo.UploadFile;
-import com.message.main.upload.service.GenericUploadService;
 
 /**
- * .
+ * 处理图像显示的servlet.
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
@@ -33,9 +33,9 @@ public class PhotoServlet extends HttpServlet {
 	private static final Logger logger = LoggerFactory.getLogger(PhotoServlet.class);
 	
 	/**
-	 * GenericUploadService在spring中bean的id
+	 * AttachmentService在spring中bean的id
 	 */
-	private static final String BEAN_NAME = "genericUploadService";
+	private static final String BEAN_NAME = "attachmentService";
 	
 	private static final int IMAGE_DIV_WIDTH = 720;
 	private static final int IMAGE_DIV_HEIGHT = 540;
@@ -67,7 +67,6 @@ public class PhotoServlet extends HttpServlet {
 		}
 		BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageChar));
 		
-		//TODO need to 计算图片大小比例  
 		if(check){
 			//查看详情的页面需要做此判断
 			int height = image.getHeight();
@@ -100,28 +99,28 @@ public class PhotoServlet extends HttpServlet {
         if(StringUtils.isNotEmpty(filePath)){
         	path = filePath;
         } else if(fileId != null){
-        	GenericUploadService genericUploadService = (GenericUploadService) ApplicationHelper.getInstance().getBean(BEAN_NAME);
+        	AttachmentService attachmentService = (AttachmentService) ApplicationHelper.getInstance().getBean(BEAN_NAME);
             
-            if(genericUploadService == null){
-    			logger.error("can not find userService in spring context whit beanname '{}'!", BEAN_NAME);
+            if(attachmentService == null){
+    			logger.error("can not find AttachmentService in spring context whit beanname '{}'!", BEAN_NAME);
     			return StringUtils.EMPTY;
     		}
             
-            logger.info("userService: '{}' bean is get success!", genericUploadService);
+            logger.info("AttachmentService: '{}' bean is get success!", attachmentService);
             
-            UploadFile file = null;
+            Attachment attachment = null;
             try {
-    			file = genericUploadService.loadFile(fileId);
+            	attachment = attachmentService.loadAttachment(fileId);
     		} catch (Exception e) {
     			e.printStackTrace();
     		}
     		
-    		if(file == null || StringUtils.isEmpty(file.getFilePath())){
-    			logger.error("can't get UploadFile with given fileId:'{}'", fileId);
+    		if(attachment == null || StringUtils.isEmpty(attachment.getFilePath())){
+    			logger.error("can't get Attachment with given fileId:'{}'", fileId);
     			return StringUtils.EMPTY;
     		}
     		
-    		path = file.getFilePath();
+    		path = attachment.getFilePath();
         }
         
         return path;

@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.Constants;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.RandomUtils;
@@ -176,9 +177,9 @@ public class AlbumController extends ExtMultiActionController {
         /**
          * 从页面获取一些参数
          */
-        Long uploadId = in.getLong(ResourceType.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));					//上传者
-        Long resourceId = in.getLong(ResourceType.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));				//资源ID，即相册的ID
-        Integer resourceType = in.getInt(ResourceType.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));		//资源类型
+        Long uploadId = in.getLong(Constants.MAP_KEY_UPLOAD_ID, Long.valueOf(-1));					//上传者
+        Long resourceId = in.getLong(Constants.MAP_KEY_RESOURCE_ID, Long.valueOf(-1));				//资源ID，即相册的ID
+        Integer resourceType = in.getInt(Constants.MAP_KEY_RESOURCE_TYPE, Integer.valueOf(-1));		//资源类型
         
         /**
          * 将HttpServletRequest强制转换成spring的MultipartHttpServletRequest
@@ -186,9 +187,9 @@ public class AlbumController extends ExtMultiActionController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         
         Map uploadParams = new HashMap();
-        uploadParams.put(ResourceType.MAP_KEY_RESOURCE_ID, resourceId);
-        uploadParams.put(ResourceType.MAP_KEY_RESOURCE_TYPE, resourceType);
-        uploadParams.put(ResourceType.MAP_KEY_UPLOAD_ID, uploadId);
+        uploadParams.put(Constants.MAP_KEY_RESOURCE_ID, resourceId);
+        uploadParams.put(Constants.MAP_KEY_RESOURCE_TYPE, resourceType);
+        uploadParams.put(Constants.MAP_KEY_UPLOAD_ID, uploadId);
         //上传文件
         this.albumService.uploadPhoto(multipartRequest, uploadParams);
         

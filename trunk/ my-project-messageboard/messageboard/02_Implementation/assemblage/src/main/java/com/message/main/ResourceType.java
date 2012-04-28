@@ -165,20 +165,6 @@ public final class ResourceType {
      */
     public static final Integer RESOURCE_TYPE_PHOTO = Integer.valueOf(2);
 
-    //上传的参数MAP中的KEY
-    /**
-     * 资源类型的key
-     */
-    public static final String MAP_KEY_RESOURCE_TYPE = "resourceType";
-    /**
-     * 资源ID的key
-     */
-    public static final String MAP_KEY_RESOURCE_ID = "resourceId";
-    /**
-     * 上传者ID的key
-     */
-    public static final String MAP_KEY_UPLOAD_ID = "uploadId";
-
     /**
      * 验证码在session中默认的ID
      */

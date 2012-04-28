@@ -1,4 +1,4 @@
-package com.message.main.upload.service.impl;
+package com.message.base.attachment.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -14,29 +14,28 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.Constants;
+import com.message.base.attachment.dao.AttachmentDAO;
+import com.message.base.attachment.pojo.Attachment;
+import com.message.base.attachment.service.AttachmentService;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
-import com.message.main.ResourceType;
-import com.message.main.upload.dao.UploadDAO;
-import com.message.main.upload.pojo.UploadFile;
-import com.message.main.upload.service.GenericUploadService;
 
 /**
- * 上传文件的通用类的实现
+ * 上传附件通用类的实现
  *
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
  * @createTime 12-3-18 上午11:39
  */
-public class GenericUploadServiceImpl implements GenericUploadService {
-    private static final Logger logger = LoggerFactory.getLogger(GenericUploadServiceImpl.class);
+public class AttachmentServiceImpl implements AttachmentService {
+    private static final Logger logger = LoggerFactory.getLogger(AttachmentServiceImpl.class);
 
-    private UploadDAO uploadDAO;
+    private AttachmentDAO attachmentDAO;
 
-    public void setUploadDAO(UploadDAO uploadDAO) {
-        this.uploadDAO = uploadDAO;
-    }
+	public void setAttachmentDAO(AttachmentDAO attachmentDAO) {
+		this.attachmentDAO = attachmentDAO;
+	}
 
 	public List<String> uploads(MultipartRequest request, Map params) throws Exception {
         Iterator it = request.getFileNames();
@@ -60,8 +59,8 @@ public class GenericUploadServiceImpl implements GenericUploadService {
     	return file.getOriginalFilename();
     }
 
-    public List listUploadFile(Long resourceId, Long uploadId, Integer resourceType) throws Exception {
-        List<Long> pkIds = this.uploadDAO.listUploadFile(resourceId, uploadId, resourceType);
+    public List listAttachment(Long resourceId, Long uploadId, Integer resourceType) throws Exception {
+        List<Long> pkIds = this.attachmentDAO.listAttachment(resourceId, uploadId, resourceType);
 
         if(pkIds == null || pkIds.size() < 0){
             logger.warn("can't get any files from database with params 'resourceId:{},uploadId:{},resourceType:{}'",
@@ -70,56 +69,56 @@ public class GenericUploadServiceImpl implements GenericUploadService {
             return null;
         }
 
-        List<UploadFile> files = new ArrayList<UploadFile>();
+        List<Attachment> attachments = new ArrayList<Attachment>();
 
         for(Long pkId : pkIds){
-            UploadFile file = this.uploadDAO.loadFile(pkId);
+            Attachment attachment = this.attachmentDAO.loadAttachment(pkId);
 
-            logger.debug("the file is '{}'", file);
+            logger.debug("the file is '{}'", attachment);
 
-            files.add(file);
+            attachments.add(attachment);
         }
 
-        return files;
+        return attachments;
     }
 
-    public boolean deleteFile(Long pkId) throws Exception {
+    public boolean deleteAttachment(Long pkId) throws Exception {
         if(Long.valueOf(-1).equals(pkId)){
             logger.warn("the pkId is null!");
             return false;
         }
-        UploadFile uploadFile = this.uploadDAO.loadFile(pkId);
+        Attachment attachment = this.attachmentDAO.loadAttachment(pkId);
 
-        if(uploadFile == null){
+        if(attachment == null){
             logger.warn("can not get any file by given pkId '{}'", pkId);
             return false;
         }
 
         //数据库中删除关系
-        this.uploadDAO.deleteFile(uploadFile);
+        this.attachmentDAO.deleteAttachment(attachment);
 
         //服务器硬盘上删除文件
-        String filePath = uploadFile.getFilePath();
-        boolean result = FileUtils.deleteFiles(filePath);
+        String path = attachment.getFilePath();
+        boolean result = FileUtils.deleteFiles(path);
 
         return result;
         
     }
 
-    public UploadFile loadFile(Long pkId) throws Exception {
+    public Attachment loadAttachment(Long pkId) throws Exception {
         if(Long.valueOf(-1).equals(pkId)){
             logger.error("given pkId is null!");
             return null;
         }
-        return this.uploadDAO.loadFile(pkId);
+        return this.attachmentDAO.loadAttachment(pkId);
     }
 
     public void updateDownloadCount(Long pkId) throws Exception {
-        UploadFile file = this.loadFile(pkId);
-        if(file != null)
-            file.setDownloadCount(file.getDownloadCount() + 1);
+    	Attachment attachment = this.loadAttachment(pkId);
+        if(attachment != null)
+        	attachment.setDownloadCount(attachment.getDownloadCount() + 1);
 
-        this.uploadDAO.updateFile(file);
+        this.attachmentDAO.updateAttachment(attachment);
     }
 
     /**
@@ -151,7 +150,7 @@ public class GenericUploadServiceImpl implements GenericUploadService {
         return fileRealPath;
     }
 
-	public UploadFile genericUpload(MultipartFile file, Map params) throws Exception {
+	public Attachment genericUpload(MultipartFile file, Map params) throws Exception {
 		String fileName = file.getOriginalFilename();
         if(logger.isDebugEnabled()){
             logger.debug("the fileName is '{}'", fileName);
@@ -167,33 +166,33 @@ public class GenericUploadServiceImpl implements GenericUploadService {
 
         String fileRealPath = makeImageBySize(path, file, fileName);
 
-        UploadFile uploadFile = new UploadFile();
-        uploadFile.setFileName(file.getOriginalFilename());
-        uploadFile.setExtName(extName);
-        uploadFile.setFilePath(fileRealPath);
+        Attachment attachment = new Attachment();
+        attachment.setFileName(file.getOriginalFilename());
+        attachment.setExtName(extName);
+        attachment.setFilePath(fileRealPath);
         //文件大小的单位是字节
-        uploadFile.setFileSize(FileUtils.getFileSize(fileRealPath) + "b");
-        uploadFile.setResourceId((Long) params.get(ResourceType.MAP_KEY_RESOURCE_ID));
-        uploadFile.setResourceType((Integer) params.get(ResourceType.MAP_KEY_RESOURCE_TYPE));
-        uploadFile.setUploadId((Long) params.get(ResourceType.MAP_KEY_UPLOAD_ID));
-        uploadFile.setUploadDate(new Date());
-        uploadFile.setDownloadCount(Integer.valueOf(0));
+        attachment.setFileSize(FileUtils.getFileSize(fileRealPath) + "b");
+        attachment.setResourceId((Long) params.get(Constants.MAP_KEY_RESOURCE_ID));
+        attachment.setResourceType((Integer) params.get(Constants.MAP_KEY_RESOURCE_TYPE));
+        attachment.setUploadId((Long) params.get(Constants.MAP_KEY_UPLOAD_ID));
+        attachment.setUploadDate(new Date());
+        attachment.setDownloadCount(Integer.valueOf(0));
 
-        uploadFile = (UploadFile) this.uploadDAO.saveUpload(uploadFile);
+        attachment = (Attachment) this.attachmentDAO.saveAttachment(attachment);
 
-        if(uploadFile.getPkId() == null){
+        if(attachment.getPkId() == null){
             logger.error("save upload file failured!please check!");
 
             return null;
         }
         
-        return uploadFile;
+        return attachment;
 	}
 
-	public List<UploadFile> genericUploads(MultipartRequest request, Map params) throws Exception {
+	public List<Attachment> genericUploads(MultipartRequest request, Map params) throws Exception {
 		Iterator it = request.getFileNames();
 
-		List<UploadFile> result = new ArrayList<UploadFile>();
+		List<Attachment> result = new ArrayList<Attachment>();
         while(it.hasNext()){
             String key = (String) it.next();
             if(logger.isDebugEnabled()){

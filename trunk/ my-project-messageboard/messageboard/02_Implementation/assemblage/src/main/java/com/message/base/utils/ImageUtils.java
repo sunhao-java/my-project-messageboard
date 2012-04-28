@@ -115,21 +115,23 @@ public class ImageUtils {
 	 * @return				new int[]{应得图像宽度, 应得图像高度}
 	 */
 	public static int[] getSizeByPercent(int width, int height, int destWidth, int destHeight){
-		/**
-		 * width/height = destWidth/destHeight
-		 * width	100		destWidth	720	-->270		240	-->	360(error)	240
-		 * height	200		destHeight	540	-->540		720	-->	720			480
-		 */
-		double percent = Double.valueOf(width).doubleValue() / Double.valueOf(height).doubleValue();		//-->0.5
-		double destPercent = Double.valueOf(destWidth).doubleValue() / Double.valueOf(destHeight).doubleValue();
 		int w = 0;
 		int h = 0;
-		if(percent > destPercent){
-			w = destWidth;
-			h = (int) (destWidth / destPercent);
-		} else {
-			w = (int) (destHeight * percent);
+		/**
+		 * 目标图像宽与源图像宽的比例
+		 * 目标图像高与源图像高的比例
+		 */
+		double wPercent = (double) destWidth / width;
+		double hPercent = (double) destHeight / height;
+		
+		if (wPercent > hPercent) {
+			wPercent = hPercent;
+			w = (int) (wPercent * width);
 			h = destHeight;
+		} else {
+			hPercent = wPercent;
+			w = destWidth;
+			h = (int) (hPercent * height);
 		}
 		
 		return new int[]{w, h};

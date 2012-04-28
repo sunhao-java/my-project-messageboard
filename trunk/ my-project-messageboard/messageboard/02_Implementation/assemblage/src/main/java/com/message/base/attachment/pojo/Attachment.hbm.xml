@@ -2,13 +2,13 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.message.main.upload.pojo.UploadFile" table="T_MESSAGE_UPLOAD">
+    <class name="com.message.base.attachment.pojo.Attachment" table="T_MESSAGE_ATTACHMENT">
         <id name="pkId" type="java.lang.Long">
             <column name="PK_ID" precision="10" scale="0">
                 <comment>主键</comment>
             </column>
             <generator class="sequence">
-                <param name="sequence">SEQ_MESSAGE_UPLOAD</param>
+                <param name="sequence">SEQ_MESSAGE_ATTACHMENT</param>
             </generator>
         </id>
         <property name="fileName" type="java.lang.String">

@@ -36,7 +36,7 @@
 	</bean>
 
     <!-- 文件上传的DAO -->
-    <bean id="uploadDAO" class="com.message.main.upload.dao.impl.UploadDAOImpl" parent="genericHibernateDAOImpl"/>
+    <bean id="attachmentDAO" class="com.message.base.attachment.dao.impl.AttachmentDAOImpl" parent="genericHibernateDAOImpl"/>
     
     <!-- 相册的DAO -->
     <bean id="albumDAO" class="com.message.main.album.dao.impl.AlbumDAOImpl" parent="genericHibernateDAOImpl">

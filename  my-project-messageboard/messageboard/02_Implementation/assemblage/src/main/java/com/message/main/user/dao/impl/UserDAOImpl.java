@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.ResourceType;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
-import com.message.resource.ResourceType;
 
 public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 	private Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);

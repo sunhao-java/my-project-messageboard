@@ -14,9 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
-import com.message.resource.ResourceType;
 
 /**
  * 菜单的controller

@@ -1,11 +1,11 @@
 package com.message.main.user.service.impl;
 
+import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.dao.UserPrivacyDAO;
 import com.message.main.user.pojo.UserPrivacy;
 import com.message.main.user.service.UserPrivacyService;
-import com.message.resource.ResourceType;
 
 /**
  * 用户隐私设置的Serviced的实现

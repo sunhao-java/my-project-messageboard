@@ -1,4 +1,4 @@
-package com.message.resource;
+package com.message.main;
 
 import com.message.base.properties.SystemConfig;
 

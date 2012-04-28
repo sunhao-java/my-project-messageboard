@@ -17,10 +17,10 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.user.web.UserController;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.service.VoteService;
-import com.message.resource.ResourceType;
 
 /**
  * 投票的web控制器

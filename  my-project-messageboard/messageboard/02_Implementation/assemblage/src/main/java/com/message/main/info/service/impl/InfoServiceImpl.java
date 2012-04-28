@@ -7,6 +7,7 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.properties.MessageUtils;
+import com.message.main.ResourceType;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.info.dao.InfoDAO;
@@ -15,7 +16,6 @@ import com.message.main.info.service.InfoService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * 留言板描述的service的实现

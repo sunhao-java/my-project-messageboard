@@ -2,27 +2,27 @@ package com.message.main.user.service.impl;
 
 import java.util.Date;
 
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.email.MailSend;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.properties.MessageUtils;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
-import com.message.base.properties.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
+import com.message.main.ResourceType;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
 import com.message.main.history.service.HistoryService;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * 用户操作的service 实现

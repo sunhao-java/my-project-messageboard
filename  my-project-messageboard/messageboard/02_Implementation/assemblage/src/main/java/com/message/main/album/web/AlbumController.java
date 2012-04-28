@@ -19,12 +19,12 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
-import com.message.resource.ResourceType;
 
 /**
  * 相册web控制层.

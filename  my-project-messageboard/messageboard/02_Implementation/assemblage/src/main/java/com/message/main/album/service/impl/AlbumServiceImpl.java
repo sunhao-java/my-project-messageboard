@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.AlbumPhoto;
@@ -20,7 +21,6 @@ import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.upload.pojo.UploadFile;
 import com.message.main.upload.service.GenericUploadService;
-import com.message.resource.ResourceType;
 
 /**
  * 相册service实现.

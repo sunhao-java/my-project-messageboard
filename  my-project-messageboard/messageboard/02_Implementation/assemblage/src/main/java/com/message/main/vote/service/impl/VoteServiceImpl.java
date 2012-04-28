@@ -9,6 +9,7 @@ import org.apache.commons.collections.CollectionUtils;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.pagination.PaginationUtils;
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
@@ -19,7 +20,6 @@ import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteComment;
 import com.message.main.vote.pojo.VoteOption;
 import com.message.main.vote.service.VoteService;
-import com.message.resource.ResourceType;
 
 /**
  * 投票的service实现

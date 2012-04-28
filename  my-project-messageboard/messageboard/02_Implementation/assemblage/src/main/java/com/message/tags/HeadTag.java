@@ -4,12 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.message.base.utils.StringUtils;
-import com.message.resource.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.spring.ApplicationHelper;
+import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 

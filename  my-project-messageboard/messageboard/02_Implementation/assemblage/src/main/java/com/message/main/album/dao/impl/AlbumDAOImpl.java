@@ -9,10 +9,10 @@ import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.ResourceType;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.Photo;
-import com.message.resource.ResourceType;
 
 /**
  * 相册DAO实现.

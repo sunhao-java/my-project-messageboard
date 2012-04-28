@@ -16,10 +16,10 @@ import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.info.pojo.Info;
 import com.message.main.info.service.InfoService;
 import com.message.main.login.web.AuthContextHelper;
-import com.message.resource.ResourceType;
 
 /**
  * 留言板描述的controller

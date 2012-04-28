@@ -50,6 +50,20 @@
             },
             completeFunction : 'completeFun'
         });
+        
+        YAHOO.app.swfupload("upload2", "showUploadPanel", {
+            title : '上传图片',
+            fileTypes : '*.jpg;*.png;*.gif;*.jpeg;*.bmp',
+            fileTypeDescription : '请选择图片',
+            uploadUrl : '${contextPath}/album/uploadPhoto.do',
+            params : {
+                headImage : 'false',
+                resourceId : '${album.pkId}',
+                resourceType : ${resourceType},
+                uploadId : '${loginUser.pkId}'
+            },
+            completeFunction : 'completeFun'
+        });
     });
 	
 	function completeFun(){
@@ -268,54 +282,65 @@
 				</p>
 			</div>
 		</div>
-
+		
+		<c:choose>
+			<c:when test="${empty paginationSupport.items}">
+				<div class="no-content">
+					当前相册中没有照片， <%--<a target="_blank" class="upload flashUploader fromAlbum" href="http://upload.renren.com/index.do?id=522521488&amp;ref=1002" style="display: ">，点这里添加 » </a>--%>
+					<input type="button" id="upload2" value="上传图片">
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="photo-list my-list" style="">
+					<div class="first-page clearfix">
+						<ul>
+							<c:forEach items="${paginationSupport.items}" var="photo">
+								<li id="li#${photo.pkId}">
+									<%-- TODO --%>
+									<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" style="cursor: move" 
+											title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
+										<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}"  style="opacity: 1; 
+											background-image: url('${contextPath}/image/a.gif');" alt="${photo.photoName}"/>
+									</a>
+									<div class="photo-oper">
+										<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>
+									</div>
+									<div class="photo-oper">
+										<a href="javascript:void(0);" title="编辑" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
+									</div>
+									<div class="myphoto-info">
+										<span class="descript" id="descript#${photo.pkId}">
+											<c:choose>
+												<c:when test="${empty photo.summary}">
+													没有描述！
+												</c:when>
+												<c:otherwise>
+													${photo.summary}
+												</c:otherwise>
+											</c:choose>
+										</span>
+									</div>
+									<div class="edit-desc" style="" id="edit#${photo.pkId}">
+										<div class="edit-content">
+											<input type="text" value="${photo.summary}" id="summary#${photo.pkId}">
+											<p>
+												可按
+												<span class="">回车</span>保存、
+												<span class="">Esc</span>取消
+											</p>
+										</div>
+									</div>
+								</li>
+							</c:forEach>
+						</ul>
+					</div>
+				</div>
+				<c:url var="paginationAction" value="album/listPhotos.do?albumId=${album.pkId}"/>
+				<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>
+			</c:otherwise>
+		</c:choose>
+		
 		<!-- the first tabs -->
-		<div class="photo-list my-list" style="">
-			<div class="first-page clearfix">
-				<ul>
-					<c:forEach items="${paginationSupport.items}" var="photo">
-						<li id="li#${photo.pkId}">
-							<%-- TODO --%>
-							<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" style="cursor: move" 
-									title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
-								<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}"  style="opacity: 1; 
-									background-image: url('${contextPath}/image/a.gif');" alt="${photo.photoName}"/>
-							</a>
-							<div class="photo-oper">
-								<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>
-							</div>
-							<div class="photo-oper">
-								<a href="javascript:void(0);" title="编辑" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
-							</div>
-							<div class="myphoto-info">
-								<span class="descript" id="descript#${photo.pkId}">
-									<c:choose>
-										<c:when test="${empty photo.summary}">
-											没有描述！
-										</c:when>
-										<c:otherwise>
-											${photo.summary}
-										</c:otherwise>
-									</c:choose>
-								</span>
-							</div>
-							<div class="edit-desc" style="" id="edit#${photo.pkId}">
-								<div class="edit-content">
-									<input type="text" value="${photo.summary}" id="summary#${photo.pkId}">
-									<p>
-										可按
-										<span class="">回车</span>保存、
-										<span class="">Esc</span>取消
-									</p>
-								</div>
-							</div>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
-		</div>
-		<c:url var="paginationAction" value="album/listPhotos.do?albumId=${album.pkId}"/>
-		<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>
 	</div>
 	<!-- end of album-main -->
 	<div class="album-sidebar">

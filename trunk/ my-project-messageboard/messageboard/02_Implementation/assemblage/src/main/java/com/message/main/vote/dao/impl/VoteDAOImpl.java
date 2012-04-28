@@ -8,13 +8,13 @@ import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.ResourceType;
 import com.message.main.user.pojo.User;
 import com.message.main.vote.dao.VoteDAO;
 import com.message.main.vote.pojo.Vote;
 import com.message.main.vote.pojo.VoteAnswer;
 import com.message.main.vote.pojo.VoteComment;
 import com.message.main.vote.pojo.VoteOption;
-import com.message.resource.ResourceType;
 
 /**
  * 投票的DAO实现

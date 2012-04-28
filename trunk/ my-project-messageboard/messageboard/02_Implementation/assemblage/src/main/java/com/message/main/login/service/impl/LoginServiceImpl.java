@@ -12,13 +12,13 @@ import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.history.service.HistoryService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.service.LoginService;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * @author sunhao(sunhao.java@gmail.com)

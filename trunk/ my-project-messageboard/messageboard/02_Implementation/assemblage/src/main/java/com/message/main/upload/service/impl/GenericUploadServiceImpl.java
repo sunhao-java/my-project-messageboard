@@ -17,10 +17,10 @@ import com.message.base.Constants;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.upload.dao.UploadDAO;
 import com.message.main.upload.pojo.UploadFile;
 import com.message.main.upload.service.GenericUploadService;
-import com.message.resource.ResourceType;
 
 /**
  * 上传文件的通用类的实现

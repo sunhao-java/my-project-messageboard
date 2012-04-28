@@ -15,12 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
-import com.message.resource.ResourceType;
 
 /**
  * 菜单service实现

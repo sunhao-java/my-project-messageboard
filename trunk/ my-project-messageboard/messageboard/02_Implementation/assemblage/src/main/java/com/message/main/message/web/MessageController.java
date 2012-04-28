@@ -18,10 +18,10 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 public class MessageController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);

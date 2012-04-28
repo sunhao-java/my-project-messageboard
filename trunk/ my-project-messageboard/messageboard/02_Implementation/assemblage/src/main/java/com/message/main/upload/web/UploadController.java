@@ -10,21 +10,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.base.exception.FileExistException;
-import com.message.base.utils.FileUtils;
-import com.message.main.upload.pojo.UploadFile;
-import com.message.main.upload.service.GenericUploadService;
 import net.sf.json.JSONObject;
+
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.exception.FileExistException;
 import com.message.base.spring.ExtMultiActionController;
+import com.message.base.utils.FileUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
+import com.message.main.upload.pojo.UploadFile;
+import com.message.main.upload.service.GenericUploadService;
 import com.message.main.upload.service.UploadService;
-import com.message.resource.ResourceType;
 
 /**
  * 文件上传的controller

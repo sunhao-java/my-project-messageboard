@@ -3,16 +3,17 @@ package com.message.main.message.service.impl;
 import java.util.Date;
 import java.util.List;
 
-import com.message.base.hibernate.GenericHibernateDAO;
-import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import org.apache.commons.collections.CollectionUtils;
 
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.properties.MessageUtils;
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
+import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
@@ -20,7 +21,6 @@ import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * 留言操作的service 

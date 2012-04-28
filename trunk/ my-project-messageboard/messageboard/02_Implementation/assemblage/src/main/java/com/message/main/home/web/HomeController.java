@@ -8,17 +8,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.message.main.menu.pojo.Menu;
-import com.message.main.menu.service.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
+import com.message.main.ResourceType;
 import com.message.main.history.service.HistoryService;
+import com.message.main.menu.pojo.Menu;
+import com.message.main.menu.service.MenuService;
 import com.message.main.user.pojo.User;
-import com.message.resource.ResourceType;
 
 /**
  * home的controller

@@ -12,9 +12,9 @@ import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.utils.SqlUtils;
+import com.message.main.ResourceType;
 import com.message.main.menu.dao.MenuDAO;
 import com.message.main.menu.pojo.Menu;
-import com.message.resource.ResourceType;
 
 /**
  * 菜单DAO实现

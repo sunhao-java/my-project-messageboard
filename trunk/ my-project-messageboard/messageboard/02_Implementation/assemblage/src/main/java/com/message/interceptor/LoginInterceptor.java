@@ -11,12 +11,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.message.base.spring.ApplicationContextUtil;
 import com.message.base.utils.RequestUtils;
+import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContext;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.menu.exception.NoPermException;
 import com.message.main.menu.service.MenuService;
-import com.message.resource.ResourceType;
 
 /**
  * 检查是否登录的spring拦截器

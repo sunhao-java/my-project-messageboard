@@ -18,12 +18,12 @@ import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * 用户操作的controller

@@ -12,9 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.reply.pojo.Reply;
 import com.message.main.reply.service.ReplyService;
-import com.message.resource.ResourceType;
 
 public class ReplyController extends ExtMultiActionController {
 	private static final Logger logger = LoggerFactory.getLogger(ReplyController.class);

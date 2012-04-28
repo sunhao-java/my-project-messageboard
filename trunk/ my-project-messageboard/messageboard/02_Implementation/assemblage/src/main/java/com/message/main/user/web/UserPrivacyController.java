@@ -13,9 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.user.pojo.UserPrivacy;
 import com.message.main.user.service.UserPrivacyService;
-import com.message.resource.ResourceType;
 
 /**
  * 用户隐私设置的controller

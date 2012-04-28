@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
+import com.message.main.ResourceType;
 import com.message.main.event.service.EventService;
-import com.message.resource.ResourceType;
 
 /**
  * 时间controller

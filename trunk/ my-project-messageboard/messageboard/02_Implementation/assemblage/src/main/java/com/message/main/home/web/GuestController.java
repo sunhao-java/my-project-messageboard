@@ -15,9 +15,9 @@ import com.message.base.properties.SystemConfig;
 import com.message.base.spring.ExtMultiActionController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
+import com.message.main.ResourceType;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.resource.ResourceType;
 
 /**
  * @author sunhao(sunhao.java@gmail.com)

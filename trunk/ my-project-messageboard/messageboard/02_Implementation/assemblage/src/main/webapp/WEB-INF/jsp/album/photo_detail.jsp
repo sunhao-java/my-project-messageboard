@@ -100,7 +100,7 @@
 	function deletePhoto(pkId){
 		var requestURL = '${contextPath }/album/delete.do?photoId=' + pkId + '&albumId=${album.pkId}';
 		//TODO 删除最后一张时要处理
-		deleteOne(requestURL, '', 'true');
+		deleteOne(requestURL, '${contextPath}/album/listPhotos.do?albumId=${album.pkId}', 'false');
 	}
 </script>
 

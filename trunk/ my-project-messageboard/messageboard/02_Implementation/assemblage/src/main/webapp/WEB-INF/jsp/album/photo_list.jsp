@@ -299,8 +299,8 @@
 									<%-- TODO --%>
 									<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" style="cursor: move" 
 											title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
-										<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}"  style="opacity: 1; 
-											background-image: url('${contextPath}/image/a.gif');" alt="${photo.photoName}"/>
+										<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
+											background-image: url('${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&width=170&height=130');" alt="${photo.photoName}"/>
 									</a>
 									<div class="photo-oper">
 										<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>

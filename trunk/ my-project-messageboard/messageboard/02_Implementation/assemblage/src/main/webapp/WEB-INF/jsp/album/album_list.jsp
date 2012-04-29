@@ -53,10 +53,12 @@
 								<a class="album-cover" href="javaScript:void(0);" onclick="gotoAlbumDetail('${album.pkId}');" title="${album.albumName}">
 									<c:choose>
 										<c:when test="${album.cover eq '/image/default.png'}">
-											<img src="${contextPath}/${album.cover}"/>
+											<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
+													background-image: url('${contextPath}/${album.cover}');" alt="${photo.photoName}"/>
 										</c:when>
 										<c:otherwise>
-											<img src="${contextPath}/photo.jpg?filePath=${album.cover}"/>
+											<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
+													background-image: url('${contextPath}/photo.jpg?filePath=${album.cover}&width=154&height=130');" alt="${photo.photoName}"/>
 										</c:otherwise>
 									</c:choose>
 									<div class="photo-num">

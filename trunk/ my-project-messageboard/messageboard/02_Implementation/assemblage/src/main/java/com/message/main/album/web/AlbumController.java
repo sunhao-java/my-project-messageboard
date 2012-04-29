@@ -168,7 +168,6 @@ public class AlbumController extends ExtMultiActionController {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	public ModelAndView uploadPhoto(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		out = new WebOutput(request, response);
 		in = new WebInput(request);
@@ -279,15 +278,15 @@ public class AlbumController extends ExtMultiActionController {
 		Photo photo = this.albumService.loadPhoto(photoId, type + "#" + albumId);
 		Album album = this.albumService.loadAlbum(albumId);
 		
-		boolean previous = false;
-		boolean next = false;
+		Long tmpId = null;
 		if(StringUtils.isNotEmpty(type)){
-			previous = this.albumService.loadPhoto(photo.getPkId(), "previous#" + albumId) == null;
-			next = this.albumService.loadPhoto(photo.getPkId(), "next#" + albumId) == null;
+			tmpId = photo.getPkId();
 		} else {
-			previous = this.albumService.loadPhoto(photoId, "previous#" + albumId) == null;
-			next = this.albumService.loadPhoto(photoId, "next#" + albumId) == null;
+			tmpId = photoId;
 		}
+		
+		Photo previous = this.albumService.loadPhoto(tmpId, "previous#" + albumId);
+		Photo next = this.albumService.loadPhoto(tmpId, "next#" + albumId);
 		
 		List<Album> albums = this.albumService.getAlbumList(null, -1, -1).getItems();
 		

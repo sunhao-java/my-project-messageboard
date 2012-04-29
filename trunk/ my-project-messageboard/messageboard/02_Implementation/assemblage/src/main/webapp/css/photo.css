@@ -2395,3 +2395,130 @@ a.show-bigpic{
 .next-cur{
 	cursor: url('../js/jquery/css/fancy/next.cur'), auto;
 }
+
+/**TODO small image css*/
+.smallImg {
+	width: 180px;
+	height: 73px;
+    margin: 10px auto;
+}
+
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+.smallImg ul li {
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+}
+
+li {
+    list-style: none outside none;
+}
+
+.smallImg ul li span.t img, .smallImg ul li span.t {
+	background-repeat: no-repeat !important;
+    display: block;
+    height: 50px;
+    width: 50px;
+}
+	
+.smallImg ul li span.t a {
+    background: none repeat scroll 0 0 transparent;
+    display: block;
+    height: 50px;
+    padding: 2px;
+    width: 50px;
+}
+
+.smallImg ul li.current span.t a {
+    cursor: default;
+    border: 2px solid #A5DDFF;
+}
+
+.smallImg ul li span.t a:hover {
+	border: 2px solid #A5DDFF;
+}
+
+.smallImg ul li span.b {
+    display: block;
+    font-family: SimSun;
+    padding-top: 10px;
+    color: #666666;
+}
+
+#smallImgContent a:link, a:active, a:visited {
+	color: #6EAFD5 !important;
+}
+
+#smallImgContent a:hover {
+	color: #6EAFD5 !important;
+	text-decoration: underline;
+}
+
+/**TODO photo description*/
+.photo-desc{
+	margin: 15px 0 0;
+    width: 80%;
+}
+
+.photo-desc p {
+    color: #333333;
+    font-size: 14px;
+}
+
+p {
+    line-height: 1.4em;
+}
+
+.photo-desc p.photo-title-hover {
+	background-color: #FFFFAA;
+}
+
+#photoTitleEditor {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+#photoTitleEditor .textarea {
+    background: none repeat scroll 0 0 #FFFFAA;
+    height: 48px;
+    margin-bottom: 5px;
+    width: 400px;
+}
+
+#photoTitleEditor .button-holder {
+    text-align: left;
+}
+
+.button-holder input[type="button"] {
+	padding: 2px 5px;
+}
+
+.gray {
+	background: none repeat scroll 0 0 #F0F0F0 !important;
+    border-color: #FFFFFF #848484 #848484 #FFFFFF !important;
+    border-style: solid;
+    border-width: 1px;
+    color: #333333 !important;
+}
+
+.show-big{
+    background: url("../image/album-terminal-v1.png") no-repeat scroll 0 -396px transparent;
+    margin: 15px 0 0;
+    float: right;
+    padding-left: 20px;
+}
+a.show-big:link, a.show-big:visited {
+    color: #005EAC;
+    text-decoration: none;
+}
+a.show-big:hover {
+	text-decoration: underline;
+}

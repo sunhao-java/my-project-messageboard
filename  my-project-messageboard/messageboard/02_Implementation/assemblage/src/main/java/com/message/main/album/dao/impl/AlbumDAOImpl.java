@@ -93,15 +93,20 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		columnParams.put(column, value);
 		whereParams.put("pk_id", pkValue);
 		
-		if(table.indexOf("photo") != -1) {
-			Photo p = (Photo) this.loadObject(Photo.class, (Long) pkValue);
-			this.cache.put(p, (Long) pkValue);
-		} else if(table.indexOf("album") != -1) {
-			Album a = (Album) this.loadObject(Album.class, (Long) pkValue);
-			this.cache.put(a, (Long) pkValue);
+		int result = this.updateBySQL(table, columnParams, whereParams);
+		if(result != 1) {
+			return result;
+		} else {
+			if(table.indexOf("photo") != -1) {
+				Photo p = (Photo) this.loadObject(Photo.class, (Long) pkValue);
+				this.cache.put(p, (Long) pkValue);
+			} else if(table.indexOf("album") != -1) {
+				Album a = (Album) this.loadObject(Album.class, (Long) pkValue);
+				this.cache.put(a, (Long) pkValue);
+			}
+			
+			return result;
 		}
-		
-		return this.updateBySQL(table, columnParams, whereParams);
 	}
 
 	public int getPhotoCount(Long albumId) throws Exception {

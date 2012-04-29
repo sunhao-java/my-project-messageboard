@@ -18,7 +18,7 @@
 			var thisX = $(this).offset().left + $(this).width() / 2;
 
 			if (X <= thisX) {
-				if('${previous}' != 'true'){
+				if('${previous}' != ''){
 					link.attr('title', '点击查看上一张');
 					link.attr('class', 'pre-cur');
 					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
@@ -27,7 +27,7 @@
 					link.attr('title', '当前已是第一张');
 				}
 			} else {
-				if('${next}' != 'true'){
+				if('${next}' != ''){
 					link.attr('title', '点击查看下一张');
 					link.attr('class', 'next-cur');
 					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
@@ -37,6 +37,31 @@
 				}
 			}
 		});
+		
+		if('${previous}' == ''){
+			$("#previmg").attr('href', 'javascript:void(0)');
+			$('#previmg > img').attr('style', 'background: url(${contextPath}/image/pic_first.png) center center');
+			$("span.b > a:first").attr('href', 'javascript:void(0)');
+		} else {
+			$("#previmg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
+			$('#previmg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
+															'fileId=${previous.attachment.pkId}&width=50&height=50) center center');
+			$("span.b > a:first").attr('href', '${contextPath}/album/showDetail.do?' +
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
+		}
+		
+		if('${next}' == ''){
+			$("#nextimg").attr('href', 'javascript:void(0)');
+			$('#nextimg > img').attr('style', 'background: url(${contextPath}/image/pic_last.png) center center');
+			$("span.b > a:last").attr('href', 'javascript:void(0)');
+		} else {
+			$("#nextimg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
+			$('#nextimg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
+															'fileId=${next.attachment.pkId}&width=50&height=50) center center');
+			$("span.b > a:last").attr('href', '${contextPath}/album/showDetail.do?' +
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
+		}
+		
 	});
 	
 	function setCover(photoId){
@@ -173,9 +198,63 @@
 		</div>
 		<div class="photo">
 			<a style="height: 450px;" id="imageLink">
-				<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&check=true"  style="opacity: 1; 
+				<img src="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&width=720&height=540"  style="opacity: 1; 
 					background-image: url('${contextPath}/image/a.gif');"/>
 			</a>
+		</div>
+		
+		<a target="_blank" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" class="show-big">查看大图</a>
+		
+		<div style="" class="photo-desc" id="photoTitleEditorContainer">
+		
+			<p origintitle="" id="photoTitle" style="" class=" " onmouseover="$(this).attr('class', 'photo-title-hover')"
+					onmouseout="$(this).attr('class', '')" onclick="dom.get('photoTitleEditor').style.display = '';$(this).hide()">
+				<c:choose>
+					<c:when test="${empty photo.summary}">
+						单击此处添加描述
+					</c:when>
+					<c:otherwise>
+						${photo.summary}
+					</c:otherwise>
+				</c:choose>
+			</p>
+			
+			<script type="text/javascript">
+				function saveSummary(){
+					var summary = dom.get('description');
+	        		if(summary.value == ''){
+	        			return;
+	        		}
+	        		
+	        		var requestURL = '${contextPath}/album/saveSummary.do?summary=' + summary.value + '&photoId=' + ${photo.pkId};
+					$C.asyncRequest('POST', requestURL, {
+						success : function(o){
+							var _e = eval("(" + o.responseText + ")");
+							if(_e.status == '1'){
+								dom.get('photoTitle').innerHTML = summary.value;
+								dom.get('photoTitle').style.display = '';
+								dom.get('photoTitleEditor').style.display = 'none';
+							} else {
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'保存描述失败！'});
+							}
+						}, 
+						failure : function(o){
+							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+						}
+					});
+				}
+			</script>
+
+			<div style="display: none;" id="photoTitleEditor">
+				<textarea class="textarea" id="description" name="description">${photo.summary}</textarea>
+				<div class="button-holder">
+					<input type="button" value="保存" class="input-button"
+						id="btnSaveTitle" onclick="saveSummary()">
+					<input type="button" value="取消" class="input-button gray"
+						onclick="$('#photoTitleEditor').hide();$('#photoTitle').show();">
+				</div>
+			</div>
+
 		</div>
 	</div>
 	
@@ -183,75 +262,42 @@
 	<div class="album-sidebar">
 		<div class="corner-body">
 			<h2>
-				我的相册
-				
-					<a onclick="showAllMine();" href="javascript:void(0);" class="more" id="show">全部</a>
-					<a style="display: none;" onclick="closePanel();" href="javascript:void(0);" class="more" id="close">收起</a>
-				
+				${album.albumName}
 			</h2>
-			<ul id="showPanel" class="album-list-me">
-				
+			<div id="smallImgContent" class="smallImg">
+				<ul class="clearfix">
 					<li>
-						<a class="album-mame" href="/message/album/listPhotos.do?albumId=82"> 
-							
-								
-									<img title="测试测试" src="/message//image/default.png">
-								
-								
-							
-						</a>
-						<span class="tag"> 
-							<a title="测试测试" href="/message/album/listPhotos.do?albumId=82">测试测试</a> 
+						<span class="t">
+							<a href="javascript:void(0)" id="previmg">
+								<img src="${contextPath}/image/transparent.gif" style="">
+							</a>
 						</span>
-						<span class="statis">0张</span>
+						<span class="b">
+							<a href="javascript:void(0)">&lt;上一张</a>
+						</span>
 					</li>
-				
+					<li class="current">
+						<span class="t">
+							<a href="javascript:void(0)">
+								<img src="${contextPath}/image/transparent.gif"
+									style="background: url('${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&width=50&height=50')
+									center center">
+							</a>
+						</span>
+						<span class="b">当前</span>
+					</li>
 					<li>
-						<a class="album-mame" href="/message/album/listPhotos.do?albumId=81"> 
-							
-								
-									<img title="再建一个相册" src="/message//image/default.png">
-								
-								
-							
-						</a>
-						<span class="tag"> 
-							<a title="再建一个相册" href="/message/album/listPhotos.do?albumId=81">再建一个相册</a> 
+						<span class="t">
+							<a id="nextimg" href="javascript:void(0)">
+								<img src="${contextPath}/image/transparent.gif" style="">
+							</a>
 						</span>
-						<span class="statis">0张</span>
-					</li>
-				
-					<li>
-						<a class="album-mame" href="/message/album/listPhotos.do?albumId=61"> 
-							
-								
-								
-									<img title="哈哈的相册" src="/message/photo.jpg?filePath=/opt/application/data///2012/04/23//27de798e1465caadcf893fb623b46cea.jpg">
-								
-							
-						</a>
-						<span class="tag"> 
-							<a title="哈哈的相册" href="/message/album/listPhotos.do?albumId=61">哈哈的相册</a> 
+						<span class="b">
+							<a href="javascript:void(0)">下一张&gt;</a>
 						</span>
-						<span class="statis">2张</span>
 					</li>
-				
-					<li>
-						<a class="album-mame" href="/message/album/listPhotos.do?albumId=41"> 
-							
-								
-								
-									<img title="孙昊的相册" src="/message/photo.jpg?filePath=/opt/application/data///2012/04/23//d1c272e701d4e87f2f08d7bb4b80ae26.jpg">
-								
-							
-						</a>
-						<span class="tag"> 
-							<a title="孙昊的相册" href="/message/album/listPhotos.do?albumId=41">孙昊的相册</a> 
-						</span>
-						<span class="statis">13张</span>
-					</li>
-				
-			</ul>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>

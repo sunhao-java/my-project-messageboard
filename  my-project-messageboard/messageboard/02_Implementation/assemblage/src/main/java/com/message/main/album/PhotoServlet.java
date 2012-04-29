@@ -37,9 +37,6 @@ public class PhotoServlet extends HttpServlet {
 	 */
 	private static final String BEAN_NAME = "attachmentService";
 	
-	private static final int IMAGE_DIV_WIDTH = 720;
-	private static final int IMAGE_DIV_HEIGHT = 540;
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		this.doPost(request, response);
 	}
@@ -55,7 +52,8 @@ public class PhotoServlet extends HttpServlet {
 		WebInput in = new WebInput(request);
 		String filePath = in.getString("filePath", StringUtils.EMPTY);
 		Long fileId = in.getLong("fileId", Long.valueOf(-1));
-		boolean check = in.getBoolean("check", false);
+		int pW = in.getInt("width", -1);
+		int pH = in.getInt("height", -1);
 		
 		String path = this.getFilePath(filePath, fileId);
 		
@@ -67,14 +65,14 @@ public class PhotoServlet extends HttpServlet {
 		}
 		BufferedImage image = ImageIO.read(new ByteArrayInputStream(imageChar));
 		
-		if(check){
+		if(pW != -1 && pH != -1){
 			//查看详情的页面需要做此判断
 			int height = image.getHeight();
 			int width = image.getWidth();
 
 			int[] size = null;
-			if(height > IMAGE_DIV_HEIGHT || width > IMAGE_DIV_WIDTH){
-				size = ImageUtils.getSizeByPercent(width, height, IMAGE_DIV_WIDTH, IMAGE_DIV_HEIGHT);
+			if(height > pH || width > pW){
+				size = ImageUtils.getSizeByPercent(width, height, pW, pH);
 			} else {
 				size = new int[]{width, height};
 			}

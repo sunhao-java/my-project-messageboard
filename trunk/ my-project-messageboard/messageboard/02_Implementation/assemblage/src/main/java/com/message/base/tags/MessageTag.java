@@ -8,10 +8,10 @@ import javax.servlet.jsp.tagext.TagSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.utils.HtmlUtils;
+import com.message.base.properties.SystemConfig;
+import com.message.base.utils.HTMLUtils;
 import com.message.base.utils.ReplaceStringUtils;
 import com.message.base.utils.StringUtils;
-import com.message.base.properties.SystemConfig;
 
 /**
  * 取得系统配置文件中的配置<br/><br/>
@@ -66,7 +66,7 @@ public class MessageTag extends TagSupport {
 		}
 		
 		if(this.ignoreHtml){
-			printString = HtmlUtils.subHtmlCode(printString.length(), printString, "");
+			printString = HTMLUtils.getRawText(printString.length(), printString, "");
 		}
 		
 		if(argsTemp != null && argsTemp.length > 0){

@@ -1,5 +1,7 @@
 package com.message.interceptor;
 
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.message.base.spring.ApplicationContextUtil;
 import com.message.base.utils.RequestUtils;
+import com.message.base.utils.URLUtils;
 import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContext;
@@ -53,7 +56,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
         if(url.indexOf(".do") != -1){
 			if(loginUser == null){
-				String redirectUrl = request.getContextPath() + "/guest/index.do?goUrl=" + RequestUtils.getRequestUrl(request, true);
+				String goUrl = URLUtils.encodeURL(RequestUtils.getRequestUrl(request, true));
+				String redirectUrl = request.getContextPath() + "/guest/index.do?goUrl=" + goUrl;
 				//加上参数：跳转前的url
 				response.sendRedirect(redirectUrl);
 			} else {

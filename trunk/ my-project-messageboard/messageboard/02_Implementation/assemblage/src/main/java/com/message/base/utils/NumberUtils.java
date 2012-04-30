@@ -9,6 +9,13 @@ package com.message.base.utils;
  */
 public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
 	
+	/**
+	 * 计算两个数的最大公约数
+	 * 
+	 * @param firstNum
+	 * @param secondNum
+	 * @return
+	 */
 	public static int getMaxCommonDivisor(int firstNum, int secondNum){
 		int commonDivisor = 0;
 		
@@ -21,6 +28,13 @@ public class NumberUtils extends org.apache.commons.lang.math.NumberUtils {
 		return commonDivisor;
 	}
 	
+	/**
+	 * 对一个分数约分
+	 * 
+	 * @param numerator		分子
+	 * @param denominator	分母
+	 * @return	new int[]{分子, 分母}
+	 */
 	public static int[] reduction(int numerator, int denominator){
 		int commonDivisor = getMaxCommonDivisor(numerator, denominator);
 		

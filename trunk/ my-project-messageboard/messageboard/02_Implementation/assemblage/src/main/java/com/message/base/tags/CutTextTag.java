@@ -6,7 +6,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import com.message.base.utils.HtmlUtils;
+import com.message.base.utils.HTMLUtils;
 import com.message.base.utils.StringUtils;
 
 /**
@@ -37,7 +37,7 @@ public class CutTextTag extends TagSupport{
 			out = StringUtils.isEmpty(defaultStr) ? StringUtils.EMPTY : defaultStr;
 		} else {
 			if(escapeHtml){
-				out = HtmlUtils.subHtmlCode(0, text, "...");
+				out = HTMLUtils.getRawText(0, text, "...");
 			}
 		}
 		

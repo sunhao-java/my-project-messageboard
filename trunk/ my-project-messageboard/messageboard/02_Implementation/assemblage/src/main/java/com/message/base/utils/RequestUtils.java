@@ -29,7 +29,7 @@ public class RequestUtils {
 	 * 
 	 * @param request		此次请求
 	 * @param needParams	是否需要参数
-	 * @return				URL
+	 * @return				URL(未encoding)
 	 */
 	public static String getRequestUrl(HttpServletRequest request, boolean needParams){
 		StringBuffer requestUrl = new StringBuffer(request.getServletPath());

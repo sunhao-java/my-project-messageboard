@@ -1,12 +1,21 @@
 package com.message.main.album.service.impl;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tools.zip.ZipEntry;
+import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.Constants;
@@ -14,6 +23,7 @@ import com.message.base.attachment.pojo.Attachment;
 import com.message.base.attachment.service.AttachmentService;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.StringUtils;
+import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
@@ -251,6 +261,35 @@ public class AlbumServiceImpl implements AlbumService {
 		int size = this.albumDAO.updateBySQL("t_message_album_photo", columnParams, whereParams);
 		
 		return size == 1;
+	}
+
+	public void exportAlbum(Long albumId, List<Photo> photos, WebOutput out) throws Exception {
+		String zipName = "album" + albumId + ".zip";
+		byte[] read = new byte[1024 * 5];
+		ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipName));
+		
+		for(Photo p : photos){
+			Attachment attachment = p.getAttachment();
+			File file = new File(attachment.getFilePath());
+			InputStream photoStream = new FileInputStream(file);
+			ZipEntry entry = new ZipEntry(attachment.getFileName());
+			zipOut.putNextEntry(entry);
+			int length;
+			while((length = photoStream.read(read)) > 0){
+				zipOut.write(read, 0, length);
+			}
+			
+			photoStream.close();
+			zipOut.closeEntry();
+		}
+		
+		zipOut.close();
+		
+		out.setContentType("application/zip;charset=UTF-8");
+		out.getResponse().setHeader("Content-Disposition", "attachment;filename=\"" + new String(zipName.getBytes("utf-8"), "iso8859-1") + "\"");
+		File zipfile = new File(zipName);
+		
+		FileCopyUtils.copy(new BufferedInputStream(new FileInputStream(zipfile)), new BufferedOutputStream(out.getResponse().getOutputStream()));
 	}
 
 }

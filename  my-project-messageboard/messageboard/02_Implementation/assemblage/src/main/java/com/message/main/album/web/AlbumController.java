@@ -320,6 +320,14 @@ public class AlbumController extends ExtMultiActionController {
 		return null;
 	}
 	
+	/**
+	 * 移动照片
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView movePhoto(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		JSONObject params = new JSONObject();
 		out = new WebOutput(request, response);
@@ -331,6 +339,25 @@ public class AlbumController extends ExtMultiActionController {
 		params.put(ResourceType.AJAX_STATUS, this.albumService.movePhoto(photoId, toAlbumId, fromAlbumId) 
 				? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 导出相册
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView export(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		
+		Long albumId = in.getLong("albumId");
+		List<Photo> photos = this.albumService.getPhotosByAlbum(albumId, -1, -1).getItems();
+		
+		this.albumService.exportAlbum(albumId, photos, out);
 		return null;
 	}
 	

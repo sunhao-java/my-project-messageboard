@@ -52,8 +52,10 @@
 			'diaHeight':'200', 
 			'name':'iconDialog' + flag,
 			'cancelButton': 'false',
+			'singleId': 'false',
 			'confirmFunction': function(){
-				var icon = frames['iconDialog' + flag].icon;
+				var frame = frames['iconDialog' + flag];
+				var icon = frame.icon;
 				icon = icon == '' ? '01' : icon;
 				dom.get('menuIcon').value = 'image/icon/icon_' + icon + '.png';
 				dom.get('iconImg').src = '${contextPath}/image/icon/icon_' + icon + '.png';

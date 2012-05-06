@@ -1,10 +1,12 @@
 package com.message.main.album.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.web.WebOutput;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.Photo;
 
@@ -132,5 +134,15 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	boolean movePhoto(Long photoId, Long toAlbumId, Long fromAlbumId) throws Exception;
+	
+	/**
+	 * 导出相册
+	 * 
+	 * @param albumId		相册ID
+	 * @param photos		此相册的所有图片
+	 * @param out			输出
+	 * @throws Exception
+	 */
+	void exportAlbum(Long albumId, List<Photo> photos, WebOutput out) throws Exception;
 	
 }

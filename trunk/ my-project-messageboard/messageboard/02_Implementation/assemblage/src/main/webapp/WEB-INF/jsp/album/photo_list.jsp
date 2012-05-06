@@ -236,6 +236,10 @@
 	function showDetail(pkId){
 		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}';
 	}
+	
+	function exportAlbum(albumId){
+		window.location.href = '${contextPath}/album/export.do?albumId=' + albumId;
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
@@ -259,6 +263,12 @@
 				</li>
 				<li class="delete-button">
 					<a href="javascript:void(0);" onclick="deleteAlbum('${album.pkId}');">删除相册</a>
+				</li>
+				<li class="pipe">
+					|
+				</li>
+				<li class="export-button">
+					<a href="javascript:void(0);" onclick="exportAlbum('${album.pkId}');">导出相册</a>
 				</li>
 			</ul>
 		</div>

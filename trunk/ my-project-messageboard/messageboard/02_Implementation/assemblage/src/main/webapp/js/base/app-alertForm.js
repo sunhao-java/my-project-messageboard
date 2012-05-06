@@ -18,6 +18,7 @@ YAHOO.app.alertForm = function(){
 			var submit_ = args.submitUrl || '';						//提交的地址，如果不写，则在载入页面的form中
 			var formId_ = args.formId;								//需要提交的表单ID
 			var name_ = args.name || "formDialog";					//iframe的name，默认是formDialog
+			var singleId = args.singleId || _true;					//是否需要对iframe的ID和NAME唯一,默认true
 			var responseUrl_ = args.responseUrl || "";				//点击确定按钮后要跳转的URL
 			var success_ = args.success || "成功！";					//交互成功显示信息，默认显示成功
 			var failure_ = args.failure || "失败！";					//交互失败显示信息，默认显示失败
@@ -59,6 +60,10 @@ YAHOO.app.alertForm = function(){
             if($L.isString(checkLeve_)){
                 checkLeve_ = parseInt(checkLeve_);
             }
+            
+            if($L.isString(singleId)){
+				singleId = (singleId == _true);
+			 }
 			
 			/**
 			 * 如果success_和failure_不是以！或!结果的，则在后面加上！
@@ -79,7 +84,8 @@ YAHOO.app.alertForm = function(){
 			 */
 			 var str = '<div class="hd"><span style="font-size: 12px;">' + title_ + '</span></div>';
 				str += '<div class="formbd">';
-			  name_ = name_ + new Date().getTime();
+			  if(singleId)
+			  	name_ = name_ + new Date().getTime();
 				
 			  str += '<iframe src="' + url_ + '" id="' + name_ + '" name="' + name_ + '" frameborder="0" ' +
 			  				'style="width: 100%;height:100%;overflow-x : hidden;" scrolling="' + overflow_ + '"></iframe>';

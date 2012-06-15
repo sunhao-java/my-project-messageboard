@@ -6,10 +6,26 @@
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
     
 	
-	<bean id="mysqlLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true"/>
-
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="${jdbc.message}"/>
-    </bean>
+    <bean id="mysqlLobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true"/>
+	
+	<!-- under here: all is spring jdbc config -->
+	<bean id="jdbcExtractor" class="org.springframework.jdbc.support.nativejdbc.CommonsDbcpNativeJdbcExtractor" lazy-init="true"/>
+	
+	<bean id="lobHandler" class="org.springframework.jdbc.support.lob.DefaultLobHandler" lazy-init="true">
+	</bean>
+	
+	<bean id="mysqlHelper" class="com.message.base.jdbc.utils.helper.MySQLSqlHelper">
+	</bean>
+	
+	<bean id="maxValueIncrementer" class="com.message.base.jdbc.key.impl.generic.MySQLMaxValueIncrementer">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="keyLength" value="5"/>
+	</bean>
+	
+	<bean id="genericJdbcDAO" class="com.message.base.jdbc.GenericJdbcDAO">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="sqlHelper" ref="mysqlHelper"/>
+		<property name="idGenerator" ref="maxValueIncrementer"/>
+	</bean>
 	
 </beans>

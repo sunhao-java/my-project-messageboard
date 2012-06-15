@@ -99,7 +99,7 @@
 			'dialogHead':'照片转移',
 			'alertMsg':alertMsg,
 			'icon':'none',
-			diaHeight:130,
+			'diaHeight':130,
 			'confirmFunction':function(){
 					var toAlbumId = dom.get('changeAlbum2').value;
 					var requestURL = '${contextPath}/album/movePhoto.do?toAlbumId=' + toAlbumId + '&photoId=' + pkId

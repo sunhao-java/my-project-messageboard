@@ -164,10 +164,28 @@ public final class ResourceType {
      * 相册图片的资源类型
      */
     public static final Integer RESOURCE_TYPE_PHOTO = Integer.valueOf(2);
+    /**
+     * 水印的资源类型
+     */
+    public static final Integer RESOURCE_TYPE_MARK = Integer.valueOf(3);
 
     /**
      * 验证码在session中默认的ID
      */
     public static final String VERITY_CODE_KEY = "verityCode";
+    
+    //水印配置
+    /**
+     * 无水印
+     */
+    public static final Integer WATER_MASK_NO = Integer.valueOf(0);
+    /**
+     * 文字水印
+     */
+    public static final Integer CHARACTER_MASK = Integer.valueOf(1);
+    /**
+     * 图片水印
+     */
+    public static final Integer IMAGE_MASK = Integer.valueOf(2);
 	
 }

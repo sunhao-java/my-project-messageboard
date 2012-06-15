@@ -3,6 +3,7 @@ package com.message.main.album.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.pagination.PaginationSupport;
@@ -144,5 +145,17 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	void exportAlbum(Long albumId, List<Photo> photos, WebOutput out) throws Exception;
+	
+	/**
+	 * 保存水印配置
+	 * 
+	 * @param markType
+	 * @param content
+	 * @param location
+	 * @param multipartFile
+	 * @return
+	 * @throws Exception
+	 */
+	boolean saveConfig(String markType, String content, Integer location, MultipartFile multipartFile) throws Exception;
 	
 }

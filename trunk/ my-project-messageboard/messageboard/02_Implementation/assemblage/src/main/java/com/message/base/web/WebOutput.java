@@ -2,12 +2,15 @@ package com.message.base.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.message.base.utils.JsonUtils;
 
 /**
  * 封装HttpServletResponse
@@ -106,6 +109,20 @@ public class WebOutput {
 	public void toJson(Object obj) throws Exception{
 		this.response.setContentType(_defaultMimeTypes.get(".xml") + ";charset=" + _defaultCharacter.get("utf8"));
 		this.print(obj.toString());
+	}
+	
+	public void toJson(Map params) throws Exception {
+		this.response.setContentType(_defaultMimeTypes.get(".html") + ";charset=" + _defaultCharacter.get("utf8"));
+		response.setHeader("Pragma", "No-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setDateHeader("Expires", 0);
+		
+		write(JsonUtils.toString(params));
+	}
+	
+	public void write(String content) throws Exception {
+		Writer out = response.getWriter();
+		out.write(content);
 	}
 	
 	public void flush() throws IOException{

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.message.main.album.pojo.AlbumConfig" table="T_MESSAGE_ALBUM_CONFIG">
+    	<id name="pkId" type="java.lang.Long">
+    		<column name="PK_ID" precision="10" scale="0"/>
+    		<generator class="sequence">
+    			<param name="sequence">SEQ_MESSAGE_ALBUM_CONFIG</param>
+    		</generator>
+    	</id>
+    	<property name="userId" type="java.lang.Long">
+    		<column name="USER_ID" precision="10" scale="0">
+    			<comment>一个用户对应一个配置</comment>
+    		</column>
+    	</property>
+    	<property name="maskType" type="java.lang.Integer">
+    		<column name="MASK_TYPE" length="1">
+    			<comment>水印的类型，0无水印；1文字水印；2图片水印</comment>
+    		</column>
+    	</property>
+    	<property name="characterMask" type="java.lang.String">
+    		<column name="CHARACTER_MARK" length="50">
+    			<comment>文字水印内容</comment>
+    		</column>
+    	</property>
+    	<property name="attachmentId" type="java.lang.Long">
+    		<column name="ATTACHMENT_ID" precision="10" scale="0">
+    			<comment>图片水印对应的附件ID</comment>
+    		</column>
+    	</property>
+    </class>
+</hibernate-mapping>

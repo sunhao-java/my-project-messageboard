@@ -16,6 +16,7 @@ import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.message.base.Constants;
@@ -27,6 +28,7 @@ import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.AlbumPhoto;
 import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
@@ -290,6 +292,45 @@ public class AlbumServiceImpl implements AlbumService {
 		File zipfile = new File(zipName);
 		
 		FileCopyUtils.copy(new BufferedInputStream(new FileInputStream(zipfile)), new BufferedOutputStream(out.getResponse().getOutputStream()));
+	}
+
+	public boolean saveConfig(String markType, String content, Integer location, MultipartFile multipartFile) throws Exception {
+		if(StringUtils.isEmpty(markType)){
+			logger.error("markType is required!");
+			return false;
+		}
+		
+		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		AlbumConfig config = new AlbumConfig();
+		config.setUserId(loginUser.getPkId());
+		config.setLocation(location);
+		if("word".equals(markType)){
+			config.setCharacterMask(content);
+			config.setAttachmentId(Long.valueOf(-1));
+			config.setMaskType(ResourceType.CHARACTER_MASK);
+			this.albumDAO.saveEntity(config);
+			
+			return config.getPkId() == null ? false : true;
+		} else {
+			config.setMaskType(ResourceType.IMAGE_MASK);
+			config.setCharacterMask(StringUtils.EMPTY);
+			
+			this.albumDAO.saveEntity(config);
+			if(config.getPkId() == null)
+				return false;
+			
+			Map<String, Object> uploadParams = new HashMap<String, Object>();
+			uploadParams.put(Constants.MAP_KEY_RESOURCE_ID, config.getPkId());
+			uploadParams.put(Constants.MAP_KEY_RESOURCE_TYPE, ResourceType.RESOURCE_TYPE_MARK);
+			uploadParams.put(Constants.MAP_KEY_UPLOAD_ID, loginUser.getPkId());
+			
+			Attachment attachment = this.attachmentService.genericUpload(multipartFile, uploadParams);
+			
+			config.setAttachmentId(attachment.getPkId());
+			this.albumDAO.updateEntity(config);
+			
+			return true;
+		}
 	}
 
 }

@@ -42,11 +42,17 @@ YAHOO.app.alertForm = function(){
 			var zIndex_ = args.zIndex || 999;						//对应CSS属性值z-index,默认是4
 			
 			var overflow_ = args.overflow || 'no'; 					// 显示内容区域的overflow样式
+			
+			var needValidate_ = args.needValidate || 'true';		//是否需要验证表单，默认是true，需要验证
 
             var checkLeve_ = args.checkLeve || 3;                   //validate检验的提示级别，默认是3
 			
 			if($L.isString(closeIcon_)){
 				closeIcon_ = (closeIcon_ == _true);
+			}
+			
+			if($L.isString(needValidate_)){
+				needValidate_ = (needValidate_ == _true);
 			}
 			
 			if($L.isString(modal_)){
@@ -135,7 +141,7 @@ YAHOO.app.alertForm = function(){
                  var formDate = frames[name_].document.getElementById(formId_);
 
                  if(formDate == null){
-                     this.cancel();
+                     //this.cancel();
                      YAHOO.app.dialog.pop({
                         'dialogHead':'提示',
                         'cancelButton':'false',
@@ -151,8 +157,12 @@ YAHOO.app.alertForm = function(){
                  } else {
                      action = submit_;
                  }
+                 
+                 var flag = true;
+                 if(needValidate_){
+                	 flag = Validator.Validate(formDate, checkLeve_);
+                 }
 
-                 var flag = Validator.Validate(formDate, checkLeve_);
                  if (flag) {
                      $C.setForm(formDate);
                      $C.asyncRequest("POST", action, {
@@ -199,7 +209,7 @@ YAHOO.app.alertForm = function(){
 			 formDialog.render();
 			 formDialog.show();
             
-			
+			return formDialog;
 		}
 	}
 }();

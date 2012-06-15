@@ -13,7 +13,7 @@ public class MySQLSqlHelper extends SqlHelper {
 			return sql;
 		
 		StringBuffer result = new StringBuffer();
-		result.append(result);
+		result.append(sql);
 		result.append(" limit ").append(num);
 		result.append(" offset ").append(start);
 		

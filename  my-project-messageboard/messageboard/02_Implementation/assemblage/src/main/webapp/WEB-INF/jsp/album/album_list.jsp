@@ -8,6 +8,9 @@
 <msg:js src="js/base/app-alertForm.js"/>
 <msg:js src="js/validate.js"/>
 
+<msg:css href="css/menu.css"/>
+<msg:js src="js/base/app-swfupload.js"/>
+
 <script type="text/javascript">
 	function createNewAlbum(){
 		YAHOO.app.alertForm.show({
@@ -25,6 +28,87 @@
 	function gotoAlbumDetail(albumId){
 		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId;
 	}
+	
+	function config(){
+		var name = 'configIFrame' + new Date().getTime();
+		var popWin = 
+		YAHOO.app.alertForm.show({
+            'reqUrl':'${contextPath}/album/inConfig.do',
+            'title':'图片水印（设置在图片中增加独具个性的水印） ',
+            'needValidate':'false',
+            'singleId':'false',
+            'name':name,
+            'diaWidth':'450',
+            'diaHeight':'150',
+            'success' : '设置水印成功',
+            'failure' : '设置水印失败',
+            'confirmFunction':function(){
+            	var frame = frames[name];
+            	var frameData = frame.getFrmData();
+            	
+            	var radioValue = frame.getRadio();
+            	if(radioValue == 'word'){
+            		//文字水印
+            		var characterContent = frameData.characterContent.value;
+            		if(characterContent == '' || characterContent.length > 20){
+            			YAHOO.app.dialog.pop({
+	                        'dialogHead':'提示',
+	                        'cancelButton':'false',
+	                        'alertMsg':'文字水印不能为空，并且不超过20字符！',
+	                        'icon':'warnicon'
+	                     });
+            		} else {
+            			submitFun(frame, popWin);
+            		}
+            	} else if(radioValue == 'image'){
+            		//图片水印
+            		var imagePath = frameData.imageMark.value;
+            		if(imagePath == ''){
+            			YAHOO.app.dialog.pop({
+	                        'dialogHead':'提示',
+	                        'cancelButton':'false',
+	                        'alertMsg':'图片水印不能为空，并且不超过20字符！',
+	                        'icon':'warnicon'
+	                     });
+            		} else {
+            			if(validateImage(imagePath)){
+	            			submitFun(frame, popWin);
+            			}
+            		}
+            	} else {
+            		YAHOO.app.dialog.pop({
+                       'dialogHead':'提示',
+                       'cancelButton':'false',
+                       'alertMsg':'系统内部出现问题，请联系管理员！',
+                       'icon':'warnicon'
+                    });
+            	}
+            }
+        });
+	}
+	
+	function validateImage(path){
+		var agreeExt = 'icon|png';
+		var index = path.lastIndexOf('.');
+		var ext = path.substring(index + 1);
+		
+		if(agreeExt.indexOf(ext) == -1){
+			YAHOO.app.dialog.pop({
+               'dialogHead':'提示',
+               'cancelButton':'false',
+               'alertMsg':'只能上传icon或者png格式的图片！',
+               'icon':'warnicon'
+            });
+			
+			return false;
+		}
+		
+		return true;
+	}
+	
+	function submitFun(frame, dialog){
+		frame.submitFun(dialog);
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -38,8 +122,16 @@
 				<span class="numbers" style="">共${paginationSupport.totalRow }个相册</span>
 			</div>
 			<div class="left">
-				<a class="upload-btn flashUploader" href="javaScript:void(0);" onclick="createNewAlbum();">
+				<a class="upload-btn" href="javaScript:void(0);" onclick="createNewAlbum();">
 					<span class="add-ico">新建相册</span>
+				</a>
+			</div>
+			<span class="pipi left">
+				|
+			</span>
+			<div class="left">
+				<a class="upload-btn" href="javaScript:void(0);" onclick="config();">
+					<span class="add-ico">水印设置</span>
 				</a>
 			</div>
 		</div>

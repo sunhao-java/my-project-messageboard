@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -358,6 +360,54 @@ public class AlbumController extends ExtMultiActionController {
 		List<Photo> photos = this.albumService.getPhotosByAlbum(albumId, -1, -1).getItems();
 		
 		this.albumService.exportAlbum(albumId, photos, out);
+		return null;
+	}
+	
+	/**
+	 * 进入配置水印的页面
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	public ModelAndView inConfig(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		
+		return new ModelAndView("album.config", params);
+	}
+	
+	/**
+	 * 保存水印配置
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView saveConfig(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		in = new WebInput(request);
+		out = new WebOutput(request, response);
+		Map<String, Object> params = new HashMap<String, Object>();
+		String type = in.getString("mark", StringUtils.EMPTY);
+		String content = in.getString("characterContent", StringUtils.EMPTY);
+		Integer location = in.getInt("location", Integer.valueOf(3));
+		
+		boolean status = false;
+		if("word".equals(type)){
+			//文字水印
+			status = this.albumService.saveConfig(type, content, location, null);
+		} else {
+			//图片水印
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			MultipartFile multipartFile = multipartRequest.getFile("imageMark");
+			
+			status = this.albumService.saveConfig(type, StringUtils.EMPTY, location, multipartFile);
+		}
+		
+		params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
 		return null;
 	}
 	

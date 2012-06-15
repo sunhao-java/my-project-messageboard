@@ -29,13 +29,15 @@ YAHOO.app.swfupload = function(link, element, p){
             p.completeFunction = args.completeFunction ||'attachUploadComplete',    //上传结束后执行的函数
             p.params = args.params || {},                                           //额外参数
             p.width = args.width || 620,                                            //弹框宽
-            p.height = args.height || 440                                           //弹框高
+            p.height = args.height || 440,                                          //弹框高
+            p.closeAll = args.closeAll || 'true',									//是否关闭全部弹窗，默认是
 
             YAHOO.app.resources = {
                 'element':element,
                 'resourceId':p.params.resourceId,
                 'resourceType':p.params.resourceType,
-                'uploadId':p.params.uploadId
+                'uploadId':p.params.uploadId,
+                'closeAll':p.closeAll
             }
         }, bodyHtml:function () {
             var _bodyHtml = "";
@@ -287,15 +289,18 @@ function showTip(type, pkId){
 function cancelUpload(){
     uploadDialog.cancel();
     alertDialog.cancel();
-    var masks = dom.getElementsByClassName('mask', 'div');
-    var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-    for(var i = 0; i < masks.length; i++){
-        masks[i].style.display = 'none';
+    
+    if(YAHOO.app.resources.closeAll == 'true'){
+	    var masks = dom.getElementsByClassName('mask', 'div');
+	    var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
+	    for(var i = 0; i < masks.length; i++){
+	        masks[i].style.display = 'none';
+	    }
+	    for(var i = 0; i < panels.length; i++){
+	        panels[i].style.visibility = 'hidden';
+	    }
+	    dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
     }
-    for(var i = 0; i < panels.length; i++){
-        panels[i].style.visibility = 'hidden';
-    }
-    dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
 }
 
 /**

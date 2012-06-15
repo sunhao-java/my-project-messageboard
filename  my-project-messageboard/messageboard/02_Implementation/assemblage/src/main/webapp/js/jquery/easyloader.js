@@ -170,6 +170,13 @@
         	js : "jquery.fancybox-1.3.4.pack.js",
         	css : "/../../../css/fancy/jquery.fancybox-1.3.4.css",
         	dependencies : [ "mousewheel" ]
+        },
+        validationengine : {
+        	js : "validationengine.js",
+        	css : "/../../../css/validationengine.css"
+        },
+        ajaxUpload : {
+        	js : "ajaxfileupload.js"
         }
 	};
 	var _2 = {

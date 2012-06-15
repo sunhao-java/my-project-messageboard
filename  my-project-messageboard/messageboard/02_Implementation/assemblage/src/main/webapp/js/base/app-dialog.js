@@ -120,28 +120,28 @@ YAHOO.app.dialog = function(){
 			
 			function defaultConfirmFunction(){
 				alertDialog.cancel();
-				var masks = dom.getElementsByClassName('mask', 'div');
-				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-				for(var i = 0; i < masks.length; i++){
-					masks[i].style.display = 'none';
-				}
-				for(var i = 0; i < panels.length; i++){
-					panels[i].style.visibility = 'hidden';
-				}
-				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+//				var masks = dom.getElementsByClassName('mask', 'div');
+//				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
+//				for(var i = 0; i < masks.length; i++){
+//					masks[i].style.display = 'none';
+//				}
+//				for(var i = 0; i < panels.length; i++){
+//					panels[i].style.visibility = 'hidden';
+//				}
+//				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
 			}
 			
 			function defaultCancelFunction(){
 				alertDialog.cancel();
-				var masks = dom.getElementsByClassName('mask', 'div');
-				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-				for(var i = 0; i < masks.length; i++){
-					masks[i].style.display = 'none';
-				}
-				for(var i = 0; i < panels.length; i++){
-					panels[i].style.visibility = 'hidden';
-				}
-				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+//				var masks = dom.getElementsByClassName('mask', 'div');
+//				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
+//				for(var i = 0; i < masks.length; i++){
+//					masks[i].style.display = 'none';
+//				}
+//				for(var i = 0; i < panels.length; i++){
+//					panels[i].style.visibility = 'hidden';
+//				}
+//				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
 			}
 			
 			//begin

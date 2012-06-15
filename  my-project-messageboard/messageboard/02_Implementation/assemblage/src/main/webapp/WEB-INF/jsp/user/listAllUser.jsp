@@ -63,10 +63,6 @@
 </script>
 
 <style type="text/css">
-    html {
-        overflow-y: scroll;
-    }
-
     a.preview, a.preview:hover {
         text-decoration: none;
     }

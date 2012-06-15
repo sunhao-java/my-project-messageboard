@@ -26,8 +26,21 @@
 		
 		<msg:js src="js/base/app-dialog.js"/>
 		
-		
 		<script type="text/javascript">
+			$(document).ready(function(){
+				var browser = $.browser;
+				if(browser.msie) {
+					YAHOO.app.dialog.pop({
+						'dialogHead':'提示',
+						'cancelButton':'false',
+						'icon':'none',
+						'alertMsg':'为了使您有更好的<span style="color: red">用户体验</span>，建议使用以下浏览器：<br/>' +
+									'<q class="left">&nbsp;</q>FireFox 9.0<q class="right">&nbsp;</q>或者' +
+									'<q class="left">&nbsp;</q>Google Chrome 8.0<q class="right">&nbsp;</q>以上版本'
+					});
+				}
+			});
+		
 			var $C = YAHOO.util.Connect;
    	 		var $D = YAHOO.util.Dom;
    	 		var event = YAHOO.util.Event;
@@ -115,6 +128,16 @@
 				top: 0px;
 				width: 32px;
 				height: 32px;
+			}
+			
+			q.left {
+				padding-left: 4px;
+				background: url("${contextPath}/image/quot.png") 0px 0px no-repeat;
+			}
+			
+			q.right{
+				padding-left: 8px;
+				background: url("${contextPath}/image/quot.png") 0px 0px no-repeat;
 			}
 		</style>
 

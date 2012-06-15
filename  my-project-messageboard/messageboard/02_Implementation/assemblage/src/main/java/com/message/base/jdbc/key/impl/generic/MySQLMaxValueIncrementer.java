@@ -31,6 +31,9 @@ public class MySQLMaxValueIncrementer extends AbstractMaxValueIncrementer {
 	
 	/** The number of keys buffered in a cache */
 	private int cacheSize = 1;
+	
+	/** default primary key **/
+	private String columnName = "pk_id";
 
 	protected synchronized long getNextKey(String name) throws DataAccessException {
 		if (this.maxId == this.nextId) {
@@ -45,8 +48,8 @@ public class MySQLMaxValueIncrementer extends AbstractMaxValueIncrementer {
 				stmt = con.createStatement();
 				DataSourceUtils.applyTransactionTimeout(stmt, getDataSource());
 				// Increment the sequence column...
-				stmt.executeUpdate("update "+ name + " set " + name +
-						" = last_insert_id(" + name + " + " + getCacheSize() + ")");
+				stmt.executeUpdate("update "+ name + " set " + getColumnName() +
+						" = last_insert_id(" + getColumnName() + " + " + getCacheSize() + ")");
 				// Retrieve the new max of the sequence column...
 				ResultSet rs = stmt.executeQuery(VALUE_SQL);
 				try {
@@ -86,6 +89,14 @@ public class MySQLMaxValueIncrementer extends AbstractMaxValueIncrementer {
 	 */
 	public void setCacheSize(int cacheSize) {
 		this.cacheSize = cacheSize;
+	}
+
+	public String getColumnName() {
+		return columnName;
+	}
+
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
 
 }

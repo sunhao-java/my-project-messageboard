@@ -15,7 +15,7 @@ public class AlbumConfig implements Serializable {
 	private Long pkId;								//主键
 	private Long userId;							//一个用户对应一个配置
 	private Integer maskType;						//水印的类型，0无水印；1文字水印；2图片水印
-	private String characterMask;					//文字水印内容
+	private String characterMark;					//文字水印内容
 	private Long attachmentId;						//图片水印对应的附件ID
 	private Integer location;						//位置
 
@@ -43,12 +43,12 @@ public class AlbumConfig implements Serializable {
 		this.maskType = maskType;
 	}
 
-	public String getCharacterMask() {
-		return characterMask;
+	public String getCharacterMark() {
+		return characterMark;
 	}
 
-	public void setCharacterMask(String characterMask) {
-		this.characterMask = characterMask;
+	public void setCharacterMark(String characterMark) {
+		this.characterMark = characterMark;
 	}
 
 	public Long getAttachmentId() {

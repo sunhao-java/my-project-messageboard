@@ -12,6 +12,7 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
 import com.message.main.album.dao.AlbumDAO;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.Photo;
 
 /**
@@ -163,6 +164,14 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		
 		return this.genericJdbcDAO.queryForLong(sql.toString(), params);
+	}
+
+	public AlbumConfig getAlbumConfig(Long userId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select * from t_message_album_config where user_id = :userId";
+		params.put("userId", userId);
+		
+		return (AlbumConfig) this.genericJdbcDAO.queryForBean(sql, params, AlbumConfig.class);
 	}
 
 }

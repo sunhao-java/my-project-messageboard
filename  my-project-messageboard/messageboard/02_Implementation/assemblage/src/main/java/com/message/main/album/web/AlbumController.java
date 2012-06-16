@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +23,7 @@ import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
 import com.message.main.login.pojo.LoginUser;
@@ -369,11 +369,17 @@ public class AlbumController extends ExtMultiActionController {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws Exception 
 	 */
-	public ModelAndView inConfig(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView inConfig(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		out = new WebOutput(request, response);
+		
+		AlbumConfig config = this.albumService.getAlbumConfig();
+		if(config != null){
+			params.put("albumConfig", this.albumService.getAlbumConfig());
+		}
 		
 		return new ModelAndView("album.config", params);
 	}

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartRequest;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebOutput;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.Photo;
 
 /**
@@ -157,5 +158,13 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	boolean saveConfig(String markType, String content, Integer location, MultipartFile multipartFile) throws Exception;
+	
+	/**
+	 * 获取某个用户的相册配置
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	AlbumConfig getAlbumConfig() throws Exception;
 	
 }

@@ -138,6 +138,7 @@
 	
 	function setCover(photoId){
 		var requestURL = '${contextPath}/album/setCover.do?photoId=' + photoId + '&albumId=${album.pkId}';
+		var dialog = 
 		YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定设置此照片为相册封面吗？',
 			'confirmFunction':function(){
 				$C.asyncRequest('POST', requestURL, {
@@ -146,6 +147,7 @@
 						if(_e.status == '1'){
 							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'设置封面成功 :)',
 								autoClose:1});
+							dialog.cancel();
 						} else {
 							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'设置封面失败！'});
 						}

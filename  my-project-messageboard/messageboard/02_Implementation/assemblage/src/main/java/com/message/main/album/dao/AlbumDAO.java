@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.album.pojo.Album;
+import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.Photo;
 
 
@@ -114,5 +115,14 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	Long loadPhoto(Long pkId, Long albumId, String type) throws Exception;
+	
+	/**
+	 * 获取某个用户的相册配置
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
+	AlbumConfig getAlbumConfig(Long userId) throws Exception;
 
 }

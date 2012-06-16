@@ -107,7 +107,7 @@
 	}
 	
 	function submitFun(frame, dialog){
-		frame.submitFun(dialog);
+		var status = frame.submitFun(dialog);
 	}
 </script>
 

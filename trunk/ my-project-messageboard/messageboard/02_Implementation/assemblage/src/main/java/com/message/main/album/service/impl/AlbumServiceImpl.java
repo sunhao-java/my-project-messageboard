@@ -305,7 +305,7 @@ public class AlbumServiceImpl implements AlbumService {
 		config.setUserId(loginUser.getPkId());
 		config.setLocation(location);
 		if("word".equals(markType)){
-			config.setCharacterMask(content);
+			config.setCharacterMark(content);
 			config.setAttachmentId(Long.valueOf(-1));
 			config.setMaskType(ResourceType.CHARACTER_MASK);
 			this.albumDAO.saveEntity(config);
@@ -313,7 +313,7 @@ public class AlbumServiceImpl implements AlbumService {
 			return config.getPkId() == null ? false : true;
 		} else {
 			config.setMaskType(ResourceType.IMAGE_MASK);
-			config.setCharacterMask(StringUtils.EMPTY);
+			config.setCharacterMark(StringUtils.EMPTY);
 			
 			this.albumDAO.saveEntity(config);
 			if(config.getPkId() == null)
@@ -331,6 +331,16 @@ public class AlbumServiceImpl implements AlbumService {
 			
 			return true;
 		}
+	}
+
+	public AlbumConfig getAlbumConfig() throws Exception {
+		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		if(loginUser == null){
+			logger.error("maybe not login!");
+			return null;
+		}
+		
+		return this.albumDAO.getAlbumConfig(loginUser.getPkId());
 	}
 
 }

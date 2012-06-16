@@ -19,7 +19,7 @@
     			<comment>水印的类型，0无水印；1文字水印；2图片水印</comment>
     		</column>
     	</property>
-    	<property name="characterMask" type="java.lang.String">
+    	<property name="characterMark" type="java.lang.String">
     		<column name="CHARACTER_MARK" length="50">
     			<comment>文字水印内容</comment>
     		</column>
@@ -27,6 +27,11 @@
     	<property name="attachmentId" type="java.lang.Long">
     		<column name="ATTACHMENT_ID" precision="10" scale="0">
     			<comment>图片水印对应的附件ID</comment>
+    		</column>
+    	</property>
+    	<property name="location" type="java.lang.Integer">
+    		<column name="location" length="1">
+    			<comment>位置</comment>
     		</column>
     	</property>
     </class>

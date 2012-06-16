@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -186,8 +187,12 @@ public class AbstractJdbcDAO extends ExtNamedParameterJdbcDaoSupport {
 	 * @return
 	 * @throws DataAccessException
 	 */
-	public Object queryForObject(String sql, Map params, RowMapper rowMapper) throws DataAccessException {
-		return this.getNamedParameterJdbcTemplate().queryForObject(sql, params, rowMapper);
+	public Object queryForObject(String sql, Map params, RowMapper rowMapper) {
+		try{
+			return this.getNamedParameterJdbcTemplate().queryForObject(sql, params, rowMapper);
+		} catch (EmptyResultDataAccessException e){
+			return null;
+		}
 	}
 	
 	/**

@@ -75,12 +75,17 @@ public class FormatDateTag extends org.apache.taglibs.standard.tag.rt.fmt.Format
 				time = MessageUtils.getProperties("dateformat.morning");
 			} else if(hours < 12) {
 				time = MessageUtils.getProperties("dateformat.am");
+			} else if(hours == 12) {
+				time = MessageUtils.getProperties("dateformat.pm");
 			} else if(hours < 18){
 				time = MessageUtils.getProperties("dateformat.pm");
 				hours -= 12;
 			} else if(hours < 24){
 				time = MessageUtils.getProperties("dateformat.night");
 				hours -= 12;
+			} else if(hours == 24){
+				time = MessageUtils.getProperties("dateformat.night");
+				hours = 0;
 			}
 			out = MessageUtils.getProperties("dateformat.date.format",new Object[]{time, hours, minutes});
 			print(out);

@@ -35,6 +35,17 @@ input:focus {
     border-color: #FF8800;
 }
 
+input[type="text"]:hover,
+input[type="password"]:hover,
+input[type="url"]:hover,
+input[type="email"]:hover,
+input.text:hover,
+input.title:hover,
+textarea:hover,
+input:hover {
+    border-color: #FF8800;
+}
+
 .width200{
     width: 200px;
 }

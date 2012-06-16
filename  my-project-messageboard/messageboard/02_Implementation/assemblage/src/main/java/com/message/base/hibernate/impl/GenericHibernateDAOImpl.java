@@ -350,7 +350,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 			}
 		};
 			
-		return this.hibernateTemplate.execute(callback);
+		return (Integer)this.hibernateTemplate.execute(callback);
 	}
 
 	public int commUpdateByHQL(Class clazz, Map columnParams) throws Exception {
@@ -403,7 +403,7 @@ public class GenericHibernateDAOImpl implements GenericHibernateDAO {
 			}
 		};
 			
-		return this.hibernateTemplate.execute(callback);
+		return (Integer)this.hibernateTemplate.execute(callback);
 	}
 
 	public int commUpdateByNativeSQL(final String table, final Map columnParams) throws Exception {

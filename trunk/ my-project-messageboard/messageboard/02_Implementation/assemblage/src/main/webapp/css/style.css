@@ -115,6 +115,7 @@ a:hover{
 	border-top: 1px solid rgb(221, 221, 221); 
 	padding-top: 5px;
 	width: 450px;
+	color: #545454;
 }
 
 .replyDiv .contentDiv{
@@ -133,8 +134,8 @@ a:hover{
 
 .replyText{
 	width: 350px;
-	border: 1px solid black;
-    color: black;
+	border: 1px solid #EAE2C6;
+    color: #A8A8A8;
     height: 40px;
     margin: 4px;
     overflow-y: auto;
@@ -151,7 +152,7 @@ a:hover{
 .toreplyText{
 	border: 1px solid #BDC7D8;
     color: #888888;
-    height: 20px;
+    height: 24px;
     margin: 7px 0 7px 6px;
     overflow-y: auto;
     width: 433px;
@@ -194,7 +195,8 @@ img.imgLink {
 
 .replyDiv .f_text{
 	width: 350px !important;
-	border: 1px solid black;
+	border: 1px solid #EAE2C6;
 	height: 25px;
 	font-size: 12px;
+	color: #A8A8A8;
 }

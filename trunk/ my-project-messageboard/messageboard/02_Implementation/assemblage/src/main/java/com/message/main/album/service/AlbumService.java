@@ -166,5 +166,18 @@ public interface AlbumService {
 	 * @throws Exception
 	 */
 	AlbumConfig getAlbumConfig() throws Exception;
+
+    /**
+     * 保存编辑后的配置
+     *
+     * @param pkId
+     * @param markType
+     * @param content
+     * @param location
+     * @param multipartFile
+     * @return
+     * @throws Exception
+     */
+    boolean saveEdit(Long pkId, String markType, String content, Integer location, MultipartFile multipartFile) throws Exception;
 	
 }

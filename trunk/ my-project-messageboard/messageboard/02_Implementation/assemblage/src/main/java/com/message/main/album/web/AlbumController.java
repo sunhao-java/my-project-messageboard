@@ -401,7 +401,7 @@ public class AlbumController extends ExtMultiActionController {
 		Integer location = in.getInt("location", Integer.valueOf(3));
 		
 		boolean status = false;
-		if("word".equals(type)){
+		if(ResourceType.CHARACTER_MARK_STRING.equals(type)){
 			//文字水印
 			status = this.albumService.saveConfig(type, content, location, null);
 		} else {
@@ -416,5 +416,38 @@ public class AlbumController extends ExtMultiActionController {
 		out.toJson(params);
 		return null;
 	}
+
+    /**
+     * 保存更新后的配置
+     * 
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView saveEdit(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        in = new WebInput(request);
+        out = new WebOutput(request, response);
+        Map<String, Object> params = new HashMap<String, Object>();
+        Long pkId = in.getLong("pkId");
+        String type = in.getString("mark", StringUtils.EMPTY);
+        String content = in.getString("characterContent", StringUtils.EMPTY);
+        Integer location = in.getInt("location", Integer.valueOf(3));
+        boolean status = false;
+        if(ResourceType.CHARACTER_MARK_STRING.equals(type)){
+            //文字水印
+            status = this.albumService.saveEdit(pkId, type, content, location, null);
+        } else {
+            //图片水印
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+            MultipartFile multipartFile = multipartRequest.getFile("imageMark");
+
+            status = this.albumService.saveEdit(pkId, type, StringUtils.EMPTY, location, multipartFile);
+        }
+
+        params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+        out.toJson(params);
+        return null;
+    }
 	
 }

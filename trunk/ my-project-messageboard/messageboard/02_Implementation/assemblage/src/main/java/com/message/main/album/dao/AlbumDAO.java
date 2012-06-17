@@ -20,7 +20,7 @@ public interface AlbumDAO {
 	/**
 	 * 保存实体
 	 * 
-	 * @param obj			实体
+	 * @param entity			实体
 	 * @throws Exception
 	 */
 	<T> T saveEntity(T entity) throws Exception;
@@ -124,5 +124,14 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	AlbumConfig getAlbumConfig(Long userId) throws Exception;
+
+    /**
+     * 根据主键获取配置
+     * 
+     * @param pkId
+     * @return
+     * @throws Exception
+     */
+    AlbumConfig loadAlbumConfig(Long pkId) throws Exception;
 
 }

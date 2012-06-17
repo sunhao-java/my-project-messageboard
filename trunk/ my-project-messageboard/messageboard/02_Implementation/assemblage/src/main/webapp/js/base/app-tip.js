@@ -18,12 +18,9 @@
         this.each(function(){
             p = $.extend({}, $.tip.defaults, p || {});
             var input = $(this);
-
             var pos = input.position();
-
             
             var tip = $("<span>" + p.tip + "</span>");
-
             tip.css("color", "#545454").css("word-wrap", "break-word").css("cursor", "text")
                     .css("white-space", "nowrap").css("position", "absolute").css("font-style", "italic").css("font-size", "12px")
                     .css("display", "inline-block").css({"left": pos.left + 1, "top": pos.top + 2});
@@ -47,6 +44,10 @@
             });
 
             input.after(tip);
+            //当文本框中有初始值时，隐藏提示信息
+            if(input.val() != ''){
+                tip.hide();
+            }
         });
     };
 })(jQuery);

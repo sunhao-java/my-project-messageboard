@@ -53,10 +53,17 @@
 	
 	function submitFun(dialog){
 		var ret;
+        var pkId = $("#pkId").val();
 		var characterContent = $("#characterContent").val();
 		var markType = getRadio();
 		var location = getLocation();
-		
+        var action = '';
+
+        if(pkId == ''){
+            action = "${contextPath}/album/saveConfig.do";
+        } else {
+            action = "${contextPath}/album/saveEdit.do?pkId=" + pkId;
+        }
 		
 		//显示和隐藏正在上传的标识
 		$("#loading").ajaxStart(function(){
@@ -66,7 +73,7 @@
 		});
 		
 		$.ajaxFileUpload({
-			url : '${contextPath}/album/saveConfig.do',
+			url : action,
 			secureuri : false,
 			fileElementId : 'imageMark',
 			dataType : 'json',
@@ -84,7 +91,7 @@
 		               }
 		            });
 				} else {
-					top.YAHOO.app.dialog.pop({
+					YAHOO.app.dialog.pop({
 		               'dialogHead':'提示',
 		               'cancelButton':'false',
 		               'alertMsg':'配置水印失败！',

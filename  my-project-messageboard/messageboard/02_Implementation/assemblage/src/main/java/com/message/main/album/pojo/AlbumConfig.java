@@ -1,5 +1,7 @@
 package com.message.main.album.pojo;
 
+import com.message.base.attachment.pojo.Attachment;
+
 import java.io.Serializable;
 
 /**
@@ -16,8 +18,11 @@ public class AlbumConfig implements Serializable {
 	private Long userId;							//一个用户对应一个配置
 	private Integer maskType;						//水印的类型，0无水印；1文字水印；2图片水印
 	private String characterMark;					//文字水印内容
-	private Long attachmentId;						//图片水印对应的附件ID
+	private Long attachmentId;				    //图片水印对应的附件ID
 	private Integer location;						//位置
+
+    //VO
+    private Attachment attachment;                 //附件
 
 	public Long getPkId() {
 		return pkId;
@@ -67,4 +72,11 @@ public class AlbumConfig implements Serializable {
 		this.location = location;
 	}
 
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
+    }
 }

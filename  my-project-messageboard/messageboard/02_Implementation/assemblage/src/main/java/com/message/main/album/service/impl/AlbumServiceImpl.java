@@ -1,5 +1,6 @@
 package com.message.main.album.service.impl;
 
+import java.awt.*;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.message.base.utils.ImageUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
@@ -126,6 +128,9 @@ public class AlbumServiceImpl implements AlbumService {
 		List<Attachment> attachments = this.attachmentService.genericUploads(request, params);
 		
 		for(Attachment attachment : attachments){
+            //水印
+            makeWaterMark(attachment);
+            
 			Photo photo = new Photo();
 			photo.setCreateDate(new Date());
 			photo.setDeleteFlag(ResourceType.DELETE_NO);
@@ -145,6 +150,26 @@ public class AlbumServiceImpl implements AlbumService {
 			this.albumDAO.saveEntity(ap);
 		}
 	}
+
+    private void makeWaterMark(Attachment attachment) throws Exception {
+        if(attachment == null || StringUtils.isEmpty(attachment.getFilePath())) {
+            logger.warn("given attachment is null!");
+            return;
+        }
+        AlbumConfig albumConfig = this.getAlbumConfig();
+        if(albumConfig == null){
+            logger.debug("this user is not config water mark!");
+            return;
+        }
+        String filePath = attachment.getFilePath();
+        if(ResourceType.CHARACTER_MASK.equals(albumConfig.getMaskType())){
+            //文字
+            ImageUtils.addStringMark(filePath, albumConfig.getCharacterMark(), Color.RED, 20, albumConfig.getLocation());
+        } else {
+            //图片
+            ImageUtils.addImageMark(filePath, albumConfig.getAttachment().getFilePath(), albumConfig.getLocation());
+        }
+    }
 
 	public PaginationSupport getPhotosByAlbum(Long albumId, int start, int num) throws Exception {
 		PaginationSupport ps = this.albumDAO.getPhotosByAlbum(albumId, start, num);
@@ -340,7 +365,13 @@ public class AlbumServiceImpl implements AlbumService {
 			return null;
 		}
 		
-		return this.albumDAO.getAlbumConfig(loginUser.getPkId());
+		AlbumConfig albumConfig = this.albumDAO.getAlbumConfig(loginUser.getPkId());
+        if(albumConfig != null){
+            Attachment attachment = this.attachmentService.loadAttachment(albumConfig.getAttachmentId());
+            albumConfig.setAttachment(attachment);
+        }
+
+        return albumConfig;
 	}
 
     public boolean saveEdit(Long pkId, String markType, String content, Integer location, MultipartFile multipartFile) throws Exception {

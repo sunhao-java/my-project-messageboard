@@ -13,10 +13,12 @@
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
 	
 	$(document).ready(function(){
-		using(["ajaxUpload", "simpleTip"], function(){
+		using(["ajaxUpload", "simpleTip", "imagepreview"], function(){
 			$("#characterContent").simpleTip({
                 tip: '文字水印不能为空，并且不超过20字符！'
             });
+
+            $("span.preview").preview();
 		});
 
 		$("#word").bind('click', function(){
@@ -160,7 +162,11 @@
 				
 			</td>
 			<td>
-				<input type="file" name="imageMark" id="imageMark"/><span class="prompt">必填，图片格式为icon,png</span>
+				<input type="file" name="imageMark" id="imageMark"/><span class="prompt">必填，图片格式为icon,png</span><br/>
+                <span class="preview" href="${contextPath}/photo.jpg?fileId=${albumConfig.attachmentId}"
+                        title="水印图片">
+                    显示水印图片
+                </span>
 			</td>
 		</tr>
 		<tr>

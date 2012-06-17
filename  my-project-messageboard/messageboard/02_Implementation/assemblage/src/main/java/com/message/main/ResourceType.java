@@ -187,5 +187,9 @@ public final class ResourceType {
      * 图片水印
      */
     public static final Integer IMAGE_MASK = Integer.valueOf(2);
+    /**
+     * 文字水印
+     */
+    public static final String CHARACTER_MARK_STRING = "word";
 	
 }

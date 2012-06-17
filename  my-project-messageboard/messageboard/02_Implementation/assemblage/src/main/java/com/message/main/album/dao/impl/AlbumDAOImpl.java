@@ -174,4 +174,8 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		return (AlbumConfig) this.genericJdbcDAO.queryForBean(sql, params, AlbumConfig.class);
 	}
 
+    public AlbumConfig loadAlbumConfig(Long pkId) throws Exception {
+        return (AlbumConfig) this.loadObject(AlbumConfig.class, pkId);
+    }
+
 }

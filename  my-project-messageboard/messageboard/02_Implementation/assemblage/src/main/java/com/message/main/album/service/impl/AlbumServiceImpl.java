@@ -304,7 +304,7 @@ public class AlbumServiceImpl implements AlbumService {
 		AlbumConfig config = new AlbumConfig();
 		config.setUserId(loginUser.getPkId());
 		config.setLocation(location);
-		if("word".equals(markType)){
+		if(ResourceType.CHARACTER_MARK_STRING.equals(markType)){
 			config.setCharacterMark(content);
 			config.setAttachmentId(Long.valueOf(-1));
 			config.setMaskType(ResourceType.CHARACTER_MASK);
@@ -342,5 +342,37 @@ public class AlbumServiceImpl implements AlbumService {
 		
 		return this.albumDAO.getAlbumConfig(loginUser.getPkId());
 	}
+
+    public boolean saveEdit(Long pkId, String markType, String content, Integer location, MultipartFile multipartFile) throws Exception {
+        if(pkId == null || Long.valueOf(-1).equals(pkId)){
+            logger.error("pkId must be given!");
+            return false;
+        }
+        AlbumConfig albumConfig = this.albumDAO.loadAlbumConfig(pkId);
+        if(albumConfig == null) {
+            logger.warn("can't get any config with pkId: '{}'", pkId);
+            return false;
+        }
+        LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+        albumConfig.setLocation(location);
+        if(ResourceType.CHARACTER_MARK_STRING.equals(markType)){
+            //文字水印
+            albumConfig.setCharacterMark(content);
+            albumConfig.setMaskType(ResourceType.CHARACTER_MASK);
+            this.albumDAO.updateEntity(albumConfig);
+            return true;
+        } else {
+			Map<String, Object> uploadParams = new HashMap<String, Object>();
+			uploadParams.put(Constants.MAP_KEY_RESOURCE_ID, albumConfig.getPkId());
+			uploadParams.put(Constants.MAP_KEY_RESOURCE_TYPE, ResourceType.RESOURCE_TYPE_MARK);
+			uploadParams.put(Constants.MAP_KEY_UPLOAD_ID, loginUser.getPkId());
+			Attachment attachment = this.attachmentService.genericUpload(multipartFile, uploadParams);
+
+            albumConfig.setMaskType(ResourceType.IMAGE_MASK);
+			albumConfig.setAttachmentId(attachment.getPkId());
+			this.albumDAO.updateEntity(albumConfig);
+            return true;
+        }
+    }
 
 }

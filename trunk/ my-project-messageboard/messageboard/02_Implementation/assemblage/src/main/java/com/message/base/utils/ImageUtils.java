@@ -155,7 +155,7 @@ public class ImageUtils {
      * @return 布尔类型
      * @throws Exception
      */
-    public boolean createStringMark(String filePath, String markContent, Color markContentColor, int fontSize,
+    public static boolean addStringMark(String filePath, String markContent, Color markContentColor, int fontSize,
                                     int location) throws Exception {
         ImageIcon imgIcon = new ImageIcon(filePath);
         Image theImg = imgIcon.getImage();
@@ -233,7 +233,7 @@ public class ImageUtils {
      * @return 布尔类型
      * @throws Exception
      */
-    public boolean createWaterMarkDemo(String filePath, String markPath, int location) throws Exception {
+    public static boolean addImageMark(String filePath, String markPath, int location) throws Exception {
         // 要处理的原始图片
         ImageIcon icoInput = new ImageIcon(filePath);
         Image imgInput = icoInput.getImage();

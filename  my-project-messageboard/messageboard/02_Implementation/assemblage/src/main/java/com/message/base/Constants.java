@@ -47,4 +47,13 @@ public class Constants {
      * 上传者ID的key
      */
     public static final String MAP_KEY_UPLOAD_ID = "uploadId";
+
+    /**
+     * 没有被删除
+     */
+    public static final Long DELETE_NO = 0L;
+    /**
+     * 已删除
+     */
+    public static final Long DELETE_YES = 1L;
 }

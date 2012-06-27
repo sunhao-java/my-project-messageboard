@@ -1,4 +1,5 @@
 @CHARSET "UTF-8";
+/*
 .paginationDiv{
 	margin: 1.5em 0;
     text-align: center;
@@ -27,4 +28,122 @@
 	background: none repeat scroll 0 0 #0066CC;
     color: #FFFFFF !important;
     text-decoration: none !important;
+}
+*/
+
+/*new pagination jsp page css*/
+.l-bar-group .pcontrol a {
+	background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    margin: 0 2px;
+    padding: 1px 4px;
+}
+
+.l-bar-group .pcontrol a:hover {
+	background: none repeat scroll 0 0 #0066CC;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.l-bar-group .pcontrol a:link,a:active,a:visited {
+	color: #003399;
+	text-decoration: none;
+}
+
+.l-panel-bar {
+    margin-top: 5px;
+    background: url("img/bar-bg.gif") repeat-x scroll left bottom #C9DFFF;
+    border: 1px solid #CCCCCC;
+    border-bottom-width: 0px;
+    height: 32px;
+    overflow: hidden;
+}
+
+.l-panel-bbar-inner {
+    margin-top: 3px;
+    width: 100%;
+}
+
+.l-bar-group {
+    background: none repeat scroll 0 0 transparent;
+    float: left;
+    height: 24px;
+    margin: 3px 5px;
+}
+
+select {
+    background: url("img/input_bg.gif") repeat-x scroll center top #FFFFFF;
+    border: 1px solid #778899;
+    color: #003399;
+    padding: 1px 3px 1px 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+.l-bar-separator {
+    border-left: 1px solid #9AC6FF;
+    border-right: 1px solid white;
+    float: left;
+    height: 18px;
+    margin: 2px;
+}
+
+.l-bar-button {
+    border: 0 none;
+    cursor: pointer;
+    float: left;
+    height: 22px;
+    overflow: hidden;
+    width: 22px;
+}
+
+.l-bar-button .l-disabled {
+    background-position: 0 -16px;
+}
+
+.l-bar-btnfirst span {
+    background: url("img/icon-first.gif") no-repeat scroll 0 0 transparent;
+}
+
+.l-bar-button span {
+    display: block;
+    float: left;
+    height: 16px;
+    margin-left: 2px;
+    margin-top: 2px;
+    overflow: hidden;
+    width: 16px;
+}
+
+.l-bar-btnprev span {
+    background: url("img/icon-prev.gif") no-repeat scroll 0 0 transparent;
+}
+
+.l-bar-button .l-disabled {
+    background-position: 0 -16px;
+}
+
+.l-bar-btnnext span {
+    background: url("img/icon-next.gif") no-repeat scroll 0 0 transparent;
+}
+
+.l-bar-button .l-disabled {
+    background-position: 0 -16px;
+}
+
+.l-bar-btnlast span {
+    background: url("img/icon-last.gif") no-repeat scroll 0 0 transparent;
+}
+
+.l-bar-btnload span {
+    background: url("img/icon-load.gif") no-repeat scroll 0 0 transparent;
+}
+
+.l-bar-right {
+    float: right;
+}
+
+.l-bar-text {
+    line-height: 20px;
 }

@@ -219,6 +219,13 @@ public class MenuServiceImpl implements MenuService {
         menus = this.orderMenu(menus, 0L);
 		return menus;
 	}
+	
+	public Menu getMenuByUrl(String menuUrl) throws Exception{
+		if(StringUtils.isEmpty(menuUrl)){
+			return null;
+		}
+		return this.menuDAO.findMenu(menuUrl);
+	}
 
     public boolean checkPerm(String perm, String menuUrl) throws Exception {
         Menu menu = null;

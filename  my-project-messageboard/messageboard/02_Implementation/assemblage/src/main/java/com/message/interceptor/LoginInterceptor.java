@@ -1,7 +1,5 @@
 package com.message.interceptor;
 
-import java.net.URLEncoder;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.message.base.spring.ApplicationContextUtil;
+import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.RequestUtils;
 import com.message.base.utils.URLUtils;
 import com.message.main.ResourceType;
@@ -67,11 +66,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
                 request.setAttribute("loginUser", loginUser);
 
                 String perm = loginUser.getIsAdmin().toString();
-                MenuService menuService = (MenuService) ApplicationContextUtil.getContext().getBean("menuService");
+                MenuService menuService = (MenuService) ApplicationHelper.getInstance().getBean("menuService");
                 //是否有权限查看某个菜单
                 boolean isPerm = menuService.checkPerm(perm, url);
 
                 if(isPerm){
+                	request.setAttribute("menu", menuService.getMenuByUrl(url));
                     return true;
                 } else {
                 	logger.error("您无权访问\"" + url + "\"！");

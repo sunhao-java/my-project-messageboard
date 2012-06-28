@@ -67,6 +67,15 @@ public interface MenuService {
 	 * @throws Exception
 	 */
 	List<Menu> getMenuTree() throws Exception;
+	
+	/**
+	 * 根据URL取得菜单
+	 * 
+	 * @param menuUrl
+	 * @return
+	 * @throws Exception
+	 */
+	Menu getMenuByUrl(String menuUrl) throws Exception;
 
     /**
      * 检查登录用户是否具有访问此URL的权限

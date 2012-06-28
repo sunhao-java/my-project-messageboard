@@ -24,7 +24,9 @@
 </style>
 <div id="header">
 	<span style="float:left">
-		<img alt="" src="${contextPath }/image/wiseduimg/clock.gif.png" width="32" height="32">
+		<img alt="" src="${contextPath }/
+			<c:if test="${empty menu.menuUrl }">image/wiseduimg/clock.gif.png</c:if>
+			<c:if test="${not empty menu.menuUrl }">${menu.menuUrl}</c:if>" width="32" height="32">
 	</span>
 	<h2>&nbsp;&nbsp;<%=request.getParameter("title") %></h2>
 </div>

@@ -1,22 +1,22 @@
 package com.message.base.upload.impl;
 
-import com.message.base.Constants;
-import com.message.base.upload.GenericUploadService;
-import com.message.base.utils.FileUtils;
-import com.message.base.utils.ImageUtils;
-import com.message.base.utils.MD5Utils;
-import com.message.base.utils.StringUtils;
-import com.message.resource.ResourceType;
-import org.aspectj.apache.bcel.classfile.Constant;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
-import java.io.File;
-import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.message.base.Constants;
+import com.message.base.upload.GenericUploadService;
+import com.message.base.utils.FileUtils;
+import com.message.base.utils.MD5Utils;
+import com.message.base.utils.StringUtils;
 
 /**
  * 上传文件的通用类的实现

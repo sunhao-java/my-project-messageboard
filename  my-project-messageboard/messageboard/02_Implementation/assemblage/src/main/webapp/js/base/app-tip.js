@@ -6,14 +6,26 @@
  * @author sunhao(sunhao.java@gmail.com)
  */
 (function($){
-    //定义$.tip
+    //定义$.tip和$.formTip(单个input框,整个form)
     $.tip = $.tip || {};
+    $.formTip = $.formTip || {};
 
-    //默认属性
+    //$.tip默认属性
     $.tip.defaults = {
-        title : ''                      //提示的文字
+        title: '',                      //提示的文字
+    	color: '#545454',				//提示文字颜色,默认是#545454
+		size: '12px'					//提示文字大小,默认是12px
+    }
+    
+    //$.formTip默认属性
+    $.formTip.defaults = {
+		color: '#545454',				//提示文字颜色,默认是#545454
+		size: '12px'					//提示文字大小,默认是12px
     }
 
+    /**
+     * 对于单个input框的提示
+     */
     $.fn.simpleTip = function(p){
         this.each(function(){
             p = $.extend({}, $.tip.defaults, p || {});
@@ -21,8 +33,8 @@
             var pos = input.position();
             
             var tip = $("<span>" + p.tip + "</span>");
-            tip.css("color", "#545454").css("word-wrap", "break-word").css("cursor", "text")
-                    .css("white-space", "nowrap").css("position", "absolute").css("font-style", "italic").css("font-size", "12px")
+            tip.css("color", p.color).css("word-wrap", "break-word").css("cursor", "text")
+                    .css("white-space", "nowrap").css("position", "absolute").css("font-style", "italic").css("font-size", p.size)
                     .css("display", "inline-block").css({"left": pos.left + 1, "top": pos.top + 2});
             tip.height(0);
 
@@ -50,4 +62,27 @@
             }
         });
     };
+    
+    /**
+     * 对于整个form的提示
+     */
+    $.fn.formTip = function(p){
+    	p = $.extend({}, $.formTip.defaults, p || {});
+    	var form = $(this);										//取得整个form表单
+    	var children = form.children();							//表单的子
+    	children.each(function(){	
+    		var tagName = this.tagName.toLowerCase();			//子的tagName
+    		var child = $(this);								//子
+    		if(tagName == 'input' || tagName == 'textarea'){	//判断是input和textarea才可以，其他不行
+    			var tip = child.attr('tip');					//获得提示的文字
+    			if(tip){
+    				child.simpleTip({							//开始提示
+    					tip: tip,
+    					color: p.color,
+    					size: p.size
+					});		
+    			}
+    		}
+    	});
+    }
 })(jQuery);

@@ -17,41 +17,6 @@
 		<property name="hibernateTemplate" ref="hibernateTemplate"/>
 	</bean>
 	
-	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-				<property name="location">
-					<value>
-						classpath:message_controllers.properties
-					</value>
-				</property>
-			</bean>
-		</property>
-	</bean>
-	
-	<!-- 配置tiles页面解析器--> 
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass">
-			<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
-		</property>
-	</bean>
-	
-	<!-- tiles配置器-->
-	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
-		<property name="definitions">
-			<list>
-				<value>/WEB-INF/tiles-defs/info/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/message/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/event/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/vote/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/menu/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/album/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
-			</list>
-		</property>
-	</bean>
-	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
 	<bean class="com.message.base.spring.ApplicationContextUtil"/>
 	
@@ -74,11 +39,6 @@
     	<property name="properties" ref="propertiesConfig"/>
     </bean>
     
-    <!-- 系统是否开启debug功能,可以查看请求的详情 -->
-    <bean id="debugRequestListener" class="com.message.base.spring.DebugRequestListener">
-    	<property name="debug" value="true"/>
-    </bean>
-    
     <!-- 属性文件读入 -->
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -94,12 +54,4 @@
 		<property name="location" value="file://${config.root}/log4j.properties"/>
 	</bean>
 	
-	<!-- 文件上传的必须配置 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- 最大上传文件大小:1024M 单位：字节 1024*1024*1024 -->
-		<property name="maxUploadSize" value="1073741824"/>
-		<!-- 配置上传到的文件夹 -->
-		<property name="uploadTempDir" value="file://${message.upload.dir}"/>
-	</bean>
-
 </beans>

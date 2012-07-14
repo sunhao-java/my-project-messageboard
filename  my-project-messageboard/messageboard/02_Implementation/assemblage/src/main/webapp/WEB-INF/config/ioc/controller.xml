@@ -8,7 +8,6 @@
 	<bean id="beanHandler" class="java.util.ArrayList">
         <constructor-arg>
             <list>
-                
             </list>
         </constructor-arg>
     </bean>

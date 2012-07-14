@@ -11,7 +11,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
@@ -25,7 +25,7 @@ import com.message.main.menu.service.MenuService;
  * @version V1.0
  * @createTime 2012-3-2 下午09:12:43
  */
-public class MenuController extends ExtMultiActionController {
+public class MenuController extends SimpleController {
 	
 	/**
 	 * 封装HttpServletRequest

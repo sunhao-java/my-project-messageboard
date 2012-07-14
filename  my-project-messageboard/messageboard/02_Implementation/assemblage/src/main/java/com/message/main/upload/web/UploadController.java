@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -21,11 +23,12 @@ import com.message.base.Constants;
 import com.message.base.attachment.pojo.Attachment;
 import com.message.base.attachment.service.AttachmentService;
 import com.message.base.exception.FileExistException;
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.FileUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
+import com.message.main.home.web.GuestController;
 import com.message.main.upload.service.UploadService;
 
 /**
@@ -35,8 +38,10 @@ import com.message.main.upload.service.UploadService;
  * @version V1.0
  * @createTime 2012-3-15 下午11:10:35
  */
-public class UploadController extends ExtMultiActionController {
+public class UploadController extends SimpleController {
 
+	private static final Logger logger = LoggerFactory.getLogger(GuestController.class);
+	
     /**
      * 上传头像的service
      */
@@ -118,7 +123,7 @@ public class UploadController extends ExtMultiActionController {
         List json = this.attachmentService.listAttachment(resourceId, uploadId, resourceType);
 
         if(json != null){
-            logger.debug(json);
+            logger.debug(json.toString());
             params.put("files", json);
         } else {
             logger.warn("can not find any files!");

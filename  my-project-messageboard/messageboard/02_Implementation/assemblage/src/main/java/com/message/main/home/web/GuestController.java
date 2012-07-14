@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.properties.SystemConfig;
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
@@ -24,11 +26,13 @@ import com.message.main.user.service.UserService;
  * @version V1.0
  * @createTime 12-3-5 下午8:06
  */
-public class GuestController extends ExtMultiActionController {
+public class GuestController extends SimpleController {
     private WebInput in = null;
     private WebOutput out = null;
 
     private UserService userService;
+    
+    private static final Logger logger = LoggerFactory.getLogger(GuestController.class);
 
     public void setUserService(UserService userService) {
         this.userService = userService;

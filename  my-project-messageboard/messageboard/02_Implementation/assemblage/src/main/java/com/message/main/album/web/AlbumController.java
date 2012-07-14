@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.Constants;
 import com.message.base.pagination.PaginationSupport;
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.RandomUtils;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
@@ -36,7 +36,7 @@ import com.message.main.login.web.AuthContextHelper;
  * @version V1.0
  * @createTime 2012-4-20 上午01:28:47
  */
-public class AlbumController extends ExtMultiActionController {
+public class AlbumController extends SimpleController {
 //	private static final Logger logger = LoggerFactory.getLogger(AlbumController.class);
 	private WebInput in = null;
 	private WebOutput out = null;

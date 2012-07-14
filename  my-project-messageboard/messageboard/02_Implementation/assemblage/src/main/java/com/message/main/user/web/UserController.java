@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
@@ -29,7 +29,7 @@ import com.message.main.user.service.UserService;
  * 用户操作的controller
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class UserController extends ExtMultiActionController {
+public class UserController extends SimpleController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private static WebInput in = null;

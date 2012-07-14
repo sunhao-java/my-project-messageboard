@@ -174,4 +174,22 @@
    <rtexprvalue>true</rtexprvalue>
   </attribute>
  </tag>
+ <tag>
+  <name>controller</name>
+  <tag-class>com.message.base.spring.ControllerTag</tag-class>
+  <body-content>empty</body-content>
+  <attribute>
+   <name>method</name>
+   <required>true</required>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>module</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+      <name>type</name>
+      <rtexprvalue>true</rtexprvalue>
+  </attribute>
+ </tag>
 </taglib>

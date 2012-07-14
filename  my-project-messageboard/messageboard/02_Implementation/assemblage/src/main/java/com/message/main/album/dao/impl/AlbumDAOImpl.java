@@ -178,4 +178,12 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
         return (AlbumConfig) this.loadObject(AlbumConfig.class, pkId);
     }
 
+	public boolean deleteMask(Long userId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "delete from t_message_album_config where user_id = :userId";
+		params.put("userId", userId);
+		
+		return this.genericJdbcDAO.update(sql, params) == 1;
+	}
+
 }

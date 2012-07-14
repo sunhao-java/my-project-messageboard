@@ -180,6 +180,9 @@
         },
         simpleTip : {
             js : "../../base/app-tip.js"
+        },
+        icolorpicker : {
+        	js : "icolorpicker.js"
         }
 	};
 	var _2 = {

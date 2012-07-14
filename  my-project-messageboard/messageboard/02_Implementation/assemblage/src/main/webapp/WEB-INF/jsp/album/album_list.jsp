@@ -28,18 +28,22 @@
 	function gotoAlbumDetail(albumId){
 		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId;
 	}
-	
+	var popWin;
+	var extBtn = [];
+	if('${maskExist}' == '1'){
+		extBtn.push({text:'取消水印',handler:cancelWaterMaker});
+	}
 	function config(){
 		var name = 'configIFrame' + new Date().getTime();
-		var popWin = 
+		popWin = 
 		YAHOO.app.alertForm.show({
             'reqUrl':'${contextPath}/album/inConfig.do',
             'title':'图片水印（设置在图片中增加独具个性的水印） ',
             'needValidate':'false',
             'singleId':'false',
             'name':name,
-            'diaWidth':'450',
-            'diaHeight':'150',
+            'diaWidth':'500',
+            'diaHeight':'250',
             'success' : '设置水印成功',
             'failure' : '设置水印失败',
             'confirmFunction':function(){
@@ -83,7 +87,11 @@
                        'icon':'warnicon'
                     });
             	}
-            }
+            	if(extBtn.length == 0){
+	            	extBtn.push({text:'取消水印',handler:cancelWaterMaker});
+            	}
+            },
+            "extBtn" : extBtn
         });
 	}
 	
@@ -108,6 +116,33 @@
 	
 	function submitFun(frame, dialog){
 		var status = frame.submitFun(dialog);
+	}
+	
+	function cancelWaterMaker(){
+		var requestURL = "${contextPath}/album/deleteWaterMaker.do";
+		var confirmDialog = 
+		YAHOO.app.dialog.pop({'dialogHead':'提示','alertMsg':'你确定要删除水印吗？','confirmFunction':function(){
+			$C.asyncRequest('POST', requestURL, {
+				success : function(o){
+					confirmDialog.cancel();
+					var _e = eval("(" + o.responseText + ")");
+					if(_e.status == '1'){
+						extBtn = [];
+						var alertDialog =
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'删除成功！',
+							'confirmFunction':function(){
+								alertDialog.cancel();
+								popWin.cancel();
+							}});
+					} else {
+						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'删除失败！'});
+					}
+				}, 
+				failure : function(o){
+					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+				}
+			});
+		}});
 	}
 </script>
 

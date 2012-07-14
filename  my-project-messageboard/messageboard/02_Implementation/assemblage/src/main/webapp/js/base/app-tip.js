@@ -69,20 +69,35 @@
     $.fn.formTip = function(p){
     	p = $.extend({}, $.formTip.defaults, p || {});
     	var form = $(this);										//取得整个form表单
-    	var children = form.children();							//表单的子
-    	children.each(function(){	
-    		var tagName = this.tagName.toLowerCase();			//子的tagName
-    		var child = $(this);								//子
-    		if(tagName == 'input' || tagName == 'textarea'){	//判断是input和textarea才可以，其他不行
-    			var tip = child.attr('tip');					//获得提示的文字
-    			if(tip){
-    				child.simpleTip({							//开始提示
-    					tip: tip,
-    					color: p.color,
-    					size: p.size
-					});		
+    	var fields = f.getTipFields(form);						//获取整个表单中所有的input或者textarea
+    	fields.each(function(){
+    		var tagName = this.tagName.toLowerCase();			//每个标签的tagName
+    		if(tagName == 'input'){								//如果是input,则进行判断
+    			var type = $(this).attr('type');				//input的type
+    															//只有type是text或者file的input才进行tip提示
+    			if(type == 'text' || type == 'file' || type == 'password'){			
+    				f.runTip($(this), p);
     			}
+    		}
+    		if(tagName == 'textarea'){							//textarea都提示
+    			f.runTip($(this), p);
     		}
     	});
     }
+    
+    var f = {
+		getTipFields: function(form){
+    		return form.find("input,textarea");					//遍历获取整个表单中所有的input或者textarea
+    	},
+    	runTip: function(field, p){
+    		var tip = field.attr('tip');						//获得提示的文字
+			if(tip){
+				field.simpleTip({								//开始提示
+					tip: tip,
+					color: p.color,
+					size: p.size
+				});		
+			}
+    	}
+    };
 })(jQuery);

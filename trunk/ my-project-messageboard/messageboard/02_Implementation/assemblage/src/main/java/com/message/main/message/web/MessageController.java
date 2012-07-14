@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
@@ -23,7 +23,7 @@ import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.service.UserService;
 
-public class MessageController extends ExtMultiActionController {
+public class MessageController extends SimpleController {
 	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 	
 	/**

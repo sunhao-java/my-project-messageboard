@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.message.base.spring.ApplicationContextUtil;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.RequestUtils;
 import com.message.base.utils.URLUtils;

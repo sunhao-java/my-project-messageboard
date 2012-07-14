@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
@@ -24,7 +24,7 @@ import com.message.main.login.service.LoginService;
  * @version V1.0
  * @createTime 12-3-22 下午2:08
  */
-public class LoginController extends ExtMultiActionController {
+public class LoginController extends SimpleController {
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private WebInput in;
     private WebOutput out;

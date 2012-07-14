@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.web.WebInput;
 import com.message.main.ResourceType;
@@ -18,7 +18,7 @@ import com.message.main.event.service.EventService;
  * 时间controller
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class EventController extends ExtMultiActionController {
+public class EventController extends SimpleController {
 	
 	private WebInput in = null;
 	

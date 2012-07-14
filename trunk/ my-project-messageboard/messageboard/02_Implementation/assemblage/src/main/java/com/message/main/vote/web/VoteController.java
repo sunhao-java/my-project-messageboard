@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
@@ -29,7 +29,7 @@ import com.message.main.vote.service.VoteService;
  * @version V1.0
  * @createTime 2012-2-12 下午12:41:44
  */
-public class VoteController extends ExtMultiActionController {
+public class VoteController extends SimpleController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private VoteService voteService;

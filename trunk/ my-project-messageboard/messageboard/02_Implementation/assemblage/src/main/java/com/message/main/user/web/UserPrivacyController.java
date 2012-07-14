@@ -10,7 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
@@ -24,7 +24,7 @@ import com.message.main.user.service.UserPrivacyService;
  * @version V1.0
  * @createTime 2012-2-10 下午09:00:45
  */
-public class UserPrivacyController extends ExtMultiActionController {
+public class UserPrivacyController extends SimpleController {
 	private UserPrivacyService userPrivacyService;
 
 	public void setUserPrivacyService(UserPrivacyService userPrivacyService) {

@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.message.base.spring.ExtMultiActionController;
+import com.message.base.spring.SimpleController;
 import com.message.base.web.WebInput;
 import com.message.main.ResourceType;
 import com.message.main.history.service.HistoryService;
@@ -24,7 +24,7 @@ import com.message.main.user.pojo.User;
  * home的controller
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class HomeController extends ExtMultiActionController {
+public class HomeController extends SimpleController {
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	private HistoryService historyService;

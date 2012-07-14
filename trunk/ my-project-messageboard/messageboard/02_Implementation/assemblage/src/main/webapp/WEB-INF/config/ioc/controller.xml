@@ -4,136 +4,79 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<bean id="beanHandler" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                
+            </list>
+        </constructor-arg>
+    </bean>
 
     <bean id="loginController" class="com.message.main.login.web.LoginController">
-        <property name="methodNameResolver">
-			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-				<property name="controller" ref="loginController"/>
-			</bean>
-		</property>
         <property name="loginService" ref="loginService"/>
     </bean>
 
 	<!-- 事件的controller -->
 	<bean id="eventController" class="com.message.main.event.web.EventController">
-		<property name="methodNameResolver">
-			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-				<property name="controller" ref="eventController"/>
-			</bean>
-		</property>
 		<property name="eventService" ref="eventService"/>
 	</bean>
 	
 	<!-- 主页的controller -->
 	<bean id="homeController" class="com.message.main.home.web.HomeController">
-		<property name="methodNameResolver">
-			<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-				<property name="controller" ref="homeController"/>
-			</bean>
-		</property>
 		<property name="historyService" ref="historyService"/>
         <property name="menuService" ref="menuService"/>
 	</bean>
 	
 	<!-- 登录历史的controller -->
 	<bean id="historyController" class="com.message.main.history.web.HistoryController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-				<property name="controller" ref="historyController"/>
-			</bean>
-    	</property>
     	<property name="historyService" ref="historyService"/>
     </bean>
     
     <!-- 留言板信息的controller -->
     <bean id="infoController" class="com.message.main.info.web.InfoController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-				<property name="controller" ref="infoController"/>
-			</bean>
-    	</property>
     	<property name="infoService" ref="infoService"/>
     </bean>
     
     <!-- 留言的controller -->
     <bean id="messageController" class="com.message.main.message.web.MessageController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="messageController"/>
-    		</bean>
-    	</property>
     	<property name="messageService" ref="messageService"/>
     	<property name="userService" ref="userService"/>
     </bean>
     
     <!-- 回复的controller -->
     <bean id="replyController" class="com.message.main.reply.web.ReplyController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="replyController"/>
-    		</bean>
-    	</property>
     	<property name="replyService" ref="replyService"/>
     </bean>
     
     <!-- 用户的controller -->
     <bean id="userController" class="com.message.main.user.web.UserController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="userController"/>
-    		</bean>
-    	</property>
     	<property name="userService" ref="userService"/>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
     </bean>
     
     <!-- 用户隐私配置的controller -->
     <bean id="userPrivacyController" class="com.message.main.user.web.UserPrivacyController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="userPrivacyController"/>
-    		</bean>
-    	</property>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
     </bean>
     
     <!-- 投票的controller -->
     <bean id="voteController" class="com.message.main.vote.web.VoteController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="voteController"/>
-    		</bean>
-    	</property>
     	<property name="voteService" ref="voteService"/>
     </bean>
     
     <!-- 菜单的controller -->
     <bean id="menuController" class="com.message.main.menu.web.MenuController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="menuController"/>
-    		</bean>
-    	</property>
     	<property name="menuService" ref="menuService"/>
     </bean>
 
     <!-- 不用登录就可访问的controller -->
     <bean id="guestController" class="com.message.main.home.web.GuestController">
-        <property name="methodNameResolver">
-            <bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="guestController"/>
-    		</bean>
-        </property>
         <property name="userService" ref="userService"/>
     </bean>
     
     <!-- 文件上传的controller -->
     <bean id="uploadController" class="com.message.main.upload.web.UploadController">
-    	<property name="methodNameResolver">
-            <bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="uploadController"/>
-    		</bean>
-        </property>
         <property name="uploadService" ref="uploadService"/>
         <property name="attachmentService" ref="attachmentService"/>
     </bean>
@@ -145,11 +88,6 @@
     
     <!-- 相册的controller -->
     <bean id="albumController" class="com.message.main.album.web.AlbumController">
-    	<property name="methodNameResolver">
-    		<bean class="com.message.base.spring.ExtPropertiesMethodNameResolver">
-    			<property name="controller" ref="albumController"/>
-    		</bean>
-    	</property>
     	<property name="albumService" ref="albumService"/>
     </bean>
 	

@@ -4,11 +4,11 @@
 	
 	<!-- 引入spring基本配置 -->
 	<import resource="spring-init.xml"/>
+	<!-- 引入页面的配置 -->
+	<import resource="base/servlet.xml"/>
 	
 	<!-- 引入job的配置 -->
 	<import resource="base/jobs.xml"/>
-	<!-- 引入spring与hibernate整合的配置 -->
-	<import resource="base/spring-hibernate.xml"/>
 	<!-- 引入项目邮件服务器配置 -->
 	<import resource="base/mail.xml"/>
 
@@ -16,8 +16,6 @@
     <import resource="database/dataSource.xml"/>
 	<!-- 引入oracle数据库的配置 -->
 	<import resource="database/db-oracle.xml"/>
-    <!-- 引入MySQL数据库的配置 -->
-	<!--<import resource="database/db-mysql.xml"/>-->
 	
 	<!-- 引入项目中所有dao的配置 -->
 	<import resource="ioc/dao.xml"/>

@@ -46,6 +46,8 @@ YAHOO.app.alertForm = function(){
 			var needValidate_ = args.needValidate || 'true';		//是否需要验证表单，默认是true，需要验证
 
             var checkLeve_ = args.checkLeve || 3;                   //validate检验的提示级别，默认是3
+            
+            var extBtn_ = args.extBtn;								//自定义扩展的按钮,默认为空
 			
 			if($L.isString(closeIcon_)){
 				closeIcon_ = (closeIcon_ == _true);
@@ -131,6 +133,13 @@ YAHOO.app.alertForm = function(){
 						buttons_.push({text:'取消',handler:handleCancel});
 					}
 				}
+			 }
+			 
+			 //如果有自定义扩展的按钮,则加进来
+			 if(!$L.isUndefined(extBtn_)){
+				 for(var i = 0; i < extBtn_.length; i++){
+					 buttons_.push(extBtn_[i]);
+				 }
 			 }
 
              /**

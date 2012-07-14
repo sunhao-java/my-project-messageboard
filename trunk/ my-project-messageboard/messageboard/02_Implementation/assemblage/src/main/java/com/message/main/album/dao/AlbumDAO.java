@@ -133,5 +133,13 @@ public interface AlbumDAO {
      * @throws Exception
      */
     AlbumConfig loadAlbumConfig(Long pkId) throws Exception;
+    
+    /**
+     * 删除水印
+     * 
+     * @param userId
+     * @return
+     */
+    boolean deleteMask(Long userId) throws Exception;
 
 }

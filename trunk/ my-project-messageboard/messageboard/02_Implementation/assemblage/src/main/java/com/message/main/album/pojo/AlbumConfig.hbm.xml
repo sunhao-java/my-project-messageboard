@@ -24,6 +24,31 @@
     			<comment>文字水印内容</comment>
     		</column>
     	</property>
+    	<property name="color" type="java.lang.String">
+    		<column name="COLOR" length="15">
+    			<comment>文字水印颜色(类似#000000)</comment>
+    		</column>
+    	</property>
+    	<property name="redColor" type="java.lang.Integer">
+    		<column name="RED_COLOR" length="3">
+    			<comment>文字水印颜色(红red)</comment>
+    		</column>
+    	</property>
+    	<property name="greenColor" type="java.lang.Integer">
+    		<column name="GREEN_COLOR" length="3">
+    			<comment>文字水印颜色(绿green)</comment>
+    		</column>
+    	</property>
+    	<property name="blueColor" type="java.lang.Integer">
+    		<column name="BLUE_COLOR" length="3">
+    			<comment>文字水印颜色(蓝blue)</comment>
+    		</column>
+    	</property>
+    	<property name="fontSize" type="java.lang.Integer">
+    		<column name="FONT_SIZE" length="10">
+    			<comment>文字水印大小</comment>
+    		</column>
+    	</property>
     	<property name="attachmentId" type="java.lang.Long">
     		<column name="ATTACHMENT_ID" precision="10" scale="0">
     			<comment>图片水印对应的附件ID</comment>

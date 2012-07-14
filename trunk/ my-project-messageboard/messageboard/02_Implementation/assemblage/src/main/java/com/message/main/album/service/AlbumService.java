@@ -152,12 +152,15 @@ public interface AlbumService {
 	 * 
 	 * @param markType
 	 * @param content
+	 * @param color
+	 * @param size
 	 * @param location
 	 * @param multipartFile
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveConfig(String markType, String content, Integer location, MultipartFile multipartFile) throws Exception;
+	boolean saveConfig(String markType, String content, String color, Integer size, Integer location, MultipartFile multipartFile) 
+				throws Exception;
 	
 	/**
 	 * 获取某个用户的相册配置
@@ -169,15 +172,26 @@ public interface AlbumService {
 
     /**
      * 保存编辑后的配置
-     *
+     * 
      * @param pkId
      * @param markType
      * @param content
+     * @param color
+     * @param size
      * @param location
      * @param multipartFile
      * @return
      * @throws Exception
      */
-    boolean saveEdit(Long pkId, String markType, String content, Integer location, MultipartFile multipartFile) throws Exception;
+    boolean saveEdit(Long pkId, String markType, String content, String color, Integer size, Integer location, MultipartFile multipartFile) 
+    			throws Exception;
+    
+    /**
+     * 删除水印
+     * 
+     * @param userId
+     * @return
+     */
+    boolean deleteMask(Long userId) throws Exception;
 	
 }

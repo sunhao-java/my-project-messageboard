@@ -1,6 +1,6 @@
 package com.message.main.album.service.impl;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.message.base.utils.ImageUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 import org.slf4j.Logger;
@@ -25,6 +24,8 @@ import com.message.base.Constants;
 import com.message.base.attachment.pojo.Attachment;
 import com.message.base.attachment.service.AttachmentService;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.utils.ImageUtils;
+import com.message.base.utils.ObjectUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
@@ -163,8 +164,9 @@ public class AlbumServiceImpl implements AlbumService {
         }
         String filePath = attachment.getFilePath();
         if(ResourceType.CHARACTER_MASK.equals(albumConfig.getMaskType())){
+        	Color color = new Color(albumConfig.getRedColor(), albumConfig.getGreenColor(), albumConfig.getBlueColor());
             //文字
-            ImageUtils.addStringMark(filePath, albumConfig.getCharacterMark(), Color.RED, 20, albumConfig.getLocation());
+            ImageUtils.addStringMark(filePath, albumConfig.getCharacterMark(), color, albumConfig.getFontSize(), albumConfig.getLocation());
         } else {
             //图片
             ImageUtils.addImageMark(filePath, albumConfig.getAttachment().getFilePath(), albumConfig.getLocation());
@@ -319,7 +321,8 @@ public class AlbumServiceImpl implements AlbumService {
 		FileCopyUtils.copy(new BufferedInputStream(new FileInputStream(zipfile)), new BufferedOutputStream(out.getResponse().getOutputStream()));
 	}
 
-	public boolean saveConfig(String markType, String content, Integer location, MultipartFile multipartFile) throws Exception {
+	public boolean saveConfig(String markType, String content, String color, Integer size, Integer location, MultipartFile multipartFile) 
+					throws Exception {
 		if(StringUtils.isEmpty(markType)){
 			logger.error("markType is required!");
 			return false;
@@ -333,6 +336,14 @@ public class AlbumServiceImpl implements AlbumService {
 			config.setCharacterMark(content);
 			config.setAttachmentId(Long.valueOf(-1));
 			config.setMaskType(ResourceType.CHARACTER_MASK);
+			config.setColor(color);
+			int[] rgb = ImageUtils.converColorToRGB(color);
+			if(rgb != null && rgb.length == 3){
+				config.setRedColor(rgb[0]);
+				config.setGreenColor(rgb[1]);
+				config.setBlueColor(rgb[2]);
+			}
+			config.setFontSize(size);
 			this.albumDAO.saveEntity(config);
 			
 			return config.getPkId() == null ? false : true;
@@ -374,7 +385,8 @@ public class AlbumServiceImpl implements AlbumService {
         return albumConfig;
 	}
 
-    public boolean saveEdit(Long pkId, String markType, String content, Integer location, MultipartFile multipartFile) throws Exception {
+    public boolean saveEdit(Long pkId, String markType, String content, String color, Integer size, Integer location, MultipartFile multipartFile)
+    		throws Exception {
         if(pkId == null || Long.valueOf(-1).equals(pkId)){
             logger.error("pkId must be given!");
             return false;
@@ -390,6 +402,14 @@ public class AlbumServiceImpl implements AlbumService {
             //文字水印
             albumConfig.setCharacterMark(content);
             albumConfig.setMaskType(ResourceType.CHARACTER_MASK);
+            albumConfig.setColor(color);
+            int[] rgb = ImageUtils.converColorToRGB(color);
+			if(rgb != null && rgb.length == 3){
+				albumConfig.setRedColor(rgb[0]);
+				albumConfig.setGreenColor(rgb[1]);
+				albumConfig.setBlueColor(rgb[2]);
+			}
+			albumConfig.setFontSize(size);
             this.albumDAO.updateEntity(albumConfig);
             return true;
         } else {
@@ -405,5 +425,19 @@ public class AlbumServiceImpl implements AlbumService {
             return true;
         }
     }
+
+	public boolean deleteMask(Long userId) throws Exception {
+		if(ObjectUtils.equals(userId, Long.valueOf(-1))){
+			LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+			if(loginUser == null){
+				logger.error("maybe not login!");
+				return false;
+			} else {
+				userId = loginUser.getPkId();
+			}
+		}
+		
+		return this.albumDAO.deleteMask(userId);
+	}
 
 }

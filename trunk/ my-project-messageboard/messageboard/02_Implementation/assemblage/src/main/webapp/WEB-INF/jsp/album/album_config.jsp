@@ -13,12 +13,13 @@
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
 	
 	$(document).ready(function(){
-		using(["ajaxUpload", "simpleTip", "imagepreview"], function(){
+		using(["ajaxUpload", "simpleTip", "imagepreview", "icolorpicker"], function(){
 			$("#characterContent").simpleTip({
                 tip: '文字水印不能为空，并且不超过20字符！'
             });
 
             $("span.preview").preview();
+            
 		});
 
 		$("#word").bind('click', function(){
@@ -30,6 +31,10 @@
 			$("#imageTr").show();
 		});
 	});
+	
+	function icolor(id1, id2){
+        iColorShow(id1, id2);
+    }
 	
 	function getFrmData(){
 		return dom.get('markConfig');
@@ -57,6 +62,8 @@
 		var ret;
         var pkId = $("#pkId").val();
 		var characterContent = $("#characterContent").val();
+		var colorStr = $("#colorStr").val();
+		var fontSize = $("#fontSize").val();
 		var markType = getRadio();
 		var location = getLocation();
         var action = '';
@@ -79,7 +86,7 @@
 			secureuri : false,
 			fileElementId : 'imageMark',
 			dataType : 'json',
-			data : {mark:markType, characterContent:characterContent, location:location},
+			data : {mark:markType, characterContent:characterContent, location:location, color:colorStr, fontSize:fontSize},
 			success : function(data, status){
 				ret = data.status;
 				if(ret == '1') {
@@ -112,15 +119,15 @@
 </script>
 
 <style type="text/css">
-	table {
+	table.dialog_table {
 		border-width: 0px !important;
 	}
 	
-	table td {
+	table.dialog_table td {
 		border-width: 0px !important;
 	}
 	
-	table tr {
+	table.dialog_table tr {
 		border-width: 0px !important;
 	}
 </style>
@@ -145,7 +152,17 @@
 			<td valign="middle">
 				<span style="color: #CC0000;font-weight: bolder;font-size: 13pt">*</span>文字内容：
                 <input type="text" class="width250" id="characterContent"
-					name="characterContent" value="${albumConfig.characterMark}"/>
+					name="characterContent" value="${albumConfig.characterMark}"/><br/>
+				<span style="color: #CC0000;font-weight: bolder;font-size: 13pt">*</span>文字颜色：
+				<input type="text" class="width150 iColorPicker" id="colorStr" name="color" value="${albumConfig.color}"
+					style="background: ${albumConfig.color}" readonly="readonly"/>
+				<a onclick="icolor('colorStr','icp_color')" id="icp_color" href="javascript:void(null)">
+					<img src="${contextPath}/image/color.png" align="absmiddle" style="border:0;margin:0 0 0 3px">
+				</a>
+				<br/>
+				<span style="color: #CC0000;font-weight: bolder;font-size: 13pt">*</span>文字大小：
+                <input type="text" class="width250" id="fontSize"
+					name="fontSize" value="${albumConfig.fontSize}"/><br/>
 			</td>
 		</tr>
 		<tr>
@@ -163,10 +180,12 @@
 			</td>
 			<td>
 				<input type="file" name="imageMark" id="imageMark"/><span class="prompt">必填，图片格式为icon,png</span><br/>
-                <span class="preview" href="${contextPath}/photo.jpg?fileId=${albumConfig.attachmentId}"
-                        title="水印图片">
-                    显示水印图片
-                </span>
+				<c:if test="${not empty albumConfig.attachmentId && albumConfig.attachmentId ne -1}">
+	                <span class="preview" href="${contextPath}/photo.jpg?fileId=${albumConfig.attachmentId}"
+	                        title="水印图片">
+	                   	 显示水印图片
+	                </span>
+                </c:if>
 			</td>
 		</tr>
 		<tr>

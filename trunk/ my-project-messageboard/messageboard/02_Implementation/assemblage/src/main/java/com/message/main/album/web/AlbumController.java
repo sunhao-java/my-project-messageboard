@@ -65,9 +65,12 @@ public class AlbumController extends SimpleController {
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
 		Long userId = in.getLong("userId");
+		AlbumConfig ac = this.albumService.getAlbumConfig();
 		PaginationSupport pagination = this.albumService.getAlbumList(userId, start, num);
 		
 		params.put("paginationSupport", pagination);
+		//水印是否存在,0不存在,1存在
+		params.put("maskExist", ac == null ? 0 : 1);
 		return new ModelAndView("album.list", params);
 	}
 	
@@ -399,17 +402,19 @@ public class AlbumController extends SimpleController {
 		String type = in.getString("mark", StringUtils.EMPTY);
 		String content = in.getString("characterContent", StringUtils.EMPTY);
 		Integer location = in.getInt("location", Integer.valueOf(3));
+		String color = in.getString("color", "#000000");
+		Integer size = in.getInt("fontSize", 20);
 		
 		boolean status = false;
 		if(ResourceType.CHARACTER_MARK_STRING.equals(type)){
 			//文字水印
-			status = this.albumService.saveConfig(type, content, location, null);
+			status = this.albumService.saveConfig(type, content, color, size, location, null);
 		} else {
 			//图片水印
 			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 			MultipartFile multipartFile = multipartRequest.getFile("imageMark");
 			
-			status = this.albumService.saveConfig(type, StringUtils.EMPTY, location, multipartFile);
+			status = this.albumService.saveConfig(type, StringUtils.EMPTY, StringUtils.EMPTY, 0, location, multipartFile);
 		}
 		
 		params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
@@ -433,21 +438,41 @@ public class AlbumController extends SimpleController {
         String type = in.getString("mark", StringUtils.EMPTY);
         String content = in.getString("characterContent", StringUtils.EMPTY);
         Integer location = in.getInt("location", Integer.valueOf(3));
+        String color = in.getString("color", "#000000");
+		Integer size = in.getInt("fontSize", 20);
         boolean status = false;
         if(ResourceType.CHARACTER_MARK_STRING.equals(type)){
             //文字水印
-            status = this.albumService.saveEdit(pkId, type, content, location, null);
+            status = this.albumService.saveEdit(pkId, type, content, color, size, location, null);
         } else {
             //图片水印
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             MultipartFile multipartFile = multipartRequest.getFile("imageMark");
 
-            status = this.albumService.saveEdit(pkId, type, StringUtils.EMPTY, location, multipartFile);
+            status = this.albumService.saveEdit(pkId, type, StringUtils.EMPTY, StringUtils.EMPTY, 0, location, multipartFile);
         }
 
         params.put(ResourceType.AJAX_STATUS, status ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
         out.toJson(params);
         return null;
+    }
+    
+    /**
+     * 删除水印
+     * 
+     * @param in
+     * @param out
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView deleteWaterMaker(WebInput in, WebOutput out) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long userId = in.getLong("userId", Long.valueOf(-1));
+    	
+    	params.put(ResourceType.AJAX_STATUS, this.albumService.deleteMask(userId) ? 
+    			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	out.toJson(params);
+    	return null;
     }
 	
 }

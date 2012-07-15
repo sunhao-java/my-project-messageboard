@@ -12,11 +12,6 @@
          		http://www.springframework.org/schema/tx
            		http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
     
-    <!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
-	<bean id="genericHibernateDAOImpl" class="com.message.base.hibernate.impl.GenericHibernateDAOImpl">
-		<property name="hibernateTemplate" ref="hibernateTemplate"/>
-	</bean>
-	
 	<!-- 创建一个可以在项目类中获取applicationContext的bean -->
 	<bean class="com.message.base.spring.ApplicationContextUtil"/>
 	

@@ -18,11 +18,11 @@
 	<import resource="database/db-oracle.xml"/>
 	
 	<!-- 引入项目中所有dao的配置 -->
-	<import resource="ioc/dao.xml"/>
+	<import resource="spring/dao.xml"/>
 	<!-- 引入项目中所有service的配置 -->
-	<import resource="ioc/service.xml"/>
+	<import resource="spring/service.xml"/>
 	<!-- 引入项目中所有controller的配置 -->
-	<import resource="ioc/controller.xml"/>
+	<import resource="spring/controller.xml"/>
 	
 	<!-- 引入异常统一处理类的配置 -->
 	<import resource="base/exception.xml"/>

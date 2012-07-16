@@ -90,4 +90,6 @@
     	<property name="albumService" ref="albumService"/>
     </bean>
 	
+	<bean id="resourceController" class="com.message.main.home.web.ResourceController">
+	</bean>
 </beans>

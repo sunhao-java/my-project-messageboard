@@ -62,8 +62,11 @@ public class ResourceController extends SimpleController {
 		json.put("locale", locale.toString());
 		
 		StringBuffer sb = new StringBuffer(8192);
+		//1、使用YAHOO YUI才这样定义，先定义一个命名空间
 		sb.append("YAHOO.namespace(\"messages\");").append("YAHOO.messages = ")
 				.append(json.toString());
+		//2、使用jquery的话，像下面这样定义
+		//sb.append("$.messages = ").append(json.toString());
 		
 		HttpServletResponse response = out.getResponse();
 		response.setContentType("text/javascript;charset=UTF-8");

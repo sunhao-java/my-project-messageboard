@@ -87,9 +87,6 @@
                        'icon':'warnicon'
                     });
             	}
-            	if(extBtn.length == 0){
-	            	extBtn.push({text:'取消水印',handler:cancelWaterMaker});
-            	}
             },
             "extBtn" : extBtn
         });
@@ -116,6 +113,9 @@
 	
 	function submitFun(frame, dialog){
 		var status = frame.submitFun(dialog);
+		if(extBtn.length == 0){
+          	extBtn.push({text:'取消水印',handler:cancelWaterMaker});
+        }
 	}
 	
 	function cancelWaterMaker(){

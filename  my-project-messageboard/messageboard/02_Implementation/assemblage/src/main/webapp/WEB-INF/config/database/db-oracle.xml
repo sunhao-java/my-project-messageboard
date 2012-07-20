@@ -59,7 +59,7 @@
 				<value>com/message/main/vote/pojo/VoteOption.hbm.xml</value>
 				<value>com/message/main/vote/pojo/VoteAnswer.hbm.xml</value>
 				<value>com/message/main/menu/pojo/Menu.hbm.xml</value>
-                <value>com/message/base/attachment/pojo/Attachment.hbm.xml</value>
+                <value>com/message/base/attachment/pojo/Attachment_Oracle.hbm.xml</value>
                 <value>com/message/main/album/pojo/Album.hbm.xml</value>
                 <value>com/message/main/album/pojo/Photo.hbm.xml</value>
                 <value>com/message/main/album/pojo/AlbumPhoto.hbm.xml</value>

@@ -188,3 +188,8 @@ ul.navigation li.split {
     padding: 0 3px;
     white-space: nowrap;
 }
+
+.top li.create{
+	float: right;
+	margin-right: 10px;
+}

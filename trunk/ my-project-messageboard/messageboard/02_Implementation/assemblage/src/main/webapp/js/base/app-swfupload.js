@@ -52,7 +52,7 @@ YAHOO.app.swfupload = function(link, element, p){
             _flashHtml.push("codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0\"");
             _flashHtml.push("	width=\"100%\" height=\"100%\" id=\"file\" align=\"middle\">");
             _flashHtml.push("	<param name=\"allowScriptAccess\" value=\"sameDomain\" />");
-            _flashHtml.push("	<param name=\"movie\" value=\"" + contextPath + "/js/swfupload/FlashFileUploads.swf?ver=123484\" />");
+            _flashHtml.push("	<param name=\"movie\" value=\"" + contextPath + "/js/swfupload/FlashFileUpload.swf?ver=123484\" />");
             _flashHtml.push("   <param name=\"quality\" value=\"high\" />");
             _flashHtml.push("	<param name=\"wmode\" value=\"transparent\">");
             var flashVars = "&fileTypeDescription=" + encodeURIComponent(p.fileTypeDescription) +

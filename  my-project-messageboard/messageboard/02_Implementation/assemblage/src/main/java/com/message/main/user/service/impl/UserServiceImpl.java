@@ -1,5 +1,6 @@
 package com.message.main.user.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.slf4j.Logger;
@@ -82,7 +83,8 @@ public class UserServiceImpl implements UserService{
 				pkId = this.userDAO.registerUser(user);
 				if(pkId != null){
 					if(user.getEmail() != null){
-						this.mailSend.sendMail(pkId, user.getUsername(), user.getEmail());
+						String mailTitle = MessageUtils.getProperties("mail.confirm.title", "邮件验证");
+						this.mailSend.sendMail(mailTitle, makeMailContent(user), user.getEmail());
 					}
 					return true;
 				} else {
@@ -95,6 +97,29 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 组装要发送邮件的内容
+	 * @param pkId
+	 * @param username
+	 * @return
+	 */
+	private String makeMailContent(User user){
+		String urlConfirm = MessageUtils.getProperties("user.confirm", "http://sunhao.wiscom.com.cn:8089/message/user/emailConfirm.do?");
+		String userNameCode = MessageUtils.getProperties("mail.confirm.key", "usernameCode");
+		String confirmUserId = MessageUtils.getProperties("mail.confirm.userid", "userid");	
+		StringBuffer sb = new StringBuffer();
+		String username_md5 = MD5Utils.MD5Encode(user.getUsername());
+		sb.append(urlConfirm).append(userNameCode).append("=").append(username_md5).append("&").append(confirmUserId)
+							.append("=").append(user.getPkId());
+		
+		Date now = new Date();
+		String nowStr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
+		
+		String content = MessageUtils.getProperties("mail.confirm.content", new Object[]{nowStr, user.getUsername(), sb.toString()});
+		
+		return content;
 	}
 
 	public int userLogin(User user, WebInput in) throws Exception {

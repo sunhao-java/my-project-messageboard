@@ -97,7 +97,7 @@ public class VoteController extends SimpleController {
 		int num = in.getInt("num", ResourceType.PAGE_NUM);
 		int start = SqlUtils.getStartNum(in, num);
 
-        params.put("pagination", this.voteService.listVotes(start, num, vote));
+        params.put("paginationSupport", this.voteService.listVotes(start, num, vote));
 		return new ModelAndView("vote.list", params);
 	}
 	

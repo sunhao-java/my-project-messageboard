@@ -84,7 +84,7 @@
 	<div class="vote-wrapper">
 		<div id="vote-instant-wrapper">
 			<ul class="vote-list">
-				<c:forEach items="${pagination.items}" var="vote">
+				<c:forEach items="${paginationSupport.items}" var="vote">
 					<c:set value="${vote.voteOptions}" var="options"/>
 					<c:set value="${vote.createUser}" var="user"/>
 					<c:set value="${vote.myAnswer}" var="myAnswer"/>

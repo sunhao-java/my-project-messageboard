@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.friend.po.Friend" table="t_message_friend">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_FRIEND</param>				
+			</generator>
+		</id>
+		<property name="applyUserId" type="java.lang.Long">
+			<column name="APPLY_USER_ID" precision="10" scale="0">
+				<comment>申请者ID</comment>
+			</column>
+		</property>
+		<property name="descUserId" type="java.lang.Long">
+			<column name="DESC_USER_ID" precision="10" scale="0">
+				<comment>目标用户ID</comment>
+			</column>
+		</property>
+		<property name="applyTime" type="java.util.Date">
+			<column name="APPLY_TIME">
+				<comment>申请时间</comment>
+			</column>
+		</property>
+		<property name="agree" type="java.lang.Integer">
+			<column name="agree" length="1">
+				<comment>目标用户是否同意(0未回答1同意2拒绝)</comment>
+			</column>
+		</property>
+		<property name="beFriendTime" type="java.util.Date">
+			<column name="BE_FRIEND_TIME">
+				<comment>成为好友的时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

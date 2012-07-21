@@ -64,6 +64,7 @@
                 <value>com/message/main/album/pojo/Photo.hbm.xml</value>
                 <value>com/message/main/album/pojo/AlbumPhoto.hbm.xml</value>
                 <value>com/message/main/album/pojo/AlbumConfig.hbm.xml</value>
+                <value>com/message/main/friend/po/Friend.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

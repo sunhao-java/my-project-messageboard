@@ -1065,9 +1065,9 @@
 			title = $('<div id="fancybox-title"></div>'),
 			
 			/**TODO edit by sunhao:remove left pointer*/
-			nav_left = $('<a href="javascript:;" id="fancybox-left"></a>'),
+			nav_left = $('<a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a>'),
 			/**TODO edit by sunhao:remove right pointer*/
-			nav_right = $('<a href="javascript:;" id="fancybox-right"></a>')
+			nav_right = $('<a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a>')
 		);
 
 		close.click($.fancybox.close);

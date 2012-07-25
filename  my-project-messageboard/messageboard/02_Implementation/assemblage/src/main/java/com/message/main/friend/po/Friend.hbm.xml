@@ -34,5 +34,15 @@
 				<comment>成为好友的时间</comment>
 			</column>
 		</property>
+		<property name="applyMessage" type="java.lang.String">
+			<column name="APPLY_MESSAGE" length="300">
+				<comment>申请好友时的留言</comment>
+			</column>
+		</property>
+		<property name="disAgreeMessage" type="java.lang.String">
+			<column name="DIS_AGREE_MESSAGE" length="300">
+				<comment>被申请者拒绝的留言</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

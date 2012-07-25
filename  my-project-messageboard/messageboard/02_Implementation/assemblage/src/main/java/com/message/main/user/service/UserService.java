@@ -92,6 +92,18 @@ public interface UserService {
 	PaginationSupport listAllUser(int start, int num, User user) throws Exception;
 	
 	/**
+	 * 获取所有用户
+	 * 
+	 * @param start
+	 * @param num
+	 * @param user
+	 * @param containSelf		是否包含登录用户
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport listAllUser(int start, int num, User user, boolean containSelf) throws Exception;
+	
+	/**
 	 * 删除用户(软删除)
 	 * @param pkids
 	 * @return

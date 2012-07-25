@@ -1,0 +1,163 @@
+@CHARSET "UTF-8";
+a:link, a:visited, a:active{
+	color: #0066CC !important;
+	text-decoration: none !important;
+}
+
+a:hover{
+	text-decoration: underline !important;
+}
+
+#wrap:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#wrap {
+    background: none repeat scroll 0 0 #F5F5F5;
+    min-height: 601px;
+    padding-bottom: 1px;
+}
+
+.il {
+    list-style: none outside none;
+    margin: 10px;
+    padding: 5px 40px 5px 40px;
+}
+
+table {
+    font-size: inherit;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td {
+    color: #0066CC;
+}
+
+li {
+    list-style: none outside none;
+}
+
+.il div:after {
+    clear: both;
+    content: "";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.il div {
+}
+
+.il div {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    margin: 5px 0;
+    padding: 10px;
+}
+
+.short2_people {
+    position: relative;
+}
+
+.short2_people {
+    height: 120px;
+}
+
+.addChexbox {
+    float: left;
+    margin-right: 10px;
+}
+
+.il .image {
+    float: left;
+    margin-right: 10px;
+    margin-top: 0px;
+    overflow: hidden;
+}
+
+img {
+    vertical-align: middle;
+    border: 0 none;
+}
+
+.short2_people .info, .short2_people .info caption {
+    width: 200px;
+}
+
+.il .info {
+    float: left;
+}
+
+table.info caption, table.info1 caption {
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 130%;
+}
+
+caption, th {
+    text-align: left;
+}
+
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+}
+
+.short2_people .actions {
+    float: none;
+    position: absolute;
+    right: 10px;
+    width: 100px;
+}
+
+ul.actions {
+    list-style: none outside none;
+}
+
+ul.actions li {
+    border-bottom: 1px solid #DDDDDD;
+    color: #999999;
+    line-height: 175%;
+    text-indent: 8px;
+}
+
+ul.actions li a {
+    display: block;
+}
+
+ul.actions li a:hover {
+    background-color: #0066CC;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.yui-skin-sam .yui-panel .bd{
+	padding-top: 1px;
+}
+
+.msg-error, .msg-succ {
+    background: none repeat scroll 0 0 #FFEBE8;
+    border: 1px solid #DD3C10;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.msg-succ {
+    background: none repeat scroll 0 0 #FFFBCC;
+    border: 1px solid #FFEC19;
+}
+
+.msg-error {
+    background: none repeat scroll 0 0 #FFEBE8;
+    border: 1px solid #DD3C10;
+}

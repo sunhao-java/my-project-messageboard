@@ -49,11 +49,19 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 		this.updateObject(user);
 	}
 
-	public PaginationSupport listAllUser(int start, int num, User user)
+	public PaginationSupport listAllUser(int start, int num, User user, List<Long> notContain)
 			throws Exception {
-		String hql = "from User u where u.deleteFlag = :deleteFlag order by u.pkId desc ";
-		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag order by u.pkId desc ";
 		Map<String, Object> params = new HashMap<String, Object>();
+		String hql = "from User u where u.deleteFlag = :deleteFlag ";
+		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag ";
+		if(!notContain.isEmpty()){
+			hql += " and u.pkId not in (:notContain) ";
+			countHql += " and u.pkId not in (:notContain) ";
+			//TODO 临时解决
+			params.put("notContain", notContain.get(0));
+		}
+		
+		hql += " order by u.pkId desc ";
 		params.put("deleteFlag", ResourceType.DELETE_NO);
 		return this.getPaginationSupport(hql, countHql, start, num, params);
 	}

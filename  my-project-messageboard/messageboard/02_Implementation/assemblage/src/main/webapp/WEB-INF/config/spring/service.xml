@@ -84,5 +84,12 @@
     	<property name="albumDAO" ref="albumDAO"/>
     	<property name="attachmentService" ref="attachmentService"/>
     </bean>
+    
+    <!-- 好友的service -->
+    <bean id="friendService" class="com.message.main.friend.service.impl.FriendServiceImpl">
+    	<property name="friendDAO" ref="friendDAO"/>
+    	<property name="userService" ref="userService"/>
+    	<property name="mailSend" ref="mailSend"/>
+    </bean>
 	
 </beans>

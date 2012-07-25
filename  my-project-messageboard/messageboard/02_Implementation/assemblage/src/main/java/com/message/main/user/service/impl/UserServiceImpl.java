@@ -1,7 +1,10 @@
 package com.message.main.user.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -221,8 +224,17 @@ public class UserServiceImpl implements UserService{
 
 	public PaginationSupport listAllUser(int start, int num, User user)
 			throws Exception {
-		PaginationSupport paginationSupport = this.userDAO.listAllUser(start, num, user);
-		return paginationSupport;
+		return listAllUser(start, num, user, false);
+	}
+	
+	public PaginationSupport listAllUser(int start, int num, User user, boolean containSelf) throws Exception {
+		List<Long> notContain = new ArrayList<Long>();
+		if(containSelf){
+			//不包含本身
+			LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+			notContain.add(loginUser.getPkId());
+		}
+		return this.userDAO.listAllUser(start, num, user, notContain);
 	}
 
 	public boolean deleteUser(String pkids) throws Exception {
@@ -328,6 +340,7 @@ public class UserServiceImpl implements UserService{
     public void updateUser(User user) throws Exception {
 		this.userDAO.updateUser(user);
 	}
+
 	
 	
 }

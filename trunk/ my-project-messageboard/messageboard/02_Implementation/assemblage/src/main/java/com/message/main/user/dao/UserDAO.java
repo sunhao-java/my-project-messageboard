@@ -1,5 +1,7 @@
 package com.message.main.user.dao;
 
+import java.util.List;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.user.pojo.User;
 
@@ -44,9 +46,10 @@ public interface UserDAO {
 	 * @param start
 	 * @param num
 	 * @param user
+	 * @param notContain	不包含的ID
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listAllUser(int start, int num, User user) throws Exception;
+	PaginationSupport listAllUser(int start, int num, User user, List<Long> notContain) throws Exception;
 	
 }

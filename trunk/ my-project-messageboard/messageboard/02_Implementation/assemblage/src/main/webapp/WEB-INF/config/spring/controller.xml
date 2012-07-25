@@ -92,4 +92,10 @@
 	
 	<bean id="resourceController" class="com.message.main.home.web.ResourceController">
 	</bean>
+	
+	<!-- 好友模块的controller -->
+	<bean id="friendController" class="com.message.main.friend.web.FriendController">
+		<property name="friendService" ref="friendService"/>
+		<property name="userService" ref="userService"/>
+	</bean>
 </beans>

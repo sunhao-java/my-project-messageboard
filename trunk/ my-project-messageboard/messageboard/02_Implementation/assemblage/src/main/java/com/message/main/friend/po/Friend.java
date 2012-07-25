@@ -19,6 +19,8 @@ public class Friend implements Serializable {
 	private Date applyTime;							//申请时间
 	private Integer agree;							//目标用户是否同意(0未回答1同意2拒绝)
 	private Date beFriendTime;						//成为好友的时间
+	private String applyMessage;					//申请好友时的留言
+	private String disAgreeMessage;					//被申请者拒绝的留言
 
 	public Long getPkId() {
 		return pkId;
@@ -66,5 +68,21 @@ public class Friend implements Serializable {
 
 	public void setBeFriendTime(Date beFriendTime) {
 		this.beFriendTime = beFriendTime;
+	}
+
+	public String getApplyMessage() {
+		return applyMessage;
+	}
+
+	public void setApplyMessage(String applyMessage) {
+		this.applyMessage = applyMessage;
+	}
+
+	public String getDisAgreeMessage() {
+		return disAgreeMessage;
+	}
+
+	public void setDisAgreeMessage(String disAgreeMessage) {
+		this.disAgreeMessage = disAgreeMessage;
 	}
 }

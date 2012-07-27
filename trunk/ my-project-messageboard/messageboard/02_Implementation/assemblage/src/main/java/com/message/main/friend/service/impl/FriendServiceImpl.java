@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.message.base.email.MailSend;
+import com.message.base.pagination.PaginationSupport;
 import com.message.base.properties.MessageUtils;
 import com.message.base.utils.StringUtils;
+import com.message.main.ResourceType;
 import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.service.FriendService;
@@ -57,6 +59,7 @@ public class FriendServiceImpl implements FriendService {
 			friend.setApplyUserId(loginUser.getPkId());
 			friend.setApplyTime(new Date());
 			friend.setApplyMessage(applyMessage);
+			friend.setAgree(ResourceType.AGREE_NOANSWER);
 			
 			Long pkId = this.friendDAO.saveApplyFriends(friend);
 			
@@ -82,6 +85,32 @@ public class FriendServiceImpl implements FriendService {
 	public List<Long> getAppliedIds() throws Exception {
 		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		return this.friendDAO.getAppliedIds(loginUser.getPkId());
+	}
+
+	public PaginationSupport getMySendInvite(int start, int num) throws Exception {
+		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		//获取"我发出的申请"，并且获取的是未回答的用户
+		PaginationSupport ps = this.friendDAO.getFriendsByCustom(start, num, "send", ResourceType.AGREE_NOANSWER, loginUser);
+		List<Friend> friends = ps.getItems();
+		for(Friend f : friends){
+			if(f.getApplyUserId() != null){
+				f.setApplyUser(this.userService.getUserById(f.getApplyUserId()));
+			}
+			if(f.getDescUserId() != null){
+				f.setDescUser(this.userService.getUserById(f.getDescUserId()));
+			}
+		}
+		
+		return ps;
+	}
+
+	public boolean cancelRequest(Long pkId) throws Exception {
+		if(pkId == null || Long.valueOf(-1).equals(pkId)){
+			logger.debug("the pkId is null!");
+			return false;
+		}
+		
+		return this.friendDAO.cancelRequest(pkId);
 	}
 
 }

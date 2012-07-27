@@ -6,8 +6,11 @@
 		<li <c:if test="${current eq 'all' }">class="current"</c:if><c:if test="${current ne 'all' }">class="alt"</c:if>>
 			<a href="${contextPath}/friend.do">全部好友</a>
 		</li>
-		<li <c:if test="${current eq 'invite' }">class="current"</c:if><c:if test="${current ne 'invite' }">class="alt"</c:if>>
-			<a href="${contextPath}/friend/listInvitePrompt.do">邀请提示</a>
+		<li <c:if test="${current eq 'send' }">class="current"</c:if><c:if test="${current ne 'send' }">class="alt"</c:if>>
+			<a href="${contextPath}/friend/listMySendInvite.do">我发出的邀请</a>
+		</li>
+		<li <c:if test="${current eq 'receive' }">class="current"</c:if><c:if test="${current ne 'receive' }">class="alt"</c:if>>
+			<a href="${contextPath}/friend/listMyReceiveInvite.do">我收到的邀请</a>
 		</li>
 		
 		<li class="create<c:if test="${current eq 'add' }"> current</c:if>"<c:if test="${current ne 'add' }">class="alt"</c:if>>

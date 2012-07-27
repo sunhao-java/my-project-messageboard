@@ -8,9 +8,14 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/friend/friend_list.jsp"/>
 	</definition>
 	
-	<!-- 邀请提示 页面 -->
-	<definition name="friend.invite.prompt" extends="message.home">
-		<put-attribute name="content" value="/WEB-INF/jsp/friend/friend_invite_prompt.jsp"/>
+	<!-- 我发出的邀请 页面 -->
+	<definition name="friend.my.send.invite" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/friend/friend_my_send_invite.jsp"/>
+	</definition>
+	
+	<!-- 我收到的邀请 页面 -->
+	<definition name="friend.my.receive.invite" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/friend/friend_my_receive_invite.jsp"/>
 	</definition>
 	
 	<!-- 邀请好友 页面 -->

@@ -3,6 +3,8 @@ package com.message.main.friend.po;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.message.main.user.pojo.User;
+
 /**
  * 好友实体.
  * 
@@ -21,6 +23,10 @@ public class Friend implements Serializable {
 	private Date beFriendTime;						//成为好友的时间
 	private String applyMessage;					//申请好友时的留言
 	private String disAgreeMessage;					//被申请者拒绝的留言
+	
+	//VO
+	private User applyUser;							//申请者
+	private User descUser;							//目标用户
 
 	public Long getPkId() {
 		return pkId;
@@ -84,5 +90,21 @@ public class Friend implements Serializable {
 
 	public void setDisAgreeMessage(String disAgreeMessage) {
 		this.disAgreeMessage = disAgreeMessage;
+	}
+
+	public User getApplyUser() {
+		return applyUser;
+	}
+
+	public void setApplyUser(User applyUser) {
+		this.applyUser = applyUser;
+	}
+
+	public User getDescUser() {
+		return descUser;
+	}
+
+	public void setDescUser(User descUser) {
+		this.descUser = descUser;
 	}
 }

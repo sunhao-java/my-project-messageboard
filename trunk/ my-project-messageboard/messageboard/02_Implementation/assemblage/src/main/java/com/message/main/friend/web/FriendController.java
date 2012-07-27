@@ -48,16 +48,35 @@ public class FriendController extends SimpleController {
 	}
 	
 	/**
-	 * 进入邀请提示页面
+	 * 进入我发出的邀请页面
+	 * 
+	 * @param in
+	 * @param out
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView listMySendInvite(WebInput in, WebOutput out) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("current", "send");
+		//每页显示10个用户
+		int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		params.put("paginationSupport", this.friendService.getMySendInvite(start, num));
+		
+		return new ModelAndView("friend.my.send.invite", params);
+	}
+	
+	/**
+	 * 进入我收到的邀请页面
 	 * 
 	 * @param in
 	 * @param out
 	 * @return
 	 */
-	public ModelAndView listInvitePrompt(WebInput in, WebOutput out){
+	public ModelAndView listMyReceiveInvite(WebInput in, WebOutput out){
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("current", "invite");
-		return new ModelAndView("friend.invite.prompt", params);
+		params.put("current", "receive");
+		return new ModelAndView("friend.my.receive.invite", params);
 	}
 	
 	/**
@@ -97,6 +116,22 @@ public class FriendController extends SimpleController {
 		boolean result = this.friendService.saveApplyFriends(selectedUserIds, applyMessage, isEmailNotify);
 		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 取消请求
+	 * 
+	 * @param in
+	 * @param out
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView ajaxCancelRequest(WebInput in, WebOutput out) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		Long pkId = in.getLong("fid", Long.valueOf(-1));
+		params.put("status", this.friendService.cancelRequest(pkId) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}

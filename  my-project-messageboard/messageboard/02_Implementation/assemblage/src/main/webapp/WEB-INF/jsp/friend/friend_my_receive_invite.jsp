@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <!--
-* 邀请提示 页面
+* 我收到的邀请 页面
 * Developed By: sunhao
 * Mail: sunhao.java@gmail.com
 * Time: 12-7-24 下午10:56

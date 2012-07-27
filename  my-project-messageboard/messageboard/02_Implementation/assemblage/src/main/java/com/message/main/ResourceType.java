@@ -191,5 +191,13 @@ public final class ResourceType {
      * 文字水印
      */
     public static final String CHARACTER_MARK_STRING = "word";
+    
+    //好友
+    /**
+     * 目标用户是否同意(0未回答1同意2拒绝)
+     */
+    public static final Integer AGREE_NOANSWER = Integer.valueOf(0);
+    public static final Integer AGREE_YES = Integer.valueOf(1);
+    public static final Integer AGREE_NO = Integer.valueOf(2);
 	
 }

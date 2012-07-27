@@ -56,9 +56,6 @@ li {
 }
 
 .il div {
-}
-
-.il div {
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #CCCCCC;
     margin: 5px 0;
@@ -71,6 +68,10 @@ li {
 
 .short2_people {
     height: 120px;
+}
+
+.people {
+    height: auto;
 }
 
 .addChexbox {
@@ -103,6 +104,49 @@ table.info caption, table.info1 caption {
     font-size: 14px;
     font-weight: bold;
     line-height: 130%;
+}
+
+.people .info, .people .info caption {
+    width: 360px;
+}
+
+table.info td{
+	color: #000000;
+}
+
+table.info td.title{
+	font-weight: bold;
+}
+
+.visitor_name, .online_width {
+    margin-top: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 60px;
+}
+
+.il .actions {
+    float: right;
+    width: 100px;
+}
+
+ul.actions li {
+    border-bottom: 1px solid #DDDDDD;
+    color: #999999;
+    line-height: 175%;
+    text-indent: 8px;
+}
+
+li {
+    list-style: none outside none;
+}
+
+ul.actions {
+    list-style: none outside none;
+}
+
+.il .info {
+    float: left;
 }
 
 caption, th {

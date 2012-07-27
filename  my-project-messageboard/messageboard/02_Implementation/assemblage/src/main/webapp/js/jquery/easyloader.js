@@ -183,6 +183,17 @@
         },
         icolorpicker : {
         	js : "icolorpicker.js"
+        },
+        confirm : {
+        	js : "confirm.js",
+        	css : "/../../../css/confirm/confirm.css",
+        	dependencies : [ "event", "container" ]
+        },
+        event : {
+        	js : "../../yui/js/yahoo-dom-event.js"
+        },
+        container : {
+        	js : "../../yui/js/container-min.js"
         }
 	};
 	var _2 = {

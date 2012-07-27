@@ -90,10 +90,57 @@
 					});
 				}
 			});
-			
-			
 		});
 	});
+	
+	function apply(id){
+		var alertMsg = '<div style="padding:0px;position:relative"><div><div style="float:left">' + 
+                '<a href="${contextPath}/user/userInfo.do"><msg:head userId="${loginUser.pkId}"/> </a>' + 
+               	'</div><div style="margin-left:110px;margin-top:20px">好友请求附言：<br> <textarea style="width:300px;" ' + 
+               	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
+               	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
+               	'<p style="padding-left: 280px;">' +
+               	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify">我想立刻发邮件通知他</p>' +
+               	'</label>';
+        
+		var popWin = YAHOO.app.dialog.pop({
+			'dialogHead':'好友请求附言',
+			'alertMsg':alertMsg,
+			'icon':'none',
+			'diaHeight':230,
+			'diaWidth':460,
+			'confirmFunction':function(){
+	            var params = "selectedUserId=" + id + "&applyMessage=" + $("#requestReason").val() + 
+	            					"&isEmailNotify=" + $("#isEmailNotify").val();
+				$.ajax({
+					type: 'POST',
+					url: '${contextPath}/friend/applyFriends.do',
+					data: params,
+					dataType: 'json',
+					success: function(o){
+						try{
+							var status = o.status;
+							if(status == 1){
+								popWin.cancel();
+								$("#msg_succ").show();
+								setTimeout(function() {
+			                        $('#msg_succ').hide('slow');
+			                    }, 1000);
+							} else {
+								popWin.cancel();
+								$("#msg-error").show();
+							}
+						}catch(e){
+							alert(e);
+						}
+					},
+					error: function(o){
+						alert("系统内部错误，请联系管理员！");
+					}
+				});
+			}
+		});
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -159,7 +206,14 @@
 									</table>
 									<ul class="actions">
 										<li>
-											<a href="javascript:void(0)" rel="#" class="addFriendLink">添加好友</a>
+											<c:choose>
+												<c:when test="${fn:contains(appliedIds, user.pkId)}">
+													请等待对方回应
+												</c:when>
+												<c:otherwise>
+													<a href="javascript:void(0)" rel="#" class="addFriendLink" onclick="apply('${user.pkId}')">添加好友</a>
+												</c:otherwise>
+											</c:choose>
 										</li>
 									</ul>
 								</div>

@@ -2,6 +2,8 @@ package com.message.main.friend.service;
 
 import java.util.List;
 
+import com.message.base.pagination.PaginationSupport;
+
 /**
  * .
  * 
@@ -29,4 +31,23 @@ public interface FriendService {
 	 * @throws Exception
 	 */
 	List<Long> getAppliedIds() throws Exception;
+	
+	/**
+	 * 我发出的邀请
+	 * 
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getMySendInvite(int start, int num) throws Exception;
+	
+	/**
+	 * 取消请求
+	 * 
+	 * @param pkId
+	 * @return
+	 * @throws Exception
+	 */
+	boolean cancelRequest(Long pkId) throws Exception;
 }

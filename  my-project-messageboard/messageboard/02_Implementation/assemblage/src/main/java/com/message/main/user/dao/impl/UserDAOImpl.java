@@ -52,8 +52,8 @@ public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
 	public PaginationSupport listAllUser(int start, int num, User user, List<Long> notContain)
 			throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String hql = "from User u where u.deleteFlag = :deleteFlag ";
-		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag ";
+		String hql = "from User u where u.deleteFlag = :deleteFlag and u.username <> 'guest'";
+		String countHql = "select count(*) from User u where u.deleteFlag = :deleteFlag and u.username <> 'guest' ";
 		if(!notContain.isEmpty()){
 			hql += " and u.pkId not in (:notContain) ";
 			countHql += " and u.pkId not in (:notContain) ";

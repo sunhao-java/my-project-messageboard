@@ -37,4 +37,13 @@
     <bean id="albumObjectCache" class="com.message.base.cache.utils.ObjectCache">
     	<property name="cache" ref="albumCache"/>
     </bean>
+    
+    <!-- 好友的缓存 -->
+    <bean id="friendCache" parent="abstractCache">
+    	<property name="cacheName" value="friendCache"/>
+    </bean>
+    
+    <bean id="friendObjectCache" class="com.message.base.cache.utils.ObjectCache">
+    	<property name="cache" ref="friendCache"/>
+    </bean>
 </beans>

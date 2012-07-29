@@ -16,17 +16,13 @@ public class Friend implements Serializable {
 	private static final long serialVersionUID = -4966800270641046452L;
 	
 	private Long pkId;								//主键
-	private Long applyUserId;						//申请者ID
-	private Long descUserId;						//目标用户ID
-	private Date applyTime;							//申请时间
-	private Integer agree;							//目标用户是否同意(0未回答1同意2拒绝)
-	private Date beFriendTime;						//成为好友的时间
-	private String applyMessage;					//申请好友时的留言
-	private String disAgreeMessage;					//被申请者拒绝的留言
+	private Long applyId;							//申请表ID
+	private Long userId;							//我的ID
+	private Long friendId;							//好友的ID
+	private Date beFriendDate;						//成为好友的时间
 	
 	//VO
-	private User applyUser;							//申请者
-	private User descUser;							//目标用户
+	private User friendUser;						//好友
 
 	public Long getPkId() {
 		return pkId;
@@ -36,75 +32,44 @@ public class Friend implements Serializable {
 		this.pkId = pkId;
 	}
 
-	public Long getApplyUserId() {
-		return applyUserId;
+	public Long getApplyId() {
+		return applyId;
 	}
 
-	public void setApplyUserId(Long applyUserId) {
-		this.applyUserId = applyUserId;
+	public void setApplyId(Long applyId) {
+		this.applyId = applyId;
 	}
 
-	public Long getDescUserId() {
-		return descUserId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setDescUserId(Long descUserId) {
-		this.descUserId = descUserId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public Date getApplyTime() {
-		return applyTime;
+	public Long getFriendId() {
+		return friendId;
 	}
 
-	public void setApplyTime(Date applyTime) {
-		this.applyTime = applyTime;
+	public void setFriendId(Long friendId) {
+		this.friendId = friendId;
 	}
 
-	public Integer getAgree() {
-		return agree;
+	public Date getBeFriendDate() {
+		return beFriendDate;
 	}
 
-	public void setAgree(Integer agree) {
-		this.agree = agree;
+	public void setBeFriendDate(Date beFriendDate) {
+		this.beFriendDate = beFriendDate;
 	}
 
-	public Date getBeFriendTime() {
-		return beFriendTime;
+	public User getFriendUser() {
+		return friendUser;
 	}
 
-	public void setBeFriendTime(Date beFriendTime) {
-		this.beFriendTime = beFriendTime;
+	public void setFriendUser(User friendUser) {
+		this.friendUser = friendUser;
 	}
 
-	public String getApplyMessage() {
-		return applyMessage;
-	}
-
-	public void setApplyMessage(String applyMessage) {
-		this.applyMessage = applyMessage;
-	}
-
-	public String getDisAgreeMessage() {
-		return disAgreeMessage;
-	}
-
-	public void setDisAgreeMessage(String disAgreeMessage) {
-		this.disAgreeMessage = disAgreeMessage;
-	}
-
-	public User getApplyUser() {
-		return applyUser;
-	}
-
-	public void setApplyUser(User applyUser) {
-		this.applyUser = applyUser;
-	}
-
-	public User getDescUser() {
-		return descUser;
-	}
-
-	public void setDescUser(User descUser) {
-		this.descUser = descUser;
-	}
 }

@@ -12,6 +12,7 @@ import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
 import com.message.main.friend.service.FriendService;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.service.UserService;
 
 /**
@@ -40,10 +41,17 @@ public class FriendController extends SimpleController {
 	 * @param in
 	 * @param out
 	 * @return
+	 * @throws Exception 
 	 */
-	public ModelAndView index(WebInput in, WebOutput out){
+	public ModelAndView index(WebInput in, WebOutput out) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("current", "all");
+		
+		//每页显示10个用户
+		int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		params.put("paginationSupport", this.friendService.listFriends(154L, start, num));
+		
 		return new ModelAndView("friend.list", params);
 	}
 	
@@ -55,13 +63,13 @@ public class FriendController extends SimpleController {
 	 * @return
 	 * @throws Exception 
 	 */
-	public ModelAndView listMySendInvite(WebInput in, WebOutput out) throws Exception{
+	public ModelAndView listMySendInvite(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("current", "send");
 		//每页显示10个用户
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
-		params.put("paginationSupport", this.friendService.getMySendInvite(start, num));
+		params.put("paginationSupport", this.friendService.getAllMyReceiveOrSend(loginUser, "send", start, num));
 		
 		return new ModelAndView("friend.my.send.invite", params);
 	}
@@ -73,9 +81,14 @@ public class FriendController extends SimpleController {
 	 * @param out
 	 * @return
 	 */
-	public ModelAndView listMyReceiveInvite(WebInput in, WebOutput out){
+	public ModelAndView listMyReceiveInvite(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("current", "receive");
+		//每页显示10个用户
+		int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		params.put("paginationSupport", this.friendService.getAllMyReceiveOrSend(loginUser, "receive", start, num));
+		
 		return new ModelAndView("friend.my.receive.invite", params);
 	}
 	
@@ -84,18 +97,26 @@ public class FriendController extends SimpleController {
 	 * 
 	 * @param in
 	 * @param out
+	 * @param loginUser
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public ModelAndView toAddFriend(WebInput in, WebOutput out) throws Exception{
+	public ModelAndView toAddFriend(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("current", "add");
+		
 		//每页显示10个用户
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
 		
-		params.put("current", "add");
-		params.put("paginationSupport", this.userService.listAllUser(start, num, null, true));
-		params.put("appliedIds", this.friendService.getAppliedIds());
+		params.put("paginationSupport", this.userService.listAllUser(start, num, null, false));
+		
+		//已经是好友了
+		params.put("myFriends", this.friendService.listFriendIds(loginUser.getPkId()));
+		//申请遭拒绝的
+		params.put("denyl", this.friendService.listApplyFriendIds(loginUser.getPkId(), ResourceType.AGREE_NO));
+		//在申请中，对方未回应的
+		params.put("applying", this.friendService.listApplyFriendIds(loginUser.getPkId(), ResourceType.AGREE_NOANSWER));
 		
 		return new ModelAndView("friend.add", params);
 	}
@@ -105,17 +126,18 @@ public class FriendController extends SimpleController {
 	 * 
 	 * @param in
 	 * @param out
+	 * @param loginUser
 	 * @return
 	 * @throws Exception
 	 */
-	public ModelAndView applyFriends(WebInput in, WebOutput out) throws Exception{
+	public ModelAndView applyFriends(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		Long[] selectedUserIds = in.getLongObjects("selectedUserId");
-		String applyMessage = in.getString("applyMessage", StringUtils.EMPTY);
-		boolean isEmailNotify = in.getBoolean("isEmailNotify", false);
-		boolean result = this.friendService.saveApplyFriends(selectedUserIds, applyMessage, isEmailNotify);
-		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		Long[] selectedUserIds = in.getLongObjects("selectedUserId");				//选择要申请的用户ID
+		String applyMessage = in.getString("applyMessage", StringUtils.EMPTY);		//申请好友时的附言
+		boolean isEmailNotify = in.getBoolean("isEmailNotify", false);				//是否用邮件通知此人
 		
+		params.put(ResourceType.AJAX_STATUS, this.friendService.saveApplyFriends(selectedUserIds, applyMessage, isEmailNotify, loginUser) ?
+				ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}
@@ -130,10 +152,31 @@ public class FriendController extends SimpleController {
 	 */
 	public ModelAndView ajaxCancelRequest(WebInput in, WebOutput out) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		Long pkId = in.getLong("fid", Long.valueOf(-1));
-		params.put("status", this.friendService.cancelRequest(pkId) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		
+		Long faid = in.getLong("faid", Long.valueOf(-1));
+		params.put(ResourceType.AJAX_STATUS, this.friendService.cancelRequest(faid) ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
 	}
+
+    /**
+     * ajax处理同意还是拒绝好友请求
+     * 
+     * @param in
+     * @param out
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView ajaxHandleRequest(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+        Long friendId = in.getLong("faid", Long.valueOf(-1));
+        Integer agreeFlag = in.getInt("agreeFlag", Integer.valueOf(-1));
+        String disAgreeMessage = in.getString("denylMsg", StringUtils.EMPTY);
+        
+        params.put("status", this.friendService.ajaxHandleRequest(loginUser, friendId, agreeFlag, disAgreeMessage) ?
+                ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+    }
 	
 }

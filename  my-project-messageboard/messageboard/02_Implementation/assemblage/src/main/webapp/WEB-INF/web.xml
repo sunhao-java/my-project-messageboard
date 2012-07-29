@@ -105,6 +105,10 @@
 			<taglib-uri>http://sunhao.wiscom.com.cn/message</taglib-uri>
 			<taglib-location>/WEB-INF/tld/msg.tld</taglib-location>
 		</taglib>
+		<taglib>
+			<taglib-uri>http://sunhao-java.vicp.cc:8089/message</taglib-uri>
+			<taglib-location>/WEB-INF/tld/messagefun.tld</taglib-location>
+		</taglib>
 	</jsp-config>
 	
 	<resource-ref>

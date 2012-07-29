@@ -43,14 +43,14 @@ public class FriendController extends SimpleController {
 	 * @return
 	 * @throws Exception 
 	 */
-	public ModelAndView index(WebInput in, WebOutput out) throws Exception{
+	public ModelAndView index(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("current", "all");
 		
 		//每页显示10个用户
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
-		params.put("paginationSupport", this.friendService.listFriends(154L, start, num));
+		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), start, num));
 		
 		return new ModelAndView("friend.list", params);
 	}

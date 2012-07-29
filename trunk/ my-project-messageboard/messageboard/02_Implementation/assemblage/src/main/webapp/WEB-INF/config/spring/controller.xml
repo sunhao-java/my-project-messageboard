@@ -8,9 +8,15 @@
 	<bean id="beanHandler" class="java.util.ArrayList">
         <constructor-arg>
             <list>
+            	<bean class="com.message.base.spring.BeanHandler">
+                    <property name="clazz" value="com.message.main.login.pojo.LoginUser"/>
+                    <property name="value" ref="testHandlerFactory"/>
+                </bean>
             </list>
         </constructor-arg>
     </bean>
+    
+    <bean id="testHandlerFactory" class="com.message.main.login.service.impl.LoginUserBeanHandlerFactory"/>
 
     <bean id="loginController" class="com.message.main.login.web.LoginController">
         <property name="loginService" ref="loginService"/>

@@ -229,7 +229,7 @@ public class UserServiceImpl implements UserService{
 	
 	public PaginationSupport listAllUser(int start, int num, User user, boolean containSelf) throws Exception {
 		List<Long> notContain = new ArrayList<Long>();
-		if(containSelf){
+		if(!containSelf){
 			//不包含本身
 			LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 			notContain.add(loginUser.getPkId());

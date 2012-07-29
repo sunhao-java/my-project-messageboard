@@ -200,4 +200,9 @@ public final class ResourceType {
     public static final Integer AGREE_YES = Integer.valueOf(1);
     public static final Integer AGREE_NO = Integer.valueOf(2);
 	
+    //返回类型
+    //返回PkId
+    public static final Integer RETURN_PKID = Integer.valueOf(1);
+    //返回其他
+    public static final Integer RETURN_OTHER = Integer.valueOf(2);
 }

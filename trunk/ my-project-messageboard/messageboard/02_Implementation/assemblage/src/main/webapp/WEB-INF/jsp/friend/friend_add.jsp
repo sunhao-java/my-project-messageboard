@@ -93,9 +93,10 @@
 		});
 	});
 	
-	function apply(id){
+	function apply(id, name){
 		var alertMsg = '<div style="padding:0px;position:relative"><div><div style="float:left">' + 
-                '<a href="${contextPath}/user/userInfo.do"><msg:head userId="${loginUser.pkId}"/> </a>' + 
+                '<a href="${contextPath}/user/userInfo.do?viewUserId=' + id + '">' +
+                '<img title="' + name + '" src="/message/head.jpg?userId=' + id + '&amp;headType=0"> </a>' + 
                	'</div><div style="margin-left:110px;margin-top:20px">好友请求附言：<br> <textarea style="width:300px;" ' + 
                	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
                	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
@@ -104,7 +105,7 @@
                	'</label>';
         
 		var popWin = YAHOO.app.dialog.pop({
-			'dialogHead':'好友请求附言',
+			'dialogHead':'添加 ' + name + ' 为好友',
 			'alertMsg':alertMsg,
 			'icon':'none',
 			'diaHeight':230,
@@ -169,62 +170,76 @@
 		<ol class="il">
 			<table cellspacing="0" cellpadding="0" border="0" style="width: 100%">
 				<c:forEach items="${paginationSupport.items }" var="user" varStatus="status">
-					<c:if test="${status.index % 2 eq 0}">
-						<tr>
-					</c:if>
-						<td>
-							&nbsp;
-						</td>
-						<td width="50%">
-							<li>
-								<div class="short2_people">
-									<c:choose>
-										<c:when test="${fn:contains(appliedIds, user.pkId)}">
-											<img src="${contextPath}/image/checkbox_checked.png" class="addChexbox"/>
-										</c:when>
-										<c:otherwise>
-											<input type="checkbox" value="${user.pkId }" name="addFriend" class="addChexbox"
-												<c:if test="${loginUser.pkId eq user.pkId}">disabled="disabled"</c:if>/>
-										</c:otherwise>
-									</c:choose>
-									<p class="image">
-										<a href="${contextPath}/user/userInfo.do?viewUserId=${user.pkId}">
-											<msg:head userId="${user.pkId}"/>
-										</a>
-									</p>
-									<table class="info">
-										<caption>
-											<a href="${contextPath}/user/userInfo.do?viewUserId=${user.pkId}">
-												${user.truename }<br> 
-											</a>
-											<br>
-										</caption>
-										<tr>
-		                                    <th></th>
-		                                    <td></td>
-		                                </tr>
-									</table>
-									<ul class="actions">
-										<li>
-											<c:choose>
-												<c:when test="${fn:contains(appliedIds, user.pkId)}">
-													请等待对方回应
-												</c:when>
-												<c:otherwise>
-													<a href="javascript:void(0)" rel="#" class="addFriendLink" onclick="apply('${user.pkId}')">添加好友</a>
-												</c:otherwise>
-											</c:choose>
-										</li>
-									</ul>
-								</div>
-							</li>
-						</td>
-						<td>
-							&nbsp;
-						</td>
-					<c:if test="${status.index % 2 eq 1}">
-						</tr>
-					</c:if>
+                    <c:if test="${status.index % 2 eq 0}">
+                        <tr>
+                    </c:if>
+                        <td>
+                            &nbsp;
+                        </td>
+                        <td width="50%">
+                            <li>
+                                <div class="short2_people">
+                                    <c:choose>
+                                        <c:when test="${msgFun:contains(applying, user.pkId) || msgFun:contains(denyl, user.pkId) || msgFun:contains(myFriends, user.pkId)}">
+                                            <img src="${contextPath}/image/checkbox_checked.png" class="addChexbox"/>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <input type="checkbox" value="${user.pkId }" name="addFriend" class="addChexbox"/>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <p class="image">
+                                        <a href="${contextPath}/user/userInfo.do?viewUserId=${user.pkId}">
+                                            <msg:head userId="${user.pkId}"/>
+                                        </a>
+                                    </p>
+                                    <table class="info">
+                                        <caption>
+                                            <a href="${contextPath}/user/userInfo.do?viewUserId=${user.pkId}">
+                                                ${user.truename }<br>
+                                            </a>
+                                            <br>
+                                        </caption>
+                                        <tr>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    <ul class="actions">
+                                        <c:choose>
+                                            <c:when test="${msgFun:contains(applying, user.pkId)}">
+                                                <li>
+                                                    请等待对方回应
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${msgFun:contains(myFriends, user.pkId)}">
+                                                <li>
+                                                    已经成为好友
+                                                </li>
+                                            </c:when>
+                                            <c:when test="${msgFun:contains(denyl, user.pkId)}">
+                                                <li>
+                                                    已被对方拒绝
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0)" rel="#" class="addFriendLink" onclick="apply('${user.pkId}', '${user.truename}')">再次申请</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <a href="javascript:void(0)" rel="#" class="addFriendLink" onclick="apply('${user.pkId}', '${user.truename}')">添加好友</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </ul>
+                                </div>
+                            </li>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    <c:if test="${status.index % 2 eq 1}">
+                        </tr>
+                    </c:if>
 				</c:forEach>
 			</table>
 		</ol>

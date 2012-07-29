@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.friend.po.FriendApply" table="t_message_friend_apply">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_FRIEND_APPLY</param>				
+			</generator>
+		</id>
+		<property name="applyUserId" type="java.lang.Long">
+			<column name="APPLY_USER_ID" precision="10" scale="0">
+				<comment>申请人ID</comment>
+			</column>
+		</property>
+		<property name="inviteUserId" type="java.lang.Long">
+			<column name="INVITE_USER_ID" precision="10" scale="0">
+				<comment>被邀请人ID</comment>
+			</column>
+		</property>
+		<property name="applyDate" type="java.util.Date">
+			<column name="APPLY_DATE">
+				<comment>申请时间</comment>
+			</column>
+		</property>
+		<property name="message" type="java.lang.String">
+			<column name="MESSAGE" length="300">
+				<comment>申请时的附言</comment>
+			</column>
+		</property>
+		<property name="result" type="java.lang.Integer">
+			<column name="RESULT" length="1">
+				<comment>被申请人的回复结果(0未回答1同意2拒绝)</comment>
+			</column>
+		</property>
+		<property name="ip" type="java.lang.String">
+			<column name="IP" length="20">
+				<comment>申请人所在地IP</comment>
+			</column>
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK" length="300">
+				<comment>被申请人作出回答时的备注(拒绝时有备注)</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

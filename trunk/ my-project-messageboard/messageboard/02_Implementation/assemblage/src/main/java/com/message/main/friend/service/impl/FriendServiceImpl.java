@@ -1,6 +1,8 @@
 package com.message.main.friend.service.impl;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -9,19 +11,22 @@ import org.slf4j.LoggerFactory;
 
 import com.message.base.email.MailSend;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.pagination.PaginationUtils;
 import com.message.base.properties.MessageUtils;
+import com.message.base.utils.ObjectUtils;
 import com.message.base.utils.StringUtils;
+import com.message.base.utils.ValidateUtils;
 import com.message.main.ResourceType;
 import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
+import com.message.main.friend.po.FriendApply;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
-import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 
 /**
- * .
+ * 好友模块service.
  * 
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0
@@ -46,71 +51,234 @@ public class FriendServiceImpl implements FriendService {
 		this.mailSend = mailSend;
 	}
 
-	public boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify) throws Exception {
+	public PaginationSupport listFriends(Long userId, int start, int num) throws Exception {
+		PaginationSupport ps = this.friendDAO.listFriends(userId, start, num);
+		List<Friend> friends = ps.getItems();
+		for(int i = 0; i < friends.size(); i++){
+			Friend f = friends.get(i);
+			Friend tmp = null;
+			if(f != null && f.getPkId() != null) {
+				tmp = this.getFriend(f.getPkId());
+			}
+			friends.set(i, tmp);
+		}
+		return ps;
+	}
+
+	public Friend getFriend(Long fid) throws Exception {
+		Friend friend = this.friendDAO.getFriend(fid);
+		handleFriend(friend);
+		return friend;
+	}
+
+	/**
+	 * 处理好友
+	 * 
+	 * @param friend
+	 * @throws Exception
+	 */
+	private void handleFriend(Friend friend) throws Exception{
+		if(friend == null)
+			return;
+		
+		if(friend.getFriendId() != null){
+			friend.setFriendUser(this.userService.getUserById(friend.getFriendId()));
+		}
+	}
+
+	public List<Long> listFriendIds(Long userId) throws Exception {
+		PaginationSupport ps = this.listFriends(userId, -1, -1);
+		List<Long> ids = new ArrayList<Long>();
+		for(Object f : ps.getItems()){
+			Friend friend = (Friend) f;
+			ids.add(friend.getFriendId());
+		}
+		
+		return ids;
+	}
+
+	public boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify, LoginUser loginUser) throws Exception {
 		if(selectedUserIds == null || selectedUserIds.length <= 0){
 			logger.debug("the selectedUserIds is null!");
 			return false;
 		}
-		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		
 		for(Long id : selectedUserIds){
-			Friend friend = new Friend();
-			friend.setDescUserId(id);
-			friend.setApplyUserId(loginUser.getPkId());
-			friend.setApplyTime(new Date());
-			friend.setApplyMessage(applyMessage);
-			friend.setAgree(ResourceType.AGREE_NOANSWER);
+			FriendApply fa = new FriendApply();
+			fa.setApplyDate(new Date());
+			fa.setApplyUserId(loginUser.getPkId());
+			fa.setInviteUserId(id);
+			fa.setIp(loginUser.getLoginIP());
+			fa.setMessage(applyMessage);
+			fa.setResult(ResourceType.AGREE_NOANSWER);		//默认是未回答的
 			
-			Long pkId = this.friendDAO.saveApplyFriends(friend);
+			Long pkId = this.friendDAO.saveEntity(fa).getPkId();
+			
+			if(pkId == null)
+				return false;
 			
 			if(isEmailNotify){
 				//发邮件通知
-				User descUser = this.userService.getUserById(id);
-				String email = descUser.getEmail();
-				if(StringUtils.isNotEmpty(email)){
-					String applyTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(friend.getApplyTime());
+				User inviteUser = this.userService.getUserById(id);
+				String email = inviteUser.getEmail();
+				if(StringUtils.isNotEmpty(email) && ValidateUtils.isEmail(email)){
+					String applyTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(fa.getApplyDate());
 					String mailTemplate = MessageUtils.getProperties("mail.friend.template", 
-							new Object[]{loginUser.getTruename(), applyTime, applyMessage, 
-							MessageUtils.getProperties("messageboard.home", "http://sunhao.wiscom.com.cn:8089/message")});
+							new Object[] {
+								loginUser.getTruename(), 
+								applyTime, 
+								applyMessage, 
+								MessageUtils.getProperties("messageboard.home", "http://sunhao.wiscom.com.cn:8089/message")
+							});
 					this.mailSend.sendMail("好友申请", mailTemplate, email);
 				}
 			}
-			if(pkId == null)
-				return false;
 		}
-		
 		return true;
 	}
 
-	public List<Long> getAppliedIds() throws Exception {
-		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
-		return this.friendDAO.getAppliedIds(loginUser.getPkId());
+	public List<Long> listApplyFriendIds(Long userId, Integer result) throws Exception {
+		if(userId == null || Long.valueOf(-1).equals(userId)){
+			logger.debug("userId is null!");
+			return Collections.EMPTY_LIST;
+		}
+		if(!Integer.valueOf(0).equals(result) && !Integer.valueOf(2).equals(result)){
+			//result既不为0也不为2,返回
+			logger.debug("the result: '{}' is not what code want!", result);
+			return Collections.EMPTY_LIST;
+		}
+		
+		PaginationSupport ps = this.friendDAO.listApplyFriends(userId, result, ResourceType.RETURN_OTHER, -1, -1);
+		List<Long> ids = new ArrayList<Long>();
+		for(Object fa : ps.getItems()){
+			FriendApply friendApply = (FriendApply) fa;
+			ids.add(friendApply.getInviteUserId());
+		}
+		return ids;
 	}
 
-	public PaginationSupport getMySendInvite(int start, int num) throws Exception {
-		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
-		//获取"我发出的申请"，并且获取的是未回答的用户
-		PaginationSupport ps = this.friendDAO.getFriendsByCustom(start, num, "send", ResourceType.AGREE_NOANSWER, loginUser);
-		List<Friend> friends = ps.getItems();
-		for(Friend f : friends){
-			if(f.getApplyUserId() != null){
-				f.setApplyUser(this.userService.getUserById(f.getApplyUserId()));
+	public PaginationSupport listApplyFriends(Long userId, Integer result, int start, int num) throws Exception {
+		if(userId == null || Long.valueOf(-1).equals(result)){
+			logger.debug("userId is null!");
+			return null;
+		}
+		PaginationSupport ps = this.friendDAO.listApplyFriends(userId, result, ResourceType.RETURN_PKID, start, num);
+		List<FriendApply> applys = ps.getItems();
+		for(int i = 0; i < applys.size(); i++){
+			FriendApply fa = applys.get(i);
+			FriendApply tmp = null;
+			if(fa != null && fa.getPkId() != null) {
+				tmp = this.getFriendApply(fa.getPkId());
 			}
-			if(f.getDescUserId() != null){
-				f.setDescUser(this.userService.getUserById(f.getDescUserId()));
-			}
+			applys.set(i, tmp);
 		}
 		
 		return ps;
 	}
 
-	public boolean cancelRequest(Long pkId) throws Exception {
-		if(pkId == null || Long.valueOf(-1).equals(pkId)){
-			logger.debug("the pkId is null!");
+	public FriendApply getFriendApply(Long faid) throws Exception {
+		FriendApply fa = this.friendDAO.getFriendApply(faid);
+		handleFriendApply(fa);
+		return fa;
+	}
+	
+	/**
+	 * 处理好友申请
+	 * 
+	 * @param friendApply
+	 * @throws Exception
+	 */
+	private void handleFriendApply(FriendApply friendApply) throws Exception{
+		if(friendApply == null)
+			return;
+		
+		if(friendApply.getApplyUserId() != null){
+			friendApply.setApplyUser(this.userService.getUserById(friendApply.getApplyUserId()));
+		}
+		
+		if(friendApply.getInviteUserId() != null){
+			friendApply.setInviteUser(this.userService.getUserById(friendApply.getInviteUserId()));
+		}
+	}
+	
+	public Friend getFriend(Long friendApplyId, Long userId) throws Exception {
+		if(friendApplyId == null || userId == null){
+			return null;
+		}
+		
+		return this.friendDAO.getFriend(friendApplyId, userId);
+	}
+
+	public PaginationSupport getAllMyReceiveOrSend(LoginUser loginUser, String applyType, int start, int num) throws Exception {
+		if(loginUser == null || !ObjectUtils.contain(new String[]{"receive", "send"}, applyType)){
+			logger.debug("userId is null! or applyType is not macth!");
+			return null;
+		}
+		
+		PaginationSupport ps = this.friendDAO.getAllMyReceiveOrSend(loginUser, applyType, start, num);
+		List<FriendApply> applys = ps.getItems();
+		for(int i = 0; i < applys.size(); i++){
+			FriendApply fa = applys.get(i);
+			FriendApply tmp = null;
+			if(fa != null && fa.getPkId() != null) {
+				tmp = this.getFriendApply(fa.getPkId());
+			}
+			applys.set(i, tmp);
+		}
+		
+		return ps;
+	}
+
+	public boolean cancelRequest(Long faid) throws Exception {
+		if(faid == null || Long.valueOf(-1).equals(faid)){
+			logger.debug("the friendApply id is null!");
 			return false;
 		}
 		
-		return this.friendDAO.cancelRequest(pkId);
+		int result = this.friendDAO.deleteObject(faid, FriendApply.class);
+		return result == 1;
 	}
 
+	public boolean ajaxHandleRequest(LoginUser loginUser, Long friendId, Integer agreeFlag, String disAgreeMessage) throws Exception {
+		if(friendId == null || Long.valueOf(-1).equals(friendId) || agreeFlag == null || Integer.valueOf(-1).equals(agreeFlag)){
+            logger.debug("this params maybe null");
+            return false;
+        }
+
+        FriendApply friendApply = this.getFriendApply(friendId);
+        if(!loginUser.getPkId().equals(friendApply.getInviteUserId())){
+            logger.debug("current login user are not the invite user!");
+            return false;
+        }
+
+        if(ResourceType.AGREE_YES.equals(agreeFlag)){
+        	//同意
+        	//1、先把正向的申请(别人向我申请的)置为同意
+        	friendApply.setResult(ResourceType.AGREE_YES);
+
+        	//2、创建一个好友(我同意了，他的好友列表中有我，但是我的好友列表还没有他，必须等他同意了我的申请)
+        	Friend friend = new Friend();
+        	friend.setApplyId(friendId);
+        	friend.setUserId(friendApply.getApplyUserId());
+        	friend.setFriendId(loginUser.getPkId());
+        	friend.setBeFriendDate(new Date());
+        	
+        	Long fid = this.friendDAO.saveEntity(friend).getPkId();
+        	this.friendDAO.updateEntity(friendApply);
+        	
+        	return fid != null;
+        	
+        } else if(ResourceType.AGREE_NO.equals(agreeFlag)){
+        	//不同意
+        	//1、直接把申请置为不同意
+        	friendApply.setResult(ResourceType.AGREE_NO);
+        	friendApply.setRemark(disAgreeMessage);
+        	
+        	this.friendDAO.updateEntity(friendApply);
+        	return true;
+        } else {
+            logger.debug("this agree type '{}' is undefined in ResourceType.java", agreeFlag);
+            return false;
+        }
+	}
 }

@@ -47,6 +47,7 @@
     <!-- 好友的DAO -->
     <bean id="friendDAO" class="com.message.main.friend.dao.impl.FriendDAOImpl" parent="genericHibernateDAOImpl">
     	<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
+    	<property name="cache" ref="friendObjectCache"/>
     </bean>
 	
 </beans>

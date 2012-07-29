@@ -16,7 +16,10 @@
         confirmFunc: null,                  // 点击“确认”后，需要执行的js function
         cancelFunc: null,                    // 点击“取消”后，需要执行的js function
         customSucTip: null,					//自定义的成功提示消息
-        customErrTip: null					//自定义的失败提示消息
+        customErrTip: null,					//自定义的失败提示消息
+        handleData: null,                    //自定义处理一些参数的函数,为组件提供一些无法从外部获取的数据，返回形式如：message=hello&name=sunhao
+        width: 250,         				//宽度
+        height: 52							//高度
     }
 
     $.confirm.linkConfirm = $.confirm.linkConfirm || null;
@@ -50,21 +53,21 @@
                 },
                 getOffset: function(){
                     var offset = element.offset();
-                    var top = offset.top - 85;
-                    var left = offset.left - (250 * 0.8);
+                    var top = offset.top - (p.height + 33);
+                    var left = offset.left - (p.width * 0.8);
                     var width = $(window).width();
                     var height = $(window).height();
-                    if(left < 250){
+                    if(left < p.width){
                         left = 0;
                         $("#decor").css("left", offset.left + 5);
                     }
-                    if(width - left < 250){
+                    if(width - left < p.width){
                         left = width - 275;
                         $("#decor").css("left", 240);
                     }
-                    if(top < 52){
+                    if(top < p.height){
                         top = offset.top + 32;
-                        $("#decor").removeClass("decor").addClass("decor1");
+                        $("#decor").removeClass("decor").addClass("decor1").css("bottom", p.height + 20 + "px");
                     }
                     
                     return [left, top];
@@ -73,8 +76,8 @@
                     $.confirm.linkConfirm = new YAHOO.widget.Overlay("overlay2",
                     {   xy: this.getOffset(),
                         visible:false,
-                        width:"250px",
-                        height:'52px'
+                        width:p.width,
+                        height:p.height
                     });
                     $.confirm.linkConfirm.setHeader(p.header);
                     $.confirm.linkConfirm.setBody(this.getBody());
@@ -111,20 +114,19 @@
                         type: 'post',
                         url: url,
                         dataType: 'json',
-                        data: '',
+                        data: f.handleData(),
                         success: function(data){
                             try{
                                 if(data.status == 1){
-                                    if(p.isDelFoot && p.removeElement){
+                                    if(p.removeElement){
                                         //是删除操作，并且要移出元素不为空
                                         p.removeElement.hide();
                                         if(p.customSucTip){
                                         	return p.customSucTip(data.status);
                                         } else {
-	                                        f.showTip('suc', p.removeElement);
+                                            if(p.isDelFoot)
+	                                            f.showTip('suc', p.removeElement);
                                         }
-                                    } else {
-                                        
                                     }
                                 } else {
                                     if(p.customErrTip){
@@ -138,7 +140,7 @@
                             }
                         },
                         error: function(data){
-                            alert('错误信息:' + data);
+                            alert('错误信息:' + data.status);
                         }
                     });
                 },
@@ -151,6 +153,13 @@
                     setTimeout(function() {
                         $('#tip' + element.attr('id')).hide();
                     }, 500);
+                },
+                handleData: function(){
+                    if(p.handleData){
+                        return p.handleData();
+                    } else {
+                        return "";
+                    }
                 }
             }
 

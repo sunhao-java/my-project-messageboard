@@ -8,10 +8,6 @@
     visibility: inherit;
 }
 
-.yui-overlay .bd{
-    height: 19px !important;
-}
-
 .yui-overlay{
     background: none repeat scroll 0 0 #F8F8F9;
     border: 1px solid #666666;
@@ -24,6 +20,7 @@
     margin-top: 12px;
     text-align: right;
 }
+
 p {
     line-height: 18px;
     list-style: none outside none;
@@ -42,7 +39,6 @@ p {
 
 .decor1 {
     background: url("pmsg_dialog1.gif") no-repeat scroll 0 0 transparent;
-    bottom: 72px;
     height: 12px;
     left: 80%;
     position: absolute;

@@ -84,10 +84,11 @@ public interface FriendService {
 	 * @param applyMessage			申请好友时的附言
 	 * @param isEmailNotify			是否用邮件通知此人
 	 * @param loginUser				当前登录者
+	 * @param faid					好友申请ID
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify, LoginUser loginUser) throws Exception;
+	boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify, LoginUser loginUser, Long faid) throws Exception;
 	
 	/**
 	 * 按照申请类型获取别人给自己的申请(receive)和我的申请(send)
@@ -131,4 +132,14 @@ public interface FriendService {
      * @throws Exception
      */
     boolean ajaxHandleRequest(LoginUser loginUser, Long friendId, Integer agreeFlag, String disAgreeMessage) throws Exception;
+    
+    /**
+     * 删除好友
+     * 
+     * @param loginUser			当前登录者
+     * @param friendId			好友的ID
+     * @return
+     * @throws Exception
+     */
+    boolean deleteFriend(LoginUser loginUser, Long friendId) throws Exception;
 }

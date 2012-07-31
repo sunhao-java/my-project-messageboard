@@ -97,7 +97,25 @@ public class FriendServiceImpl implements FriendService {
 		return ids;
 	}
 
-	public boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify, LoginUser loginUser) throws Exception {
+	public boolean saveApplyFriends(Long[] selectedUserIds, String applyMessage, boolean isEmailNotify, LoginUser loginUser, Long faid) 
+			throws Exception {
+		if(!Long.valueOf(-1).equals(faid)){
+			//是再次申请
+			FriendApply fa = this.getFriendApply(faid);
+			fa.setApplyDate(new Date());
+			fa.setIp(loginUser.getLoginIP());
+			fa.setMessage(applyMessage);
+			fa.setResult(ResourceType.AGREE_NOANSWER);
+			fa.setRemark(StringUtils.EMPTY);
+			
+			this.friendDAO.updateEntity(fa);
+			
+			if(isEmailNotify){
+				sendMail(fa.getInviteUserId(), fa, loginUser, applyMessage);
+			}
+			return true;
+		}
+		
 		if(selectedUserIds == null || selectedUserIds.length <= 0){
 			logger.debug("the selectedUserIds is null!");
 			return false;
@@ -118,23 +136,36 @@ public class FriendServiceImpl implements FriendService {
 				return false;
 			
 			if(isEmailNotify){
-				//发邮件通知
-				User inviteUser = this.userService.getUserById(id);
-				String email = inviteUser.getEmail();
-				if(StringUtils.isNotEmpty(email) && ValidateUtils.isEmail(email)){
-					String applyTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(fa.getApplyDate());
-					String mailTemplate = MessageUtils.getProperties("mail.friend.template", 
-							new Object[] {
-								loginUser.getTruename(), 
-								applyTime, 
-								applyMessage, 
-								MessageUtils.getProperties("messageboard.home", "http://sunhao.wiscom.com.cn:8089/message")
-							});
-					this.mailSend.sendMail("好友申请", mailTemplate, email);
-				}
+				sendMail(id, fa, loginUser, applyMessage);
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * 发送邮件
+	 * 
+	 * @param id					选中用户的ID
+	 * @param fa					好友申请
+	 * @param loginUser				当前登录者
+	 * @param applyMessage			申请附言
+	 * @throws Exception
+	 */
+	private void sendMail(Long id, FriendApply fa, LoginUser loginUser, String applyMessage) throws Exception{
+		//发邮件通知
+		User inviteUser = this.userService.getUserById(id);
+		String email = inviteUser.getEmail();
+		if(StringUtils.isNotEmpty(email) && ValidateUtils.isEmail(email)){
+			String applyTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(fa.getApplyDate());
+			String mailTemplate = MessageUtils.getProperties("mail.friend.template", 
+					new Object[] {
+						loginUser.getTruename(), 
+						applyTime, 
+						applyMessage, 
+						MessageUtils.getProperties("messageboard.home", "http://sunhao.wiscom.com.cn:8089/message")
+					});
+			this.mailSend.sendMail("好友申请", mailTemplate, email);
+		}
 	}
 
 	public List<Long> listApplyFriendIds(Long userId, Integer result) throws Exception {
@@ -280,5 +311,14 @@ public class FriendServiceImpl implements FriendService {
             logger.debug("this agree type '{}' is undefined in ResourceType.java", agreeFlag);
             return false;
         }
+	}
+
+	public boolean deleteFriend(LoginUser loginUser, Long friendId) throws Exception {
+		if(loginUser == null || friendId == null || Long.valueOf(-1).equals(friendId)){
+			logger.debug("this params maybe null!");
+			return false;
+		}
+		
+		return this.friendDAO.deleteFriend(loginUser.getPkId(), friendId);
 	}
 }

@@ -14,11 +14,17 @@
 <msg:css href="/css/friend.css"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/easyloader.js"/>
+<msg:js src="js/base/app-dialog.js"/>
 
 <style type="text/css">
 	.il {
 	    margin: 0 !important;
 	    padding: 10px;
+	}
+	
+	.yui-dialog .yui-overlay{
+		background: none repeat scroll 0 0 #FFFFFF !important;
+	    padding: 0px !important;
 	}
 </style>
 
@@ -47,6 +53,56 @@
 			}
 		});
 	});
+	
+	function apply(faid, name, uid){
+		var alertMsg = '<div style="padding:0px;position:relative"><div><div style="float:left">' + 
+                '<a href="${contextPath}/user/userInfo.do?viewUserId=' + uid + '">' +
+                '<img title="' + name + '" src="/message/head.jpg?userId=' + uid + '&amp;headType=0"> </a>' + 
+               	'</div><div style="margin-left:110px;margin-top:20px">好友请求附言：<br> <textarea style="width:300px;" ' + 
+               	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
+               	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
+               	'<p style="padding-left: 280px;">' +
+               	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify">我想立刻发邮件通知他</p>' +
+               	'</label>';
+        
+		var popWin = YAHOO.app.dialog.pop({
+			'dialogHead':'再次添加 ' + name + ' 为好友',
+			'alertMsg':alertMsg,
+			'icon':'none',
+			'diaHeight':230,
+			'diaWidth':460,
+			'confirmFunction':function(){
+	            var params = "faid=" + faid + "&applyMessage=" + $("#requestReason").val() + 
+	            					"&isEmailNotify=" + $("#isEmailNotify").val();
+				$.ajax({
+					type: 'POST',
+					url: '${contextPath}/friend/applyFriends.do',
+					data: params,
+					dataType: 'json',
+					success: function(o){
+						try{
+							var status = o.status;
+							if(status == 1){
+								popWin.cancel();
+								$("#msg_succ1").show();
+								setTimeout(function() {
+			                        $('#msg_succ1').hide('slow');
+			                    }, 1000);
+							} else {
+								popWin.cancel();
+								$("#msg-error1").show();
+							}
+						}catch(e){
+							alert(e);
+						}
+					},
+					error: function(o){
+						alert("系统内部错误，请联系管理员！");
+					}
+				});
+			}
+		});
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -62,6 +118,14 @@
 	
 	<div id="msg-error" class="msg-error" style="display:none">
 		取消好友申请失败！
+	</div>
+	
+	<div style="display:none" class="msg-succ" id="msg_succ1">
+	 	好友申请成功！
+	</div>
+	
+	<div id="msg-error" class="msg-error1" style="display:none">
+		好友申请失败！
 	</div>
 
 	<div id="wrap">
@@ -124,7 +188,8 @@
                                 <c:if test="${friend.result eq 2}">
                                     <li>
                                         <a class="requestAjax" id="requestAjax${status.index}" href="javascript:void(0);"
-                                            rel="${contextPath}/friend/ajaxCancelRequest.do?faid=${friend.pkId }">再次请求</a>
+                                            rel="${contextPath}/friend/ajaxCancelRequest.do?faid=${friend.pkId }"
+                                            onclick="apply('${friend.pkId}', '${friend.inviteUser.truename}', '${friend.inviteUserId}');">再次请求</a>
                                     </li>
                                 </c:if>
                                 <li>

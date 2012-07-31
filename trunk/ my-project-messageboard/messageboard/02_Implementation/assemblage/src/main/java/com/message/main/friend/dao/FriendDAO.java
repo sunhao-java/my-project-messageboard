@@ -100,4 +100,14 @@ public interface FriendDAO {
 	 * @throws Exception
 	 */
 	void updateEntity(Object entity) throws Exception;
+	
+	/**
+     * 删除好友
+     * 
+     * @param userId			当前登录者ID
+     * @param friendId			好友的ID
+     * @return
+     * @throws Exception
+     */
+    boolean deleteFriend(Long userId, Long friendId) throws Exception;
 }

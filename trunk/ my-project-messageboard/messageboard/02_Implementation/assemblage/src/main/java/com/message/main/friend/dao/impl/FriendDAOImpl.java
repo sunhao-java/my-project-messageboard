@@ -93,9 +93,11 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "select a.pk_id from t_message_friend_apply a where 1 = 1 ";
 		if(StringUtils.equals("receive", applyType)){
-			sql += " and a.invite_user_id = :userId ";
+			sql += " and a.invite_user_id = :userId and a.result = :result ";
+			params.put("result", ResourceType.AGREE_NOANSWER);
 		} else if(StringUtils.equals("send", applyType)){
-			sql += " and a.apply_user_id = :userId ";
+			sql += " and a.apply_user_id = :userId and a.result <> :result ";
+			params.put("result", ResourceType.AGREE_YES);
 		} else {
 			return null;
 		}
@@ -140,6 +142,15 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 
 	public void updateEntity(Object entity) throws Exception {
 		this.updateObject(entity);
+	}
+
+	public boolean deleteFriend(Long userId, Long friendId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "delete from t_message_friend f where f.user_id = :userId and f.friend_id = :friendId ";
+		params.put("userId", userId);
+		params.put("friendId", friendId);
+		
+		return this.genericJdbcDAO.update(sql, params) == 1;
 	}
 
 

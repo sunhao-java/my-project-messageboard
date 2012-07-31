@@ -156,7 +156,7 @@
                 },
                 handleData: function(){
                     if(p.handleData){
-                        return p.handleData();
+                        return p.handleData(element.attr('id'));
                     } else {
                         return "";
                     }

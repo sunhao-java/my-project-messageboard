@@ -72,8 +72,10 @@
                     customErrTip: function(status){
                     	$("#msg-error_denyl").show();
                     },
-                    handleData: function(){
-                        return "denylMsg=" + $("#denylMsg" + flag).val();
+                    handleData: function(id){
+                    	var index = id.indexOf('denylRequest');
+                    	var flag_ = id.substring(index + 'denylRequest'.length);
+                        return "denylMsg=" + $("#denylMsg" + flag_).val();
                     }
 				});
 			}

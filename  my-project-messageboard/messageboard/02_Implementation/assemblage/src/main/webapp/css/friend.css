@@ -107,7 +107,7 @@ table.info caption, table.info1 caption {
 }
 
 .people .info, .people .info caption {
-    width: 360px;
+    width: 470px;
 }
 
 table.info td{
@@ -204,4 +204,23 @@ ul.actions li a:hover {
 .msg-error {
     background: none repeat scroll 0 0 #FFEBE8;
     border: 1px solid #DD3C10;
+}
+
+tr.phone-num th {
+    color: #888888;
+    font-weight: normal;
+    text-align: left;
+    vertical-align: top;
+    width: 4em;
+}
+
+.phone-num th, .phone-num td{
+	font-style: normal;
+	font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.phone-num td {
+    color: #0066CC !important;
 }

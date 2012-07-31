@@ -135,8 +135,9 @@ public class FriendController extends SimpleController {
 		Long[] selectedUserIds = in.getLongObjects("selectedUserId");				//选择要申请的用户ID
 		String applyMessage = in.getString("applyMessage", StringUtils.EMPTY);		//申请好友时的附言
 		boolean isEmailNotify = in.getBoolean("isEmailNotify", false);				//是否用邮件通知此人
+		Long faid = in.getLong("faid", Long.valueOf(-1));							//好友申请的ID,如果为-1则是第一次申请,如果不为-1则是再次申请
 		
-		params.put(ResourceType.AJAX_STATUS, this.friendService.saveApplyFriends(selectedUserIds, applyMessage, isEmailNotify, loginUser) ?
+		params.put(ResourceType.AJAX_STATUS, this.friendService.saveApplyFriends(selectedUserIds, applyMessage, isEmailNotify, loginUser, faid) ?
 				ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
@@ -177,6 +178,25 @@ public class FriendController extends SimpleController {
                 ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
+    }
+    
+    /**
+     * 删除好友
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView deleteFriend(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long friendId = in.getLong("fid", Long.valueOf(-1));
+    	
+    	params.put(ResourceType.AJAX_STATUS, this.friendService.deleteFriend(loginUser, friendId) ? 
+    			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	out.toJson(params);
+    	return null;
     }
 	
 }

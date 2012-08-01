@@ -347,43 +347,44 @@
 						</ul>
 					</div>
 				</div>
-				<c:url var="paginationAction" value="album/listPhotos.do?albumId=${album.pkId}"/>
-				<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>
 			</c:otherwise>
 		</c:choose>
 		
-		<!-- the first tabs -->
-		<div class="album-sidebar">
-			<div class="corner-body">
-				<h2>
-					我的相册
-					<c:if test="${albums.totalRow ne fn:length(albums.items)}">
-						<a id="show" class="more" href="javascript:void(0);" onclick="showAllMine();">全部</a>
-						<a id="close" class="more" href="javascript:void(0);" onclick="closePanel();" style="display: none;">收起</a>
-					</c:if>
-				</h2>
-				<ul class="album-list-me" id="showPanel">
-					<c:forEach items="${albums.items}" var="a">
-						<li>
-							<a href="${contextPath}/album/listPhotos.do?albumId=${a.pkId}" class="album-mame"> 
-								<c:choose>
-									<c:when test="${a.cover eq '/image/default.png'}">
-										<img src="${contextPath}/${a.cover}" title="${a.albumName}"/>
-									</c:when>
-									<c:otherwise>
-										<img src="${contextPath}/photo.jpg?filePath=${a.cover}" title="${a.albumName}"/>
-									</c:otherwise>
-								</c:choose>
-							</a>
-							<span class="tag"> 
-								<a href="${contextPath}/album/listPhotos.do?albumId=${a.pkId}" title="${a.albumName}">${a.albumName}</a> 
-							</span>
-							<span class="statis">${a.photoCount}张</span>
-						</li>
-					</c:forEach>
-				</ul>
-			</div>
+	</div>
+	<!-- the first tabs -->
+	<div class="album-sidebar">
+		<div class="corner-body">
+			<h2>
+				我的相册
+				<c:if test="${albums.totalRow ne fn:length(albums.items)}">
+					<a id="show" class="more" href="javascript:void(0);" onclick="showAllMine();">全部</a>
+					<a id="close" class="more" href="javascript:void(0);" onclick="closePanel();" style="display: none;">收起</a>
+				</c:if>
+			</h2>
+			<ul class="album-list-me" id="showPanel">
+				<c:forEach items="${albums.items}" var="a">
+					<li>
+						<a href="${contextPath}/album/listPhotos.do?albumId=${a.pkId}" class="album-mame"> 
+							<c:choose>
+								<c:when test="${a.cover eq '/image/default.png'}">
+									<img src="${contextPath}/${a.cover}" title="${a.albumName}"/>
+								</c:when>
+								<c:otherwise>
+									<img src="${contextPath}/photo.jpg?filePath=${a.cover}" title="${a.albumName}"/>
+								</c:otherwise>
+							</c:choose>
+						</a>
+						<span class="tag"> 
+							<a href="${contextPath}/album/listPhotos.do?albumId=${a.pkId}" title="${a.albumName}">${a.albumName}</a> 
+						</span>
+						<span class="statis">${a.photoCount}张</span>
+					</li>
+				</c:forEach>
+			</ul>
 		</div>
 	</div>
 	<!-- end of album-main -->
 </div>
+
+<c:url var="paginationAction" value="album/listPhotos.do?albumId=${album.pkId}"/>
+<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>

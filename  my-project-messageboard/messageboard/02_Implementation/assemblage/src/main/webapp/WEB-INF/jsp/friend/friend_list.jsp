@@ -78,22 +78,33 @@
 						<table class="info">
 							<caption>
 								<a href="${contextPath}/user/userInfo.do?viewUserId=${friend.friendId}">
-									<span title="${friend.friendUser.truename}" class="online_width">${friend.friendUser.truename }</span> </a>
+									<span title="${friend.friendUser.truename}" class="online_width">${friend.friendUser.truename }</span>
+								</a>
+								<c:if test="${friend.friendUser.sex eq 1}">
+									<img src="${contextPath}/image/male.png" alt="男" title="男" style="vertical-align: top"/>
+								</c:if>
+								<c:if test="${friend.friendUser.sex eq 2}">
+									<img src="${contextPath}/image/female.png" alt="女" title="女" style="vertical-align: top"/>
+								</c:if>
 							</caption>
-							<c:choose>
-								<c:when test="${not empty friend.friendUser.phoneNum }">
-									<tr class="phone-num">
-										<th>手机：</th>
-										<td>${friend.friendUser.phoneNum }</td>
-									</tr>
-								</c:when>
-								<c:otherwise>
-									<tr>
-										<th></th>
-										<td></td>
-									</tr>
-								</c:otherwise>
-							</c:choose>
+							<c:if test="${not empty friend.friendUser.phoneNum }">
+								<tr class="phone-num">
+									<th>手机：</th>
+									<td>${friend.friendUser.phoneNum }</td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty friend.friendUser.email }">
+								<tr class="phone-num">
+									<th>邮箱：</th>
+									<td>${friend.friendUser.email }</td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty friend.friendUser.qq }">
+								<tr class="phone-num">
+									<th>QQ：</th>
+									<td>${friend.friendUser.qq }</td>
+								</tr>
+							</c:if>
 							<tr>
 								<td></td>
 							</tr>

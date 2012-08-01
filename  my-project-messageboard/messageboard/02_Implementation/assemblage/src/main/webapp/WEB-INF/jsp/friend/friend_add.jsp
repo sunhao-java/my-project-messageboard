@@ -195,9 +195,14 @@
                                     <table class="info">
                                         <caption>
                                             <a href="${contextPath}/user/userInfo.do?viewUserId=${user.pkId}">
-                                                ${user.truename }<br>
+                                                ${user.truename }
                                             </a>
-                                            <br>
+                                            <c:if test="${user.sex eq 1}">
+												<img src="${contextPath}/image/male.png" alt="男" title="男" style="vertical-align: top"/>
+											</c:if>
+											<c:if test="${user.sex eq 2}">
+												<img src="${contextPath}/image/female.png" alt="女" title="女" style="vertical-align: top"/>
+											</c:if>
                                         </caption>
                                         <tr>
                                             <th></th>

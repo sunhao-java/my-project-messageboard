@@ -20,6 +20,7 @@ import com.message.main.ResourceType;
 import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
+import com.message.main.friend.po.FriendGroup;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.pojo.User;
@@ -320,5 +321,78 @@ public class FriendServiceImpl implements FriendService {
 		}
 		
 		return this.friendDAO.deleteFriend(loginUser.getPkId(), friendId);
+	}
+
+	public Long saveGroup(String groupName, LoginUser loginUser) throws Exception {
+		if(StringUtils.isEmpty(groupName) || loginUser == null){
+			logger.debug("empty group name and loginUser!");
+			return null;
+		}
+		
+		FriendGroup group = new FriendGroup();
+		group.setName(groupName);
+		group.setOwer(loginUser.getPkId());
+		group.setDeleteFlag(ResourceType.DELETE_NO_INTEGER);
+		group.setCreateTime(new Date());
+		
+		this.friendDAO.saveEntity(group);
+		
+		return group.getPkId();
+	}
+
+	public PaginationSupport getFriendGroups(LoginUser loginUser, int start, int num) throws Exception {
+		if(loginUser == null){
+			return PaginationUtils.getNullPagination();
+		}
+		
+		PaginationSupport ps = this.friendDAO.getFriendGroups(loginUser.getPkId(), start, num);
+		List<FriendGroup> fgs = ps.getItems();
+		for(int i = 0; i < fgs.size(); i++){
+			FriendGroup fg = null;
+			if(fgs.get(i).getPkId() != null){
+				fg = this.getFriendGroup(fgs.get(i).getPkId());
+			}
+			fgs.set(i, fg);
+		}
+		
+		return ps;
+	}
+
+	public FriendGroup getFriendGroup(Long fgid) throws Exception {
+		if(fgid == null || Long.valueOf(-1).equals(fgid)){
+			return null;
+		}
+		
+		FriendGroup fg = this.friendDAO.getFriendGroup(fgid);
+		handleFriendGroup(fg);
+		return fg;
+	}
+	
+	private void handleFriendGroup(FriendGroup fg) throws Exception{
+		if(fg.getOwer() != null){
+			fg.setOwner(this.userService.getUserById(fg.getOwer()));
+		}
+	}
+
+	public boolean groupFunc(Long groupId, String groupName, String action) throws Exception {
+		if(groupId == null || Long.valueOf(-1).equals(groupId) || !ObjectUtils.contain(new String[]{"edit", "delete"}, action)){
+			logger.debug("groupId is null, or action is not in '[edit, delete]'");
+			return false;
+		}
+		
+		if("edit".equals(action)){
+			//编辑
+			FriendGroup fg = this.getFriendGroup(groupId);
+			fg.setName(groupName);
+			
+			this.friendDAO.updateEntity(fg);
+		} else if("delete".equals(action)){
+			//删除
+			this.friendDAO.deleteObject(groupId, FriendGroup.class);
+		} else {
+			return false;
+		}
+		
+		return true;
 	}
 }

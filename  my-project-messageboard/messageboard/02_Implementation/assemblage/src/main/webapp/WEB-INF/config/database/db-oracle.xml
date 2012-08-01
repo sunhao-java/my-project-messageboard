@@ -66,6 +66,7 @@
                 <value>com/message/main/album/pojo/AlbumConfig.hbm.xml</value>
                 <value>com/message/main/friend/po/Friend.hbm.xml</value>
                 <value>com/message/main/friend/po/FriendApply.hbm.xml</value>
+                <value>com/message/main/friend/po/FriendGroup.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -74,7 +75,7 @@
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">false</prop>
-				<!--<prop key="hibernate.hbm2ddl.auto">update</prop>-->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.current_session_context_class">thread</prop> 
 			</props>
 		</property>

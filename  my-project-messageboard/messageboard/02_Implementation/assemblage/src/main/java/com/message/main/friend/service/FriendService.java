@@ -5,6 +5,7 @@ import java.util.List;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
+import com.message.main.friend.po.FriendGroup;
 import com.message.main.login.pojo.LoginUser;
 
 
@@ -142,4 +143,45 @@ public interface FriendService {
      * @throws Exception
      */
     boolean deleteFriend(LoginUser loginUser, Long friendId) throws Exception;
+    
+    /**
+     * 保存用户的分组
+     * 
+     * @param groupName			组名
+     * @param loginUser			登录者
+     * @return
+     * @throws Exception
+     */
+    Long saveGroup(String groupName, LoginUser loginUser) throws Exception;
+    
+    /**
+     * 获取loginUser的全部分组
+     * 
+     * @param loginUser			登录者
+     * @param start				
+     * @param num
+     * @return
+     * @throws Exception
+     */
+    PaginationSupport getFriendGroups(LoginUser loginUser, int start, int num) throws Exception;
+    
+    /**
+	 * 获取好友分组
+	 * 
+	 * @param fgid				好友分组对象ID
+	 * @return
+	 * @throws Exception
+	 */
+	FriendGroup getFriendGroup(Long fgid) throws Exception;
+	
+	/**
+	 * 好友分组的删除编辑操作
+	 * 
+	 * @param groupId			分组ID
+	 * @param groupName			组名
+	 * @param action			动作名称(edit,delete)
+	 * @return
+	 * @throws Exception
+	 */
+	boolean groupFunc(Long groupId, String groupName, String action) throws Exception;
 }

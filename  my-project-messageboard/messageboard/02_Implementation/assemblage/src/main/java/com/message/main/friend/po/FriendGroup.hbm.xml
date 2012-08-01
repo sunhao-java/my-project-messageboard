@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.friend.po.FriendGroup" table="t_message_friend_group">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_FRIEND_GROUP</param>				
+			</generator>
+		</id>
+		<property name="name" type="java.lang.String">
+			<column name="NAME" length="300">
+				<comment>组名</comment>
+			</column>
+		</property>
+		<property name="ower" type="java.lang.Long">
+			<column name="OWER" precision="10" scale="0">
+				<comment>是谁创建的</comment>
+			</column>
+		</property>
+		<property name="createTime" type="java.util.Date">
+			<column name="CREATE_TIME">
+				<comment>创建时间</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Integer">
+			<column name="DELETE_FLAG" length="1">
+				<comment>是否删除的标识0未删除，1已删除</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

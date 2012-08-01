@@ -311,7 +311,7 @@ li.pipe {
 }
 .toolbar {
     background-color: #F7F7F7;
-    border-top: 1px solid #DDDDDD;
+    border-top: 1px solid #CCCCCC;
     margin-bottom: 5px;
     padding: 5px 10px;
 }
@@ -455,6 +455,7 @@ a.upload-btn .config-ico {
 }
 .album-list, .photo-list {
     width: 100%;
+    padding-left: 10px;
 }
 .album-list li {
     background-position: 0 0;
@@ -1388,6 +1389,9 @@ a.photo-edit:hover, .photo-list li.select .photo-edit {
 }
 .photo-main {
     padding-top: 0px;
+    min-height: 600px;
+    border: 1px solid #CCCCCC;
+    border-top-width: 0px;
 }
 .photo-main:after {
     clear: both;
@@ -1395,9 +1399,8 @@ a.photo-edit:hover, .photo-list li.select .photo-edit {
     display: block;
 }
 .photo-main-content {
-    float: left;
-    width: 90%;
-    margin-left: 50px;
+    padding: 0px 0px 15px 0px;
+    min-height: 600px;
 }
 .photo-main-sidebar2 {
     float: right;

@@ -17,6 +17,14 @@ a:hover {
 .opera-bar .select-btn2, .opera-bar .left-btn, .opera-bar .right-btn, .album-list li .infor .password, .album-list li .infor .phone, .album-list li .infor .userhead, .photo-comment, .photo-del, .photo-edit, .photo-cover, .photo-comment span, .album-list li, .enter-ico {
     background: url("../image/icons2.png") no-repeat scroll 0 0 transparent;
 }
+#main{
+	min-height: 600px;
+	border: 1px solid #CCCCCC;
+	border-bottom-width: 0px;
+}
+.l-panel-bar{
+	margin-top: 0px !important;
+}
 .numbers {
     color: #888888;
 }
@@ -166,6 +174,7 @@ a.upload-btn .add-ico {
 }
 .album-list, .photo-list {
     width: 100%;
+    padding-left: 20px;
 }
 .album-list li {
     background-position: 0 0;
@@ -1778,15 +1787,13 @@ label {
     height: 48px;
 }
 .album-main {
-    border-top: 1px solid #DDDDDD;
     float: left;
-    width: 720px;
-    margin-left: 50px;
+    width: 730px;
 }
 .function-nav {
     background-color: #F7F7F7;
     margin-bottom: 5px;
-    padding: 5px;
+    padding: 5px 0px 5px 20px;
     position: relative;
     z-index: 50;
 }
@@ -1909,6 +1916,7 @@ label {
 }
 .ablum-infor-fri {
     padding-top: 0px;
+    padding-left: 20px;
 }
 .ablum-infor-box .ablum-infor {
     overflow: hidden;
@@ -2125,7 +2133,9 @@ a.gray-btn:hover {
     float: right;
     overflow: hidden;
     width: 240px;
-    margin-right: 50px
+    padding-right: 50px;
+    margin-right: 0px;
+    min-height: 600px;
 }
 .no-content {
     margin: 20px 0;
@@ -2148,9 +2158,8 @@ a.gray-btn:hover {
 .corner-body h2 {
     font-size: 12px;
     font-weight: bold;
-    margin: 0 10px;
-    padding: 5px 0 2px;
     position: relative;
+    padding-left: 10px;
 }
 .corner-body h2 a.more {
     font-weight: lighter;
@@ -2258,7 +2267,6 @@ ul.album-list-me li a img{
     background-color: #FFFFAA;
 }
 .album-sidebar .corner-body {
-    border-top: 1px solid #CEE1EE;
 }
 .photo-myList .friendAutoSelector {
     border-top: 1px solid #CEE1EE;
@@ -2375,6 +2383,7 @@ a.show-bigpic{
     height: 450px;
     position: relative;
     overflow: hidden;
+    padding-left: 10px;
 }
 
 .album-main .photo a {
@@ -2470,6 +2479,7 @@ li {
 .photo-desc{
 	margin: 15px 0 0;
     width: 80%;
+    padding-left: 10px;
 }
 
 .photo-desc p {

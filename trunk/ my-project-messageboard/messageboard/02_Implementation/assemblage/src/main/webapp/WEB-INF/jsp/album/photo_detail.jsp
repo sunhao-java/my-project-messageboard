@@ -175,7 +175,7 @@
 	<jsp:param value="${contextPath}/album/listPhotos.do?albumId=${album.pkId}" name="link"/>
 </jsp:include>
 
-<div class="clearfix" id="main">
+<div class="clearfix" id="main" style="border: 1px solid #CCCCCC">
 	<div class="album-main">
 		<div class="function-nav function-nav2 clearfix">
 			<ul class="nav-btn">
@@ -208,7 +208,7 @@
 		<div style="" class="photo-desc" id="photoTitleEditorContainer">
 		
 			<p origintitle="" id="photoTitle" style="" class=" " onmouseover="$(this).attr('class', 'photo-title-hover')"
-					onmouseout="$(this).attr('class', '')" onclick="dom.get('photoTitleEditor').style.display = '';$(this).hide()">
+					onmouseout="$(this).attr('class', '')" onclick="dom.get('photoTitleEditor').style.display = '';$(this).hide();$('#description').focus();">
 				<c:choose>
 					<c:when test="${empty photo.summary}">
 						单击此处添加描述

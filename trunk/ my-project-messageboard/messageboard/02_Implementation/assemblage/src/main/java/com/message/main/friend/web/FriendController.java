@@ -51,6 +51,7 @@ public class FriendController extends SimpleController {
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
 		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), start, num));
+		params.put("groups", this.friendService.getFriendGroups(loginUser, -1, -1).getItems());
 		
 		return new ModelAndView("friend.list", params);
 	}
@@ -199,4 +200,44 @@ public class FriendController extends SimpleController {
     	return null;
     }
 	
+    /**
+     * 保存用户的分组
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView saveGroup(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	String groupName = in.getString("groupName", StringUtils.EMPTY);
+    	
+    	Long groupId = this.friendService.saveGroup(groupName, loginUser);
+    	params.put(ResourceType.AJAX_STATUS, groupId != null ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	params.put("groupId", groupId);
+    	out.toJson(params);
+    	return null;
+    }
+    
+    /**
+     * 好友分组的删除编辑操作
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView groupFun(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long groupId = in.getLong("groupId", Long.valueOf(-1));
+    	String groupName = in.getString("groupName", StringUtils.EMPTY);
+    	String action = in.getString("action", StringUtils.EMPTY);
+    	
+    	params.put(ResourceType.AJAX_STATUS, this.friendService.groupFunc(groupId, groupName, action) ? 
+    			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	out.toJson(params);
+    	return null;
+    }
 }

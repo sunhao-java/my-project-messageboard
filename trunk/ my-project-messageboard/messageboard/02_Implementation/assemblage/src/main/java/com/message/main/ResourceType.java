@@ -12,10 +12,12 @@ public final class ResourceType {
 	 * 没有被删除
 	 */
 	public static final Long DELETE_NO = 0L;
+	public static final Integer DELETE_NO_INTEGER = Integer.valueOf(0);
 	/**
 	 * 已删除
 	 */
 	public static final Long DELETE_YES = 1L;
+	public static final Integer DELETE_YES_INTEGER = Integer.valueOf(1);
 	
 	/**
 	 * 未审核

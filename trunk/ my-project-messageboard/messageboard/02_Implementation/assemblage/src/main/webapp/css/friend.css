@@ -224,3 +224,81 @@ tr.phone-num th {
 .phone-num td {
     color: #0066CC !important;
 }
+
+.friend-group{
+	float: right;
+	border-width: 0px;
+	border-left: 1px solid #888888;
+	width: 200px;
+	min-height: 600px;
+	padding: 10px;
+}
+
+#friends-filter {
+    margin-bottom: 10px;
+    padding-top: 1px;
+}
+
+.h-filter {
+    line-height: 20px;
+}
+
+.h-filter p.current {
+    border: 1px solid #2782D6;
+    padding: 0px;
+}
+
+.h-filter p.current a {
+    background: none repeat scroll 0 0 #4B95E3;
+    border-top: 1px solid #6FAAE9;
+    line-height: 22px;
+    display: block;
+    padding-left: 10px;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+}
+
+.h-filter p, .h-filter h4, .h-filter ul li {
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.h-filter h4 {
+    color: #666666;
+    margin: 15px 0 0;
+    padding-left: 10px;
+}
+
+#friends-filter ul li {
+    height: 25px;
+    line-height: 25px;
+    overflow: hidden;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+#friends-filter ul li a:hover, #friends-filter ul li:hover{
+	background-color: #CCE5EF;
+	text-decoration: none !important;
+}
+
+#friends-filter h5.add-group {
+    background: url("../image/friend-groups-add.gif") no-repeat scroll 10px center transparent;
+    font-weight: bold;
+    margin: 10px 0;
+    padding-left: 20px;
+    font-size: 100%;
+    font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    line-height: 20px;
+}
+
+#friends-filter ul li:hover .edit, #friends-filter ul li:hover .delete {
+    cursor: pointer;
+    display: inline;
+    float: right;
+    padding-right: 2px;
+}
+
+#friends-filter ul li .edit, #friends-filter ul li .delete {
+    color: #90A4B8;
+    display: none;
+}

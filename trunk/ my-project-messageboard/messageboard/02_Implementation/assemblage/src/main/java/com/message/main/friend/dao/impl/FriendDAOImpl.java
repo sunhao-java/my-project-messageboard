@@ -14,6 +14,7 @@ import com.message.main.ResourceType;
 import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
+import com.message.main.friend.po.FriendGroup;
 import com.message.main.login.pojo.LoginUser;
 
 /**
@@ -55,7 +56,16 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 	}
 
 	public <T> T saveEntity(T entity) throws Exception {
-		return (T) this.saveObject(entity);
+		this.saveObject(entity);
+		if(entity instanceof Friend){
+			this.cache.put(entity, ((Friend) entity).getPkId());
+		} else if(entity instanceof FriendApply){
+			this.cache.put(entity, ((FriendApply) entity).getPkId());
+		} else if(entity instanceof FriendGroup){
+			this.cache.put(entity, ((FriendGroup) entity).getPkId());
+		}
+		
+		return entity;
 	}
 
 	public PaginationSupport listApplyFriends(Long userId, Integer result, Integer returnType, int start, int num) throws Exception {
@@ -125,6 +135,8 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 			table = "t_message_friend";
 		} else if(FriendApply.class.equals(deleteClazz)){
 			table = "t_message_friend_apply";
+		} else if(FriendGroup.class.equals(deleteClazz)){
+			table = "t_message_friend_group";
 		} else {
 			return 0;
 		}
@@ -142,6 +154,17 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 
 	public void updateEntity(Object entity) throws Exception {
 		this.updateObject(entity);
+		
+		if(entity instanceof Friend){
+			this.cache.remove(Friend.class, ((Friend) entity).getPkId());
+			this.cache.put(entity, ((Friend) entity).getPkId());
+		} else if(entity instanceof FriendApply){
+			this.cache.remove(FriendApply.class, ((FriendApply) entity).getPkId());
+			this.cache.put(entity, ((FriendApply) entity).getPkId());
+		} else if(entity instanceof FriendGroup){
+			this.cache.remove(FriendGroup.class, ((FriendGroup) entity).getPkId());
+			this.cache.put(entity, ((FriendGroup) entity).getPkId());
+		}
 	}
 
 	public boolean deleteFriend(Long userId, Long friendId) throws Exception {
@@ -151,6 +174,25 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 		params.put("friendId", friendId);
 		
 		return this.genericJdbcDAO.update(sql, params) == 1;
+	}
+
+	public PaginationSupport getFriendGroups(Long userId, int start, int num) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select g.pk_id from t_message_friend_group g where g.ower = :ower and g.delete_flag = :deleteFlag";
+		params.put("ower", userId);
+		params.put("deleteFlag", ResourceType.DELETE_NO_INTEGER);
+		
+		return this.genericJdbcDAO.getBeanPaginationSupport(sql, null, start, num, params, FriendGroup.class);
+	}
+
+	public FriendGroup getFriendGroup(Long fgid) throws Exception {
+		FriendGroup fg = (FriendGroup) this.cache.get(FriendGroup.class, fgid);
+		if(fg == null){
+			fg = (FriendGroup) this.loadObject(FriendGroup.class, fgid);
+			this.cache.put(fg, fgid);
+		}
+		
+		return fg;
 	}
 
 

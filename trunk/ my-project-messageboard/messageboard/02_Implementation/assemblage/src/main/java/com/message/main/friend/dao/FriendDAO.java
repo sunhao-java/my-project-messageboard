@@ -1,8 +1,11 @@
 package com.message.main.friend.dao;
 
+import java.util.List;
+
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
+import com.message.main.friend.po.FriendGroup;
 import com.message.main.login.pojo.LoginUser;
 
 
@@ -110,4 +113,24 @@ public interface FriendDAO {
      * @throws Exception
      */
     boolean deleteFriend(Long userId, Long friendId) throws Exception;
+    
+    /**
+     * 获取loginUser的全部分组
+     * 
+     * @param userId			登录者ID
+     * @param start				
+     * @param num
+     * @return
+     * @throws Exception
+     */
+    PaginationSupport getFriendGroups(Long userId, int start, int num) throws Exception;
+    
+    /**
+	 * 获取好友分组
+	 * 
+	 * @param fgid				好友分组ID
+	 * @return
+	 * @throws Exception
+	 */
+    FriendGroup getFriendGroup(Long fgid) throws Exception;
 }

@@ -22,4 +22,6 @@
 	<definition name="friend.add" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/friend/friend_add.jsp"/>
 	</definition>
+	
+	<definition name="friend.group.add" template="/WEB-INF/jsp/friend/friend_group_add.jsp"/>
 </tiles-definitions>

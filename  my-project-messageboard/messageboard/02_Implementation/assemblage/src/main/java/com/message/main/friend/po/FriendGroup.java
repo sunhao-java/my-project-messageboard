@@ -23,6 +23,7 @@ public class FriendGroup implements Serializable {
 	
 	//VO
 	private User owner;							//创建者
+	private int userNum;						//此分组下有多少人
 
 	public Long getPkId() {
 		return pkId;
@@ -70,6 +71,14 @@ public class FriendGroup implements Serializable {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+
+	public int getUserNum() {
+		return userNum;
+	}
+
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
 	}
 	
 }

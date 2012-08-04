@@ -2,6 +2,7 @@ package com.message.main.friend.po;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.message.main.user.pojo.User;
 
@@ -23,6 +24,7 @@ public class Friend implements Serializable {
 	
 	//VO
 	private User friendUser;						//好友
+	private List<FriendGroup> groups;				//此好友所在的分组
 
 	public Long getPkId() {
 		return pkId;
@@ -70,6 +72,14 @@ public class Friend implements Serializable {
 
 	public void setFriendUser(User friendUser) {
 		this.friendUser = friendUser;
+	}
+
+	public List<FriendGroup> getGroups() {
+		return groups;
+	}
+
+	public void setGroups(List<FriendGroup> groups) {
+		this.groups = groups;
 	}
 
 }

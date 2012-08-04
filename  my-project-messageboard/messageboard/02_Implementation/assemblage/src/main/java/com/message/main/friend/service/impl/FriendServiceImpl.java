@@ -21,6 +21,7 @@ import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
 import com.message.main.friend.po.FriendGroup;
+import com.message.main.friend.po.FriendGroupUser;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.pojo.User;
@@ -52,8 +53,8 @@ public class FriendServiceImpl implements FriendService {
 		this.mailSend = mailSend;
 	}
 
-	public PaginationSupport listFriends(Long userId, int start, int num) throws Exception {
-		PaginationSupport ps = this.friendDAO.listFriends(userId, start, num);
+	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception {
+		PaginationSupport ps = this.friendDAO.listFriends(userId, groupId, start, num);
 		List<Friend> friends = ps.getItems();
 		for(int i = 0; i < friends.size(); i++){
 			Friend f = friends.get(i);
@@ -65,10 +66,20 @@ public class FriendServiceImpl implements FriendService {
 		}
 		return ps;
 	}
+	
+	public int getNoGroupFriendNum(LoginUser loginUser) throws Exception {
+		if(loginUser == null){
+			logger.debug("loginUser is null!");
+			return 0;
+		}
+		
+		return this.friendDAO.getNoGroupFriendNum(loginUser.getPkId());
+	}
 
 	public Friend getFriend(Long fid) throws Exception {
 		Friend friend = this.friendDAO.getFriend(fid);
-		handleFriend(friend);
+		if(friend != null)
+			handleFriend(friend);
 		return friend;
 	}
 
@@ -85,10 +96,14 @@ public class FriendServiceImpl implements FriendService {
 		if(friend.getFriendId() != null){
 			friend.setFriendUser(this.userService.getUserById(friend.getFriendId()));
 		}
+		
+		if(friend.getPkId() != null){
+			friend.setGroups(this.getGroupByFriend(friend.getPkId()));
+		}
 	}
 
 	public List<Long> listFriendIds(Long userId) throws Exception {
-		PaginationSupport ps = this.listFriends(userId, -1, -1);
+		PaginationSupport ps = this.listFriends(userId, null, -1, -1);
 		List<Long> ids = new ArrayList<Long>();
 		for(Object f : ps.getItems()){
 			Friend friend = (Friend) f;
@@ -210,7 +225,8 @@ public class FriendServiceImpl implements FriendService {
 
 	public FriendApply getFriendApply(Long faid) throws Exception {
 		FriendApply fa = this.friendDAO.getFriendApply(faid);
-		handleFriendApply(fa);
+		if(fa != null)
+			handleFriendApply(fa);
 		return fa;
 	}
 	
@@ -329,6 +345,11 @@ public class FriendServiceImpl implements FriendService {
 			return null;
 		}
 		
+		if("未分组".equals(groupName)){
+			logger.debug("the group name can't be '{}'", groupName);
+			return null;
+		}
+		
 		FriendGroup group = new FriendGroup();
 		group.setName(groupName);
 		group.setOwer(loginUser.getPkId());
@@ -364,13 +385,18 @@ public class FriendServiceImpl implements FriendService {
 		}
 		
 		FriendGroup fg = this.friendDAO.getFriendGroup(fgid);
-		handleFriendGroup(fg);
+		if(fg != null)
+			handleFriendGroup(fg);
 		return fg;
 	}
 	
 	private void handleFriendGroup(FriendGroup fg) throws Exception{
 		if(fg.getOwer() != null){
 			fg.setOwner(this.userService.getUserById(fg.getOwer()));
+		}
+		
+		if(fg.getPkId() != null){
+			fg.setUserNum(this.getGroupUserNum(fg.getPkId()));
 		}
 	}
 
@@ -394,5 +420,58 @@ public class FriendServiceImpl implements FriendService {
 		}
 		
 		return true;
+	}
+
+	public boolean saveFriendGroup(LoginUser loginUser, Long friendId, Long[] groups) throws Exception {
+		if(loginUser == null || friendId == null){
+			logger.debug("given wrong params!");
+			return false;
+		}
+		
+		//保存之前，先将原来的分组删除
+		List<Long> guids = this.friendDAO.getGroupUserByFriendId(friendId);
+		for(Long guid : guids){
+			this.friendDAO.deleteObject(guid, FriendGroupUser.class);
+		}
+		
+		//开始保存
+		boolean result = groups.length == 0;
+		for(Long groupId : groups){
+			FriendGroupUser fgu = new FriendGroupUser();
+			fgu.setFriendId(friendId);
+			fgu.setGroupId(groupId);
+			
+			this.friendDAO.saveEntity(fgu);
+			result = fgu.getPkId() != null;
+			if(!result)
+				break;
+		}
+		
+		return result;
+	}
+
+	public int getGroupUserNum(Long groupId) throws Exception {
+		if(groupId == null){
+			logger.debug("groupId is null!");
+			return 0;
+		}
+		
+		return this.friendDAO.getGroupUserNum(groupId);
+	}
+
+	public List<FriendGroup> getGroupByFriend(Long friendId) throws Exception {
+		if(friendId == null || Long.valueOf(-1).equals(friendId)){
+			logger.debug("friend id is null!");
+			return Collections.EMPTY_LIST;
+		}
+		List<Long> groupIds = this.friendDAO.getGroupByFriend(friendId);
+		List<FriendGroup> groups = new ArrayList<FriendGroup>();
+		for(Long groupId : groupIds){
+			FriendGroup fg = this.getFriendGroup(groupId);
+			if(fg != null)
+				groups.add(fg);
+		}
+		
+		return groups;
 	}
 }

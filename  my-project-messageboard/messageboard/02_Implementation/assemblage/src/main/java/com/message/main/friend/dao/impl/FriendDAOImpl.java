@@ -1,10 +1,13 @@
 package com.message.main.friend.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.jdbc.core.RowMapper;
 
 import com.message.base.cache.utils.ObjectCache;
 import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
@@ -15,6 +18,7 @@ import com.message.main.friend.dao.FriendDAO;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
 import com.message.main.friend.po.FriendGroup;
+import com.message.main.friend.po.FriendGroupUser;
 import com.message.main.login.pojo.LoginUser;
 
 /**
@@ -37,12 +41,37 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 		this.cache = cache;
 	}
 
-	public PaginationSupport listFriends(Long userId, int start, int num) throws Exception {
+	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String sql = "select f.pk_id from t_message_friend f where f.user_id = :applyId order by f.pk_id desc ";
+		String sql = "select f.pk_id from t_message_friend f where f.user_id = :applyId ";
+		if(Long.valueOf(0).equals(groupId)){
+			//未分组的
+			sql += " and f.pk_id not in (" +
+					"select u.friend_id from t_message_friend_group_user u join t_message_friend_group g on " +
+					" u.group_id = g.pk_id " +
+					")";
+		} else if(groupId != null && !Long.valueOf(-1).equals(groupId)){
+			//分组的
+			sql += " and f.pk_id in (" +
+					"select u.friend_id from t_message_friend_group_user u join t_message_friend_group g on " +
+					" u.group_id = g.pk_id where g.pk_id = :groupId " +
+					")";
+			params.put("groupId", groupId);
+		}
+		sql += " order by f.pk_id desc ";
 		params.put("applyId", userId);
 		
 		return this.genericJdbcDAO.getBeanPaginationSupport(sql, null, start, num, params, Friend.class);
+	}
+	
+	public int getNoGroupFriendNum(Long loginUserId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(*) from t_message_friend ff where ff.user_id = :loginUserId and ff.pk_id not in " +
+				"(select gu.friend_id from t_message_friend_group_user gu join t_message_friend_group fg on " +
+				"gu.group_id = fg.pk_id )";
+		params.put("loginUserId", loginUserId);
+		
+		return this.genericJdbcDAO.queryForInt(sql, params);
 	}
 
 	public Friend getFriend(Long fid) throws Exception {
@@ -63,6 +92,8 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 			this.cache.put(entity, ((FriendApply) entity).getPkId());
 		} else if(entity instanceof FriendGroup){
 			this.cache.put(entity, ((FriendGroup) entity).getPkId());
+		} else if(entity instanceof FriendGroupUser){
+			this.cache.put(entity, ((FriendGroupUser) entity).getPkId());
 		}
 		
 		return entity;
@@ -137,6 +168,8 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 			table = "t_message_friend_apply";
 		} else if(FriendGroup.class.equals(deleteClazz)){
 			table = "t_message_friend_group";
+		} else if(FriendGroupUser.class.equals(deleteClazz)){
+			table = "t_message_friend_group_user";
 		} else {
 			return 0;
 		}
@@ -193,6 +226,37 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 		}
 		
 		return fg;
+	}
+
+	public int getGroupUserNum(Long groupId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(gu.friend_id) from t_message_friend_group_user gu where gu.group_id = :groupId";
+		params.put("groupId", groupId);
+		
+		return this.genericJdbcDAO.queryForInt(sql, params);
+	}
+
+	public List<Long> getGroupByFriend(Long friendId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select gu.group_id as groupid from t_message_friend_group_user gu where gu.friend_id = :friendId";
+		params.put("friendId", friendId);
+		
+		return this.genericJdbcDAO.queryForList(sql, params, new RowMapper(){
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return rs.getLong("groupid");
+			}});
+	}
+
+	public List<Long> getGroupUserByFriendId(Long friendId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select gu.pk_id as pkid from t_message_friend_group_user gu where gu.friend_id = :friendId";
+		params.put("friendId", friendId);
+		
+		return this.genericJdbcDAO.queryForList(sql, params, new RowMapper(){
+			public Object mapRow(ResultSet rs, int arg1) throws SQLException {
+				return rs.getLong("pkid");
+			}
+		});
 	}
 
 

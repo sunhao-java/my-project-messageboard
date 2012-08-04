@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.message.main.friend.po.FriendGroupUser" table="t_message_friend_group_user">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_FRIEND_GROUP_USER</param>				
+			</generator>
+		</id>
+		<property name="friendId" type="java.lang.Long">
+			<column name="FRIEND_ID" precision="10" scale="0">
+				<comment>好友的ID</comment>
+			</column>
+		</property>
+		<property name="groupId" type="java.lang.Long">
+			<column name="GROUP_ID" precision="10" scale="0">
+				<comment>分组ID</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

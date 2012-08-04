@@ -22,12 +22,22 @@ public interface FriendService {
 	 * 获取某个用户的好友
 	 * 
 	 * @param userId			用户ID
+	 * @param groupId			分组ID
 	 * @param start
 	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listFriends(Long userId, int start, int num) throws Exception;
+	PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception;
+	
+	/**
+	 * 获取登录者的未分组好友数目
+	 * 
+	 * @param loginUser
+	 * @return
+	 * @throws Exception
+	 */
+	int getNoGroupFriendNum(LoginUser loginUser) throws Exception;
 	
 	/**
 	 * 获取好友
@@ -184,4 +194,33 @@ public interface FriendService {
 	 * @throws Exception
 	 */
 	boolean groupFunc(Long groupId, String groupName, String action) throws Exception;
+	
+	/**
+	 * 保存用户好友分组
+	 * 
+	 * @param loginUser			登录者
+	 * @param friendId			好友ID
+	 * @param groups			分组ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean saveFriendGroup(LoginUser loginUser, Long friendId, Long[] groups) throws Exception;
+	
+	/**
+	 * 获取一个分组下的好友数目
+	 * 
+	 * @param groupId			分组ID
+	 * @return
+	 * @throws Exception
+	 */
+	int getGroupUserNum(Long groupId) throws Exception;
+	
+	/**
+	 * 根据好友对象获取其所在的分组
+	 * 
+	 * @param friendId			好友ID
+	 * @return
+	 * @throws Exception
+	 */
+	List<FriendGroup> getGroupByFriend(Long friendId) throws Exception;
 }

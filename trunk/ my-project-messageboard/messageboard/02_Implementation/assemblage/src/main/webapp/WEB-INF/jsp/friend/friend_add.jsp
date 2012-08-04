@@ -52,7 +52,8 @@
                 	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
                 	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
                 	'<p style="padding-left: 280px;">' +
-                	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify">我想立刻发邮件通知他</p>' +
+                	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify" ' +
+                	'onclick="if(this.checked){$(this).val(\'1\')}else{$(this).val(\'0\')}">我想立刻发邮件通知他</p>' +
                 	'</label>';
 			var popWin = YAHOO.app.dialog.pop({
 				'dialogHead':'好友请求附言',
@@ -101,7 +102,8 @@
                	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
                	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
                	'<p style="padding-left: 280px;">' +
-               	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify">我想立刻发邮件通知他</p>' +
+               	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify"' +
+               	'onclick="if(this.checked){$(this).val(\'1\')}else{$(this).val(\'0\')}">我想立刻发邮件通知他</p>' +
                	'</label>';
         
 		var popWin = YAHOO.app.dialog.pop({

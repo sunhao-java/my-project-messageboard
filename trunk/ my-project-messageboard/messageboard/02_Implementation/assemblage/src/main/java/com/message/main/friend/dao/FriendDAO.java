@@ -6,6 +6,7 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
 import com.message.main.friend.po.FriendGroup;
+import com.message.main.friend.po.FriendGroupUser;
 import com.message.main.login.pojo.LoginUser;
 
 
@@ -22,12 +23,22 @@ public interface FriendDAO {
 	 * 获取某个用户的好友
 	 * 
 	 * @param userId			用户ID
+	 * @param groupId			分组ID
 	 * @param start
 	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listFriends(Long userId, int start, int num) throws Exception;
+	PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception;
+	
+	/**
+	 * 获取登录者的未分组好友数目
+	 * 
+	 * @param loginUserId
+	 * @return
+	 * @throws Exception
+	 */
+	int getNoGroupFriendNum(Long loginUserId) throws Exception;
 	
 	/**
 	 * 获取正在申请中的好友
@@ -133,4 +144,31 @@ public interface FriendDAO {
 	 * @throws Exception
 	 */
     FriendGroup getFriendGroup(Long fgid) throws Exception;
+    
+    /**
+	 * 获取一个分组下的好友数目
+	 * 
+	 * @param groupId			分组ID
+	 * @return
+	 * @throws Exception
+	 */
+	int getGroupUserNum(Long groupId) throws Exception;
+	
+	/**
+	 * 根据好友对象获取其所在的分组
+	 * 
+	 * @param friendId			好友ID
+	 * @return
+	 * @throws Exception
+	 */
+	List<Long> getGroupByFriend(Long friendId) throws Exception;
+	
+	/**
+	 * 根据好友ID获取此好友与分组的关系
+	 * 
+	 * @param friendId			好友ID
+	 * @return
+	 * @throws Exception
+	 */
+	List<Long> getGroupUserByFriendId(Long friendId) throws Exception;
 }

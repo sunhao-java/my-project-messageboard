@@ -22,7 +22,7 @@ YAHOO.app.dialog = function(){
 			
 			var cancelButton_ = args.cancelButton || _true;			//是否有取消按钮，默认是true
 			var cancelFuncion_ = args.cancelFuncion; 				//关闭窗口时需要执行的函数
-            var cancelBtn_ = args.cancelBtn || '取消';                //取消按钮的文字
+            var cancelBtn_ = args.cancelBtn || '取消';              //取消按钮的文字
 			
 			var dialogHead_ = args.dialogHead || "提示"; 		    //弹窗的head
 			
@@ -33,7 +33,10 @@ YAHOO.app.dialog = function(){
 			var diaHeight_ = args.diaHeight || 100;					//弹窗高度(默认100px)
 			
 			var alertMsg_ = args.alertMsg;							//弹窗显示内容（与reqUrl不能同时为空）
-			var reqUrl_ = args.reqUrl;								//请求的URL（与alertMsg不能同时为空）
+			var url_ = args.url;									//请求的URL（与alertMsg不能同时为空）
+			var formId_ = args.formId || '';						//需要提交的表单ID
+			var action_ = args.action;								//表单提交到的action，如果为空，则使用form中的action
+			var afterRequest_ = args.afterRequest;					//表单提交之后执行的函数
 			
 			var zIndex_ = args.zIndex || 999;						//对应CSS属性值z-index,默认是4
 			
@@ -51,7 +54,7 @@ YAHOO.app.dialog = function(){
 			 * B.ICON_CSS_CLASSNAME = "yui-icon"; 
 			 * B.CSS_SIMPLEDIALOG = "yui-simple-dialog";
 			 */
-			var icon_ = args.icon || "alrticon";					//dialog中的图标,默认是alrticon
+			var icon_ = args.icon;									//dialog中的图标,默认是alrticon
 			
 			if($L.isString(modal_)){
                 modal_ = (modal_ == _true);
@@ -97,6 +100,10 @@ YAHOO.app.dialog = function(){
 				}
 			}
 			
+			if(icon_ == undefined){
+				icon_ = "alrticon";
+			}
+			
 			if(autoClose_ != undefined){
 				var timeOut;
 				if($L.isNumber(autoClose_)){
@@ -123,33 +130,81 @@ YAHOO.app.dialog = function(){
 			if(diaHeight_){
 				if($L.isNumber(diaHeight_)){
 					diaHeight_ = diaHeight_ + 'px';
+				} else if($L.isString(diaHeight_) && diaHeight_ == 'auto'){
+					diaHeight_ = null;
 				}
 			}
 			
 			function defaultConfirmFunction(){
-				alertDialog.cancel();
-//				var masks = dom.getElementsByClassName('mask', 'div');
-//				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-//				for(var i = 0; i < masks.length; i++){
-//					masks[i].style.display = 'none';
-//				}
-//				for(var i = 0; i < panels.length; i++){
-//					panels[i].style.visibility = 'hidden';
-//				}
-//				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+				if(url_){
+					if(formId_){
+						var form = dom.get(formId_);
+						if(!form){
+							alert('formId配置错误，请检查！');
+							return;
+						}
+						if(!action_)
+							action_ = form.action;
+						
+						$C.setForm(form);
+						$C.asyncRequest("POST", action_, {
+							success: function(o){
+								var _e = eval('(' + o.responseText + ')');
+								if($L.isFunction(afterRequest_)){
+									return afterRequest_(_e);
+								} else {
+									//不做
+								}
+							},
+							failure: function(o){
+								alert('网络错误！');
+							}
+						});
+					} else {
+						alert('缺少参数，请配置formId！');
+					}
+				} else {
+					alertDialog.cancel();
+				}
 			}
 			
 			function defaultCancelFunction(){
 				alertDialog.cancel();
-//				var masks = dom.getElementsByClassName('mask', 'div');
-//				var panels = dom.getElementsByClassName('yui-simple-dialog', 'div');
-//				for(var i = 0; i < masks.length; i++){
-//					masks[i].style.display = 'none';
-//				}
-//				for(var i = 0; i < panels.length; i++){
-//					panels[i].style.visibility = 'hidden';
-//				}
-//				dom.get('_yuiResizeMonitor').style.visibility = 'hidden';
+			}
+			
+			if(url_){
+				$C.asyncRequest("POST", url_, {
+                    success : function(o){
+						//begin
+						if(o.responseText){
+							alertDialog = new YAHOO.widget.SimpleDialog(id_, {
+								modal: modal_,
+								icon : icon_,
+								visible: false,
+								fixedcenter: true,
+								constraintoviewport: true,
+								width: diaWidth_,
+								height: diaHeight_,
+								role: "alertdialog",
+								close : closeIcon_,
+			                    closeIcon : 'none',
+								buttons: buttons_,	
+								text: o.responseText,
+								draggable : draggable_,
+								zIndex : zIndex_
+							});
+						}
+			
+			            alertDialog.render(document.body);
+						alertDialog.setHeader(dialogHead_);	//头上显示文字
+						alertDialog.show();
+			
+			            return alertDialog;
+                    },
+                    failure : function(o){
+                        YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
+                    }
+                 });
 			}
 			
 			//begin
@@ -170,13 +225,13 @@ YAHOO.app.dialog = function(){
 					draggable : draggable_,
 					zIndex : zIndex_
 				});
+	            alertDialog.render(document.body);
+				alertDialog.setHeader(dialogHead_);	//头上显示文字
+				alertDialog.show();
+	            return alertDialog;
 			}
 
-            alertDialog.render(document.body);
-			alertDialog.setHeader(dialogHead_);	//头上显示文字
-			alertDialog.show();
 
-            return alertDialog;
 		}
 	};
 }();

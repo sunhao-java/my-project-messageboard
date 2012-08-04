@@ -11,8 +11,32 @@ import java.io.Serializable;
  */
 public class FriendGroupUser implements Serializable {
 	private static final long serialVersionUID = 3001397294896550538L;
-	
-	private Long pkId;
-	private Long groupId;
-	private Long friendId;
+
+	private Long pkId;									//主键
+	private Long groupId;								//分组的ID
+	private Long friendId;								//好友的ID
+
+	public Long getPkId() {
+		return pkId;
+	}
+
+	public void setPkId(Long pkId) {
+		this.pkId = pkId;
+	}
+
+	public Long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Long groupId) {
+		this.groupId = groupId;
+	}
+
+	public Long getFriendId() {
+		return friendId;
+	}
+
+	public void setFriendId(Long friendId) {
+		this.friendId = friendId;
+	}
 }

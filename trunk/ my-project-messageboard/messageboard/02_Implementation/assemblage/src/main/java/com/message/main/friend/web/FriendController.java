@@ -1,6 +1,8 @@
 package com.message.main.friend.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +13,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
+import com.message.main.friend.po.FriendGroup;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.service.UserService;
@@ -45,13 +48,15 @@ public class FriendController extends SimpleController {
 	 */
 	public ModelAndView index(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
+		Long groupId = in.getLong("groupId", Long.valueOf(-1));
 		params.put("current", "all");
 		
 		//每页显示10个用户
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
-		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), start, num));
+		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), groupId, start, num));
 		params.put("groups", this.friendService.getFriendGroups(loginUser, -1, -1).getItems());
+		params.put("noGroupFriendNum", this.friendService.getNoGroupFriendNum(loginUser));
 		
 		return new ModelAndView("friend.list", params);
 	}
@@ -236,6 +241,51 @@ public class FriendController extends SimpleController {
     	String action = in.getString("action", StringUtils.EMPTY);
     	
     	params.put(ResourceType.AJAX_STATUS, this.friendService.groupFunc(groupId, groupName, action) ? 
+    			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	out.toJson(params);
+    	return null;
+    }
+    
+    /**
+     * 进入设置好友分组的页面
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView listGroup(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long fid = in.getLong("fid", Long.valueOf(-1));
+    	params.put("groups", this.friendService.getFriendGroups(loginUser, -1, -1).getItems());
+    	List<FriendGroup> fgs = this.friendService.getGroupByFriend(fid);
+    	List<Long> friendGroups = new ArrayList<Long>();
+    	for(FriendGroup fg : fgs){
+    		friendGroups.add(fg.getPkId());
+    	}
+    	params.put("friendGroups", friendGroups);
+    	
+    	return new ModelAndView("friend.group.add", params);
+    }
+    
+    /**
+     * 保存用户好友分组配置
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView saveFriendGroup(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long fid = in.getLong("fid");
+    	Long[] groups = in.getLongObjects("group");
+    	if(groups == null)
+    		groups = new Long[]{};
+    	
+    	params.put(ResourceType.AJAX_STATUS, this.friendService.saveFriendGroup(loginUser, fid, groups) ? 
     			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
     	out.toJson(params);
     	return null;

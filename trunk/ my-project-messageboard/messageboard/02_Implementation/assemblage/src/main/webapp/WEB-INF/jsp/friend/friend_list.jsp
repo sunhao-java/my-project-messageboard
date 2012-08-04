@@ -14,6 +14,7 @@
 <msg:css href="/css/friend.css"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/easyloader.js"/>
+<msg:js src="js/base/app-dialog.js"/>
 
 <style type="text/css">
 	.il {
@@ -23,6 +24,11 @@
 	
 	.l-panel-bar{
 		margin-top: 0px !important;
+	}
+	
+	.yui-dialog .yui-overlay{
+		background: none repeat scroll 0 0 #FFFFFF !important;
+	    padding: 0px !important;
 	}
 </style>
 
@@ -143,6 +149,64 @@
 			}
 		});
 	}
+	
+	function groupEdit(friendId){
+		YAHOO.app.dialog.pop({
+		   'dialogHead': '编辑好友分组',
+		   'url': '${contextPath}/friend/listGroup.do?fid=' + friendId,
+		   'diaWidth': 500,
+		   'diaHeight': 'auto',
+		   'icon': '',
+		   'formId': 'groupForm',
+		   'action': '${contextPath}/friend/saveFriendGroup.do?fid=' + friendId,
+           'afterRequest': function(o){
+			   if(o.status == '1'){
+				   window.location.reload(true);
+			   } else {
+				   YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'设置分组失败！'});
+			   }
+           }                                 
+		});
+	}
+	
+	function addGroup(){
+		var flag = new Date().getTime();
+		var li = $('<li id="li' + flag + '">' + 
+					'<input type="input" maxlength="20" size="20" class="f-text" onblur="save1(this);" id="' + flag + '" name="addGroupName">' +
+				 '</li>');
+		$('#friend-group-list li:last-child').after(li);
+		li.find('input').focus();
+	}
+	
+	function save1(input){
+		input = $(input);
+		var group = input.val();
+		if(group == ''){
+			$('#li' + input.attr('id')).hide();
+		} else {
+			$.ajax({
+				type: 'post',
+				url: '${contextPath}/friend/saveGroup.do',
+				data: 'groupName=' + input.val(),
+				dataType: 'json',
+				success: function(o){
+					try{
+						if(o.status == '1'){
+							var id = o.groupId;
+							//成功
+							input.parent('li').replaceWith('<li><label for="group-' + id + '">' +
+								'<input type="checkbox" value="' + id + '" name="group" id="group-' + id + '"/>' +
+								input.val() + '</label></li>');
+						} else {
+							alert('error');
+						}
+					} catch (e){
+						alert(e);
+					}
+				}
+			});
+		}
+	}
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -183,6 +247,35 @@
 									<img src="${contextPath}/image/female.png" alt="女" title="女" style="vertical-align: top"/>
 								</c:if>
 							</caption>
+							<tr class="phone-num">
+								<c:choose>
+									<c:when test="${not empty friend.groups && fn:length(friend.groups) > 0}">
+										<th>分组：</th>
+										<td>
+											<c:forEach items="${friend.groups}" var="g" varStatus="status">
+												${g.name} <c:if test="${status.index + 1 ne fn:length(friend.groups)}">，</c:if>
+											</c:forEach>
+											<br/>
+											<span class="add-group">
+												<a href="javascript:;" onclick="groupEdit('${friend.pkId}');" class="link">
+													<img class="addicon" src="${contextPath }/image/transparent.gif">
+													修改分组
+												</a>
+											</span>
+										</td>
+									</c:when>
+									<c:otherwise>
+										<td colspan="2">
+											<span class="add-group">
+												<a href="javascript:;" onclick="groupEdit('${friend.pkId}');" class="link">
+													<img class="addicon" src="${contextPath }/image/transparent.gif">
+													添加分组
+												</a>
+											</span>
+										</td>
+									</c:otherwise>
+								</c:choose>
+							</tr>
 							<c:if test="${not empty friend.friendUser.phoneNum }">
 								<tr class="phone-num">
 									<th>手机：</th>
@@ -230,8 +323,8 @@
                 <ul class="friend-groups-list" id="friend-groups-list">
                     <c:forEach items="${groups}" var="group">
                     	<li>
-                    		<a href="${group.pkId}">
-                    			<em>${group.name}</em> (0)
+                    		<a href="${contextPath}/friend.do?groupId=${group.pkId}">
+                    			<em>${group.name}</em> (${group.userNum})
                     		</a>
                    			<span action="delete" class="delete" rel="${contextPath}/friend/groupFun.do?action=delete&groupId=${group.pkId}" 
                    				onclick="func(this, '', '${group.pkId}')">删除</span>
@@ -240,8 +333,8 @@
                     	</li>
                     </c:forEach>
                     <li>
-                    	<a href="#">
-                        	<em>未分组</em> (4)
+                    	<a href="${contextPath}/friend.do?groupId=0">
+                        	<em>未分组</em> (${noGroupFriendNum})
                         </a>
                     </li>
                 </ul>

@@ -302,3 +302,88 @@ tr.phone-num th {
     color: #90A4B8;
     display: none;
 }
+
+#wrap .il p.add-group {
+}
+
+span.add-group a:link, span.add-group a:active, span.add-group a:visited{
+	
+}
+
+.link .addicon{
+	background-image: url("../image/add.gif");
+	background-position: 0 -8px;
+    height: 8px;
+    margin-right: 3px;
+    width: 8px;
+}
+
+a.link:link, a.link:active, a.link:visited{
+	background-color: #E3FFD5;
+    border-color: #D5F7C5;
+    color: #389A0A !important;
+    margin-right: 3px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px;
+}
+
+a.link:hover{
+	background-color: #81D300;
+	border-color: #4EC000;
+	color: #FFFFFF !important;
+	text-decoration: none !important;
+}
+
+a.link:hover .addicon{
+	background-position: 0 0;
+}
+
+.friend-groups-setting-dialog{
+	margin-top: 10px;
+}
+
+.friend-groups-setting-dialog h3 {
+    border-bottom: 1px solid #CCCCCC;
+    padding-bottom: 5px;
+}
+
+.friend-groups-setting-dialog ul {
+    display: inline;
+    float: left;
+    margin: 10px;
+}
+
+.friend-groups-setting-dialog li {
+    display: inline;
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    width: 185px;
+}
+
+.friend-groups-setting-dialog input {
+    margin-right: 3px;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.friend-groups-setting-dialog h5 {
+    background: url("../image/friend-groups-add.gif") no-repeat scroll 20px center transparent;
+    clear: both;
+    font-weight: normal;
+    padding-left: 30px;
+    font-family: Tahoma,Verdana,Arial,Simsun,sans-serif;
+    margin: 0;
+    font-size: 100%;
+}
+
+.friend-groups-setting-dialog p {
+    margin: 10px 10px 0 0;
+    color: #666666;
+    text-align: right;
+}

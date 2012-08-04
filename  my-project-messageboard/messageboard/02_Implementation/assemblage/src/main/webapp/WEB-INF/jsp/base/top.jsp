@@ -103,14 +103,14 @@
    					</tr>
    				</table>
 			</div>
-	    	<div class="title" style=""></div>
-	    	<div class="tool">
-	            <a class="t3" title="个人首页" href="javaScript:linkFun('${contextPath}/user/userInfo.do');"></a>
-	            <a class="t1" title="个性设置" href="javaScript:linkFun('${contextPath}/user/editUserInfo.do');"></a>
-	            <a class="t2" title="收藏夹" href="javaScript:addBookmark();"></a>
-	            <a class="t4" title="系统帮助"></a>
-	            <a class="t5" title="退出系统" href="javaScript:logout('${contextPath}');"></a>
-	        </div>
+	        <div class="shortcut">
+				<a title="站内信" class="message" href="#"></a>
+				<a title="个人首页" class="personal" href="javaScript:linkFun('${contextPath}/user/userInfo.do');"></a>
+				<a title="个人设置" class="system" href="javaScript:linkFun('${contextPath}/user/editUserInfo.do');"></a>
+				<a title="帮助" class="help" href="#"></a>
+				<a title="加入收藏" class="skin" href="javaScript:addBookmark();"></a>
+				<a title="退出系统" class="exit" href="javaScript:logout('${contextPath}');"></a>
+			</div>
 		</div>
 	</body>
 </html>

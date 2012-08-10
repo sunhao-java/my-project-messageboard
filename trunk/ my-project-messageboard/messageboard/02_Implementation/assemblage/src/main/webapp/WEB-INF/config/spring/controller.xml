@@ -58,6 +58,7 @@
     <bean id="userController" class="com.message.main.user.web.UserController">
     	<property name="userService" ref="userService"/>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
+    	<property name="friendService" ref="friendService"/>
     </bean>
     
     <!-- 用户隐私配置的controller -->

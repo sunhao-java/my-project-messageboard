@@ -62,7 +62,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.truename eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${user.truename}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:out value="${user.truename}"/>
@@ -95,7 +100,20 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.sex eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:if test="${user.sex == 0}">
+											<c:out value="不男不女"/>
+										</c:if>
+										<c:if test="${user.sex == 1}">
+											<c:out value="男"/>
+										</c:if>
+										<c:if test="${user.sex == 2}">
+											<c:out value="女"/>
+										</c:if>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:if test="${user.sex == 0}">
@@ -126,7 +144,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.phonenum eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${user.phoneNum}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:out value="${user.phoneNum}"/>
@@ -151,7 +174,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.email eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${user.email}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:out value="${user.email}"/>
@@ -174,7 +202,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.qq eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${user.qq}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:out value="${user.qq}"/>
@@ -201,7 +234,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.homepage eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${privacy.homepage}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<a href="${user.homePage}" target="_blank">
@@ -228,7 +266,12 @@
 									<span style="color: red">*用户设置仅自己可见</span>
 								</c:when>
 								<c:when test="${privacy.address eq 2}">
-									<span style="color: red">*用户设置仅好友可见</span>
+									<c:if test="${isFriend}">
+										<c:out value="${privacy.address}"/>
+									</c:if>
+									<c:if test="${!isFriend}">
+										<span style="color: red">*用户设置仅好友可见</span>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<c:out value="${user.address }"/>

@@ -23,6 +23,10 @@ function addFavorite(url,title) {
  * 登出系统
  */
 function logout(contextPath){
+	var flag = window.confirm("您确定要退出登录？");
+	if(!flag){
+		return false;
+	}
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
 	var requestURL = contextPath + '/login/logout.do';
 	$C.asyncRequest("POST", requestURL, {

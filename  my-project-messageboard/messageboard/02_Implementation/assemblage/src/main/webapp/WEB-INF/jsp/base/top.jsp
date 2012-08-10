@@ -109,7 +109,7 @@
 				<a title="个人设置" class="system" href="javaScript:linkFun('${contextPath}/user/editUserInfo.do');"></a>
 				<a title="帮助" class="help" href="#"></a>
 				<a title="加入收藏" class="skin" href="javaScript:addBookmark();"></a>
-				<a title="退出系统" class="exit" href="javaScript:logout('${contextPath}');"></a>
+				<a title="退出系统" class="exit" href="javaScript:void(0);" onclick="logout('${contextPath}');"></a>
 			</div>
 		</div>
 	</body>

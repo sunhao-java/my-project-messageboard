@@ -474,4 +474,12 @@ public class FriendServiceImpl implements FriendService {
 		
 		return groups;
 	}
+	
+	public boolean isFriend(Long userId, Long friendUserId) throws Exception {
+		if(userId == null || friendUserId == null){
+			return false;
+		}
+		
+		return this.friendDAO.isFriend(userId, friendUserId);
+	}
 }

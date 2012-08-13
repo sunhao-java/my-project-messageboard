@@ -6,7 +6,6 @@ import com.message.base.pagination.PaginationSupport;
 import com.message.main.friend.po.Friend;
 import com.message.main.friend.po.FriendApply;
 import com.message.main.friend.po.FriendGroup;
-import com.message.main.friend.po.FriendGroupUser;
 import com.message.main.login.pojo.LoginUser;
 
 
@@ -171,4 +170,14 @@ public interface FriendDAO {
 	 * @throws Exception
 	 */
 	List<Long> getGroupUserByFriendId(Long friendId) throws Exception;
+	
+	/**
+	 * 判断两个人是否是好友
+	 * 
+	 * @param fristUserId			第一个用户ID
+	 * @param secondUserId			第二个用户ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean isFriend(Long fristUserId, Long secondUserId) throws Exception;
 }

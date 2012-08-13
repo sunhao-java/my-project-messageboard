@@ -259,5 +259,14 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 		});
 	}
 
+	public boolean isFriend(Long fristUserId, Long secondUserId) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select count(*) from t_message_friend f where f.user_id = :userId and f.friend_id = :friendId";
+		params.put("userId", fristUserId);
+		params.put("friendId", secondUserId);
+		
+		return this.genericJdbcDAO.queryForInt(sql, params) == 1;
+	}
+
 
 }

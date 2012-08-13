@@ -19,6 +19,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
+import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
@@ -37,6 +38,7 @@ public class UserController extends SimpleController {
 	
 	private UserService userService;
 	private UserPrivacyService userPrivacyService;
+	private FriendService friendService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -46,13 +48,17 @@ public class UserController extends SimpleController {
 		this.userPrivacyService = userPrivacyService;
 	}
 	
+	public void setFriendService(FriendService friendService) {
+		this.friendService = friendService;
+	}
+
 	/**
 	 * 进入用户信息界面
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView userInfo(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView userInfo(HttpServletRequest request, HttpServletResponse response, LoginUser loginUser) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		in = new WebInput(request);
 		Long viewUserId = in.getLong("viewUserId", Long.valueOf(-1));
@@ -62,6 +68,8 @@ public class UserController extends SimpleController {
             params.put("customer", "true");
             params.put("viewwhoname", this.userService.getUserById(viewUserId).getTruename());
             params.put("privacy", this.userPrivacyService.getUserPrivacy(viewUserId));
+            if(loginUser != null)
+            	params.put("isFriend", this.friendService.isFriend(viewUserId, loginUser.getPkId()));
 
             user = this.userService.getUserById(user.getPkId());
             user = this.userService.addLoginInfo(user, viewUserId == null ? false : true);

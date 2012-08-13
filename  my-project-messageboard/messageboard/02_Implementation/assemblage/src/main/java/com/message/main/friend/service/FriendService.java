@@ -223,4 +223,15 @@ public interface FriendService {
 	 * @throws Exception
 	 */
 	List<FriendGroup> getGroupByFriend(Long friendId) throws Exception;
+	
+	
+	/**
+	 * 判断两个人是否是好友
+	 * 
+	 * @param fristUserId			第一个用户ID
+	 * @param secondUserId			第二个用户ID
+	 * @return
+	 * @throws Exception
+	 */
+	boolean isFriend(Long fristUserId, Long secondUserId) throws Exception;
 }

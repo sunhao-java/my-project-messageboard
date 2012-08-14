@@ -24,6 +24,7 @@ import com.message.base.Constants;
 import com.message.base.attachment.pojo.Attachment;
 import com.message.base.attachment.service.AttachmentService;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.pagination.PaginationUtils;
 import com.message.base.utils.ImageUtils;
 import com.message.base.utils.ObjectUtils;
 import com.message.base.utils.StringUtils;
@@ -35,8 +36,10 @@ import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.AlbumPhoto;
 import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
+import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
+import com.message.main.user.service.UserService;
 
 /**
  * 相册service实现.
@@ -61,6 +64,14 @@ public class AlbumServiceImpl implements AlbumService {
 	 * 上传文件的通用类的接口
 	 */
 	private AttachmentService attachmentService;
+	/**
+	 * 好友模块service.
+	 */
+	private FriendService friendService;
+	/**
+	 * 用户操作的service
+	 */
+	private UserService userService;
 
 	public void setAttachmentService(AttachmentService attachmentService) {
 		this.attachmentService = attachmentService;
@@ -68,6 +79,14 @@ public class AlbumServiceImpl implements AlbumService {
 
 	public void setAlbumDAO(AlbumDAO albumDAO) {
 		this.albumDAO = albumDAO;
+	}
+
+	public void setFriendService(FriendService friendService) {
+		this.friendService = friendService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	public void saveOrUpdateAlbum(Album album) throws Exception {
@@ -108,6 +127,9 @@ public class AlbumServiceImpl implements AlbumService {
 		//相册中照片数量
 		int photoCount = this.albumDAO.getPhotoCount(pkId);
 		album.setPhotoCount(photoCount);
+		if(album.getOwerId() != null){
+			album.setOwer(this.userService.getUserById(album.getOwerId()));
+		}
 		return album;
 	}
 
@@ -438,6 +460,22 @@ public class AlbumServiceImpl implements AlbumService {
 		}
 		
 		return this.albumDAO.deleteMask(userId);
+	}
+
+	public PaginationSupport listMyFriendAlbums(LoginUser loginUser, int start, int num) throws Exception {
+		if(loginUser == null || loginUser.getPkId() == null){
+			return PaginationUtils.getNullPagination();
+		}
+		List<Long> friendIds = this.friendService.listFriendIds(loginUser.getPkId());
+		
+		PaginationSupport paginationSupport = this.albumDAO.getAlbumList(friendIds, start, num);
+		List<Album> albums = paginationSupport.getItems();
+		
+		for(int i = 0; i < albums.size(); i++){
+			albums.set(i, this.loadAlbum(albums.get(i).getPkId()));
+		}
+		
+		return paginationSupport;
 	}
 
 }

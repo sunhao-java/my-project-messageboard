@@ -36,7 +36,7 @@
     	</property>
     	<property name="viewFlag" type="java.lang.Long">
     		<column name="VIEW_FLAG" length="1">
-    			<comment>可见标识(1:所有人可见；2:本人可见；3:注册的人可见)</comment>
+    			<comment>可见标识(0:所有人可见；1:本人可见；2:好友人可见)</comment>
     		</column>
     	</property>
     	<property name="deleteFlag" type="java.lang.Long">

@@ -83,6 +83,8 @@
     <bean id="albumService" class="com.message.main.album.service.impl.AlbumServiceImpl">
     	<property name="albumDAO" ref="albumDAO"/>
     	<property name="attachmentService" ref="attachmentService"/>
+    	<property name="friendService" ref="friendService"/>
+    	<property name="userService" ref="userService"/>
     </bean>
     
     <!-- 好友的service -->

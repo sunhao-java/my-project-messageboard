@@ -126,6 +126,7 @@ public class AlbumController extends SimpleController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long albumId = in.getLong("albumId");
 		Album album = this.albumService.loadAlbum(albumId);
+		boolean visit = in.getBoolean("visit", false);
 		
 		//获取这个相册中所有图片
 		//每页显示12张照片
@@ -142,6 +143,7 @@ public class AlbumController extends SimpleController {
 		params.put("albums", albums);
 		params.put("album", album);
 		params.put("resourceType", ResourceType.RESOURCE_TYPE_PHOTO);
+		params.put("visit", visit);
 		return new ModelAndView("photo.list", params);
 	}
 	
@@ -279,6 +281,7 @@ public class AlbumController extends SimpleController {
 		Long photoId = in.getLong("photoId");
 		Long albumId = in.getLong("albumId");
 		String type = in.getString("type", StringUtils.EMPTY);
+		boolean visit = in.getBoolean("visit", false);
 		
 		Photo photo = this.albumService.loadPhoto(photoId, type + "#" + albumId);
 		Album album = this.albumService.loadAlbum(albumId);
@@ -300,6 +303,7 @@ public class AlbumController extends SimpleController {
 		params.put("previous", previous);
 		params.put("next", next);
 		params.put("albums", albums);
+		params.put("visit", visit);
 		
 		return new ModelAndView("photo.detail", params);
 	}
@@ -473,6 +477,26 @@ public class AlbumController extends SimpleController {
     			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
     	out.toJson(params);
     	return null;
+    }
+    
+    /**
+     * 列出我的好友的相册
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView listFriendAlbums(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		
+		PaginationSupport paginationSupport = this.albumService.listMyFriendAlbums(loginUser, start, num);
+
+		params.put("paginationSupport", paginationSupport);
+    	return new ModelAndView("album.friend.list", params);
     }
 	
 }

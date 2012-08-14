@@ -27,4 +27,8 @@
 	<definition name="album.config" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/album/album_config.jsp"/>
 	</definition>
+	
+	<definition name="album.friend.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/album_friend_list.jsp"/>
+	</definition>
 </tiles-definitions>

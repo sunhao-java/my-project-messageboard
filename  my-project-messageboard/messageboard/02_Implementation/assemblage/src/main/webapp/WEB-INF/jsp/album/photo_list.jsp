@@ -236,7 +236,7 @@
 	}
 	
 	function showDetail(pkId){
-		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}';
+		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}&visit=${visit}';
 	}
 	
 	function exportAlbum(albumId){
@@ -244,31 +244,45 @@
 	}
 </script>
 
+<c:if test="${!visit}">
+	<c:set value="我的相册" var="title1"/>
+	<c:set value="${album.albumName}" var="albumUserName"/>
+	<c:set value="/album/index.do" var="urllink"/>
+</c:if>
+<c:if test="${visit}">
+	<c:set value="好友的相册" var="title1"/>
+	<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+	<c:set value="/album/listFriendAlbums.do" var="urllink"/>
+</c:if>
 <jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
-	<jsp:param value="我的相册" name="title"/>
-	<jsp:param value="${album.albumName}" name="title"/>
-	<jsp:param value="${contextPath}/album/index.do" name="link"/>
+	<jsp:param value="${title1}" name="title"/>
+	<jsp:param value="${albumUserName}" name="title"/>
+	<jsp:param value="${contextPath}/${urllink}" name="link"/>
 </jsp:include>
 
 <div class="clearfix" id="main">
 	<div class="album-main">
 		<div class="function-nav clearfix">
-			<div class="float-left">
-				<input type="button" id="upload" value="上传图片">
-			</div>
+			<c:if test="${!visit}">
+				<div class="float-left">
+					<input type="button" id="upload" value="上传图片">
+				</div>
+			</c:if>
 			<ul class="nav-btn">
-				<li class="editi-button">
-					<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}');">编辑</a>
-				</li>
-				<li class="pipe">
-					|
-				</li>
-				<li class="delete-button">
-					<a href="javascript:void(0);" onclick="deleteAlbum('${album.pkId}');">删除相册</a>
-				</li>
-				<li class="pipe">
-					|
-				</li>
+				<c:if test="${!visit}">
+					<li class="editi-button">
+						<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}');">编辑</a>
+					</li>
+					<li class="pipe">
+						|
+					</li>
+					<li class="delete-button">
+						<a href="javascript:void(0);" onclick="deleteAlbum('${album.pkId}');">删除相册</a>
+					</li>
+					<li class="pipe">
+						|
+					</li>
+				</c:if>
 				<li class="export-button">
 					<a href="javascript:void(0);" onclick="exportAlbum('${album.pkId}');">导出相册</a>
 				</li>
@@ -290,7 +304,9 @@
 							还没有相册描述...
 						</c:otherwise>
 					</c:choose>
-					<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}')">编辑</a>
+					<c:if test="${!visit}">
+						<a href="javascript:void(0);" onclick="editAlbum('${album.pkId}')">编辑</a>
+					</c:if>
 				</p>
 			</div>
 		</div>
@@ -298,8 +314,13 @@
 		<c:choose>
 			<c:when test="${empty paginationSupport.items}">
 				<div class="no-content">
-					当前相册中没有照片， <%--<a target="_blank" class="upload flashUploader fromAlbum" href="http://upload.renren.com/index.do?id=522521488&amp;ref=1002" style="display: ">，点这里添加 » </a>--%>
-					<input type="button" id="upload2" value="上传图片">
+					<c:if test="${!visit}">
+						当前相册中木有照片，
+						<input type="button" id="upload2" value="上传图片">
+					</c:if>
+					<c:if test="${visit}">
+						您的好友 ${album.ower.truename} 的 ${album.albumName} 相册暂时木有上传照片
+					</c:if>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -308,18 +329,19 @@
 						<ul>
 							<c:forEach items="${paginationSupport.items}" var="photo">
 								<li id="li#${photo.pkId}">
-									<%-- TODO --%>
 									<a class="picture" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" style="cursor: move" 
 											title="${photo.summary}" rel="fancyshow_group" id="link#${photo.pkId}" pkId="${photo.pkId}"> 
 										<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
 											background-image: url('${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}&width=170&height=130');" alt="${photo.photoName}"/>
 									</a>
-									<div class="photo-oper">
-										<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>
-									</div>
-									<div class="photo-oper">
-										<a href="javascript:void(0);" title="编辑" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
-									</div>
+									<c:if test="${!visit}">
+										<div class="photo-oper">
+											<a href="javascript:void(0);" title="设为封面" class="photo-cover" onclick="setCover('${photo.pkId}')">设为封面</a>
+										</div>
+										<div class="photo-oper">
+											<a href="javascript:void(0);" title="编辑" class="photo-edit" onclick="editPhoto('${photo.pkId}')">编辑</a>
+										</div>
+									</c:if>
 									<div class="myphoto-info">
 										<span class="descript" id="descript#${photo.pkId}">
 											<c:choose>
@@ -332,16 +354,18 @@
 											</c:choose>
 										</span>
 									</div>
-									<div class="edit-desc" style="" id="edit#${photo.pkId}">
-										<div class="edit-content">
-											<input type="text" value="${photo.summary}" id="summary#${photo.pkId}">
-											<p>
-												可按
-												<span class="">回车</span>保存、
-												<span class="">Esc</span>取消
-											</p>
+									<c:if test="${!visit}">
+										<div class="edit-desc" style="" id="edit#${photo.pkId}">
+											<div class="edit-content">
+												<input type="text" value="${photo.summary}" id="summary#${photo.pkId}">
+												<p>
+													可按
+													<span class="">回车</span>保存、
+													<span class="">Esc</span>取消
+												</p>
+											</div>
 										</div>
-									</div>
+									</c:if>
 								</li>
 							</c:forEach>
 						</ul>

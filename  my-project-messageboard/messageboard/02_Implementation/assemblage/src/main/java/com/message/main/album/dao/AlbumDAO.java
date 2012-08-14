@@ -1,5 +1,6 @@
 package com.message.main.album.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.message.base.pagination.PaginationSupport;
@@ -35,6 +36,17 @@ public interface AlbumDAO {
 	 * @throws Exception
 	 */
 	PaginationSupport getAlbumList(Long userId, int start, int num) throws Exception;
+	
+	/**
+	 * 获取多个用户的相册分页对象
+	 * 
+	 * @param userId		用户ID
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getAlbumList(List<Long> friendIds, int start, int num) throws Exception;
 	
 	/**
 	 * 根据主键获得相册对象

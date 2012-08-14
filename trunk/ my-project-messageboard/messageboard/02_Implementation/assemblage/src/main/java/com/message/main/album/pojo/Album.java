@@ -3,6 +3,8 @@ package com.message.main.album.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.message.main.user.pojo.User;
+
 /**
  * 相册实体.
  * 
@@ -19,11 +21,12 @@ public class Album implements Serializable {
 	private Date createTime;			//创建时间
 	private String summary;				//相册描述
 	private String cover;				//相册封面
-	private Long viewFlag;				//可见标识(1:所有人可见；2:本人可见；3:注册的人可见)
+	private Long viewFlag;				//可见标识(0:所有人可见；1:本人可见；2:好友人可见)
 	private Long deleteFlag;			//删除标识，0未删除；1已删除
 	
 	//VO Fields
 	private Integer photoCount;			//此相册中照片数量
+	private User ower;					//拥有者
 
 	public Long getPkId() {
 		return pkId;
@@ -95,6 +98,14 @@ public class Album implements Serializable {
 
 	public void setPhotoCount(Integer photoCount) {
 		this.photoCount = photoCount;
+	}
+
+	public User getOwer() {
+		return ower;
+	}
+
+	public void setOwer(User ower) {
+		this.ower = ower;
 	}
 
 }

@@ -21,7 +21,7 @@
 				if('${previous}' != ''){
 					link.attr('title', '点击查看上一张');
 					link.attr('class', 'pre-cur');
-					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
+					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
 				} else {
 					link.attr('class', '');
 					link.attr('title', '当前已是第一张');
@@ -30,7 +30,7 @@
 				if('${next}' != ''){
 					link.attr('title', '点击查看下一张');
 					link.attr('class', 'next-cur');
-					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
+					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
 				} else {
 					link.attr('class', '');
 					link.attr('title', '当前已是最后一张');
@@ -43,11 +43,11 @@
 			$('#previmg > img').attr('style', 'background: url(${contextPath}/image/pic_first.png) center center');
 			$("span.b > a:first").attr('href', 'javascript:void(0)');
 		} else {
-			$("#previmg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
+			$("#previmg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
 			$('#previmg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
 															'fileId=${previous.attachment.pkId}&width=50&height=50) center center');
 			$("span.b > a:first").attr('href', '${contextPath}/album/showDetail.do?' +
-															'photoId=${photo.pkId}&albumId=${album.pkId}&type=previous');
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
 		}
 		
 		if('${next}' == ''){
@@ -55,11 +55,11 @@
 			$('#nextimg > img').attr('style', 'background: url(${contextPath}/image/pic_last.png) center center');
 			$("span.b > a:last").attr('href', 'javascript:void(0)');
 		} else {
-			$("#nextimg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
+			$("#nextimg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
 			$('#nextimg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
 															'fileId=${next.attachment.pkId}&width=50&height=50) center center');
 			$("span.b > a:last").attr('href', '${contextPath}/album/showDetail.do?' +
-															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next');
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
 		}
 		
 	});
@@ -167,34 +167,48 @@
 	}
 </style>
 
+<c:if test="${!visit}">
+	<c:set value="我的相册" var="title1"/>
+	<c:set value="${album.albumName}" var="albumUserName"/>
+	<c:set value="/album/index.do" var="urllink"/>
+	<c:set value="/album/listPhotos.do?albumId=${album.pkId}" var="urllink2"/>
+</c:if>
+<c:if test="${visit}">
+	<c:set value="好友的相册" var="title1"/>
+	<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+	<c:set value="/album/listFriendAlbums.do" var="urllink"/>
+	<c:set value="/album/listPhotos.do?albumId=${album.pkId}&visit=true" var="urllink2"/>
+</c:if>
 <jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
-	<jsp:param value="我的相册" name="title"/>
-	<jsp:param value="${album.albumName}" name="title"/>
+	<jsp:param value="${title1}" name="title"/>
+	<jsp:param value="${albumUserName}" name="title"/>
 	<jsp:param value="当前照片" name="title"/>
-	<jsp:param value="${contextPath}/album/index.do" name="link"/>
-	<jsp:param value="${contextPath}/album/listPhotos.do?albumId=${album.pkId}" name="link"/>
+	<jsp:param value="${contextPath}/${urllink}" name="link"/>
+	<jsp:param value="${contextPath}/${urllink2}" name="link"/>
 </jsp:include>
 
 <div class="clearfix" id="main" style="border: 1px solid #CCCCCC">
 	<div class="album-main">
 		<div class="function-nav function-nav2 clearfix">
-			<ul class="nav-btn">
-				<li class="move">
-					<a href="javascript:void(0);" onclick="move('${photo.pkId}');">转移</a>
-				</li>
-				<li class="pipe">
-					|
-				</li>
-				<li class="cover">
-					<a href="javascript:void(0);" onclick="setCover('${photo.pkId}');">设为封面</a>
-				</li>
-				<li class="pipe">
-					|
-				</li>
-				<li class="delete">
-					<a href="javascript:void(0);" onclick="deletePhoto('${photo.pkId}');">删除</a>
-				</li>
-			</ul>
+			<c:if test="${!visit}">
+				<ul class="nav-btn">
+					<li class="move">
+						<a href="javascript:void(0);" onclick="move('${photo.pkId}');">转移</a>
+					</li>
+					<li class="pipe">
+						|
+					</li>
+					<li class="cover">
+						<a href="javascript:void(0);" onclick="setCover('${photo.pkId}');">设为封面</a>
+					</li>
+					<li class="pipe">
+						|
+					</li>
+					<li class="delete">
+						<a href="javascript:void(0);" onclick="deletePhoto('${photo.pkId}');">删除</a>
+					</li>
+				</ul>
+			</c:if>
 		</div>
 		<div class="photo">
 			<a style="height: 450px;" id="imageLink">
@@ -205,57 +219,72 @@
 		
 		<a target="_blank" href="${contextPath}/photo.jpg?fileId=${photo.attachment.pkId}" class="show-big">查看大图</a>
 		
-		<div style="" class="photo-desc" id="photoTitleEditorContainer">
-		
-			<p origintitle="" id="photoTitle" style="" class=" " onmouseover="$(this).attr('class', 'photo-title-hover')"
-					onmouseout="$(this).attr('class', '')" onclick="dom.get('photoTitleEditor').style.display = '';$(this).hide();$('#description').focus();">
-				<c:choose>
-					<c:when test="${empty photo.summary}">
-						单击此处添加描述
-					</c:when>
-					<c:otherwise>
-						${photo.summary}
-					</c:otherwise>
-				</c:choose>
-			</p>
-			
-			<script type="text/javascript">
-				function saveSummary(){
-					var summary = dom.get('description');
-	        		if(summary.value == ''){
-	        			return;
-	        		}
-	        		
-	        		var requestURL = '${contextPath}/album/saveSummary.do?summary=' + summary.value + '&photoId=' + ${photo.pkId};
-					$C.asyncRequest('POST', requestURL, {
-						success : function(o){
-							var _e = eval("(" + o.responseText + ")");
-							if(_e.status == '1'){
-								dom.get('photoTitle').innerHTML = summary.value;
-								dom.get('photoTitle').style.display = '';
-								dom.get('photoTitleEditor').style.display = 'none';
-							} else {
-								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'保存描述失败！'});
+		<c:if test="${!visit}">
+			<div style="" class="photo-desc" id="photoTitleEditorContainer">
+				<p origintitle="" id="photoTitle" style="" class=" " onmouseover="$(this).attr('class', 'photo-title-hover')"
+						onmouseout="$(this).attr('class', '')" onclick="dom.get('photoTitleEditor').style.display = '';$(this).hide();$('#description').focus();">
+					<c:choose>
+						<c:when test="${empty photo.summary}">
+							单击此处添加描述
+						</c:when>
+						<c:otherwise>
+							${photo.summary}
+						</c:otherwise>
+					</c:choose>
+				</p>
+				
+				<script type="text/javascript">
+					function saveSummary(){
+						var summary = dom.get('description');
+		        		if(summary.value == ''){
+		        			return;
+		        		}
+		        		
+		        		var requestURL = '${contextPath}/album/saveSummary.do?summary=' + summary.value + '&photoId=' + ${photo.pkId};
+						$C.asyncRequest('POST', requestURL, {
+							success : function(o){
+								var _e = eval("(" + o.responseText + ")");
+								if(_e.status == '1'){
+									dom.get('photoTitle').innerHTML = summary.value;
+									dom.get('photoTitle').style.display = '';
+									dom.get('photoTitleEditor').style.display = 'none';
+								} else {
+									YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'保存描述失败！'});
+								}
+							}, 
+							failure : function(o){
+								YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 							}
-						}, 
-						failure : function(o){
-							YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
-						}
-					});
-				}
-			</script>
-
-			<div style="display: none;" id="photoTitleEditor">
-				<textarea class="textarea" id="description" name="description">${photo.summary}</textarea>
-				<div class="button-holder">
-					<input type="button" value="保存" class="input-button"
-						id="btnSaveTitle" onclick="saveSummary()">
-					<input type="button" value="取消" class="input-button gray"
-						onclick="$('#photoTitleEditor').hide();$('#photoTitle').show();">
+						});
+					}
+				</script>
+	
+				<div style="display: none;" id="photoTitleEditor">
+					<textarea class="textarea" id="description" name="description">${photo.summary}</textarea>
+					<div class="button-holder">
+						<input type="button" value="保存" class="input-button"
+							id="btnSaveTitle" onclick="saveSummary()">
+						<input type="button" value="取消" class="input-button gray"
+							onclick="$('#photoTitleEditor').hide();$('#photoTitle').show();">
+					</div>
 				</div>
+	
 			</div>
-
-		</div>
+		</c:if>
+		<c:if test="${visit}">
+			<div style="" class="photo-desc" id="photoTitleEditorContainer">
+				<p origintitle="" id="photoTitle" style="" class=" ">
+					<c:choose>
+						<c:when test="${empty photo.summary}">
+							还没有相册描述...
+						</c:when>
+						<c:otherwise>
+							${photo.summary}
+						</c:otherwise>
+					</c:choose>
+				</p>
+			</div>
+		</c:if>
 	</div>
 	
 	

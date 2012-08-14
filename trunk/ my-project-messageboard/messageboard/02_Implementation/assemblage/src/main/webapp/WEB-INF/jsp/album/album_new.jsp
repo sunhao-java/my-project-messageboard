@@ -37,9 +37,9 @@
 			</td>
 			<td>
 				<select name="viewFlag" id="viewFlag">
-					<option value="1" <c:if test="${album.viewFlag eq '1'}">selected="selected"</c:if>>所有人可见</option>
-					<option value="2" <c:if test="${album.viewFlag eq '2'}">selected="selected"</c:if>>本人可见</option>
-					<option value="3" <c:if test="${album.viewFlag eq '3'}">selected="selected"</c:if>>会员可见</option>
+					<option value="0" <c:if test="${album.viewFlag eq '0'}">selected="selected"</c:if>>所有人可见</option>
+					<option value="1" <c:if test="${album.viewFlag eq '1'}">selected="selected"</c:if>>仅自己可见</option>
+					<option value="2" <c:if test="${album.viewFlag eq '2'}">selected="selected"</c:if>>仅好友可见</option>
 				</select>
 			</td>
 		</tr>

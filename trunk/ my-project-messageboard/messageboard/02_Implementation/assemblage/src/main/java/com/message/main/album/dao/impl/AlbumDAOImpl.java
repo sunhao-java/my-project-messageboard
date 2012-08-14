@@ -1,6 +1,8 @@
 package com.message.main.album.dao.impl;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -48,6 +50,18 @@ public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
 		sql.append(" where a.delete_flag = :deleteFlag and a.ower_id = :owerId order by a.pk_id desc ");
 		params.put("owerId", userId);
 		params.put("deleteFlag", ResourceType.DELETE_NO);
+		
+		return this.genericJdbcDAO.getBeanPaginationSupport(sql.toString(), null, start, num, params, Album.class);
+	}
+	
+	public PaginationSupport getAlbumList(List<Long> friendIds, int start, int num) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+ 		StringBuffer sql = new StringBuffer();
+		sql.append("select a.pk_id as pk_id from t_message_album a ");
+		sql.append(" where a.delete_flag = :deleteFlag and a.ower_id in (:ids) and a.view_flag in (:viewFlag) order by a.pk_id desc ");
+		params.put("ids", friendIds);
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		params.put("viewFlag", Arrays.asList(new Long[]{ResourceType.LOOK_ONLY_FRIENDS, ResourceType.LOOK_ALL_PROPLE}));
 		
 		return this.genericJdbcDAO.getBeanPaginationSupport(sql.toString(), null, start, num, params, Album.class);
 	}

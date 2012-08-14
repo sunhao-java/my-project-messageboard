@@ -11,6 +11,7 @@ import com.message.base.web.WebOutput;
 import com.message.main.album.pojo.Album;
 import com.message.main.album.pojo.AlbumConfig;
 import com.message.main.album.pojo.Photo;
+import com.message.main.login.pojo.LoginUser;
 
 /**
  * 相册service接口.
@@ -194,4 +195,14 @@ public interface AlbumService {
      */
     boolean deleteMask(Long userId) throws Exception;
 	
+    /**
+     * 列出当前登录者好友最新相册
+     * 
+     * @param loginUser		当前登录者
+     * @param start
+     * @param num
+     * @return
+     * @throws Exception
+     */
+    PaginationSupport listMyFriendAlbums(LoginUser loginUser, int start, int num) throws Exception;
 }

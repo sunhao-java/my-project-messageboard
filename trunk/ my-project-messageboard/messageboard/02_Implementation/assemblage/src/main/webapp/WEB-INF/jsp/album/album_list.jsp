@@ -28,6 +28,7 @@
 	function gotoAlbumDetail(albumId){
 		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId;
 	}
+	
 	var popWin;
 	var extBtn = [];
 	if('${maskExist}' == '1'){

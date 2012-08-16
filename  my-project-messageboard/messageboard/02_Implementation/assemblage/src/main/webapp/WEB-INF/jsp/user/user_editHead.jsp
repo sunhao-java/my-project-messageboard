@@ -29,6 +29,12 @@
     }
 </script>
 
+<style type="text/css">
+	.content01{
+		min-height: 400px;
+	}
+</style>
+
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
 	<jsp:param value="修改我的信息" name="title"/>
 </jsp:include>

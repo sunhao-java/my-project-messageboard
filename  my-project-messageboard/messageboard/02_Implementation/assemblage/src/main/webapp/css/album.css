@@ -1389,7 +1389,7 @@ a.photo-edit:hover, .photo-list li.select .photo-edit {
 }
 .photo-main {
     padding-top: 0px;
-    min-height: 600px;
+    min-height: 350px;
     border: 1px solid #CCCCCC;
     border-top-width: 0px;
 }
@@ -1400,7 +1400,7 @@ a.photo-edit:hover, .photo-list li.select .photo-edit {
 }
 .photo-main-content {
     padding: 0px 0px 15px 0px;
-    min-height: 600px;
+    min-height: 350px;
 }
 .photo-main-sidebar2 {
     float: right;

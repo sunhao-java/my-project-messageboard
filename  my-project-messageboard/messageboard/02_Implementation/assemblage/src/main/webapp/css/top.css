@@ -7,85 +7,24 @@ body{
     margin: 0;
     font-size: 80%;
 }
-/**===========================================================================*/
 
-.shortcut {
-    height: 45px;
-    line-height: 45px;
-    margin-right: 5px;
-    display: inline;
-    float: right;
-    
+.tool{ position:absolute; right:15px; top:3px; height:16px;}
+.tool a{ display:inline-block; width:16px; height:16px; background:url(../image/wiseduimg/tool.png); margin-left:15px; outline:none;}
+.tool .t2 { background-position:-16px 0}
+.tool .t3 { background-position:-32px 0}
+.tool .t4 { background-position:-48px 0}
+.tool .t5 { background-position:-64px 0}
+.tool .t6 { background-position:-80px 0}
+
+.title{
+	background-image: url("../image/wiseduimg/banner.jpg");
+	background-repeat: no-repeat;
+	width: 494px;
+	height: 100%;
+	right: 0px;
+	position:absolute;
+	z-index: -1;
 }
-
-a:link, a:visited {
-    text-decoration: none;
-}
-
-.shortcut a {
-    float: left;
-    height: 23px;
-    margin-top: 5px;
-    outline: medium none;
-    text-decoration: none;
-    width: 29px;
-}
-
-a {
-    color: #0066CC;
-    font-size: 12px;
-    outline: medium none;
-}
-
-.shortcut .message:link {
-    background: url("../image/head/header_shortcut_message.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .message:hover {
-    background: url("../image/head/header_shortcut_message_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .system:link {
-    background: url("../image/head/header_shortcut_system.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .system:hover {
-    background: url("../image/head/header_shortcut_system_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .personal:link {
-    background: url("../image/head/header_shortcut_personal.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .personal:hover {
-    background: url("../image/head/header_shortcut_personal_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .skin:link {
-    background: url("../image/head/header_shortcut_skin.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .skin:hover {
-    background: url("../image/head/header_shortcut_skin_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .help:link {
-    background: url("../image/head/header_shortcut_help.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .help:hover {
-    background: url("../image/head/header_shortcut_help_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .exit:link {
-    background: url("../image/head/header_shortcut_exit.gif") no-repeat scroll 0 0 transparent;
-}
-
-.shortcut .exit:hover {
-    background: url("../image/head/header_shortcut_exit_over.gif") no-repeat scroll 0 0 transparent;
-}
-
-/**===========================================================================*/
 
 .welcomeUser{
 	float: left;

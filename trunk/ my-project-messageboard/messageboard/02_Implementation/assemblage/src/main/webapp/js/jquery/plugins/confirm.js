@@ -18,6 +18,7 @@
         customSucTip: null,					//自定义的成功提示消息
         customErrTip: null,					//自定义的失败提示消息
         handleData: null,                    //自定义处理一些参数的函数,为组件提供一些无法从外部获取的数据，返回形式如：message=hello&name=sunhao
+        beforeSubmit: null,					//提交操作之前做的事(比如说一些数据合法性的验证)
         width: 250,         				//宽度
         height: 52							//高度
     }
@@ -102,10 +103,14 @@
                             return p.confirmFunc($.confirm.linkConfirm);
                         } else {
                             var url = element.attr('rel');
-                            if(url){
-                                f.asyncPost(url);
+                            var flag = true;
+                            if(p.beforeSubmit){
+                            	flag = p.beforeSubmit(element.attr('id'));
                             }
-                            $.confirm.linkConfirm.hide();
+                            if(url && flag){
+                                f.asyncPost(url);
+	                            $.confirm.linkConfirm.hide();
+                            }
                         }
                     });
                 },

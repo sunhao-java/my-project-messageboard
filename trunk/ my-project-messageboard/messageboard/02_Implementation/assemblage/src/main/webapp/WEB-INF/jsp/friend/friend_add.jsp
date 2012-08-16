@@ -49,7 +49,7 @@
 			var alertMsg = '<div style="padding:0px;position:relative"><div><div style="float:left">' + 
                     '<a href="${contextPath}/user/userInfo.do"><msg:head userId="${loginUser.pkId}"/> </a>' + 
                 	'</div><div style="margin-left:110px;margin-top:20px">好友请求附言：<br> <textarea style="width:300px;" ' + 
-                	'id="requestReason"></textarea></div></div><div class="clear"> </div></div>' + 
+                	'id="requestReason" size="100"></textarea></div></div><div class="clear"> </div></div>' + 
                 	'<div style="border-bottom:1px solid #DDD;margin-top:30px"></div>' + 
                 	'<p style="padding-left: 280px;">' +
                 	'<label for="isEmailNotify"><input type="checkbox" value="1" checked="true" id="isEmailNotify" ' +
@@ -62,6 +62,10 @@
 				'diaHeight':230,
 				'diaWidth':460,
 				'confirmFunction':function(){
+					if($("#requestReason").val().length > 100){
+						alert('附言过长，不超过100字！');
+						return;
+					}
 		            params += "&applyMessage=" + $("#requestReason").val() + "&isEmailNotify=" + $("#isEmailNotify").val();
 					$.ajax({
 						type: 'POST',
@@ -113,6 +117,11 @@
 			'diaHeight':230,
 			'diaWidth':460,
 			'confirmFunction':function(){
+				if($("#requestReason").val().length > 100){
+					alert('附言过长，不超过100字！');
+					return;
+				}
+			
 	            var params = "selectedUserId=" + id + "&applyMessage=" + $("#requestReason").val() + 
 	            					"&isEmailNotify=" + $("#isEmailNotify").val();
 				$.ajax({

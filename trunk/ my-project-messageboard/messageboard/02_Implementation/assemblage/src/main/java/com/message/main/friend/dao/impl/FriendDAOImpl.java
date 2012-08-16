@@ -230,7 +230,8 @@ public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO 
 
 	public int getGroupUserNum(Long groupId) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String sql = "select count(gu.friend_id) from t_message_friend_group_user gu where gu.group_id = :groupId";
+		String sql = "select count(gu.friend_id) from t_message_friend_group_user gu " +
+				"join t_message_friend f on f.pk_id = gu.friend_id where gu.group_id = :groupId";
 		params.put("groupId", groupId);
 		
 		return this.genericJdbcDAO.queryForInt(sql, params);

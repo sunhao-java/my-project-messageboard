@@ -58,7 +58,7 @@
 		})
 		
 		$('#friend-groups-add').click(function(){
-			var li = $('<li><input type="text" onblur="save(this);" style="height: 20px;font-size:8pt"></li>');
+			var li = $('<li><input type="text" onblur="save(this);" style="height: 20px;font-size:8pt;width:100px;" class="validate[required,length[2,10]]"></li>');
 			$('#friend-groups-list li:first-child').before(li);
 			li.find('input').focus();
 		});
@@ -68,6 +68,8 @@
 		var input = $(input);
 		if(input.val() == ''){
 			input.parent('li').hide();
+		} else if(input.val().length > 10){
+			alert('文字过长，不多于10个字！');
 		} else {
 			$.ajax({
 				type: 'post',
@@ -115,6 +117,16 @@
 		if(tagName == 'input'){
 			groupName = $(input).val();
 			action = 'edit';
+		}
+		
+		if(action == 'edit'){
+			if(groupName == ''){
+				alert('分组名称不能为空！');
+				return;
+			} else if(groupName.length > 10){
+				alert('文字过长，不多于10个字！');
+				return;
+			}
 		}
 		
 		$.ajax({
@@ -252,8 +264,11 @@
 									<c:when test="${not empty friend.groups && fn:length(friend.groups) > 0}">
 										<th>分组：</th>
 										<td>
-											<c:forEach items="${friend.groups}" var="g" varStatus="status">
-												${g.name} <c:if test="${status.index + 1 ne fn:length(friend.groups)}">，</c:if>
+											<c:forEach items="${friend.groups}" var="g" varStatus="seq">
+												<a href="${contextPath}/friend.do?groupId=${g.pkId}">
+					                    			${g.name}
+					                    		</a>
+												<c:if test="${seq.index + 1 ne fn:length(friend.groups)}">，</c:if>
 											</c:forEach>
 											<br/>
 											<span class="add-group">

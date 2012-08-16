@@ -75,7 +75,18 @@
                     handleData: function(id){
                     	var index = id.indexOf('denylRequest');
                     	var flag_ = id.substring(index + 'denylRequest'.length);
+                    	
                         return "denylMsg=" + $("#denylMsg" + flag_).val();
+                    },
+                    beforeSubmit: function(id){
+                    	var index = id.indexOf('denylRequest');
+                    	var flag_ = id.substring(index + 'denylRequest'.length);
+                    	if($("#denylMsg" + flag_).val().length > 100){
+                    		alert('拒绝理由太长，不超过100字！');
+                    		return false;
+                    	} else {
+                    		return true;
+                    	}
                     }
 				});
 			}

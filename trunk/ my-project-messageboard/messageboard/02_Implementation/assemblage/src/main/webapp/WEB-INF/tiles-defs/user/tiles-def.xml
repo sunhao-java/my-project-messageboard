@@ -39,4 +39,7 @@
         <put-attribute name="content" value="/WEB-INF/jsp/user/user_editHead.jsp"/>
     </definition>
 	
+	<definition name="user.profile" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/user_profile.jsp"/>
+	</definition>
 </tiles-definitions>

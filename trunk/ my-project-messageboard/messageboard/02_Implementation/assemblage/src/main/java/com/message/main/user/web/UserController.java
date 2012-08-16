@@ -253,6 +253,19 @@ public class UserController extends SimpleController {
         params.put("current", "head");
         return new ModelAndView("user.editHead", params);
     }
+    
+    /**
+     * 进入用户的主页
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     */
+    public ModelAndView profile(WebInput in, WebOutput out, LoginUser loginUser){
+    	Map<String, Object> params = new HashMap<String, Object>();
+        return new ModelAndView("user.profile", params);
+    }
 	
 }
 

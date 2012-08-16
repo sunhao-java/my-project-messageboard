@@ -45,6 +45,7 @@ public class UserPrivacyController extends SimpleController {
 		in = new WebInput(request);
 		Map<String, Object> params = new HashMap<String, Object>();
         params.put("userPrivacy", this.userPrivacyService.getUserPrivacy(null));
+        params.put("current", "privacy");
 		return new ModelAndView("user.privacy.setting", params);
 	}
 	

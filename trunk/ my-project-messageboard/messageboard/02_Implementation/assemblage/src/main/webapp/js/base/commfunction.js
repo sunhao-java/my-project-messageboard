@@ -24,19 +24,18 @@ function addFavorite(url,title) {
  */
 function logout(contextPath){
 	var flag = window.confirm("您确定要退出登录？");
-	if(!flag){
-		return false;
-	}
-	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
-	var requestURL = contextPath + '/login/logout.do';
-	$C.asyncRequest("POST", requestURL, {
-		success : function(o){
-			var _e = eval("(" + o.responseText + ")");
-			if(_e.status == 1){
-				parent.location.href = contextPath + '/guest/index.do';
+	if(flag){
+		var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+		var requestURL = contextPath + '/login/logout.do';
+		$C.asyncRequest("POST", requestURL, {
+			success : function(o){
+				var _e = eval("(" + o.responseText + ")");
+				if(_e.status == 1){
+					parent.location.href = contextPath + '/guest/index.do';
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 /**

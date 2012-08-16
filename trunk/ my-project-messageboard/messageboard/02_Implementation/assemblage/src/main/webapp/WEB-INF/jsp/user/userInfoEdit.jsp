@@ -49,6 +49,12 @@
 	}
 </script>
 
+<style type="text/css">
+	.content01{
+		min-height: 400px;
+	}
+</style>
+
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
 	<jsp:param value="修改我的信息" name="title"/>
 </jsp:include>
@@ -137,11 +143,11 @@
             </table>
         </form>
         
-        <div class="formFunctiondiv">
-            <jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
-                <jsp:param value="保存" name="save"/>
-                <jsp:param value="返回" name="back"/>
-            </jsp:include>
-        </div>
+    </div>
+    <div class="formFunctiondiv" style="position: relative;top: 80px;">
+        <jsp:include page="/WEB-INF/jsp/common/linkbutton.jsp">
+            <jsp:param value="保存" name="save"/>
+            <jsp:param value="返回" name="back"/>
+        </jsp:include>
     </div>
 </div>

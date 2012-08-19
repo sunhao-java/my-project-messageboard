@@ -57,7 +57,7 @@ public class LoginController extends SimpleController {
 
         if(Integer.valueOf(0).equals(result)){
         	if(StringUtils.isEmpty(goUrl)){
-        		view = "redirect:/home/inMessageIndex.do";
+        		view = "redirect:/home.do";
         	} else {
         		view = "redirect:" + goUrl;
         	}
@@ -76,7 +76,7 @@ public class LoginController extends SimpleController {
                 params.put("message", "验证码错误！");
             }
             params.put("status", result);
-            view = "redirect:/guest/index.do";
+            view = "redirect:/guest.do";
         }
 
         return new ModelAndView(view, params);

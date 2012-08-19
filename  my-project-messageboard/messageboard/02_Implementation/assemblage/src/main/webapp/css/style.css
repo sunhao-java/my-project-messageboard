@@ -154,7 +154,7 @@ a:hover{
     color: #888888;
     height: 24px;
     margin: 7px 0 7px 6px;
-    overflow-y: auto;
+    overflow: hidden;
     width: 433px;
 }
 

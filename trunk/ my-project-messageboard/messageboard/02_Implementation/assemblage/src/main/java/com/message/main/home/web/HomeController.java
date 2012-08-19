@@ -102,7 +102,7 @@ public class HomeController extends SimpleController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView inMessageIndex(HttpServletRequest request, HttpServletResponse response){
 		return new ModelAndView("redirect:/message/listMessage.do");
 	}
 	
@@ -112,7 +112,7 @@ public class HomeController extends SimpleController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inMessageIndex(HttpServletRequest request, HttpServletResponse response){
+	public ModelAndView index(HttpServletRequest request, HttpServletResponse response){
 		return new ModelAndView("message.template");
 	}
 	

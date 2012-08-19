@@ -52,7 +52,7 @@ public class GuestController extends SimpleController {
         String goUrl = in.getString("goUrl", StringUtils.EMPTY);
         User user = (User) in.getSession().getAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION);
         if (user != null) {
-            view = "redirect:/home/inMessageIndex.do";
+            view = "redirect:/home.do";
         } else {
         	params.put("goUrl", goUrl);
             view = "user.login";
@@ -126,7 +126,7 @@ public class GuestController extends SimpleController {
         try {
             boolean result = this.userService.emailConfirm(in);
             if (result) {
-                view = "redirect:/guest/index.do";
+                view = "redirect:/guest.do";
             } else {
                 view = "redirect:http://www.baidu.com";
             }

@@ -52,6 +52,10 @@
 			}
 		});
 	});
+	
+	function gotoAlbumDetail(albumId){
+		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId;
+	}
 </script>
 
 <style type="text/css">
@@ -73,46 +77,50 @@
 	<div class="profile-content">
 		<div class="content-left">
 			<div class="owner">
-				<a href="http://my.oschina.net/sunhaojava" class="head">
+				<a href="${contextPath}/user/inEditHead.do" class="head">
 					<msg:head userId="${loginUser.pkId}" headType="2"/>
 				</a>
     			<span class="action">
         			<a href="#" class="name" title="男">孙昊</a>
 					<span class="opts">
 						<img src="${contextPath }/image/male.png" align="absmiddle" title="男">
-        				<a href="#">修改资料</a>
-						<a href="#">更换头像</a>
+        				<a href="${contextPath}/user/editUserInfo.do">修改资料</a>
+						<a href="${contextPath}/user/inEditHead.do">更换头像</a>
         			</span>
     			</span>
     			<div class="clear"></div>
 			    <div class="stat">
-			    	<a href="#">好友(1)</a>
-			    	<a href="#">博文(0)</a>
-			    	<a href="#">积分(0)</a>
+			    	<a href="${contextPath}/friend.do">好友(${msgFun:length(friends)})</a>
+			    	<a href="${contextPath}/message/inListMyMessageJsp.do">博文(0)</a>
+			    	<a href="${contextPath}/album/index.do">相册(${msgFun:length(albums)})</a>
 			    </div>
 			</div>
 			<div class="manager clearfix">
-				<a class="a1 blog" href="#"><i>.</i><span>发表博文</span></a>
-				<a class="a2 admin" href="#"><i>.</i><span>相册管理</span></a>
+				<a class="a1 blog" href="${contextPath}/message/inPublishMessageJsp.do"><i>.</i><span>发表博文</span></a>
+				<a class="a2 admin" href="${contextPath}/album/index.do"><i>.</i><span>相册管理</span></a>
 			</div>
 			<div id="Fellows" class="mod users">
 				<strong>好友</strong>
 			    <ul class="clearfix">
-		    		<li>
-		    			<a title="${loginUser.truename}" href="#">
-		    				<msg:head userId="${loginUser.pkId}" headType="2"/>
-		    			</a>
-		    		</li>
+			    	<c:forEach items="${friends}" var="f">
+			    		<li>
+			    			<a title="${f.friendUser.truename}" href="#">
+			    				<msg:head userId="${f.friendUser.pkId}" headType="2"/>
+			    			</a>
+			    		</li>
+			    	</c:forEach>
 		    	</ul>
 			    <div class="more">
-			    	<a href="#">显示所有好友(1)</a>
+			    	<a href="${contextPath}/friend.do">共有 ${msgFun:length(friends)} 个好友</a>
 			    </div>
 		    </div>
-		    <div class="mod">
-				<strong>新浪微博秀<span id="connectBtn"></span></strong>
-				<iframe width="220" height="410" class="share_self" 
-		 			frameborder="0" scrolling="no" src="${loginUser.weiboUrl}"></iframe>
-			</div>
+		    <c:if test="${not empty loginUser.weiboUrl}">
+		    	<div class="mod">
+					<strong><c:if test="${loginUser.weiboType eq 1}">新浪</c:if><c:if test="${loginUser.weiboType eq 2}">腾讯</c:if>微博秀<span id="connectBtn"></span></strong>
+					<iframe width="220" height="410" class="share_self" 
+			 			frameborder="0" scrolling="no" src="${loginUser.weiboUrl}"></iframe>
+				</div>
+		    </c:if>
 		</div>
 		<div class="content-right">
 			<div class="myblog clearfix">
@@ -134,14 +142,28 @@
 			<div id="albums" class="mod albums">
 				<strong>相册</strong>
 			    <ul class="clearfix">
-		    		<li>
-		    			<a title="${loginUser.truename}" href="#">
-		    				<msg:head userId="${loginUser.pkId}" headType="2"/>
-		    			</a>
-		    		</li>
+			    	<c:forEach items="${albums}" var="a">
+			    		<li>
+			    			<a href="javaScript:void(0);" title="${a.albumName}" onclick="gotoAlbumDetail('${a.pkId}');">
+								<c:choose>
+									<c:when test="${a.cover eq '/image/default.png'}">
+										<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
+												background-image: url('${contextPath}/${a.cover}');"/>
+									</c:when>
+									<c:otherwise>
+										<img src="${contextPath}/image/a.gif"  style="opacity: 1; 
+												background-image: url('${contextPath}/photo.jpg?filePath=${a.cover}&width=54&height=54');"/>
+									</c:otherwise>
+								</c:choose>
+								<div class="photo-num">
+									${album.photoCount}
+								</div> 
+							</a>
+			    		</li>
+			    	</c:forEach>
 		    	</ul>
 			    <div class="more">
-			    	<a href="#">显示所有相册(1)</a>
+			    	<a href="${contextPath}/album/index.do">共有 ${msgFun:length(albums)} 个相册</a>
 			    </div>
 		    </div>
 		</div>
@@ -188,7 +210,7 @@
 									</div>
 									<div class="bottom">
 										<div class="opts">
-											<a href="javascript:tweet_reply(1004071)" class="TweetReplyLnk">评论<span>(<span id="log_reply_count_1004071">2</span>)</span></a>
+											<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
 										</div>
 										<div class="time">昨天(17:38) </div>
 									</div>

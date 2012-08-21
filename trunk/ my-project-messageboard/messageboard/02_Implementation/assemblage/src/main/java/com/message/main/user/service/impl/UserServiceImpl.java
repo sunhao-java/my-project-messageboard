@@ -14,6 +14,7 @@ import com.message.base.properties.MessageUtils;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
+import com.message.base.utils.RequestUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.ResourceType;
@@ -26,6 +27,7 @@ import com.message.main.message.service.MessageService;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.LoginUserHelper;
 
 /**
  * 用户操作的service 实现
@@ -194,6 +196,9 @@ public class UserServiceImpl implements UserService{
 					dbUser.setHomePage(user.getHomePage());
 					
 					this.userDAO.updateUser(dbUser);
+					
+					LoginUserHelper.syncLoginUser(dbUser, in);
+					
 					String eventMsg = MessageUtils.getProperties("event.message.user.edit", new Object[]{dbUser.getTruename(), dbUser.getPkId()});
 					this.eventService.publishEvent(new BaseEvent(loginUser.getPkId(), ResourceType.EVENT_EDIT, user.getPkId(),
 							ResourceType.USER_TYPE, loginUser.getPkId(), loginUser.getLoginIP(), eventMsg));
@@ -336,12 +341,12 @@ public class UserServiceImpl implements UserService{
 		return FileUtils.getFileByte(imagePath.toString());
 	}
 
-    public void updateUser(User user) throws Exception {
+    public void updateUser(User user, WebInput in) throws Exception {
 		this.userDAO.updateUser(user);
-		
+		LoginUserHelper.syncLoginUser(user, in);
 	}
 
-	public boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier) throws Exception {
+	public boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier, WebInput in) throws Exception {
 		if(loginUser == null || Integer.valueOf(-1).equals(weiboType) || StringUtils.isEmpty(uid)){
 			logger.debug("loginUser, weiboType, uid or verifier is null!");
 			return false;
@@ -358,9 +363,8 @@ public class UserServiceImpl implements UserService{
 		String weiboUrl = "";
 		if(Integer.valueOf(1).equals(weiboType)){
 			//新浪微博
-			weiboUrl = "http://widget.weibo.com/weiboshow/index.php?" +
-					"language=&width=220&height=400&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=1&isFans=0&" +
-					"dpc=1&uid=" + uid + "&verifier=" + verifier;
+			weiboUrl = "http://widget.weibo.com/weiboshow/index.php?language=&width=220&height=400&fansRow=2" +
+					"&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=1&isFans=0&dpc=1&uid=" + uid + "&verifier=" + verifier;
 		} else if(Integer.valueOf(2).equals(weiboType)){
 			//腾讯微博
 			weiboUrl = "http://show.v.t.qq.com/index.php?c=show&a=index&n=" + uid + "&w=220&h=400&fl=2&l=8&o=17&co=4&" +
@@ -372,7 +376,22 @@ public class UserServiceImpl implements UserService{
 		user.setWeiboType(weiboType);
 		user.setWeiboUrl(weiboUrl);
 		
-		this.updateUser(user);
+		this.updateUser(user, in);
+		
+		return true;
+	}
+
+	public boolean removeWeibo(LoginUser loginUser, WebInput in) throws Exception {
+		if(loginUser == null){
+			logger.debug("loginUser is null!");
+			return false;
+		}
+		
+		User user = this.getUserById(loginUser.getPkId());
+		
+		user.setWeiboType(0);
+		user.setWeiboUrl(StringUtils.EMPTY);
+		this.updateUser(user, in);
 		return true;
 	}
 

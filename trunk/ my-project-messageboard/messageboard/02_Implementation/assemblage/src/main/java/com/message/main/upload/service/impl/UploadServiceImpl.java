@@ -10,10 +10,12 @@ import com.message.base.utils.FileUtils;
 import com.message.base.utils.ImageUtils;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.StringUtils;
+import com.message.base.web.WebInput;
 import com.message.main.ResourceType;
 import com.message.main.upload.service.UploadService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
+import com.message.utils.LoginUserHelper;
 
 /**
  * 上传头像的service实现
@@ -31,7 +33,7 @@ public class UploadServiceImpl implements UploadService {
 		this.userService = userService;
 	}
 
-	public void uploadHead(Long userId, MultipartFile file) throws Exception {
+	public void uploadHead(Long userId, MultipartFile file, WebInput in) throws Exception {
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 		if(StringUtils.isNotEmpty(fileName)){
@@ -48,7 +50,7 @@ public class UploadServiceImpl implements UploadService {
 		}
 		
 		user.setHeadImage(fileName);
-		this.userService.updateUser(user);
+		this.userService.updateUser(user, in);
 	}
 	
 	private void makeImageBySize(String savePath, MultipartFile file, String fileName) throws Exception{

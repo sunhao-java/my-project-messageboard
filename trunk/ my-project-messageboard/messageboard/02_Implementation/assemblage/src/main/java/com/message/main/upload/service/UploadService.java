@@ -2,6 +2,8 @@ package com.message.main.upload.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.message.base.web.WebInput;
+
 /**
  * 上传头像的service
  * 
@@ -16,8 +18,9 @@ public interface UploadService {
 	 * 
 	 * @param userId	用户ID
 	 * @param file		spring上传文件的对象
+	 * @param in
 	 * @throws Exception
 	 */
-	void uploadHead(Long userId, MultipartFile file) throws Exception;
+	void uploadHead(Long userId, MultipartFile file, WebInput in) throws Exception;
 	
 }

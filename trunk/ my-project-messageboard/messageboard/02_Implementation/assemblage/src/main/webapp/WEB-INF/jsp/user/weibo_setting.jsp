@@ -24,7 +24,7 @@
 			if(weiboCode == '' || weiboType == '') {
 				YAHOO.app.dialog.pop({
 					dialogHead: '提示',
-					cancelButton: false,
+					cancelButton: 'false',
 					alertMsg: '微博秀链接不可为空！'
 				});
 				return false;
@@ -33,7 +33,7 @@
 				if(!weiboUrl){
 					YAHOO.app.dialog.pop({
 						dialogHead: '提示',
-						cancelButton: false,
+						cancelButton: 'false',
 						alertMsg: '微博秀链接参数不合法！'
 					});
 					return false;
@@ -59,15 +59,18 @@
 						if(o.status == 1){
 							YAHOO.app.dialog.pop({
 								dialogHead: '提示',
-								cancelButton: false,
+								cancelButton: 'false',
 								alertMsg: '微博秀设置成功！',
 								autoClose: 2,
-								icon: 'infoicon'
+								icon: 'infoicon',
+								confirmFunction: function(o){
+									window.location.reload(true);
+								}
 							});
 						} else {
 							YAHOO.app.dialog.pop({
 								dialogHead: '提示',
-								cancelButton: false,
+								cancelButton: 'false',
 								alertMsg: '微博秀设置失败！',
 								autoClose: 2,
 								icon: 'warnicon'
@@ -77,7 +80,7 @@
 					error: function(o){
 						YAHOO.app.dialog.pop({
 							dialogHead: '提示',
-							cancelButton: false,
+							cancelButton: 'false',
 							alertMsg: '微博秀设置失败！可能是网络问题！',
 							autoClose: 2,
 							icon: 'warnicon'
@@ -85,6 +88,46 @@
 					}
 				});
 			}
+		});
+		
+		$('#useBtn').click(function(){
+			$.ajax({
+				url: '${contextPath}/user/removeWeibo.do',
+				data: '',
+				dataType: 'json',
+				type: 'post',
+				success: function(o){
+					if(o.status == 1){
+						YAHOO.app.dialog.pop({
+							dialogHead: '提示',
+							cancelButton: 'false',
+							alertMsg: '微博秀移除成功！',
+							autoClose: 2,
+							icon: 'infoicon',
+							confirmFunction: function(o){
+								window.location.reload(true);
+							}
+						});
+					} else {
+						YAHOO.app.dialog.pop({
+							dialogHead: '提示',
+							cancelButton: 'false',
+							alertMsg: '微博秀移除失败！',
+							autoClose: 2,
+							icon: 'warnicon'
+						});
+					}
+				},
+				error: function(o){
+					YAHOO.app.dialog.pop({
+						dialogHead: '提示',
+						cancelButton: 'false',
+						alertMsg: '微博秀移除失败！可能是网络问题！',
+						autoClose: 2,
+						icon: 'warnicon'
+					});
+				}
+			});
 		});
 	});
 	
@@ -188,8 +231,9 @@
 		 显示效果
 		<c:if test="${not empty loginUser.weiboUrl}">
 		 	(<span style="color: green">已启用<c:if test="${loginUser.weiboType eq 1}">新浪</c:if><c:if test="${loginUser.weiboType eq 2}">腾讯</c:if>微博秀</span>)
-		 	<span>&nbsp;&nbsp;<input id="useBtn" type="button" onclick="useWeiboshow();" 
-		 		value="移除“<c:if test="${loginUser.weiboType eq 1}">新浪</c:if><c:if test="${loginUser.weiboType eq 2}">腾讯</c:if>微博秀”"></span>
+		 	<span>
+		 		&nbsp;&nbsp;<input class="f-button" id="useBtn" type="button" value="移除“<c:if test="${loginUser.weiboType eq 1}">新浪</c:if><c:if test="${loginUser.weiboType eq 2}">腾讯</c:if>微博秀”">
+		 	</span>
 		 	<div class="" id="weibo_show_display">
 		 		<iframe width="220" height="410" class="share_self" 
 		 			frameborder="0" scrolling="no" src="${loginUser.weiboUrl}"></iframe>

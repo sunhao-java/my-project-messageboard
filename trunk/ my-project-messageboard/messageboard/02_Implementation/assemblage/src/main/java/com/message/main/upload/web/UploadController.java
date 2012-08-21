@@ -85,7 +85,7 @@ public class UploadController extends SimpleController {
             while(iterator.hasNext()){
                 String fileName = (String) iterator.next();
                 MultipartFile file = multipartRequest.getFile(fileName);
-                this.uploadService.uploadHead(userId, file);
+                this.uploadService.uploadHead(userId, file, in);
             }
         } else {
             Map uploadParams = new HashMap();

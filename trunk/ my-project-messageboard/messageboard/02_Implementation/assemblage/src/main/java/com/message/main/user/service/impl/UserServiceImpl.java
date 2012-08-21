@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	public void saveEdit(User user) throws Exception {
+	public void saveEdit(User user, WebInput in) throws Exception {
         LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
 		User dbUser = null;
 		if(user != null){
@@ -338,6 +338,42 @@ public class UserServiceImpl implements UserService{
 
     public void updateUser(User user) throws Exception {
 		this.userDAO.updateUser(user);
+		
+	}
+
+	public boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier) throws Exception {
+		if(loginUser == null || Integer.valueOf(-1).equals(weiboType) || StringUtils.isEmpty(uid)){
+			logger.debug("loginUser, weiboType, uid or verifier is null!");
+			return false;
+		}
+		
+		Long pkId = loginUser.getPkId();
+		User user = this.getUserById(pkId);
+		
+		if(user == null){
+			logger.debug("user is null with pkId: '{}'!", pkId);
+			return false;
+		}
+		
+		String weiboUrl = "";
+		if(Integer.valueOf(1).equals(weiboType)){
+			//新浪微博
+			weiboUrl = "http://widget.weibo.com/weiboshow/index.php?" +
+					"language=&width=220&height=400&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=1&isFans=0&" +
+					"dpc=1&uid=" + uid + "&verifier=" + verifier;
+		} else if(Integer.valueOf(2).equals(weiboType)){
+			//腾讯微博
+			weiboUrl = "http://show.v.t.qq.com/index.php?c=show&a=index&n=" + uid + "&w=220&h=400&fl=2&l=8&o=17&co=4&" +
+					"cs=D2D2D2_B5B5B5_595959_354E71";
+		} else {
+			return false;
+		}
+		
+		user.setWeiboType(weiboType);
+		user.setWeiboUrl(weiboUrl);
+		
+		this.updateUser(user);
+		return true;
 	}
 
 	

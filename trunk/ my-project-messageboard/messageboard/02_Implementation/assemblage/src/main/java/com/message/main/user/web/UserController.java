@@ -104,7 +104,7 @@ public class UserController extends SimpleController {
 		out = new WebOutput(request, response);
 		JSONObject obj = new JSONObject();
         
-        this.userService.saveEdit(user);
+        this.userService.saveEdit(user, in);
         obj.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(obj);
 		return null;
@@ -261,11 +261,53 @@ public class UserController extends SimpleController {
      * @param out
      * @param loginUser
      * @return
+     * @throws Exception 
      */
-    public ModelAndView profile(WebInput in, WebOutput out, LoginUser loginUser){
+    public ModelAndView profile(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
     	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
         return new ModelAndView("user.profile", params);
     }
+    
+    /**
+     * 微博秀设置
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView weibo(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("current", "weibo");
+    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
+    	return new ModelAndView("weibo.setting", params);
+    }
 	
+    /**
+     * 保存微博秀设置
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView saveWeibo(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("current", "weibo");
+    	System.out.println(in.getRequest().getParameterMap());
+    	Integer weiboType = in.getInt("weiboType", Integer.valueOf(-1));
+    	String uid = in.getString("uid", StringUtils.EMPTY);
+    	String verifier = in.getString("verifier", StringUtils.EMPTY);
+    	
+    	boolean result = this.userService.saveWeibo(loginUser, weiboType, uid, verifier);
+    	params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
+    	
+    	out.toJson(params);
+    	return null;
+    }
 }
 

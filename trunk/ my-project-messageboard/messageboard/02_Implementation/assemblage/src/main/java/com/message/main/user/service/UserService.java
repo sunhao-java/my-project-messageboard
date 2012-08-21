@@ -2,6 +2,7 @@ package com.message.main.user.service;
 
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.web.WebInput;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.user.pojo.User;
 
 /**
@@ -63,7 +64,7 @@ public interface UserService {
 	 * @param user
 	 * @throws Exception
 	 */
-	void saveEdit(User user) throws Exception;
+	void saveEdit(User user, WebInput in) throws Exception;
 	
 	/**
 	 * 更新用户
@@ -138,4 +139,15 @@ public interface UserService {
 	 */
 	byte[] getHeadImage(Long userId, Integer headType) throws Exception;
 
+	/**
+	 * 保存微博秀设置
+	 * 
+	 * @param loginUser		当前登录者
+	 * @param weiboType		微博类型
+	 * @param uid			微博用户ID
+	 * @param verifier		验证码
+	 * @return
+	 * @throws Exception
+	 */
+	boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier) throws Exception;
 }

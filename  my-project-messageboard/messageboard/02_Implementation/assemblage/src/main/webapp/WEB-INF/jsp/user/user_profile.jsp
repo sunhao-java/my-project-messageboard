@@ -110,8 +110,8 @@
 		    </div>
 		    <div class="mod">
 				<strong>新浪微博秀<span id="connectBtn"></span></strong>
-				<iframe width="220" height="400" class="share_self"  frameborder="0" scrolling="no" 
-					src="http://widget.weibo.com/weiboshow/index.php?language=&width=220&height=400&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=1&isFans=0&dpc=1&uid=1895775795&verifier=e7e57dcb"></iframe>
+				<iframe width="220" height="410" class="share_self" 
+		 			frameborder="0" scrolling="no" src="${loginUser.weiboUrl}"></iframe>
 			</div>
 		</div>
 		<div class="content-right">
@@ -120,7 +120,7 @@
 			</div>
 			<div class="rmod">
 				<strong>
-					<a href="#">修改</a>我的信息
+					<a href="${contextPath}/user/editUserInfo.do">修改</a>我的信息
 				</strong>
 				<ul>
 					<li><b class="inline">加入时间：</b><msg:formatDate value="${loginUser.createDate}" dateType="1"/></li>

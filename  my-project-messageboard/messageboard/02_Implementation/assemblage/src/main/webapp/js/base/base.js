@@ -83,3 +83,20 @@ YAHOO.util.postfixImg = function(filename){
     ext = extmap[mapKey.toLocaleLowerCase()];
     return $L.isUndefined(ext) ? "unknow.gif" : ext;
 }
+
+YAHOO.util.getParam = function(href, key){
+	if(!href)
+		return '';
+	
+	var arrays = href.split('?');
+	if(arrays.length != 2)
+		return '';
+	
+	var params = arrays[1];
+	var param = params.split('&');
+	for(var p in param){
+		var k = param[parseInt(p)].split('=');
+		if(k[0] == key)
+			return k[1];
+	}
+}

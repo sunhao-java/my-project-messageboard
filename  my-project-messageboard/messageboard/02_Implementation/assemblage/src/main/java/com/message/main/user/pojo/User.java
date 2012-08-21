@@ -25,6 +25,8 @@ public class User implements Serializable{
 	private Long deleteFlag;	//软删除，0未删除，1已删除
 	private Long isAdmin;		//是否是管理员的标识, 0不是管理员，1是管理员
 	private Long isMailCheck;	//是否已经邮箱验证过？ 1已验证，0未验证
+	private Integer weiboType;	//微博秀中的微博类型(1新浪微博2腾讯微博)
+	private String weiboUrl;	//微博秀的地址
 
     //VO fileds
 	private Date lastLoginTime;	//上次登录的时间
@@ -211,4 +213,20 @@ public class User implements Serializable{
     public void setLoginIP(String loginIP) {
         this.loginIP = loginIP;
     }
+
+	public Integer getWeiboType() {
+		return weiboType;
+	}
+
+	public void setWeiboType(Integer weiboType) {
+		this.weiboType = weiboType;
+	}
+
+	public String getWeiboUrl() {
+		return weiboUrl;
+	}
+
+	public void setWeiboUrl(String weiboUrl) {
+		this.weiboUrl = weiboUrl;
+	}
 }

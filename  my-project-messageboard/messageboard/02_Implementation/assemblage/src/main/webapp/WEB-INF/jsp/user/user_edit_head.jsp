@@ -14,5 +14,8 @@
 		<li <c:if test="${current eq 'privacy' }">class="current"</c:if><c:if test="${current ne 'privacy' }">class="alt"</c:if>>
 			<a href="${contextPath}/privacy/inPrivacySetting.do">隐私设置</a>
 		</li>
+		<li <c:if test="${current eq 'weibo' }">class="current"</c:if><c:if test="${current ne 'weibo' }">class="alt"</c:if>>
+			<a href="${contextPath}/user/weibo.do">微博秀设置</a>
+		</li>
 	</ul>
 </div>

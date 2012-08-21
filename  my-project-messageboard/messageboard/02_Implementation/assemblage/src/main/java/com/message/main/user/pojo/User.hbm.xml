@@ -80,5 +80,15 @@
 				<comment>是否已经邮箱验证过？ 1已验证，0未验证</comment>
 			</column>
 		</property>
+		<property name="weiboType" type="java.lang.Integer">
+			<column name="WEIBO_TYPE" length="1">
+				<comment>微博秀中的微博类型(1新浪微博2腾讯微博)</comment>
+			</column>
+		</property>
+		<property name="weiboUrl" type="java.lang.String">
+			<column name="WEIBO_URL" length="3000">
+				<comment>微博秀的地址</comment>
+			</column>
+		</property>
 	</class>
 </hibernate-mapping>

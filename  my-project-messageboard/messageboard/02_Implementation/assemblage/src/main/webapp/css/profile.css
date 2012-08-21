@@ -6,10 +6,6 @@ body{
 	font-size: 10pt;
 }
 
-a:hover{
-	color: #FF0000;
-}
-
 .clear{
 	clear: both;
 	font-size: 1px;
@@ -216,10 +212,6 @@ html[xmlns] .clearfix {
 	margin: 1px 1px 0 0;
 }
 
-.users ul li:hover, .albums ul li:hover {
-	background-color: #5CC26F;
-}
-
 .users ul li img, .albums ul li img{
 	border: 1px solid #EAEAEA;
     height: 36px;
@@ -231,18 +223,23 @@ html[xmlns] .clearfix {
 	width: 54px;
 }
 
-.users .more, .albums .more {
+.more {
     margin: 10px 0;
     padding: 0 5px 0 0;
     text-align: right;
 }
 
-.users .more a, .albums .more a{
-	color: #4466BB;
+..more a, .albums .more a, .rmod a, a.user, a.reply{
+	color: #0066CC;
 }
 
-.users .more a:hover {
-	color: #0000AA;
+.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited{
+	color: #0066CC;
+}
+
+.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover {
+	color: #FF0000;
+	text-decoration: underline;
 }
 
 .mod {
@@ -305,11 +302,6 @@ div.myblog:hover{
 	font-weight: normal;
 	font-size: 10pt;
 	margin: 5px 2px 0 0;
-	text-decoration: underline !important;
-}
-
-.rmod strong a:visited{
-	color: #0000EE;
 }
 
 .rmod li {
@@ -423,15 +415,6 @@ ul.tabs li a {
 	padding: 0 10px;
 	color: #999;
 	font-family: 微软雅黑,Verdana,sans-serif,宋体;
-}
-
-ul.tabs li.active a {
-	background: #7798CB;
-	color: white;
-}
-
-a.user:visited{
-	color: #000000EE;
 }
 
 #Logs .UserLogs {

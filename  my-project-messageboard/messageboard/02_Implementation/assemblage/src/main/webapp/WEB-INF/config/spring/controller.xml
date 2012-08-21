@@ -59,6 +59,7 @@
     	<property name="userService" ref="userService"/>
     	<property name="userPrivacyService" ref="userPrivacyService"/>
     	<property name="friendService" ref="friendService"/>
+    	<property name="albumService" ref="albumService"/>
     </bean>
     
     <!-- 用户隐私配置的controller -->

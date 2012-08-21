@@ -1,6 +1,7 @@
 package com.message.main.user.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,9 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
+import com.message.main.album.pojo.Album;
+import com.message.main.album.service.AlbumService;
+import com.message.main.friend.po.Friend;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
@@ -39,6 +43,7 @@ public class UserController extends SimpleController {
 	private UserService userService;
 	private UserPrivacyService userPrivacyService;
 	private FriendService friendService;
+	private AlbumService albumService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -50,6 +55,10 @@ public class UserController extends SimpleController {
 	
 	public void setFriendService(FriendService friendService) {
 		this.friendService = friendService;
+	}
+
+	public void setAlbumService(AlbumService albumService) {
+		this.albumService = albumService;
 	}
 
 	/**
@@ -266,6 +275,14 @@ public class UserController extends SimpleController {
     public ModelAndView profile(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
     	Map<String, Object> params = new HashMap<String, Object>();
     	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
+    	
+    	//所有好友
+    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, -1, -1).getItems();
+    	params.put("friends", friends);
+    	
+    	//所有相册
+    	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), -1, -1).getItems();
+    	params.put("albums", albums);
         return new ModelAndView("user.profile", params);
     }
     
@@ -281,7 +298,6 @@ public class UserController extends SimpleController {
     public ModelAndView weibo(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
     	Map<String, Object> params = new HashMap<String, Object>();
     	params.put("current", "weibo");
-    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
     	return new ModelAndView("weibo.setting", params);
     }
 	
@@ -297,15 +313,32 @@ public class UserController extends SimpleController {
     public ModelAndView saveWeibo(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
     	Map<String, Object> params = new HashMap<String, Object>();
     	params.put("current", "weibo");
-    	System.out.println(in.getRequest().getParameterMap());
     	Integer weiboType = in.getInt("weiboType", Integer.valueOf(-1));
     	String uid = in.getString("uid", StringUtils.EMPTY);
     	String verifier = in.getString("verifier", StringUtils.EMPTY);
     	
-    	boolean result = this.userService.saveWeibo(loginUser, weiboType, uid, verifier);
+    	boolean result = this.userService.saveWeibo(loginUser, weiboType, uid, verifier, in);
     	params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
-    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
     	
+    	out.toJson(params);
+    	return null;
+    }
+    
+    /**
+     * 移除微博秀
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView removeWeibo(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	
+    	boolean result = this.userService.removeWeibo(loginUser, in);
+    	
+    	params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
     	out.toJson(params);
     	return null;
     }

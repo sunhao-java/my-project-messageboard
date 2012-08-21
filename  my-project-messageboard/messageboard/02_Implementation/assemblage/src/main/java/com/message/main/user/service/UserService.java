@@ -72,7 +72,7 @@ public interface UserService {
 	 * @param user
 	 * @throws Exception
 	 */
-	void updateUser(User user) throws Exception;
+	void updateUser(User user, WebInput in) throws Exception;
 	
 	/**
 	 * 保存密码
@@ -146,8 +146,18 @@ public interface UserService {
 	 * @param weiboType		微博类型
 	 * @param uid			微博用户ID
 	 * @param verifier		验证码
+	 * @param in
 	 * @return
 	 * @throws Exception
 	 */
-	boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier) throws Exception;
+	boolean saveWeibo(LoginUser loginUser, Integer weiboType, String uid, String verifier, WebInput in) throws Exception;
+	
+	/**
+	 * 移除微博秀
+	 * 
+	 * @param loginUser		当前登录者
+	 * @return
+	 * @throws Exception
+	 */
+	boolean removeWeibo(LoginUser loginUser, WebInput in) throws Exception;
 }

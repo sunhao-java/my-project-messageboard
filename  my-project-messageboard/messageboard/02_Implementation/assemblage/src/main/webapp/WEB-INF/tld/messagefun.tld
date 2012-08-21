@@ -15,4 +15,13 @@
         </function-signature>
 		<example>${msgFun:contains(desc, src)}</example>
 	</function>
+	<function>
+		<description>custom jstl fn function, return the array size</description>
+		<name>length</name>
+		<function-class>com.message.base.tags.MessageFunc</function-class>
+		<function-signature>
+			int length(java.lang.Object)
+        </function-signature>
+		<example>${msgFun:length(obj)}</example>
+	</function>
 </taglib>

@@ -56,6 +56,8 @@ public class User implements Serializable{
         this.deleteFlag = user.getDeleteFlag();
         this.isAdmin = user.getIsAdmin();
         this.isMailCheck = user.getIsMailCheck();
+        this.weiboType = user.getWeiboType();
+        this.weiboUrl = user.getWeiboUrl();
     }
 
     public User(Long pkId){

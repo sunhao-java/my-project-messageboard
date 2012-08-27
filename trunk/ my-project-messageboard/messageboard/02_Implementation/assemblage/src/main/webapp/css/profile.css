@@ -375,7 +375,6 @@ div.myblog:hover{
 #tForm #tFormOpts input.B {
 	border-width: 0px;
 	cursor: pointer;
-	float: right;
 	font-size: 12pt;
 	padding: 3px 20px 5px 20px;
 	margin-top: 0xp;
@@ -417,6 +416,11 @@ ul.tabs li a {
 	font-family: 微软雅黑,Verdana,sans-serif,宋体;
 }
 
+ul.tabs li.active a {
+    background: none repeat scroll 0 0 #7798CB;
+    color: #FFFFFF;
+}
+
 #Logs .UserLogs {
 	margin: 20px 10px;
 }
@@ -427,7 +431,7 @@ ul.tabs li a {
 	margin: 0 0 10px 0;
 }
 
-.ostable {
+.tab-table {
 	width: 100%;
 	table-layout: fixed;
 	font-family: 微软雅黑,Verdana,sans-serif,宋体;
@@ -437,7 +441,7 @@ ul.tabs li a {
 	width: 48px;
 }
 
-.ostable td {
+.tab-table td {
 	vertical-align: top;
 	overflow: hidden;
 }
@@ -495,4 +499,60 @@ ul.tabs li a {
 .disabled{
 	background-color: #F7F7F7 !important;
 	color: #C7C7C7 !important;
+}
+
+.extBtn {
+    height: 28px;
+    margin-right: 160px;
+    padding-top: 6px;
+    position: relative;
+    z-index: 2;
+    width: 50%;
+    float: left;
+}
+
+.extBtn a {
+    float: left;
+    line-height: 18px;
+    margin-right: 7px;
+    position: relative;
+    color: #A8A8A8;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: Tahoma;
+}
+
+.extBtn .emoticon i {
+    background-image: url("../image/contact/icenter.png");
+    background-position: -72px -110px;
+    cursor: pointer;
+    float: left;
+    height: 20px;
+    margin-right: 3px;
+    width: 20px;
+}
+
+.extBtn a.emoticon:hover i{
+	background-position: -133px -42px;
+}
+
+span.delete {
+    float: right;
+}
+
+span.delete a {
+    background: url("base/img/delete.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 14px;
+    margin-top: 8px;
+    overflow: hidden;
+    text-align: left;
+    text-indent: -999em;
+    width: 13px;
+    vertical-align: middle !important;
+}
+
+span.delete a:hover {
+    background-position: 0 -14px;
+    vertical-align: middle !important;
 }

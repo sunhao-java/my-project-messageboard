@@ -168,9 +168,22 @@
                 }
             }
 
+            //元素添加点击事件
             element.click(function(){
                 f.getLinkConfirm();
             });
+            
+            //添加鼠标点击事件,如果鼠标不是在表情弹框中点击,则弹框隐藏
+//			$(window).bind('mousedown', function(e){
+//				var x = e.pageX;			//left
+//				var y = e.pageY;			//top
+//				var offset = f.getOffset();
+//				
+//				if(!((x > offset[0] && x < offset[0] + p.width) && (y > offset[1] && y < offset[1] + p.height))){
+//					if($.confirm.linkConfirm)
+//						$.confirm.linkConfirm.hide();
+//				}
+//			});
         });
     }
 })(jQuery)

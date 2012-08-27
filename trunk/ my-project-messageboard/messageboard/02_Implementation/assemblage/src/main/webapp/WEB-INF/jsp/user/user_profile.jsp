@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 
 <!--
 * 个人主页
@@ -10,21 +9,45 @@
 * History:
 -->
 
+<%@ include file="/WEB-INF/jsp/common/includes.jsp"%>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/easyloader.js"/>
+<msg:js src="js/jquery/jquery.cookie.js"/>
 <msg:css href="/css/profile.css"/>
+<msg:js src="js/base/app-dialog.js"/>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		using('simpleTip', function(){
+		using(['simpleTip', 'emoticon'], function(){
 			$("#tweetTxt").simpleTip({
 				tip: '今天你动弹了吗？来吐槽一下吧。。。',                      
 		    	color: '#545454',			
 				size: '12px'	
 			});
+			
+			$('#emoticon').emoticon({
+				panel: 'tweetTxt'
+			});
+			
+			$('div.tweetContent').displayEmoticon({
+				contextPath: '${contextPath}'
+			});
 		});
 		
+		var tweetTxt = $.cookie('${loginUser.pkId}tweet');
+		if(tweetTxt != null && tweetTxt != ''){
+			$('#tweetTxt').val(tweetTxt);
+			if(tweetTxt.length > 160){
+				$('#publish').attr('disabled', 'disabled').addClass('disabled');
+				$('#contentLength').parent('span').hide();
+				var span = $('<span class="r">已超出<em id="outcontentLength">' + (tweetTxt.length - 160) + '</em>字</span>');
+				$('#contentLength').parent('span').before(span);
+			}
+		}
+		
 		$('#tweetTxt').bind('keyup change', function(){
+			$.cookie('${loginUser.pkId}tweet', $(this).val(), {expires: 7,path:'${contextPath}'});
+			
 			var length = $(this).val().length;
 			var num = 160 - length;
 			
@@ -50,6 +73,58 @@
 				$('#contentLength').html(num);
 				$('#publish').attr('disabled', '').removeClass('disabled');
 			}
+		});
+		
+		$('ul.tabs > li > a').click(function(){
+			var tab = $(this);
+			var tabs = $('ul.tabs > li > a');
+			var tabId = tab.attr('tab-id');
+			
+			for(var i = 0; i < tabs.length; i++){
+				var t = tabs[i];
+				if(tabId != $(t).attr('tab-id')) {
+					$('#' + $(t).attr('tab-id')).hide();
+					$(t).parent('li').removeClass('active');
+				}
+			}
+			$('#' + tabId).show();
+			tab.parent('li').addClass('active');
+		});
+		
+		$('#publish').click(function(){
+			var content = $('#tweetTxt').val();
+			if(content == '' || content.length > 160){
+				alert('动弹内容不得为空或者超过160字!');
+				return false;
+			}
+			
+			$.ajax({
+				url: '${contextPath}/tweet/save.do',
+				type: 'post',
+				dataType: 'json',
+				data: 'content=' + content,
+				success: function(o){
+					if(o.status == 1){
+						$.cookie('${loginUser.pkId}tweet', '', {expires: 7,path:'${contextPath}'});
+						window.location.reload(true);
+					} else {
+						YAHOO.app.dialog.pop({
+	                        'dialogHead':'提示',
+	                        'cancelButton':'false',
+	                        'alertMsg':'发布动弹失败!',
+	                        'icon':'warnicon'
+                     	});
+					}
+				},
+				error: function(o){
+					YAHOO.app.dialog.pop({
+                       'dialogHead':'提示',
+                       'cancelButton':'false',
+                       'alertMsg':'发布动弹失败!',
+                       'icon':'warnicon'
+                    });
+				}
+			});
 		});
 	});
 	
@@ -175,23 +250,107 @@
 					<div id="tFormEditor">
 						<textarea name="msg" id="tweetTxt"></textarea>
 					</div>
+					<div class="extBtn">
+						<a class="emoticon" id="emoticon" href="javascript:void(0);" title="插入表情"><i></i>表情<span></span></a>
+					</div>
 					<div id="tFormOpts">
-						<input type="submit" value="发 布" class="B" id="publish">
-						<div style="clear:right;"></div>
+						<input type="button" value="发 布" class="B" id="publish">
 					</div>
 					
 				</form>
 			</div>
 			<div class="mmod" id="Logs">
-    			<ul class="tabs"> 
-			    	<li class="active"><a href="#">好友动弹</a></li>
-			    	<li><a href="#">我的动弹</a></li>
-			    	<li><a href="#">博客</a></li>
-			    	<li><a href="#">相册</a></li>
+    			<ul class="tabs">
+			    	<li class="active"><a href="#" id="myTweetTab" tab-id="myTweet">我的动弹</a></li>
+			    	<li><a href="#" id="friendTweetTab" tab-id="friendTweet">好友动弹</a></li>
+			    	<li><a href="#" id="userBlogTab" tab-id="userBlog">博客</a></li>
+			    	<li><a href="#" id="userAlbumsTab" tab-id="userAlbums">相册</a></li>
     	    	</ul>
-    	    	<ul class="UserLogs" id="MyTweet">
+    	    	<ul class="UserLogs" id="myTweet">
+    	    		<msg:controller method="index" module="tweet" type="invoke"/>
+    	    		<c:forEach items="${paginationSupport.items}" var="tweet" varStatus="status">
+			    		<li class="Tweet" id="li_${tweet.pkId}">
+			    			<table class="tab-table">
+								<tr>
+									<td class="TweetUser">
+										<a href="${contextPath}/message/user/profile.do">
+											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
+										</a>
+									</td>
+									<td class="TweetContent">
+										<h5>
+											<a href="${contextPath}/message/user/profile.do" class="user">${tweet.creator.truename}</a>
+											<span class="action1">
+												更新了动态
+									    	</span>
+									    	<span class="delete">
+										    	<a href="javascript:void(0);" id="delete_${tweet.pkId}"
+										    			rel="${contextPath}/tweet/delete.do?tweetId=${tweet.pkId}">
+										    		删除
+										    	</a>
+										    	<script type="text/javascript">
+										    		using('confirm', function(){
+											    		$('#delete_${tweet.pkId}').confirm({
+											    			confirmMessage: '确定要删除此条动弹吗？',
+										                    isFormatMessage: false,
+										                    removeElement: $('#li_${tweet.pkId}')
+											    		});
+										    		});
+										    	</script>
+									    	</span>
+										</h5>
+										<div class="post tweetContent">
+											${tweet.content}
+										</div>
+										<div class="bottom">
+											<%--<div class="opts">
+												<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
+											</div>--%>
+											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</li>
+    	    		</c:forEach>
+		        </ul>
+		        <ul class="UserLogs" id="friendTweet" style="display: none;">
+    	    		<msg:controller method="listFriendsTweet" module="tweet" type="invoke"/>
+    	    		<c:forEach items="${pagination.items}" var="tweet">
+			    		<li class="Tweet">
+			    			<table class="tab-table">
+								<tr>
+									<td class="TweetUser">
+										<a href="#">
+											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
+										</a>
+									</td>
+									<td class="TweetContent">
+										<h5>
+											<a href="#" class="user">${tweet.creator.truename}</a>
+											<span class="action1">
+												更新了动态
+									    	</span>
+										</h5>
+										<div class="post tweetContent">
+											${tweet.content}
+										</div>
+										<div class="bottom">
+											<%--<div class="opts">
+												<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
+											</div>--%>
+											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</li>
+    	    		</c:forEach>
+		        </ul>
+		        <ul class="UserLogs" id="userBlog" style="display: none;">
+    	    		<msg:controller method="index" module="tweet" type="invoke"/>
 		    		<li id="LI_1004071" class="Tweet log_type_100">
-		    			<table class="ostable">
+		    			<table class="tab-table">
 							<tr>
 								<td class="TweetUser">
 									<a href="#">
@@ -200,7 +359,38 @@
 								</td>
 								<td class="TweetContent">
 									<h5>
-										<a href="#" class="user">红薯</a>
+										<a href="#" class="user">博客</a>
+										<span class="action1">
+											更新了动态
+								    	</span>
+									</h5>
+									<div class="post">
+										南京源创会最后一个主题Git，很快结束了，今天又爆场了！
+									</div>
+									<div class="bottom">
+										<div class="opts">
+											<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
+										</div>
+										<div class="time">昨天(17:38) </div>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</li>
+		        </ul>
+		        <ul class="UserLogs" id="userAlbums" style="display: none;">
+    	    		<msg:controller method="index" module="tweet" type="invoke"/>
+		    		<li id="LI_1004071" class="Tweet log_type_100">
+		    			<table class="tab-table">
+							<tr>
+								<td class="TweetUser">
+									<a href="#">
+										<msg:head userId="${loginUser.pkId}" headType="2"/>
+									</a>
+								</td>
+								<td class="TweetContent">
+									<h5>
+										<a href="#" class="user">相册</a>
 										<span class="action1">
 											更新了动态
 								    	</span>

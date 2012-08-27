@@ -50,4 +50,9 @@
     	<property name="cache" ref="friendObjectCache"/>
     </bean>
 	
+	<!-- 吐槽的DAO -->
+	<bean id="tweetDAO" class="com.message.main.tweet.dao.impl.TweetDAOImpl" parent="genericHibernateDAOImpl">
+		<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
+	</bean>
+	
 </beans>

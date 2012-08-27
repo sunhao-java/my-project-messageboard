@@ -94,4 +94,10 @@
     	<property name="mailSend" ref="mailSend"/>
     </bean>
 	
+	<!-- 吐槽的service -->
+	<bean id="tweetService" class="com.message.main.tweet.service.impl.TweetServiceImpl">
+		<property name="tweetDAO" ref="tweetDAO"/>
+		<property name="userService" ref="userService"/>
+		<property name="friendService" ref="friendService"/>
+	</bean>
 </beans>

@@ -106,4 +106,9 @@
 		<property name="friendService" ref="friendService"/>
 		<property name="userService" ref="userService"/>
 	</bean>
+	
+	<!-- 发布吐槽模块的controller -->
+	<bean id="tweetController" class="com.message.main.tweet.web.TweetController">
+		<property name="tweetService" ref="tweetService"/>
+	</bean>
 </beans>

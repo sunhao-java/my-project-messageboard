@@ -189,6 +189,11 @@
         	css : "/../../../css/confirm/confirm.css",
         	dependencies : [ "event", "container" ]
         },
+        emoticon : {
+        	js: "../../base/app-emoticon.js",
+        	css : "/../../../css/emoticon/emoticon.css",
+        	dependencies : [ "event", "container" ]
+        },
         event : {
         	js : "../../yui/js/yahoo-dom-event.js"
         },

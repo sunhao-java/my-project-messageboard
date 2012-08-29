@@ -229,16 +229,16 @@ html[xmlns] .clearfix {
     text-align: right;
 }
 
-..more a, .albums .more a, .rmod a, a.user, a.reply{
-	color: #0066CC;
+.more a, .albums .more a, .rmod a, a.user, a.reply, a.title{
+	color: #0066CC !important;
 }
 
-.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited{
-	color: #0066CC;
+.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited, a.title:visited{
+	color: #0066CC !important;
 }
 
-.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover {
-	color: #FF0000;
+.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover, a.title:hover {
+	color: #FF0000 !important;
 	text-decoration: underline;
 }
 
@@ -555,4 +555,31 @@ span.delete a {
 span.delete a:hover {
     background-position: 0 -14px;
     vertical-align: middle !important;
+}
+
+ul.tabs-child {
+	padding-left: 30px;
+	margin: -15px;
+	height: 28px;
+	line-height: 28px;
+}
+
+ul.tabs-child li {
+	float: left;
+	margin-right: 5px;
+}
+
+ul.tabs-child li a {
+	display: block;
+	background: #F6F6F6;
+	text-decoration: none;
+	font-size: 10.5pt;
+	padding: 0 10px;
+	color: #999;
+	font-family: 微软雅黑,Verdana,sans-serif,宋体;
+}
+
+ul.tabs-child li.active a {
+    background: none repeat scroll 0 0 #7798CB;
+    color: #FFFFFF;
 }

@@ -19,6 +19,7 @@ import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
 import com.message.main.user.service.UserService;
@@ -258,6 +259,22 @@ public class MessageController extends SimpleController {
         params.put(ResourceType.AJAX_STATUS, ResourceType.AJAX_SUCCESS);
 		out.toJson(params);
 		return null;
+	}
+	
+	/**
+	 * 列出好友的博客
+	 * 
+	 * @param in
+	 * @param out
+	 * @param loginUser
+	 * @return
+	 * @throws Exception 
+	 */
+	public ModelAndView listFriendsMessage(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("messages", this.messageService.listFriendsMessage(loginUser));
+		
+		return new ModelAndView("", params);
 	}
 	
 }

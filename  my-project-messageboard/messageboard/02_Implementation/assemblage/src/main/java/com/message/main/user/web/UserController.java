@@ -26,6 +26,7 @@ import com.message.main.friend.po.Friend;
 import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
+import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.main.user.service.UserService;
@@ -44,6 +45,7 @@ public class UserController extends SimpleController {
 	private UserPrivacyService userPrivacyService;
 	private FriendService friendService;
 	private AlbumService albumService;
+	private MessageService messageService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -59,6 +61,10 @@ public class UserController extends SimpleController {
 
 	public void setAlbumService(AlbumService albumService) {
 		this.albumService = albumService;
+	}
+
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 
 	/**
@@ -283,6 +289,10 @@ public class UserController extends SimpleController {
     	//所有相册
     	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), -1, -1).getItems();
     	params.put("albums", albums);
+    	
+    	//博客文章数目
+    	params.put("blogNum", this.messageService.getLoginUserMessageCount(loginUser.getPkId()));
+    	
         return new ModelAndView("user.profile", params);
     }
     

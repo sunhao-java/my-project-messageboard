@@ -21,17 +21,28 @@
         <property name="mappings">
             <props>
                 <prop key="/user/*.do">userController</prop>
+                <prop key="/user.do">userController</prop>
                 <prop key="/message/*.do">messageController</prop>
+                <prop key="/message.do">messageController</prop>
                 <prop key="/home/*.do">homeController</prop>
+                <prop key="/home.do">homeController</prop>
                 <prop key="/vote/*.do">voteController</prop>
+                <prop key="/vote.do">voteController</prop>
                 <prop key="/reply/*.do">replyController</prop>
+                <prop key="/reply.do">replyController</prop>
                 <prop key="/history/*.do">historyController</prop>
+                <prop key="/history.do">historyController</prop>
                 <prop key="/info/*.do">infoController</prop>
+                <prop key="/info.do">infoController</prop>
                 <prop key="/privacy/*.do">userPrivacyController</prop>
+                <prop key="/privacy.do">userPrivacyController</prop>
                 <prop key="/menu/*.do">menuController</prop>
+                <prop key="/menu.do">menuController</prop>
                 <prop key="/event/*.do">eventController</prop>
+                <prop key="/event.do">eventController</prop>
                 <prop key="/login/logout.do">loginController</prop>
                 <prop key="/album/*.do">albumController</prop>
+                <prop key="/album.do">albumController</prop>
                 <prop key="/friend/*.do">friendController</prop>
                 <prop key="/friend.do">friendController</prop>
                 <!-- 暂时取消验证，否则会导致swfupload不能上传的bug -->

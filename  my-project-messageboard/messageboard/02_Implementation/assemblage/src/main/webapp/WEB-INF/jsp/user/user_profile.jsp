@@ -91,6 +91,22 @@
 			tab.parent('li').addClass('active');
 		});
 		
+		$('ul.blog-tab > li > a').click(function(){
+			var tab = $(this);
+			var tabs = $('ul.blog-tab > li > a');
+			var tabId = tab.attr('tab-id');
+			
+			for(var i = 0; i < tabs.length; i++){
+				var t = tabs[i];
+				if(tabId != $(t).attr('tab-id')) {
+					$('#' + $(t).attr('tab-id')).hide();
+					$(t).parent('li').removeClass('active');
+				}
+			}
+			$('#' + tabId).show();
+			tab.parent('li').addClass('active');
+		});
+		
 		$('#publish').click(function(){
 			var content = $('#tweetTxt').val();
 			if(content == '' || content.length > 160){
@@ -131,6 +147,39 @@
 	function gotoAlbumDetail(albumId){
 		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId;
 	}
+	
+	function deleteFunction(tweetId){
+		var dialog = 
+		YAHOO.app.dialog.pop({
+			alertMsg: '你确定要删除选中的项吗？',
+			confirmFunction: function(){
+				$.ajax({
+					url: '${contextPath}/tweet/delete.do',
+					type: 'post',
+					dataType: 'json',
+					data: 'tweetId=' + tweetId,
+					success: function(o){
+						if(o.status == '1'){
+							dialog.cancel();
+							var li = $('#li_' + tweetId);
+							li.hide('slow');
+						} else {
+							YAHOO.app.dialog.pop({
+								cancelButton: 'false',
+								alertMsg: '删除失败！'
+							});
+						}
+					},
+					error: function(o){
+						YAHOO.app.dialog.pop({
+							cancelButton: 'false',
+							alertMsg: '错误代码:' + o.status
+						});
+					}
+				});
+			}
+		});
+	}
 </script>
 
 <style type="text/css">
@@ -166,7 +215,7 @@
     			<div class="clear"></div>
 			    <div class="stat">
 			    	<a href="${contextPath}/friend.do">好友(${msgFun:length(friends)})</a>
-			    	<a href="${contextPath}/message/inListMyMessageJsp.do">博文(0)</a>
+			    	<a href="${contextPath}/message/inListMyMessageJsp.do">博文(${blogNum})</a>
 			    	<a href="${contextPath}/album/index.do">相册(${msgFun:length(albums)})</a>
 			    </div>
 			</div>
@@ -199,7 +248,7 @@
 		</div>
 		<div class="content-right">
 			<div class="myblog clearfix">
-				<span class="action"></span><a href="#">进入我的博客</a>
+				<span class="action"></span><a href="${contextPath}/message/inListMyMessageJsp.do">进入我的博客</a>
 			</div>
 			<div class="rmod">
 				<strong>
@@ -264,7 +313,6 @@
 			    	<li class="active"><a href="#" id="myTweetTab" tab-id="myTweet">我的动弹</a></li>
 			    	<li><a href="#" id="friendTweetTab" tab-id="friendTweet">好友动弹</a></li>
 			    	<li><a href="#" id="userBlogTab" tab-id="userBlog">博客</a></li>
-			    	<li><a href="#" id="userAlbumsTab" tab-id="userAlbums">相册</a></li>
     	    	</ul>
     	    	<ul class="UserLogs" id="myTweet">
     	    		<msg:controller method="index" module="tweet" type="invoke"/>
@@ -273,30 +321,20 @@
 			    			<table class="tab-table">
 								<tr>
 									<td class="TweetUser">
-										<a href="${contextPath}/message/user/profile.do">
+										<a href="${contextPath}/user/profile.do">
 											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
 										</a>
 									</td>
 									<td class="TweetContent">
 										<h5>
-											<a href="${contextPath}/message/user/profile.do" class="user">${tweet.creator.truename}</a>
+											<a href="${contextPath}/user/profile.do" class="user">${tweet.creator.truename}</a>
 											<span class="action1">
 												更新了动态
 									    	</span>
 									    	<span class="delete">
-										    	<a href="javascript:void(0);" id="delete_${tweet.pkId}"
-										    			rel="${contextPath}/tweet/delete.do?tweetId=${tweet.pkId}">
+										    	<a href="javascript:void(0);" onclick="deleteFunction('${tweet.pkId}')">
 										    		删除
 										    	</a>
-										    	<script type="text/javascript">
-										    		using('confirm', function(){
-											    		$('#delete_${tweet.pkId}').confirm({
-											    			confirmMessage: '确定要删除此条动弹吗？',
-										                    isFormatMessage: false,
-										                    removeElement: $('#li_${tweet.pkId}')
-											    		});
-										    		});
-										    	</script>
 									    	</span>
 										</h5>
 										<div class="post tweetContent">
@@ -348,66 +386,80 @@
     	    		</c:forEach>
 		        </ul>
 		        <ul class="UserLogs" id="userBlog" style="display: none;">
-    	    		<msg:controller method="index" module="tweet" type="invoke"/>
-		    		<li id="LI_1004071" class="Tweet log_type_100">
-		    			<table class="tab-table">
-							<tr>
-								<td class="TweetUser">
-									<a href="#">
-										<msg:head userId="${loginUser.pkId}" headType="2"/>
-									</a>
-								</td>
-								<td class="TweetContent">
-									<h5>
-										<a href="#" class="user">博客</a>
-										<span class="action1">
-											更新了动态
-								    	</span>
-									</h5>
-									<div class="post">
-										南京源创会最后一个主题Git，很快结束了，今天又爆场了！
-									</div>
-									<div class="bottom">
-										<div class="opts">
-											<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
-										</div>
-										<div class="time">昨天(17:38) </div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</li>
-		        </ul>
-		        <ul class="UserLogs" id="userAlbums" style="display: none;">
-    	    		<msg:controller method="index" module="tweet" type="invoke"/>
-		    		<li id="LI_1004071" class="Tweet log_type_100">
-		    			<table class="tab-table">
-							<tr>
-								<td class="TweetUser">
-									<a href="#">
-										<msg:head userId="${loginUser.pkId}" headType="2"/>
-									</a>
-								</td>
-								<td class="TweetContent">
-									<h5>
-										<a href="#" class="user">相册</a>
-										<span class="action1">
-											更新了动态
-								    	</span>
-									</h5>
-									<div class="post">
-										南京源创会最后一个主题Git，很快结束了，今天又爆场了！
-									</div>
-									<div class="bottom">
-										<div class="opts">
-											<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
-										</div>
-										<div class="time">昨天(17:38) </div>
-									</div>
-								</td>
-							</tr>
-						</table>
-					</li>
+		        	<ul class="tabs-child blog-tab">
+				    	<li class="active"><a href="#" id="myTweetTab" tab-id="myBlog">我的博客</a></li>
+				    	<li><a href="#" id="friendTweetTab" tab-id="friendBlog">好友的博客</a></li>
+	    	    	</ul>
+	    	    	<ul class="UserLogs" id="myBlog" style="display: ;">
+	    	    		<msg:controller method="inListMyMessageJsp" module="message" type="invoke"/>
+	    	    		<c:forEach items="${paginationSupport.items}" var="message">
+			    	    	<li id="message_${message.pkId}" class="Tweet log_type_100">
+				    			<table class="tab-table">
+									<tr>
+										<td class="TweetUser">
+											<a href="${contextPath}/user/profile.do">
+												<msg:head userId="${loginUser.pkId}" headType="2"/>
+											</a>
+										</td>
+										<td class="TweetContent">
+											<h5>
+												<a href="${contextPath}/user/profile.do" class="user">${loginUser.truename}</a>
+												<span class="action1">
+													更新了博客 -- 
+													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}" 
+														class="title">${message.title}</a>
+										    	</span>
+											</h5>
+											<div class="post">
+												<msg:text endText="..." length="50" text="${message.content }" escapeHtml="true"/>
+											</div>
+											<div class="bottom">
+												<div class="opts">
+													<a href="#" class="reply">评论<span>(<span id="">${msgFun:length(message.replys)}</span>)</span></a>
+												</div>
+												<div class="time"> <msg:formatDate value="${message.createDate}"/> </div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</li>
+	    	    		</c:forEach>
+					</ul>
+					<ul class="UserLogs" id="friendBlog" style="display: none;">
+						<msg:controller method="listFriendsMessage" module="message" type="invoke"/>
+						<c:forEach items="${messages.items}" var="message1">
+				    		<li id="blog_${message1.pkId}" class="Tweet log_type_100">
+				    			<table class="tab-table">
+									<tr>
+										<td class="TweetUser">
+											<a href="#">
+												<msg:head userId="${message1.createUser.pkId}" headType="2"/>
+											</a>
+										</td>
+										<td class="TweetContent">
+											<h5>
+												<a href="#" class="user">${message1.createUser.truename}</a>
+												<span class="action1">
+													更新了博客 --
+													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message1.pkId}" 
+														class="title">${message1.title}</a>
+										    	</span>
+											</h5>
+											<div class="post">
+												<msg:text endText="..." length="50" text="${message1.content }" escapeHtml="true"/>
+											</div>
+											<div class="bottom">
+												<div class="opts">
+													<a href="#" class="reply">评论<span>(<span id="">${msgFun:length(message1.replys)}</span>)</span></a>
+												</div>
+												<div class="time"> <msg:formatDate value="${message1.createDate}"/> </div>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</li>
+						</c:forEach>
+					</ul>
 		        </ul>
 		    </div>
 		</div>

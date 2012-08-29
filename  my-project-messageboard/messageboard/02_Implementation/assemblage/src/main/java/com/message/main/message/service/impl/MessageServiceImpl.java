@@ -1,17 +1,21 @@
 package com.message.main.message.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.pagination.PaginationUtils;
 import com.message.base.properties.MessageUtils;
 import com.message.base.utils.StringUtils;
 import com.message.main.ResourceType;
 import com.message.main.event.pojo.BaseEvent;
 import com.message.main.event.service.EventService;
+import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.message.dao.MessageDAO;
@@ -40,6 +44,8 @@ public class MessageServiceImpl implements MessageService {
 	private EventService eventService;
 
     private GenericHibernateDAO genericHibernateDAO;
+    
+    private FriendService friendService;
 
 	public void setMessageDAO(MessageDAO messageDAO) {
 		this.messageDAO = messageDAO;
@@ -60,6 +66,10 @@ public class MessageServiceImpl implements MessageService {
     public void setGenericHibernateDAO(GenericHibernateDAO genericHibernateDAO) {
         this.genericHibernateDAO = genericHibernateDAO;
     }
+
+	public void setFriendService(FriendService friendService) {
+		this.friendService = friendService;
+	}
 
 	public PaginationSupport getAllMessages(int start, int num, Message message) throws Exception {
 		PaginationSupport paginationSupport = this.messageDAO.getAllMessages(start, num, message);
@@ -187,5 +197,42 @@ public class MessageServiceImpl implements MessageService {
     public Long getPkId() throws Exception {
         return this.genericHibernateDAO.genericId("SEQ_MESSAGE_MSG");
     }
+
+	public PaginationSupport listFriendsMessage(LoginUser loginUser) throws Exception {
+		if(loginUser == null || loginUser.getPkId() == null){
+			return PaginationUtils.getNullPagination();
+		}
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		List<Long> friendIds = this.friendService.listFriendIds(loginUser.getPkId());
+		
+		String ids = "";
+		for(Long id : friendIds){
+			ids += "m.createUserId = " + id + " or ";
+		}
+		
+		if(StringUtils.isNotEmpty(ids)){
+			ids = ids.substring(0, ids.length() - 3);
+		}
+		
+		String hql = "from Message m where (" + ids + ") and m.deleteFlag = :deleteFlag and m.isAudit = :isAudit" +
+				" order by m.pkId desc";
+		String countHql = "select count(*) " + hql;
+		
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		params.put("isAudit", ResourceType.AUDIT_YES);
+		PaginationSupport paginationSupport = this.genericHibernateDAO.getPaginationSupport(hql, countHql, 0, 10, params);
+		
+		List<Message> messages = paginationSupport.getItems();
+		for(Message msg : messages){
+			User user = this.userService.getUserById(msg.getCreateUserId());
+			List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+			
+			msg.setCreateUser(user);
+			msg.setReplys(replys);
+		}
+		
+		return paginationSupport;
+	}
 
 }

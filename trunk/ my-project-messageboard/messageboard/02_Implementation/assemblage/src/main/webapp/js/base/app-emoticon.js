@@ -204,17 +204,17 @@
 			});
 			
 			//添加鼠标点击事件,如果鼠标不是在表情弹框中点击,则弹框隐藏
-//			$(window).bind('mousedown', function(e){
-//				var x = e.pageX;			//left
-//				var y = e.pageY;			//top
-//				var offset = f.getOffset();
-//				if($('#' + p.id).css('visibility') || $('#' + p.id).css('visibility') == 'visible'){
-//					if(!((x > offset[0] && x < offset[0] + p.width) && (y > offset[1] && y < offset[1] + p.height))){
-//						if($.emoticon.panel)
-//							$.emoticon.panel.hide();
-//					}
-//				}
-//			});
+			$(window).bind('mousedown', function(e){
+				var x = e.pageX;			//left
+				var y = e.pageY;			//top
+				var offset = f.getOffset();
+				if($('#' + p.id).css('visibility') || $('#' + p.id).css('visibility') == 'visible'){
+					if(!((x > offset[0] && x < offset[0] + p.width) && (y > offset[1] && y < offset[1] + p.height))){
+						if($.emoticon.panel)
+							$.emoticon.panel.hide();
+					}
+				}
+			});
 		});
 	}
 	

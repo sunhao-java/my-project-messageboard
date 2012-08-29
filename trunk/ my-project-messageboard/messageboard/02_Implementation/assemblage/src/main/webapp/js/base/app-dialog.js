@@ -228,6 +228,9 @@ YAHOO.app.dialog = function(){
 	            alertDialog.render(document.body);
 				alertDialog.setHeader(dialogHead_);	//头上显示文字
 				alertDialog.show();
+				
+				dom.addClass(id_, 'dialog');
+				
 	            return alertDialog;
 			}
 

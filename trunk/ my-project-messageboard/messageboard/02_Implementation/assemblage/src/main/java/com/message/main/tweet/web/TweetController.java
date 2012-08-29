@@ -92,4 +92,24 @@ public class TweetController extends SimpleController {
 		return new ModelAndView("", params);
 	}
 	
+	/**
+	 * 删除吐槽
+	 * 
+	 * @param in
+	 * @param out
+	 * @param loginUser
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView delete(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		Long tweetId = in.getLong("tweetId", Long.valueOf(-1));
+		boolean result = this.tweetService.deleteTweet(tweetId);
+		
+		params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
 }

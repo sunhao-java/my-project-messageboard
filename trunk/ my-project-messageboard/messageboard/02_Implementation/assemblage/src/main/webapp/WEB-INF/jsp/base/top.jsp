@@ -106,7 +106,7 @@
 	    	<div class="title" style=""></div>
 	    	<div class="tool">
 	            <a class="t3" title="个人首页" href="javaScript:void(0);" onclick="linkFun('${contextPath}/user/profile.do')"></a>
-	            <a class="t1" title="个性设置" href="javaScript:void(0);" onclick="linkFun('${contextPath}/user/editUserInfo.do')"></a>
+	            <a class="t1" title="个人设置" href="javaScript:void(0);" onclick="linkFun('${contextPath}/user/editUserInfo.do')"></a>
 	            <a class="t2" title="收藏夹" href="javaScript:void(0);" onclick="addBookmark()"></a>
 	            <a class="t4" title="系统帮助"></a>
 	            <a class="t5" title="退出系统" href="javaScript:void(0);" onclick="logout('${contextPath}')"></a>

@@ -1,6 +1,7 @@
 package com.message.main.message.service;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.message.pojo.Message;
 
 /**
@@ -84,4 +85,12 @@ public interface MessageService {
      */
     Long getPkId() throws Exception;
 	
+    /**
+     * 列出当前登录人好友的所有博客
+     * 
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    PaginationSupport listFriendsMessage(LoginUser loginUser) throws Exception;
 }

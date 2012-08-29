@@ -35,6 +35,7 @@
     	<property name="replyService" ref="replyService"/>
     	<property name="eventService" ref="eventService"/>
         <property name="genericHibernateDAO" ref="genericHibernateDAOImpl"/>
+        <property name="friendService" ref="friendService"/>
     </bean>
     
     <!-- 回复的service -->

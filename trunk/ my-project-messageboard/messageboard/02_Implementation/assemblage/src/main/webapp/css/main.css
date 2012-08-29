@@ -216,3 +216,8 @@ ul li, ol li{
 	list-style: none;
 	list-style-type: none;
 }
+
+.dialog{
+	background: none !important;
+	padding: 0px !important;
+}

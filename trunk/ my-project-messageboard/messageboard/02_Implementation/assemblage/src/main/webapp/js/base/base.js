@@ -187,3 +187,20 @@ YAHOO.util.contain = function(value, array){
 	
 	return false;
 }
+
+/**
+ * 回复
+ * 
+ * @param p
+ */
+YAHOO.util.reply = function(p){
+    $.utils.reply(p);
+}
+
+/**
+ * 获取系统contextPath
+ */
+YAHOO.util.getContextPath = function(){
+    var location = window.location;
+    return "/" + location.pathname.split("/")[1];
+}

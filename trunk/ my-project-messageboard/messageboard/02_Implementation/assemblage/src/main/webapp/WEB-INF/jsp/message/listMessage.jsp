@@ -5,9 +5,19 @@
 <msg:css href="css/style.css"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/validate.js"/>
+<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+    $(document).ready(function(){
+        using('reply', function(){
+            $('input.publishReply').click(function(){
+                publishReply(this);
+            });
+        });
+    });
+
 	function onTextAreaFource(id){
 		if(dom.get("reply" + id).value == '发表评论' && dom.get("title" + id).value == '输入标题'){
 			dom.get("reply" + id).value = "";
@@ -28,31 +38,23 @@
 		dom.get("reply" + id).value = '发表评论';
 		dom.get("title" + id).value = '输入标题';
 	}
-	
-	function publishReply(){
-		var replyForm = dom.get('replyForm');
-		var action = "${contextPath}/reply/replyMessage.do";
-		var flag = Validator.Validate(replyForm, 3);
-		if(flag){
-			$C.setForm(replyForm);
-			$C.asyncRequest("POST", action, {
-				success : function(o){
-					var _e = eval("(" + o.responseText + ")");
-					if(_e.status == '1'){
-						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发表成功！',
-								'confirmFunction':function(){
-									window.location.reload(true);
-								}});
-					} else {
-						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'发表失败！'});
-					}
-				},
-				failure : function(o){
-					YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
-				}
-			});
-		}
-	}
+
+    function publishReply(input){
+        input = $(input);
+        var messageId = input.attr('messageId');
+        var title = $('#title' + messageId).val();
+        var content = $('#reply' + messageId).val();
+        
+        YAHOO.util.reply({
+            title: title,
+            content: content,
+            resourceId: messageId,
+            resourceType: '${resourceType}',
+            success: function(){
+                window.location.reload(true);
+            }
+        });
+    }
 </script>
 
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
@@ -151,10 +153,10 @@
 									<textarea id="reply${message.pkId }" name="replyContent" class="replyText" 
 										onclick="onTextAreaFource('${message.pkId }')" onblur="hideTextArea('${message.pkId }')"
 										dataType="Limit" max="1300" min="2" msg="不能为空,且不超过1300字符">
-										发表评论
+										输入评论
 									</textarea>
 									<div class="buttonDiv">
-										<input type="button" value="发表" onclick="publishReply()"/>
+										<input type="button" value="发表" class="publishReply" messageId="${message.pkId}"/>
 									</div>
 								</div>
 							</form>

@@ -66,6 +66,7 @@ public class MessageController extends SimpleController {
 		PaginationSupport paginationSupport = this.messageService.getAllMessages(start, num, message);
 
 		params.put("paginationSupport", paginationSupport);
+        params.put("resourceType", ResourceType.RESOURCE_TYPE_MESSAGE);
 		return new ModelAndView("message.list", params);
 	}
 	
@@ -179,6 +180,7 @@ public class MessageController extends SimpleController {
         params.put("message", dbMessage);
         params.put("flag", flag);
         params.put("messageCount", this.messageService.getLoginUserMessageCount(dbMessage.getCreateUserId()));
+        params.put("resourceType", ResourceType.RESOURCE_TYPE_MESSAGE);
 
 		return new ModelAndView("message.detail.jsp", params);
 	}

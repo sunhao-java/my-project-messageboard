@@ -9,12 +9,10 @@ YAHOO.namespace("app.swfupload");
 var uploadDialog;
 var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event,$L=YAHOO.lang;
 var config;
-var contextPath;
+var contextPath = YAHOO.util.getContextPath();
 
 YAHOO.app.swfupload = function(link, element, p){
-    var location = window.location;
-    contextPath = "/" + location.pathname.split("/")[1];
-    
+
     var f = {
         init : function(args){
             p.title = args.title || '上传文件',                                      //弹框显示的标题

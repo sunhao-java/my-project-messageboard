@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.reply.pojo.Reply" table="T_MESSAGE_REPLY">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">SEQ_MESSAGE_REPLY</param>
+			</generator>
+		</id>
+		<property name="title" type="java.lang.String">
+			<column name="TITLE" length="255">
+				<comment>回复主题</comment>
+			</column>
+		</property>
+        <property name="content" type="java.lang.String">
+            <column name="CONTENT" length="4000">
+                <comment>回复内容</comment>
+            </column>
+        </property>
+        <property name="ip" type="java.lang.String">
+            <column name="IP" length="100">
+                <comment>回复地IP</comment>
+            </column>
+        </property>
+        <property name="replyTime" type="java.util.Date">
+            <column name="REPLY_TIME">
+                <comment>回复时间</comment>
+            </column>
+        </property>
+        <property name="creatorId" type="java.lang.Long">
+            <column name="CREATOR_ID" precision="10" scale="0">
+                <comment>回复人(创建者)</comment>
+            </column>
+        </property>
+        <property name="resourceId" type="java.lang.Long">
+            <column name="RESOURCE_ID" precision="10" scale="0">
+                <comment>资源ID</comment>
+            </column>
+        </property>
+        <property name="resourceType" type="java.lang.Integer">
+            <column name="RESOURCE_TYPE" length="5">
+                <comment>资源类型</comment>
+            </column>
+        </property>
+        <property name="deleteFlag" type="java.lang.Long">
+            <column name="DELETE_FLAG" length="1">
+                <comment>删除标识位(0,1)</comment>
+            </column>
+        </property>
+	</class>
+</hibernate-mapping>

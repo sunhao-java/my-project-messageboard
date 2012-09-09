@@ -46,4 +46,13 @@
     <bean id="friendObjectCache" class="com.message.base.cache.utils.ObjectCache">
     	<property name="cache" ref="friendCache"/>
     </bean>
+
+    <!-- 回复的缓存 -->
+    <bean id="replyCache" parent="abstractCache">
+        <property name="cacheName" value="replyCache"/>
+    </bean>
+
+    <bean id="replyObjectCache" class="com.message.base.cache.utils.ObjectCache">
+        <property name="cache" ref="replyCache"/>
+    </bean>
 </beans>

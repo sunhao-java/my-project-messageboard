@@ -23,8 +23,7 @@
 	
 	//定义展示组件的默认值
 	$.displayEmoticon.defaults = {
-		allowArea: 'p|span|div',
-		contextPath: ''
+		allowArea: 'p|span|div'
 	}
 	
 	$.emoticon.panel = $.emoticon.panel || null;	//表情面板
@@ -260,8 +259,8 @@
 						if(!icon)
 							continue;
 						
-						var img = '<img src="' + p.contextPath + '/js/jquery/css/emoticon/images/' + icon[0] + '/' + 
-									name + '.gif" title="' + icon[1] + '">';
+						var img = '<img src="' + YAHOO.util.getContextPath() + '/js/jquery/css/emoticon/images/' +
+                                icon[0] + '/' + name + '.gif" title="' + icon[1] + '">';
 						
 						html = html.replace('[' + name + ']', img);
 					}

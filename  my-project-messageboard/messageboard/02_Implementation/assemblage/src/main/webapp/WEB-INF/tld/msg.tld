@@ -191,5 +191,9 @@
       <name>type</name>
       <rtexprvalue>true</rtexprvalue>
   </attribute>
+  <attribute>
+      <name>params</name>
+      <rtexprvalue>true</rtexprvalue>
+  </attribute>
  </tag>
 </taglib>

@@ -42,7 +42,6 @@
     <bean id="replyService" class="com.message.main.reply.service.impl.ReplyServiceImpl">
     	<property name="replyDAO" ref="replyDAO"/>
     	<property name="userService" ref="userService"/>
-    	<property name="eventService" ref="eventService"/>
     </bean>
     
     <!-- 用户的service -->

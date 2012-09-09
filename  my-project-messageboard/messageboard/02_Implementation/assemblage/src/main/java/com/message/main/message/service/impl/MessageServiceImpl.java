@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.message.main.reply.service.ReplyService;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.message.base.hibernate.GenericHibernateDAO;
@@ -21,8 +22,6 @@ import com.message.main.login.web.AuthContextHelper;
 import com.message.main.message.dao.MessageDAO;
 import com.message.main.message.pojo.Message;
 import com.message.main.message.service.MessageService;
-import com.message.main.reply.pojo.Reply;
-import com.message.main.reply.service.ReplyService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 
@@ -76,10 +75,10 @@ public class MessageServiceImpl implements MessageService {
 		List<Message> messages = paginationSupport.getItems();
 		for(Message msg : messages){
 			User user = this.userService.getUserById(msg.getCreateUserId());
-			List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+			//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
 			
 			msg.setCreateUser(user);
-			msg.setReplys(replys);
+			//msg.setReplys(replys);
 		}
 		return paginationSupport;
 	}
@@ -112,10 +111,10 @@ public class MessageServiceImpl implements MessageService {
 		if(message != null){
 			message.setCreateUser(this.userService.getUserById(message.getCreateUserId()));
 		}
-		List<Reply> replys = this.replyService.getReplysByMessageId(message.getPkId());
-		if(CollectionUtils.isNotEmpty(replys)){
-			message.setReplys(replys);
-		}
+		//List<Reply> replys = this.replyService.getReplysByMessageId(message.getPkId());
+		//if(CollectionUtils.isNotEmpty(replys)){
+			//message.setReplys(replys);
+		//}
 		return message;
 	}
 
@@ -146,10 +145,10 @@ public class MessageServiceImpl implements MessageService {
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){
 				User dbuser = this.userService.getUserById(msg.getCreateUserId());
-				List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+				//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
 				
 				msg.setCreateUser(dbuser);
-				msg.setReplys(replys);
+				//msg.setReplys(replys);
 			}
 		}
 		return paginationSupport;
@@ -161,10 +160,10 @@ public class MessageServiceImpl implements MessageService {
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){
 				User dbuser = this.userService.getUserById(msg.getCreateUserId());
-				List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+				//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
 				
 				msg.setCreateUser(dbuser);
-				msg.setReplys(replys);
+				//msg.setReplys(replys);
 				
 				if(msg.getAuditUserId() != null){
 					User auditUser = this.userService.getUserById(msg.getAuditUserId());
@@ -226,10 +225,10 @@ public class MessageServiceImpl implements MessageService {
 		List<Message> messages = paginationSupport.getItems();
 		for(Message msg : messages){
 			User user = this.userService.getUserById(msg.getCreateUserId());
-			List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+			//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
 			
 			msg.setCreateUser(user);
-			msg.setReplys(replys);
+			//msg.setReplys(replys);
 		}
 		
 		return paginationSupport;

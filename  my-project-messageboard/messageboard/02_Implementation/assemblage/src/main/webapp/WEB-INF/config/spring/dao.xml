@@ -18,7 +18,10 @@
 	<bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAOImpl"/>
 	
 	<!-- 回复的dao -->
-	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl">
+        <property name="genericJdbcDAO" ref="genericJdbcDAO"/>
+        <property name="cache" ref="replyObjectCache"/>
+	</bean>
 	
 	<!-- 用户的dao -->
 	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>

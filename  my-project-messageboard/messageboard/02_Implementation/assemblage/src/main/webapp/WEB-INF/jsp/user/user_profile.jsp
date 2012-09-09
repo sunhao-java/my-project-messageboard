@@ -29,9 +29,7 @@
 				panel: 'tweetTxt'
 			});
 			
-			$('div.tweetContent').displayEmoticon({
-				contextPath: '${contextPath}'
-			});
+			$('div.tweetContent').displayEmoticon();
 		});
 		
 		var tweetTxt = $.cookie('${loginUser.pkId}tweet');

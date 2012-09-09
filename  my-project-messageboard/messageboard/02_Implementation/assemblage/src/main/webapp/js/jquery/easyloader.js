@@ -71,6 +71,9 @@
 		form : {
 			js : "jquery.form.js"
 		},
+        newForm: {
+            js: '../jquery.form.js'
+        },
 		menu : {
 			js : "jquery.menu.js",
 			css : "../../../../themes/default/menu.css"
@@ -194,11 +197,19 @@
         	css : "/../../../css/emoticon/emoticon.css",
         	dependencies : [ "event", "container" ]
         },
+        reply: {
+            js: "../../base/app-reply.js",
+            css: '/../../../css/reply/app-reply.css',
+            dependencies: ["newForm", "template"]
+        },
         event : {
         	js : "../../yui/js/yahoo-dom-event.js"
         },
         container : {
         	js : "../../yui/js/container-min.js"
+        },
+        template: {
+            js: "../../base/template.js"
         }
 	};
 	var _2 = {

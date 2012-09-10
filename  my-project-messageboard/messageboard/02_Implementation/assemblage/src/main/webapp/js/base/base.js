@@ -200,7 +200,7 @@ YAHOO.util.decode = function(json){
 		else
 			return null;
 	} catch(e){
-		
+		return null;
 	}
 }
 

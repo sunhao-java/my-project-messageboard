@@ -189,6 +189,23 @@ YAHOO.util.contain = function(value, array){
 }
 
 /**
+ * eval一个json字符串
+ * 
+ * @param {Object} json			json
+ */
+YAHOO.util.decode = function(json){
+	try{
+		if(json)
+			return eval('(' + json + ')');
+		else
+			return null;
+	} catch(e){
+		
+	}
+}
+
+
+/**
  * 回复
  * 
  * @param p

@@ -99,5 +99,6 @@
 		<property name="tweetDAO" ref="tweetDAO"/>
 		<property name="userService" ref="userService"/>
 		<property name="friendService" ref="friendService"/>
+        <property name="replyService" ref="replyService"/>
 	</bean>
 </beans>

@@ -28,7 +28,7 @@ public class Message implements Serializable {
 	
 	//VO Field
 	private User createUser;							//VO字段，发表留言者
-	private List<Reply> replys;							//VO字段，此条留言的回复
+    private int replyNum;                               //回复数
 	private Date beginTime;
 	private Date endTime;
 	private User auditUser;								//VO字段，审核人
@@ -73,15 +73,15 @@ public class Message implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public List<Reply> getReplys() {
-		return replys;
-	}
+    public int getReplyNum() {
+        return replyNum;
+    }
 
-	public void setReplys(List<Reply> replys) {
-		this.replys = replys;
-	}
+    public void setReplyNum(int replyNum) {
+        this.replyNum = replyNum;
+    }
 
-	public Long getCreateUserId() {
+    public Long getCreateUserId() {
 		return createUserId;
 	}
 

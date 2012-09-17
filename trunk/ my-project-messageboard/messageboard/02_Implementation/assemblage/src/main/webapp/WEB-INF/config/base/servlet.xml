@@ -32,6 +32,7 @@
 				<value>/WEB-INF/tiles-defs/menu/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/album/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/friend/tiles-def.xml</value>
+                <value>/WEB-INF/tiles-defs/reply/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
 			</list>
 		</property>

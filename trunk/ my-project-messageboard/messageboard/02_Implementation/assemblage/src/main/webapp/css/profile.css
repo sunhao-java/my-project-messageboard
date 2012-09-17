@@ -229,15 +229,15 @@ html[xmlns] .clearfix {
     text-align: right;
 }
 
-.more a, .albums .more a, .rmod a, a.user, a.reply, a.title{
+.more a, .albums .more a, .rmod a, a.user, a.reply, a.title, .TweetRplsWrapper a{
 	color: #0066CC !important;
 }
 
-.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited, a.title:visited{
+.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited, a.title:visited, .TweetRplsWrapper a:visited{
 	color: #0066CC !important;
 }
 
-.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover, a.title:hover {
+.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover, a.title:hover, .TweetRplsWrapper a:hover {
 	color: #FF0000 !important;
 	text-decoration: underline;
 }
@@ -582,4 +582,82 @@ ul.tabs-child li a {
 ul.tabs-child li.active a {
     background: none repeat scroll 0 0 #7798CB;
     color: #FFFFFF;
+}
+
+.replyList{
+    margin: 0 0 5px;
+    padding: 5px 5px 5px 0;
+}
+
+.TweetRplsWrapper {
+    background: none repeat scroll 0 0 #F9F9F9;
+    border: 1px solid #CCCCCC;
+    padding: 10px 10px 20px;
+}
+
+ #closeTweetRpls {
+    float: right;
+    font-weight: bold;
+    height: 8px;
+    line-height: 8px;
+	text-decoration: none;
+	color: #4466BB;
+    outline: 0 none;
+}
+
+.replyList form {
+    margin: 5px 0 0 5px;
+}
+
+form.TweetReplyForm {
+    border-bottom: 1px dashed #CCCCCC;
+    padding-bottom: 10px;
+}
+
+form.TweetReplyForm .input {
+    height: 22px;
+}
+
+form.TweetReplyForm img {
+    height: 22px;
+    width: 22px;
+}
+
+.TweetRpls li .portrait img {
+    height: 24px;
+    margin: 5px 0 0;
+    width: 24px;
+}
+
+.TweetRpls ul {
+    font-size: 9pt;
+	margin-bottom: 10px;
+}
+
+.TweetRpls li {
+    border-bottom: 1px dashed #CCCCCC;
+}
+
+.TweetRpls li .portrait {
+    width: 30px;
+}
+
+.TweetRpls li .TweetReplyBody .post {
+    line-height: 20px;
+	font-size: 10.5pt;
+    line-height: 22px;
+    margin: 5px 0 0;
+    overflow: hidden;
+}
+
+.TweetRpls li .TweetReplyBody .opts {
+    color: #999999;
+    float: none;
+    font-size: 8pt;
+    height: 18px;
+    margin: 10px 0 0;
+}
+
+.TweetRpls li .TweetReplyBody .opts .links {
+    float: right;
 }

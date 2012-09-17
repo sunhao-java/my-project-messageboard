@@ -116,6 +116,15 @@ public class ReplyServiceImpl implements ReplyService {
         return reply;
     }
 
+    public int getResourceReplyNum(Long resourceId, Integer resourceType) throws Exception {
+        if(resourceId == null || Long.valueOf(-1).equals(resourceId) || resourceType == null || Integer.valueOf(-1).equals(resourceType)){
+            logger.debug("resourceId or resourceId is null!");
+            return 0;
+        }
+
+        return this.replyDAO.list(resourceId, resourceType, -1, -1).getItems().size();
+    }
+
     private void handleReply(Reply reply) throws Exception {
         if(reply == null)
             return;

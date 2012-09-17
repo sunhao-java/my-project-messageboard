@@ -95,4 +95,24 @@ public class ReplyController extends SimpleController {
             }
         });
     }
+
+    /**
+     * 列出一个资源的前三条回复
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView list(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+        Long resourceId = in.getLong("resourceId", Long.valueOf(-1));
+        Integer resourceType = in.getInt("resourceType", Integer.valueOf(-1));
+
+        PaginationSupport ps = this.replyService.list(resourceId, resourceType, 0, 5);
+        params.put("ps", ps);
+        params.put("resourceId", resourceId);
+        return new ModelAndView("reply.list", params);
+    }
 }

@@ -23,6 +23,7 @@ public class Tweet implements Serializable {
 	
 	//VO
 	private User creator;			//创建者
+    private int replyNum;          //回复条数
 
 	public Long getPkId() {
 		return pkId;
@@ -72,4 +73,11 @@ public class Tweet implements Serializable {
 		this.creator = creator;
 	}
 
+    public int getReplyNum() {
+        return replyNum;
+    }
+
+    public void setReplyNum(int replyNum) {
+        this.replyNum = replyNum;
+    }
 }

@@ -56,4 +56,14 @@ public interface ReplyService {
      * @throws Exception
      */
     Reply getReply(Long pkId) throws Exception;
+
+    /**
+     * 根据资源ID和资源类型获取指定对象的回复条数
+     *
+     * @param resourceId            资源ID
+     * @param resourceType          资源类型
+     * @return
+     * @throws Exception
+     */
+    int getResourceReplyNum(Long resourceId, Integer resourceType) throws Exception;
 }

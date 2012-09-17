@@ -166,8 +166,7 @@
 					${message.ip }
 				</td>
 				<td>
-					<%-- 获取HashSet的size --%>
-					${fn:length(message.replys)} 
+					${message.replyNum}
 				</td>
 				<td>
 					<a href="javaScript:viewMessage('${message.pkId}');">

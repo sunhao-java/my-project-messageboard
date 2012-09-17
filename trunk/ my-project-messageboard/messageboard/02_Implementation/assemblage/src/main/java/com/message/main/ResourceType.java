@@ -170,6 +170,10 @@ public final class ResourceType {
      * 水印的资源类型
      */
     public static final Integer RESOURCE_TYPE_MARK = Integer.valueOf(3);
+    /**
+     * 吐槽的资源类型
+     */
+    public static final Integer RESOURCE_TYPE_TWEET = Integer.valueOf(4);
 
     /**
      * 验证码在session中默认的ID

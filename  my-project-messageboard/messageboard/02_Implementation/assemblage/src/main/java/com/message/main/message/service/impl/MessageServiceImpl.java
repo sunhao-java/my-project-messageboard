@@ -75,10 +75,10 @@ public class MessageServiceImpl implements MessageService {
 		List<Message> messages = paginationSupport.getItems();
 		for(Message msg : messages){
 			User user = this.userService.getUserById(msg.getCreateUserId());
-			//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+            int replyNum = this.replyService.getResourceReplyNum(msg.getPkId(), ResourceType.RESOURCE_TYPE_MESSAGE);
 			
 			msg.setCreateUser(user);
-			//msg.setReplys(replys);
+            msg.setReplyNum(replyNum);
 		}
 		return paginationSupport;
 	}
@@ -111,10 +111,9 @@ public class MessageServiceImpl implements MessageService {
 		if(message != null){
 			message.setCreateUser(this.userService.getUserById(message.getCreateUserId()));
 		}
-		//List<Reply> replys = this.replyService.getReplysByMessageId(message.getPkId());
-		//if(CollectionUtils.isNotEmpty(replys)){
-			//message.setReplys(replys);
-		//}
+		int replyNum = this.replyService.getResourceReplyNum(message.getPkId(), ResourceType.RESOURCE_TYPE_MESSAGE);
+        message.setReplyNum(replyNum);
+
 		return message;
 	}
 
@@ -145,10 +144,9 @@ public class MessageServiceImpl implements MessageService {
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){
 				User dbuser = this.userService.getUserById(msg.getCreateUserId());
-				//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
-				
+                int replyNum = this.replyService.getResourceReplyNum(msg.getPkId(), ResourceType.RESOURCE_TYPE_MESSAGE);
+                msg.setReplyNum(replyNum);
 				msg.setCreateUser(dbuser);
-				//msg.setReplys(replys);
 			}
 		}
 		return paginationSupport;
@@ -160,10 +158,10 @@ public class MessageServiceImpl implements MessageService {
 		if(CollectionUtils.isNotEmpty(messages)){
 			for(Message msg : messages){
 				User dbuser = this.userService.getUserById(msg.getCreateUserId());
-				//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
-				
+				int replyNum = this.replyService.getResourceReplyNum(message.getPkId(), ResourceType.RESOURCE_TYPE_MESSAGE);
+
+                message.setReplyNum(replyNum);
 				msg.setCreateUser(dbuser);
-				//msg.setReplys(replys);
 				
 				if(msg.getAuditUserId() != null){
 					User auditUser = this.userService.getUserById(msg.getAuditUserId());
@@ -225,10 +223,10 @@ public class MessageServiceImpl implements MessageService {
 		List<Message> messages = paginationSupport.getItems();
 		for(Message msg : messages){
 			User user = this.userService.getUserById(msg.getCreateUserId());
-			//List<Reply> replys = this.replyService.getReplysByMessageId(msg.getPkId());
+			int replyNum = this.replyService.getResourceReplyNum(msg.getPkId(), ResourceType.RESOURCE_TYPE_MESSAGE);
+            msg.setReplyNum(replyNum);
 			
 			msg.setCreateUser(user);
-			//msg.setReplys(replys);
 		}
 		
 		return paginationSupport;

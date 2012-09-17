@@ -29,7 +29,7 @@
             $('#showReply').displayReply({
                 resourceId: '${message.pkId}',
                 resourceType: '${resourceType}',
-                isDelete: '${flag}' == 'admin'
+                isDelete: '${message.createUser.pkId}' == '${loginUser.pkId}'
             });
 
             <c:if test="${(flag ne 'audit') && (message.createUser.pkId ne loginUser.pkId)}">
@@ -119,7 +119,7 @@
                     </h4>
                     <span class="time"><msg:formatDate value="${message.createDate}"/></span>
 
-                    <c:if test="${flag ne 'audit'}">
+                    <c:if test="${(flag ne 'audit') && (message.createUser.pkId ne loginUser.pkId)}">
                         <span class="pipe">|</span>
                         <a href="#reply-div">回复本条留言</a>
                     </c:if>

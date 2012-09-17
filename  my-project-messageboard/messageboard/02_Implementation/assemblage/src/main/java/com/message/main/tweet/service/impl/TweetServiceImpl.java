@@ -3,6 +3,7 @@ package com.message.main.tweet.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.message.main.reply.service.ReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,6 +31,7 @@ public class TweetServiceImpl implements TweetService {
 	private TweetDAO tweetDAO;
 	private UserService userService;
 	private FriendService friendService;
+    private ReplyService replyService;
 
 	public void setTweetDAO(TweetDAO tweetDAO) {
 		this.tweetDAO = tweetDAO;
@@ -43,7 +45,11 @@ public class TweetServiceImpl implements TweetService {
 		this.friendService = friendService;
 	}
 
-	public PaginationSupport listTweets(Tweet tweet, LoginUser loginUser, int start, int num) throws Exception {
+    public void setReplyService(ReplyService replyService) {
+        this.replyService = replyService;
+    }
+
+    public PaginationSupport listTweets(Tweet tweet, LoginUser loginUser, int start, int num) throws Exception {
 		if(loginUser == null || loginUser.getPkId() == null){
 			logger.debug("not login....");
 			return PaginationUtils.getNullPagination();
@@ -114,6 +120,9 @@ public class TweetServiceImpl implements TweetService {
 				if(user != null)
 					tweet.setCreator(user);
 			}
+
+            int replyNum = this.replyService.getResourceReplyNum(tweet.getPkId(), ResourceType.RESOURCE_TYPE_TWEET);
+            tweet.setReplyNum(replyNum);
 		}
 	}
 

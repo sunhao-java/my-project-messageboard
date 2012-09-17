@@ -18,7 +18,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		using(['simpleTip', 'emoticon'], function(){
+		using(['simpleTip', 'emoticon', 'reply'], function(){
 			$("#tweetTxt").simpleTip({
 				tip: '今天你动弹了吗？来吐槽一下吧。。。',                      
 		    	color: '#545454',			
@@ -178,6 +178,39 @@
 			}
 		});
 	}
+
+    function showOrHideReply(tweetId, reply){
+        var replyDiv = YAHOO.util.Dom.get('replyList_' + tweetId);
+        if(replyDiv.style.display != 'none'){
+            replyDiv.innerHTML = '';
+            replyDiv.style.display = 'none';
+            return;
+        }
+        var action = "${contextPath}/reply/list.do?resourceId=" + tweetId + "&resourceType=4&reply=" + reply;
+        YAHOO.util.Connect.asyncRequest('POST', action, {
+            success: function(o){
+                if(o.responseText){
+                    replyDiv.innerHTML = o.responseText;
+                    replyDiv.style.display = '';
+                }
+            },
+            failure: function(o){
+                alert('网络异常!');
+            }
+        });
+    }
+
+    function reply(panel){
+        YAHOO.util.reply({
+            title: '',
+            content: panel.val(),
+            resourceId: panel.attr('tweetId'),
+            resourceType: '4',
+            success: function(){
+                window.location.reload(true);
+            }
+        });
+    }
 </script>
 
 <style type="text/css">
@@ -339,11 +372,15 @@
 											${tweet.content}
 										</div>
 										<div class="bottom">
-											<%--<div class="opts">
-												<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
-											</div>--%>
+											<div class="opts">
+												<a href="javaScript:void(0)" class="reply" onclick="showOrHideReply('${tweet.pkId}', false)">
+                                                    评论<span>
+                                                    (<span id="replyNum_${tweet.pkId}">${tweet.replyNum}</span>)</span>
+                                                </a>
+											</div>
 											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>
 										</div>
+                                        <div class="replyList" id="replyList_${tweet.pkId}" style="display: none"></div>
 									</td>
 								</tr>
 							</table>
@@ -372,11 +409,14 @@
 											${tweet.content}
 										</div>
 										<div class="bottom">
-											<%--<div class="opts">
-												<a href="#" class="reply">评论<span>(<span id="">2</span>)</span></a>
-											</div>--%>
+											<div class="opts">
+												<a href="#" class="reply" onclick="showOrHideReply('${tweet.pkId}', true)">
+                                                    评论<span>(<span>${tweet.replyNum}</span>)</span>
+                                                </a>
+											</div>
 											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>
 										</div>
+                                        <div class="replyList" id="replyList_${tweet.pkId}" style="display: none"></div>
 									</td>
 								</tr>
 							</table>
@@ -385,10 +425,10 @@
 		        </ul>
 		        <ul class="UserLogs" id="userBlog" style="display: none;">
 		        	<ul class="tabs-child blog-tab">
-				    	<li class="active"><a href="#" id="myTweetTab" tab-id="myBlog">我的博客</a></li>
-				    	<li><a href="#" id="friendTweetTab" tab-id="friendBlog">好友的博客</a></li>
+				    	<li class="active"><a href="#" id="myBlogTab" tab-id="myBlog">我的博客</a></li>
+				    	<li><a href="#" id="friendBlogTab" tab-id="friendBlog">好友的博客</a></li>
 	    	    	</ul>
-	    	    	<ul class="UserLogs" id="myBlog" style="display: ;">
+	    	    	<ul class="UserLogs" id="myBlog" style="">
 	    	    		<msg:controller method="inListMyMessageJsp" module="message" type="invoke"/>
 	    	    		<c:forEach items="${paginationSupport.items}" var="message">
 			    	    	<li id="message_${message.pkId}" class="Tweet log_type_100">
@@ -413,7 +453,10 @@
 											</div>
 											<div class="bottom">
 												<div class="opts">
-													<a href="#" class="reply">评论<span>(<span id="">${msgFun:length(message.replys)}</span>)</span></a>
+													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}#showReply" class="reply">
+                                                        评论
+                                                        <span>(<span id="">${message.replyNum}</span>)</span>
+                                                    </a>
 												</div>
 												<div class="time"> <msg:formatDate value="${message.createDate}"/> </div>
 											</div>
@@ -448,7 +491,8 @@
 											</div>
 											<div class="bottom">
 												<div class="opts">
-													<a href="#" class="reply">评论<span>(<span id="">${msgFun:length(message1.replys)}</span>)</span></a>
+													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message1.pkId}#showReply"
+                                                       class="reply">评论<span>(<span id="">${message1.replyNum}</span>)</span></a>
 												</div>
 												<div class="time"> <msg:formatDate value="${message1.createDate}"/> </div>
 											</div>

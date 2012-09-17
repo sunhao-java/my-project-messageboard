@@ -204,7 +204,6 @@ YAHOO.util.decode = function(json){
 	}
 }
 
-
 /**
  * 回复
  * 

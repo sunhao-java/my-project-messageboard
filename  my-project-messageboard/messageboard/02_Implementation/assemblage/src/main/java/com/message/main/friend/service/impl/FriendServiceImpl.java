@@ -173,7 +173,7 @@ public class FriendServiceImpl implements FriendService {
 		String email = inviteUser.getEmail();
 		if(StringUtils.isNotEmpty(email) && ValidateUtils.isEmail(email)){
 			String applyTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(fa.getApplyDate());
-			String mailTemplate = MessageUtils.getProperties("mail.friend.template", 
+			String mailTemplate = MessageUtils.getProperties("friendTemplate", 
 					new Object[] {
 						loginUser.getTruename(), 
 						applyTime, 

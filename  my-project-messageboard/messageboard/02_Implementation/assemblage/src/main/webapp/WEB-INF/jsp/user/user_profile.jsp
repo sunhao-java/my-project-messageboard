@@ -236,9 +236,17 @@
 					<msg:head userId="${loginUser.pkId}" headType="2"/>
 				</a>
     			<span class="action">
-        			<a href="#" class="name" title="男">孙昊</a>
+        			<a href="#" class="name">${loginUser.truename }</a>
 					<span class="opts">
-						<img src="${contextPath }/image/male.png" align="absmiddle" title="男">
+						<c:if test="${loginUser.sex == 0}">
+							不男不女
+						</c:if>
+						<c:if test="${loginUser.sex == 1}">
+							<img src="${contextPath }/image/male.png" align="absmiddle" title="男">
+						</c:if>
+						<c:if test="${loginUser.sex == 2}">
+							<img src="${contextPath }/image/female.png" align="absmiddle" title="女">
+						</c:if>
         				<a href="${contextPath}/user/editUserInfo.do">修改资料</a>
 						<a href="${contextPath}/user/inEditHead.do">更换头像</a>
         			</span>

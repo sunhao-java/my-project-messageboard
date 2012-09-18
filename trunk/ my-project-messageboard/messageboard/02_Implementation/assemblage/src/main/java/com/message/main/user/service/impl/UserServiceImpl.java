@@ -121,7 +121,7 @@ public class UserServiceImpl implements UserService{
 		Date now = new Date();
 		String nowStr = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(now);
 		
-		String content = MessageUtils.getProperties("mail.confirm.content", new Object[]{nowStr, user.getUsername(), sb.toString()});
+		String content = MessageUtils.getProperties("mailTemplate", new Object[]{nowStr, user.getUsername(), sb.toString()});
 		
 		return content;
 	}

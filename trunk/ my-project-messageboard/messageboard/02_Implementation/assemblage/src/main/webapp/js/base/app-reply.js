@@ -26,6 +26,7 @@
     //组件展示回复的默认参数
     $.display.defaultsDisply = {
         submitUrl: '/reply.do',                   //获取留言的地址
+        template: 'displayReply',                 //使用模板的ID
         resourceId: null,                          //资源ID
         resourceType: null,                       //资源类型
         width: '100%',                             //组件宽度,默认100%,填写字符串'100%' or '100px',如果填写数字,则认为单位是px
@@ -123,7 +124,7 @@
                 display: function(){
                     var width = p.width;
                     if(typeof(width) == 'number')
-                        width = p.width + 'px'
+                        width = p.width + 'px';
 
                     var action = YAHOO.util.getContextPath() + p.submitUrl;
                     var data = 'resourceId=' + p.resourceId + '&resourceType=' + p.resourceType;
@@ -141,8 +142,7 @@
                                     isDelete : p.isDelete,
                                     width: width
                                 };
-
-                                var template = YAHOO.util.from('displayReply');
+                                var template = YAHOO.util.from(p.template);
                                 var html = template.process(r);
 
                                 if(element){
@@ -178,7 +178,7 @@
                             if(o.status == '1'){
                                 //成功
                                 if(p.success)
-                                    return p.success();
+                                    return p.success($(link).attr('replyId'));
                                 else{
                                     var reply = $('#replyLi' + $(link).attr('replyId'));
                                     reply.fadeOut('slow');

@@ -167,6 +167,41 @@ YAHOO.util.getEmoticonTitle = function(emoticonName){
 }
 
 /**
+ * 将指定字符串中的表情标签转变成对应的表情
+ * 
+ * @param {Object} content			指定字符串
+ */
+YAHOO.util.toEmonicon = function(content){
+	if(!content)
+		return "";
+	//取出表情的正则表达式
+	var reg = /\[e[0-9]{3,4}\]/g;
+	
+	var emoticons = content.match(reg);
+	
+	if(!emoticons)
+		return content;
+	
+	for(var i = 0; i < emoticons.length; i++){
+		var icon = emoticons[i];
+		
+		var reg = /e[0-9]{3,4}/g;
+		var name = icon.match(reg)[0];
+		var icon = YAHOO.util.getEmoticonTitle(name);
+		
+		if(!icon)
+			continue;
+		
+		var img = '<img src="' + YAHOO.util.getContextPath() + '/js/jquery/css/emoticon/images/' +
+                icon[0] + '/' + name + '.gif" title="' + icon[1] + '">';
+		
+		content = content.replace('[' + name + ']', img);
+	}
+	
+	return content;
+}
+
+/**
  * 判断一个对象是否在一个数组中
  * 
  * @param {Object} value		对象

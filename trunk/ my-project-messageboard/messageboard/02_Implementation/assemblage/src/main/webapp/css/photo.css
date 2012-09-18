@@ -2150,6 +2150,7 @@ a.gray-btn:hover {
 }
 .user-comment {
     background: none repeat scroll 0 0 #FFFFFF;
+    margin-left: 10px;
 }
 .preview-photo .user-comment {
     padding: 0;
@@ -2536,4 +2537,35 @@ a.show-big:link, a.show-big:visited {
 }
 a.show-big:hover {
 	text-decoration: underline;
+}
+
+.photo-location{
+    margin-top: 5px;
+    width: 80%;
+}
+
+.bottom-operate {
+    position: relative;
+    border-top: 0;
+    background-color: white;
+    width: 650px;
+    padding: 0px;
+    margin-left: 10px;
+    margin-top: 0px;
+}
+
+.function-nav p.upload-time {
+    color: #999;
+    float: left;
+    margin-right: 10px;
+    height: 18px;
+    line-height: 20px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.function-nav ul.nav-btn {
+    float: left;
+    margin-right: 10px;
+    padding-top: 5px;
 }

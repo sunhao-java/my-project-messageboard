@@ -57,6 +57,6 @@
 		</div>
 		<!-- end of album-home -->
 	</div>
-	<c:url var="paginationAction" value="album/index.do"/>
+	<c:url var="paginationAction" value="album/listFriendAlbums.do"/>
 	<%@ include file="/WEB-INF/jsp/common/pagination.jsp"%>
 </div>

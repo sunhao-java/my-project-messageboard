@@ -1,0 +1,190 @@
+/** Replies Richlist by jingwei.li **/
+dl.with-arrow{
+	padding-top: 6px;
+	background: url(../image/photo/box_bg.gif) no-repeat;
+	display:block;
+}
+dl.replies dt, dl.replies dd {
+	margin-bottom: 2px;
+	padding: 6px;
+	background-color: #f0f5f8;
+	border-bottom: 1px solid #e6eff7;
+	background-repeat: no-repeat;
+	*zoom: 1;
+}
+dl.replies dd:after {
+	content: ".";
+	display: block;
+	clear: both;
+	height: 0;
+	visibility: hidden;
+}
+dl.replies dd {
+	clear: both;
+	word-wrap: break-word;
+	*zoom: 1;
+}
+dl.replies dd a.avatar {
+	float: left;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	margin-right: 8px;
+    overflow:hidden;
+	*zoom: 1;
+}
+dl.replies dd img.avatar {
+	width: 50px;
+	float:left;
+}
+dl.replies dd div.info {
+	margin-left: 58px;
+	line-height: 1.4em;
+}
+dl.replies dd div.reply {
+	margin-left: 58px;
+	_zoom: 1;
+}
+dl.replies dd span.time {
+	font-size: 10px;
+	color: #808080;
+}
+dl.replies dd p.content {
+	display: inline;
+	white-space:normal;
+	word-wrap:break-word;
+	word-break:break-all;
+	overflow:auto;
+}
+dl.replies dt.add {
+	position: relative;
+}
+dl.replies dt.add img.avatar {
+	display: none;
+}
+dl.replies dt.add input.input-submit {
+	display: none;
+}
+dl.replies dt.add span.chars-count {
+	display: none;
+}
+dl.replies dt.add img.avatar {
+	display: none;
+}
+dl.replies dt.add textarea {
+	width: 100%;
+	height: 24px;
+	padding: 4px;
+	margin: 0;
+	border: 1px solid #BDC7D8;
+	vertical-align: top;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+dl.replies dt.add.actived {
+	padding-left: 38px;
+}
+dl.replies dt.add.actived img.avatar {
+	display: block;
+	float: left;
+	position: relative;
+	margin-right: -34px;
+	left: -34px;
+	vertical-align: top;
+}
+dl.replies dt.add.actived textarea {
+	height: 40px;
+	margin-bottom: 3px;
+	border-color: #5D74A2;
+}
+dl.replies dt.add.actived input.input-submit {
+	display: inline;
+}
+dl.replies dt.add.actived span.chars-count {
+	display: inline;
+	position: absolute;
+	right: 4px;
+	color: #CCC;
+	font-size: 11px;
+}
+
+
+dl.replies  .reply p span{
+	color:#333;
+	}
+	
+dl.replies {
+	width:98%;
+}
+
+#comment.commentinalbum #simpleEditPan .bxTool{
+	width:465px;
+    padding-right:3px;
+}
+#simpleEditPan .bxTool{
+	width:468px;
+	background-color:#EBF3F7;
+	position:static;
+	margin:0;
+}
+.album-info #comment.commentinalbum #simpleEditPan textarea#cmtbody{
+	width:462px !important;
+}
+.photo-comments #comment.commentinalbum #simpleEditPan textarea#cmtbody{
+	width:462px !important;
+}
+dl.replies a.x-to-hide {
+	background:transparent url(../image/photo/cs_home.png) no-repeat scroll -225px -24px;
+	display:block;
+	height:14px;
+	text-decoration:none;
+	width:14px;
+}
+dl.replies a.x-to-hide:hover{
+	background-position:-225px -38px;text-decoration:none
+}
+.bxTool,dl.replies{*margin:0;zoom:1}
+.ajax_msgerror{
+	margin:0;
+    padding:10px;
+    background: none repeat scroll 0 0 #FFEBE8;
+    text-align:center;
+    border:1px solid #DD3C10;
+}
+dl.replies dt{
+	min-height:0px;
+}
+.commentinalbum{width:98%;padding:5px 0 10px;background-color:#F0F5F8}
+.commentinalbum .m-editor{width:90%;float:left}
+.commentinalbum .m-editor textarea#cmtbody{width:96%;height:90px;*margin-top:-1px;overflow-y:auto}
+
+.m-editor .m-editor-action{height:23px;float:right;padding-top: 5px;}
+
+.m-editor .m-editor-action a {
+    display: block;
+    outline: none;
+    float: left;
+    line-height: 23px;
+    background-image: url(../image/photo/untitled.bmp);
+    background-repeat: no-repeat
+}
+.m-editor .m-editor-action a.m-editor-emo{height:23px;padding-left:25px;background-position:0 -23px}
+.m-editor .m-editor-textarea textarea{border:1px solid #CEE1EE;margin:0}
+.m-editor .m-editor-submit{padding-top:5px}
+#commentEditorForm  .m-editor .m-editor-submit{float:left;}
+
+.commentinalbum .user-avatar{float:left;width:50px;height:50px;padding:0 8px 0 6px}
+
+dl, dt, dd{
+    margin: 0;
+    padding: 0;
+}
+
+.user-comment a:link, .user-comment a:visited, .pub-comment-button a:link, .pub-comment-button a:visited {
+    color: #005EAC;
+    text-decoration: none;
+}
+.user-comment a:hover, .pub-comment-button a:hover {
+	text-decoration: underline;
+}

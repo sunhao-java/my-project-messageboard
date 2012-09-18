@@ -78,3 +78,36 @@
         </ol>
     </div>
 </textarea>
+
+<textarea id="photoReply" class="template">
+    <div id="commContainer" style="">
+        <dl class="replies">
+            {for re in reply}
+                {var canDelete = isDelete && true}
+                {var content = YAHOO.util.toEmonicon(re.content)}
+                <dd id="dd_${'$'}{re.pkId}">
+                    <a class="avatar" title="" href="#">
+                        <img src="${contextPath}/head.jpg?userId=${'$'}{re.creatorId}" title="${'$'}{re.creator.truename}">
+                    </a>
+
+                    <div class="info">
+                        {if canDelete}
+	                        <span class="float-right" style="width:15px">
+	                            <a class="x-to-hide deleteLink" href="javaScript:void(0);" title="<msg:message code="reply.delete.title"/>"
+	                            		replyId="${'$'}{re.pkId}">
+	                            </a>
+	                        </span>
+                        {/if}
+                        <a href="#">${'$'}{re.creator.truename}</a> &nbsp;
+                        <span class="time">${'$'}{re.replyDate}</span>
+                    </div>
+                    <div class="reply">
+                        <p class="content replyContent">
+                            ${'$'}{content }
+                        </p>
+                    </div>
+                </dd>
+            {/for}
+        </dl>
+    </div>
+</textarea>

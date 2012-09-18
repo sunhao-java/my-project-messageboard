@@ -304,6 +304,7 @@ public class AlbumController extends SimpleController {
 		params.put("next", next);
 		params.put("albums", albums);
 		params.put("visit", visit);
+        params.put("resourceType", ResourceType.RESOURCE_TYPE_PHOTO);
 		
 		return new ModelAndView("photo.detail", params);
 	}

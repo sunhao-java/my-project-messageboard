@@ -174,6 +174,10 @@ public final class ResourceType {
      * 吐槽的资源类型
      */
     public static final Integer RESOURCE_TYPE_TWEET = Integer.valueOf(4);
+    /**
+     * 相册模块的资源类型
+     */
+    public static final Integer RESOURCE_TYPE_ALBUM = Integer.valueOf(5);
 
     /**
      * 验证码在session中默认的ID

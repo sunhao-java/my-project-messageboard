@@ -3,7 +3,9 @@
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <msg:css href="css/photo.css"/>
+<msg:css href="css/replies.css"/>
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/commfunction.js"/>
 
@@ -61,7 +63,22 @@
 			$("span.b > a:last").attr('href', '${contextPath}/album/showDetail.do?' +
 															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
 		}
-		
+
+        using(['emoticon', 'reply'], function(){
+            $('#emoBtn').emoticon({
+                panel: 'cmtbody'
+            });
+
+            $('#comment_box').displayReply({
+                resourceId: '${photo.pkId}',
+                resourceType: '${resourceType}',
+                isDelete: '${visit}' != 'true',
+                template: 'photoReply',
+                success: function(o){
+                	$('#dd_' + o).fadeOut('slow');
+                }
+            });
+        });
 	});
 	
 	function setCover(photoId){
@@ -285,6 +302,61 @@
 				</p>
 			</div>
 		</c:if>
+        <div class="function-nav clearfix bottom-operate">
+            <p class="upload-time">上传于
+                <span id="update_time"><msg:formatDate value="${photo.createDate}"/></span>
+            </p>
+            <ul class="nav-btn">
+                <li class="pub-comment-button">
+                    <a href="#photo-comments" onclick="$('#cmtbody').focus()">评论</a>
+                </li>
+            </ul>
+        </div>
+        <!-- end of function-nav -->
+        <div class="user-comment" id="photo-comments">
+            <div class="replies">
+                <dl id="ILike_Box" class="replies  with-arrow">
+                    <dd class="diggers" style="display:none;"></dd>
+                </dl>
+            </div>
+            <div class="replies" id="comment_box">
+                
+            </div>
+            <div style="display: none;" class="errors_div ajax_msgerror" id="ajax_msgerror"></div>
+            <form id="commentEditorForm">
+                <div class="commentinalbum clearfix" id="comment">
+                    <div class="user-avatar">
+                        <msg:head userId="${loginUser.pkId}" headType="2"/>
+                    </div>
+                    <div class="m-editor" id="miniEditor">
+                        <div class="m-editor-textarea">
+                            <textarea name="body" id="cmtbody"></textarea>
+                        </div>
+                        <div class="m-editor-action clearfix">
+                            <a href="javascript:;" id="emoBtn" class="m-editor-emo">表情</a>
+                        </div>
+                        <div class="m-editor-submit">
+                            <input id="editorFormBtn" type="button" value="发表评论" class="input-button" onclick="reply()">
+                            <script type="text/javascript">
+                                function reply(){
+                                    YAHOO.util.reply({
+                                        content: $('#cmtbody').val(),
+                                        resourceId: '${photo.pkId}',
+                                        resourceType: '${resourceType}',
+                                        success: function(){
+                                            window.location.reload(true);
+                                        }
+                                    });
+                                }
+                            </script>
+                        </div>
+                        <input type="hidden" name="realWhisper" id="realWhisper" value="false">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <!-- end of user-comment -->
 	</div>
 	
 	
@@ -330,3 +402,4 @@
 		</div>
 	</div>
 </div>
+<%@ include file="/WEB-INF/jsp/base/template.jsp"%>

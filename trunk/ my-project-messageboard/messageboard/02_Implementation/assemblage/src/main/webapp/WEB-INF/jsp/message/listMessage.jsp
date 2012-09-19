@@ -10,8 +10,9 @@
 
 <script type="text/javascript">
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+	var count = '${paginationSupport.totalRow }';
     $(document).ready(function(){
-        using('reply', function(){
+        using(['reply', 'emoticon', 'simpleTip'], function(){
             $('input.publishReply').click(function(){
                 publishReply(this);
             });
@@ -32,11 +33,41 @@
 		}
 	}
 	
-	function onToTextAreaFource(id){
-		dom.get("replyDiv" + id).style.display = "";
-		dom.get("toReplyDiv" + id).style.display = "none";
-		dom.get("reply" + id).value = '发表评论';
-		dom.get("title" + id).value = '输入标题';
+	function onToTextAreaFource(id, index){
+		var reply = $('.replyDiv');
+		if(reply && reply.length > 0){
+			$(reply[0]).remove();
+			$('.toreplyDiv').show();
+		}
+		
+		var reply = '<div class="replyDiv" id="replyDiv' + id + '">' +
+					'	<p class="replyimage">' +
+        			'		<msg:head userId="${loginUser.pkId}" headType="2"/>' +
+					'	</p>' +
+					'	<form action="" id="replyForm_' + index + '">' +
+					'		<input type="hidden" name="replyUserId" value="${loginUser.pkId}"/>' +
+					'		<div class="contentDiv">' +
+					'			&nbsp;标题&nbsp;' +
+					'			<input type="text" class="f_text" name="title" id="title' + id + '" tip="输入标题"/><br/>' +
+					'			&nbsp;内容' +
+					'			<textarea id="reply' + id + '" name="replyContent" class="replyText" tip="输入评论"></textarea>' +
+					'			<div class="buttonDiv extBtn">' +
+					'				<a class="emoticon" id="emot_' + index + '" messageId="${message.pkId }" href="javascript:void(0);" title="插入表情">' +
+					'				<i></i>表情<span></span>' +
+					'				</a>' +
+					'				<input type="button" value="发表" class="publishReply" messageId="' + id + '" onclick="publishReply(this);"/>' +
+					'			</div>' +
+					'		</div>' +
+					'	</form>' +
+					'</div>';
+		$("#toReplyDiv" + id).before($(reply));
+		$("#toReplyDiv" + id).hide();
+		
+		$('#emot_' + index).emoticon({
+			panel: 'reply' + id
+		});
+    	
+    	$('#replyForm_' + index).formTip();
 	}
 
     function publishReply(input){
@@ -62,7 +93,7 @@
 </jsp:include>
 
 <div class="content01" style="min-height: 600px !important; padding-top: 10px;">
-	<c:forEach items="${paginationSupport.items }" var="message">
+	<c:forEach items="${paginationSupport.items }" var="message" varStatus="status">
 		<div class="list" style="margin-left: 10px;">
 			<ul>
 				<li>
@@ -138,32 +169,10 @@
 							</p>
 							<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}">阅读全文</a>
 						</div>
-						<div class="replyDiv" id="replyDiv${message.pkId }" style="display: none;">
-							<p class="replyimage">
-	                            <msg:head userId="${loginUser.pkId}" headType="2"/>
-							</p>
-							<form action="" id="replyForm">
-								<input type="hidden" name="replyUserId" value="${loginUser.pkId}"/>
-								<input type="hidden" name="messageId" value="${message.pkId}"/>
-								<div class="contentDiv">
-									&nbsp;标题&nbsp;
-									<input type="text" class="f_text" name="title" id="title${message.pkId }" value="输入标题"
-										onclick="onTextAreaFource('${message.pkId }')" onblur="hideTextArea('${message.pkId }')"/>
-									&nbsp;内容
-									<textarea id="reply${message.pkId }" name="replyContent" class="replyText" 
-										onclick="onTextAreaFource('${message.pkId }')" onblur="hideTextArea('${message.pkId }')"
-										dataType="Limit" max="1300" min="2" msg="不能为空,且不超过1300字符">
-										输入评论
-									</textarea>
-									<div class="buttonDiv">
-										<input type="button" value="发表" class="publishReply" messageId="${message.pkId}"/>
-									</div>
-								</div>
-							</form>
-						</div>
 						<div class="toreplyDiv" id="toReplyDiv${message.pkId }">
 							<div class="contentDiv">
-								<textarea id="toreply" class="toreplyText" onclick="onToTextAreaFource('${message.pkId }')">发表评论</textarea>
+								<textarea id="toreply" class="toreplyText" 
+									onclick="onToTextAreaFource('${message.pkId }', '${status.index }')">发表评论</textarea>
 							</div>
 						</div>
 					</div>

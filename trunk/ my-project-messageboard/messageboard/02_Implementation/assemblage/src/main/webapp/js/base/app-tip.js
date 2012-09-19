@@ -35,7 +35,7 @@
             var tip = $("<span>" + p.tip + "</span>");
             tip.css("color", p.color).css("word-wrap", "break-word").css("cursor", "text")
                     .css("white-space", "nowrap").css("position", "absolute").css("font-style", "italic").css("font-size", p.size)
-                    .css("display", "inline-block").css({"left": pos.left + 1, "top": pos.top + 2});
+                    .css("display", "inline-block").css({"left": pos.left + 4, "top": pos.top + 4});
             tip.height(0);
 
             tip.bind('click', function(){

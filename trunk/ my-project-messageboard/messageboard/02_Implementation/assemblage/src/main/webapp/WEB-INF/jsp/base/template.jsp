@@ -29,7 +29,10 @@
                 &lt;textarea msg="<msg:message code="reply.template.nocontent.warn"/>" min="1" max="1300" datatype="Limit" name="content"
                           id="content" style="width: 400px;"&gt;&lt;/textarea&gt;
             </p>
-            <p class="ac1t">
+            <p class="ac1t extBtn">
+            	<a class="emoticon" id="emoticon" href="javascript:void(0);" title="<msg:message code="reply.emoticon"/>">
+					<i></i><msg:message code="reply.emoticon"/><span></span>
+				</a>
                 <input type="button" class="f-button" id="replyBtn" value="<msg:message code="reply.template.btn.reply"/>">
             </p>
         </form>
@@ -41,6 +44,7 @@
         <ol style="padding-left: 0px;overflow: hidden;">
             {for re in reply}
                 {var canDelete = isDelete && true}
+                {var content = YAHOO.util.toEmonicon(re.content)}
                 <li class="blog-li" id="replyLi${'$'}{re.pkId}">
                     <div class="post">
                         <p class="image">
@@ -70,7 +74,7 @@
                             {/if}
                         </div>
                         <div style="margin: 0 0 0 0;" class="content">
-                            ${'$'}{re.content}
+                            ${'$'}{content}
                         </div>
                     </div>
                 </li>

@@ -37,6 +37,7 @@
                     resourceId: '${message.pkId}',
                     resourceType: '${resourceType}',
                     title: true,
+                    emoticon: true,
                     success: function(id){
                         window.location.reload(true);
                     }

@@ -38,11 +38,12 @@
 
     //回复组件的默认参数
     $.displayPanel.defaultReply = {
-        submitUrl: '/reply/reply.do',             //提交浏览的地址
+        submitUrl: '/reply/reply.do',             	//提交浏览的地址
         title: false,                               //是否显示回复标题
         width: '100%',                              //组件宽度
         resourceId: null,                           //资源ID
         resourceType: null,                         //资源类型
+        emoticon: false,							//是否需要表情组件
         success: null,                              //回复成功执行的函数
         error: null                                 //回复失败执行的函数
     }
@@ -231,7 +232,8 @@
 
                     var r = {
                         title: p.title,
-                        width: width
+                        width: width,
+                        emoticon: p.emoticon
                     };
 
                     var template = YAHOO.util.from('toReply');
@@ -241,6 +243,12 @@
                         element.html(html);
                 },
                 addEvent: function(){
+                	//表情组件
+                	$('#emoticon').emoticon({
+            			panel: 'content'
+            		});
+                	
+                	//点击回复事件
                     var replyBtn = $('#replyBtn');
                     var action = YAHOO.util.getContextPath() + p.submitUrl + '?resourceId=' + p.resourceId + '&resourceType=' +
                             p.resourceType;
@@ -273,7 +281,9 @@
                                 });
                             }
                         }
-                    })
+                    });
+                    
+                    
                 }
             }
 

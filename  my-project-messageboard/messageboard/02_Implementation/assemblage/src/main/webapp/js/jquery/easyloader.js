@@ -200,7 +200,7 @@
         reply: {
             js: "../../base/app-reply.js",
             css: '/../../../css/reply/app-reply.css',
-            dependencies: ["newForm", "template"]
+            dependencies: ["newForm", "template", 'emoticon']
         },
         event : {
         	js : "../../yui/js/yahoo-dom-event.js"

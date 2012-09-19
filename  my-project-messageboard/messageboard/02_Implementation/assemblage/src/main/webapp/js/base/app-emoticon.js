@@ -61,20 +61,22 @@
 					return html;
 				},
 				getOffset: function(){
-                    var offset = element.offset();
-                    var top = offset.top - (p.height + 33);
-                    var left = offset.left - (p.width * 0.8);
-                    var width = $(window).width();
-                    var height = $(window).height();
+                    var offset = element.offset();						//按钮的位置
+                    var top = offset.top - (p.height + 33);				//表情框距离顶部的距离
+                    var left = offset.left - (p.width * 0.8);			//表情框距离左侧的距离
+                    var width = $(window).width();						//可视区域宽度
+                    var height = $(window).height();					//可视区域高度
                     
                     if(top < p.height){
                     	top = offset.top + 25;
                         $("#decor").removeClass("decor").addClass("decor1").css("bottom", p.height + 10 + "px");
                     }
-                    if(left < p.width * 0.8){
+                    
+                    if(left < 0){
                     	left = 0;
                     	$("#decor").css("left", offset.left + 5);
                     }
+                    
                     if(width - left < p.width){
                     	left = width - 275;
                     	$("#decor").css("left", 240);

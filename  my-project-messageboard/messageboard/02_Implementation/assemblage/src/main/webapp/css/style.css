@@ -133,7 +133,7 @@ a:hover{
 }
 
 .replyText{
-	width: 350px;
+	width: 340px;
 	border: 1px solid #EAE2C6;
     color: #A8A8A8;
     height: 40px;
@@ -194,7 +194,7 @@ img.imgLink {
 }
 
 .replyDiv .f_text{
-	width: 350px !important;
+	width: 340px !important;
 	border: 1px solid #EAE2C6;
 	height: 25px;
 	font-size: 12px;

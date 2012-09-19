@@ -1,9 +1,10 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!--
-* 回复组件的jsp模板.
+* åå¤ç»ä»¶çjspæ¨¡æ¿.
 *
 * Developed By: sunhao
 * Mail: sunhao.java@gmail.com
-* Time: 12-9-7 下午9:42
+* Time: 12-9-7 ä¸å9:42
 * Version:1.0
 * History:
 -->
@@ -15,6 +16,7 @@
 </style>
 
 <textarea id="toReply" class="template">
+	{var isEmoticon = emoticon || false}
     <div id="reply-div" class="blog-cmts" style="width: ${'$'}{width}">
         <form action="" method="post" id="reply-form">
             {if title}
@@ -30,9 +32,11 @@
                           id="content" style="width: 400px;"&gt;&lt;/textarea&gt;
             </p>
             <p class="ac1t extBtn">
+            	{if isEmoticon}
             	<a class="emoticon" id="emoticon" href="javascript:void(0);" title="<msg:message code="reply.emoticon"/>">
 					<i></i><msg:message code="reply.emoticon"/><span></span>
 				</a>
+				{/if}
                 <input type="button" class="f-button" id="replyBtn" value="<msg:message code="reply.template.btn.reply"/>">
             </p>
         </form>

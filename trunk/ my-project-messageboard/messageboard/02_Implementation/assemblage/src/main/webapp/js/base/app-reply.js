@@ -244,9 +244,11 @@
                 },
                 addEvent: function(){
                 	//表情组件
-                	$('#emoticon').emoticon({
-            			panel: 'content'
-            		});
+                	if(p.emoticon){
+                		$('#emoticon').emoticon({
+                			panel: 'content'
+                		});
+                	}
                 	
                 	//点击回复事件
                     var replyBtn = $('#replyBtn');

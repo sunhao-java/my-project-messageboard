@@ -57,7 +57,7 @@
         <property name="mappings">
             <props>
                 <prop key="/guest/*.do">guestController</prop>
-                <prop key="/login/*.do">loginController</prop>
+                <prop key="/login/login.do">loginController</prop>
                 <prop key="/downloadfile/**/*">downloadFileController</prop>
                 <prop key="/album/uploadPhoto.do">albumController</prop>
             </props>

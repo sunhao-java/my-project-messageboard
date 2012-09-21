@@ -255,3 +255,29 @@ YAHOO.util.getContextPath = function(){
     var location = window.location;
     return "/" + location.pathname.split("/")[1];
 }
+
+/**
+ * kindeditor编辑器的工具栏定义(三个:default, simple, font)
+ */
+YAHOO.util.toolbars = {
+	'default': [
+		'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
+		'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+		'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+		'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '/',
+		'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+		'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+		'flash', 'media', 'table', 'hr', 'emoticons', 'map', 'code', 'pagebreak', 'anchor', 'link', 'unlink', '|', 'about'
+	],
+	'simple': [
+	    'source', 'fullscreen', 'preview', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste', 'quickformat', 'selectall', '|',
+	    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+		'italic', 'underline', 'strikethrough', 'removeformat', '|', 'emoticons', 'image',
+		'flash', 'media', 'table', 'hr', 'map', 'code', 'pagebreak', 'link', 'unlink'
+	],
+	'font': [
+		'source', 'fullscreen', 'preview', '|', 'undo', 'redo', '|', 'cut', 'copy', 'paste', 'quickformat', 'selectall', '|',
+		'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+		'italic', 'underline', 'strikethrough', 'hr', '|', 'emoticons'
+	]
+}

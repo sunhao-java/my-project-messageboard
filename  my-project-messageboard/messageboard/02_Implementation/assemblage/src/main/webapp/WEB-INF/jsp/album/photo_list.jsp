@@ -12,7 +12,7 @@
 <msg:js src="js/base/commfunction.js"/>
 
 <script type="text/javascript">
-	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
+	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,$E = YAHOO.util.Event;
 
 	$(document).ready(function(){
 		using(['fancybox'], function(){
@@ -77,18 +77,18 @@
 		var photoLis = dom.getElementsByClassName('select');
 		if(photoLis.length > 0){
 			dom.removeClass(photoLis[0], 'select');
-			event.removeListener(window, 'keydown');
+			$E.removeListener(window, 'keydown');
 		}
 		
 		var photoLi = dom.get('li#' + photoId);
 		dom.addClass(photoLi, 'select');
 		dom.get('summary#' + photoId).focus();
-		event.addListener(window, 'keydown', function(e){
+		$E.addListener(window, 'keydown', function(e){
         	var keyCode = e.which;
         	if(keyCode == 27){
         		//ESC
         		cancel(photoId);
-        		event.removeListener(window, 'keydown');
+        		$E.removeListener(window, 'keydown');
         	} else if(keyCode == 13){
         		//ENTRY
         		var summary = dom.get('summary#' + photoId);
@@ -112,14 +112,14 @@
 						YAHOO.app.dialog.pop({'dialogHead':'提示','cancelButton':'false','alertMsg':'错误代码:' + o.status});
 					}
 				});
-        		event.removeListener(window, 'keydown');
+				$E.removeListener(window, 'keydown');
         	}
         });
 	}
 	
 	function cancel(photoId){
 		var photoLi = dom.get('li#' + photoId);
-		event.removeListener(window, 'keydown');
+		$E.removeListener(window, 'keydown');
 		dom.removeClass(photoLi, 'select');
 	}
 	

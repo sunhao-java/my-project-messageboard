@@ -3,14 +3,17 @@
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/jquery/jquery.easyui.min.js"/>
 <msg:js src="js/validate.js"/>
 
 <msg:css href="themes/default/easyui.css"/>
 <msg:css href="themes/icon.css"/>
-<msg:js src="fckeditor/fckeditor.js"/>
-<msg:js src="js/base/app-fckeditor.js"/>
 <msg:css href="css/publish.css"/>
+
+<%--原fckeditor富文本编辑器 
+<msg:js src="fckeditor/fckeditor.js"/>
+<msg:js src="js/base/app-fckeditor.js"/> --%>
 
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/base/app-dialog.js"/>
@@ -23,8 +26,15 @@
 	var $C = YAHOO.util.Connect,dom = YAHOO.util.Dom,event = YAHOO.util.Event;
 
 	$(document).ready(function(){
-		new myFCKeditor('content', {'id':'content', 'contextPath':'${contextPath }', 
-				'width':'100%', 'toolBar':'Font', 'height':'600px'});
+		using('editor', function(){
+			$('#content').kindeditor({
+				toolbar: 'simple'
+			});
+		});
+		
+		//原fckeditor富文本编辑器 
+		//new myFCKeditor('content', {'id':'content', 'contextPath':'${contextPath }', 
+		//	'width':'100%', 'toolBar':'Font', 'height':'600px'});
 		
 		//调用公共JS自动提示组件
 		showUser('yellow','300px','wrap');

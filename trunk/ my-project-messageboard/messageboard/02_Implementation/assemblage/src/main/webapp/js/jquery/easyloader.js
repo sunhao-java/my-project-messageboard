@@ -210,6 +210,13 @@
         },
         template: {
             js: "../../base/template.js"
+        },
+        editor: {
+        	js: "../../base/app-editor.js",
+        	dependencies: ["kindeditor"]
+        },
+        kindeditor: {
+        	js: "../../kindeditor/kindeditor.js"
         }
 	};
 	var _2 = {

@@ -40,7 +40,7 @@
     </definition>
 	
 	<definition name="user.profile" extends="message.home">
-		<put-attribute name="content" value="/WEB-INF/jsp/user/user_profile.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/jsp/user/profile.jsp"/>
 	</definition>
 	
 	<definition name="weibo.setting" extends="message.home">

@@ -371,7 +371,7 @@
 												更新了动态
 									    	</span>
 									    	<span class="delete">
-										    	<a href="javascript:void(0);" onclick="deleteFunction('${tweet.pkId}')">
+										    	<a href="javascript:void(0);" onclick="deleteFunction('${tweet.pkId}')" title="删除">
 										    		删除
 										    	</a>
 									    	</span>
@@ -381,9 +381,11 @@
 										</div>
 										<div class="bottom">
 											<div class="opts">
-												<a href="javaScript:void(0)" class="reply" onclick="showOrHideReply('${tweet.pkId}', false)">
-                                                    评论<span>
-                                                    (<span id="replyNum_${tweet.pkId}">${tweet.replyNum}</span>)</span>
+												<a href="javaScript:void(0)" class="reply" <c:if test="${tweet.replyNum gt 0 }">onclick="showOrHideReply('${tweet.pkId}', false)"</c:if>>
+													评论
+													<span>
+                                                    	(<span id="replyNum_${tweet.pkId}">${tweet.replyNum}</span>)
+                                                    </span>
                                                 </a>
 											</div>
 											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>
@@ -418,8 +420,11 @@
 										</div>
 										<div class="bottom">
 											<div class="opts">
-												<a href="#" class="reply" onclick="showOrHideReply('${tweet.pkId}', true)">
-                                                    评论<span>(<span>${tweet.replyNum}</span>)</span>
+												<a href="#" class="reply" <c:if test="${tweet.replyNum gt 0 }">onclick="showOrHideReply('${tweet.pkId}', true)"</c:if>>
+													评论
+													<span>
+														(<span>${tweet.replyNum}</span>)
+													</span>
                                                 </a>
 											</div>
 											<div class="time"><msg:formatDate value="${tweet.createTime}"/></div>

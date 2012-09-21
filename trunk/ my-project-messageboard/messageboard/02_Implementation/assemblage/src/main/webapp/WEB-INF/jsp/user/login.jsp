@@ -341,77 +341,6 @@
 									<input type="radio" value="2" name="sex" id="2"><label for="2"><msg:message code="message.sex.woman"/></label>
 								</td>
 	              			</tr>
-	              			<%--<tr>
-	                 			<td class="fb_result_head" style="width: 25%">
-	                 				<msg:message code="message.head.image"/>
-	                 			</td>
-				                <td align="left" style="width: 80%">
-									<select name="headImage" id="pci"
-										onChange="document.images['imgs'].src='${contextPath }/' + options[selectedIndex].value;" class="f_text">
-										<option value="image/pic1.gif" selected="selected">
-											pic1
-										</option>
-										<option value="image/pic2.gif">
-											pic2
-										</option>
-										<option value="image/pic3.gif">
-											pic3
-										</option>
-										<option value="image/pic4.gif">
-											pic4
-										</option>
-										<option value="image/pic5.gif">
-											pic5
-										</option>
-										<option value="image/pic6.gif">
-											pic6
-										</option>
-										<option value="image/pic7.gif">
-											pic7
-										</option>
-										<option value="image/pic8.gif">
-											pic8
-										</option>
-										<option value="image/pic9.gif">
-											pic9
-										</option>
-										<option value="image/pic10.gif">
-											pic10
-										</option>
-										<option value="image/pic11.gif">
-											pic11
-										</option>
-										<option value="image/pic12.gif">
-											pic12
-										</option>
-										<option value="image/pic13.gif">
-											pic13
-										</option>
-										<option value="image/pic14.gif">
-											pic14
-										</option>
-										<option value="image/pic15.gif">
-											pic15
-										</option>
-										<option value="image/pic16.gif">
-											pic16
-										</option>
-										<option value="image/pic17.gif">
-											pic17
-										</option>
-										<option value="image/pic18.gif">
-											pic18
-										</option>
-										<option value="image/pic19.gif">
-											pic19
-										</option>
-										<option value="image/pic20.gif">
-											pic20
-										</option>
-									</select>
-									<img src="${contextPath }/image/pic1.gif" width="90" height="90" id="imgs" />
-								</td>
-	              			</tr>--%>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
 	                 				<msg:message code="message.email"/><span style="color: red">*</span>
@@ -423,11 +352,11 @@
 	              			</tr>
 	              			<tr>
 	                 			<td class="fb_result_head" style="width: 25%">
-	                 				<msg:message code="message.phonenum"/><span style="color: red">*</span>
+	                 				<msg:message code="message.phonenum"/>
 	                 			</td>
 				                <td align="left" style="width: 80%">
 									<input type="text" name="phoneNum" id="phoneNum" class="f_text"
-										require="true" dataType="Phone" msg="电话号码不能为空且格式 要正确"/>
+										require="false" dataType="Phone" msg="电话号码不能为空且格式要正确"/>
 								</td>
 	              			</tr>
 	              			<tr>

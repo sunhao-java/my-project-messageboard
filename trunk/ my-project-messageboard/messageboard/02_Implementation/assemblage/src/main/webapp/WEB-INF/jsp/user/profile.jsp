@@ -461,7 +461,7 @@
 											</div>
 											<div class="bottom">
 												<div class="opts">
-													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}#showReply" class="reply">
+													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message.pkId}" class="reply">
                                                         评论
                                                         <span>(<span id="">${message.replyNum}</span>)</span>
                                                     </a>

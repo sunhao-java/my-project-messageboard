@@ -80,7 +80,7 @@
 					try{
 						if(o.status == '1'){
 							//成功
-							input.replaceWith('<a href="' + o.groupId + '"><em>' + input.val() + '</em> (0)</a>' +
+							input.replaceWith('<a href="${contextPath}/friend.do?groupId=' + o.groupId + '"><em>' + input.val() + '</em> (0)</a>' +
 								'<span action="delete" class="delete" rel="${contextPath}/friend/groupFun.do?action=delete&groupId=' +
 								+ o.groupId + '"' + 'onclick="func(this, \'\', \'' + o.groupId + '\')">删除</span>' +
 	                   			'<span action="edit" class="edit" rel="${contextPath}/friend/groupFun.do?action=edit&groupId=' +
@@ -140,7 +140,7 @@
 						//成功
 						if(action == 'edit'){
 							//编辑时 
-							$(input).replaceWith('<a href="' + pkId + '"><em>' + groupName + '</em></a>' +
+							$(input).replaceWith('<a href="${contextPath}/friend.do?groupId=' + pkId + '"><em>' + groupName + '</em></a>' +
 								'<span action="delete" class="delete" rel="${contextPath}/friend/groupFun.do?action=delete&groupId=' + pkId + '"' + 
 	                   			'onclick="func(this, \'\', \'' + pkId + '\')">删除</span>' +
 	                   			'<span action="edit" class="edit" rel="${contextPath}/friend/groupFun.do?action=edit&groupId=' + pkId + '"' +

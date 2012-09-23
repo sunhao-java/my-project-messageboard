@@ -17,6 +17,7 @@ import com.message.main.history.service.HistoryService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.service.LoginService;
 import com.message.main.login.web.AuthContextHelper;
+import com.message.main.message.service.MessageService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 
@@ -30,6 +31,7 @@ public class LoginServiceImpl implements LoginService {
 
     private UserService userService;
     private HistoryService historyService;
+    private MessageService messageService;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -39,7 +41,11 @@ public class LoginServiceImpl implements LoginService {
         this.historyService = historyService;
     }
 
-    public Integer login(WebInput in, WebOutput out, String loginName, String password) throws Exception {
+    public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
+	public Integer login(WebInput in, WebOutput out, String loginName, String password) throws Exception {
         Integer result = Integer.valueOf(-1);
         if(StringUtils.isEmpty(loginName) || StringUtils.isEmpty(password)){
             logger.warn("loginName or password is null!");
@@ -97,8 +103,9 @@ public class LoginServiceImpl implements LoginService {
     private void setLoginUserInSession(WebInput in, User user) throws Exception {
         Integer loginCount = this.historyService.getLoginCount(user.getPkId());
 	    Date lastLoginTime = this.historyService.getLastLoginTime(user.getPkId(), false);
+	    Integer messageCount = this.messageService.getLoginUserMessageCount(user.getPkId());
 
-        LoginUser loginUser = new LoginUser(user, lastLoginTime, loginCount, 0, in.getClientIP());
+        LoginUser loginUser = new LoginUser(user, lastLoginTime, loginCount, messageCount, in.getClientIP());
         
         HttpSession session = in.getSession();
         session.setAttribute(ResourceType.LOGIN_USER_KEY_IN_SESSION, loginUser);

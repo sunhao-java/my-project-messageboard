@@ -8,6 +8,7 @@
     <bean id="loginService" class="com.message.main.login.service.impl.LoginServiceImpl">
         <property name="historyService" ref="historyService"/>
         <property name="userService" ref="userService"/>
+        <property name="messageService" ref="messageService"/>
     </bean>
 	
 	<!-- 事件的service -->

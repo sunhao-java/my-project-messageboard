@@ -14,7 +14,7 @@
 	
 	//定义组件的默认值
 	$.emoticon.defaults = {
-		id: 'emoticon1',							//定义组件的ID
+		id: 'emoticon' + new Date().getTime(),		//定义组件的ID
 		width: 390,									//组件宽度,默认390
 		height: 220,								//组件高度,默认220
 		preview: true,								//是否预览表情,默认为true
@@ -42,11 +42,16 @@
 					html += '<div>';
 					html += '	<div class="qz_emotion_bd" style="">';
 					html += '		<div class="qzfl_emotion_page_' + page + '" style="height: 190px;">';
+					if(p.preview){
+						html += '		<div class="emotion_preview_default" style="display: none">';
+						html +=	'			<img/>';
+						html +=	'			<span>undefined</span>';
+						html += '		</div>';
+					}
 					html += '			<ul class="qzfl_emotion_default" style="margin-top: 0px; margin-bottom: 0px; padding-left: 0px;">';
 					
 					for(var i = start; i < end; i++){
-						var link = '<a data-id="' + i + '" href="javascript:void(0);" id="e' + i + '"><div class="icon"></div></a>';
-						html += '			<li>';
+						html += '			<li class="singleEmonLi">';
 						html += '				<a data-id="e' + i + '" href="javascript:void(0);" id="e' + i + '" class="singleEmoticon">';
 						html += '					<div class="icon"></div>';
 						html += '				</a>';
@@ -84,7 +89,7 @@
                     
                     return [left, top];
                 },
-                getDelFoot: function(){
+                getFoot: function(){
                 	var html = '';
                 	html += '		<div class="qz_emotion_magic_ft">';
 					html += '			<div class="qz_page_nav">';
@@ -119,6 +124,35 @@
                 	$('a.singleEmoticon').click(function(){
                 		f.insertIntoPanel($(this));
                 	});
+                	//为每个表情添加鼠标悬浮事件和鼠标移出事件,以预览表情
+                	if(p.preview){
+                		$('li.singleEmonLi').mouseover(function(){
+                			var link = $(this).children('a.singleEmoticon');
+                			if(!link){
+                				return;
+                			}
+                			var dataId = $(link).attr('data-id');
+                			var position = $(this).position();
+                			if(position.left < 90){
+                				$('div.emotion_preview_default').addClass('floatRight');
+                				$('div.emotion_preview_default').removeClass('floatLeft');
+                			} else if($('div.qz_emotion_bd').width() - position.left < 90){
+                				$('div.emotion_preview_default').addClass('floatLeft');
+                				$('div.emotion_preview_default').removeClass('floatRight');
+                			}
+                			
+                			var icon = YAHOO.util.getEmoticonTitle(dataId);
+                			$('div.emotion_preview_default > img').attr('src', YAHOO.util.getContextPath() + '/js/jquery/css/emoticon/images/' +
+                					icon[0] + '/' + dataId + '.gif');
+                			$('div.emotion_preview_default > span').html(icon[1]);
+                			
+                			$('div.emotion_preview_default').show();
+                		});
+                		
+                		$('li.singleEmonLi').mouseout(function(){
+                			$('div.emotion_preview_default').hide();
+                		});
+                	}
                 },
                 addPageEvent: function(link){
                 	//上一页的事件
@@ -187,7 +221,7 @@
                     });
                     $.emoticon.panel.setHeader('');
                     $.emoticon.panel.setBody(f.getBody(100, 104, 1));
-                    $.emoticon.panel.setFooter(f.getDelFoot());
+                    $.emoticon.panel.setFooter(f.getFoot());
                     $.emoticon.panel.render(document.body);
                     
                     this.getOffset();
@@ -196,25 +230,29 @@
     				$('a.prePage').addClass('disable');
                     f.addEmoticonEvent();
                     f.addPageEvent();
+                },
+                addWindowEvent: function(){
+                	//添加鼠标点击事件,如果鼠标不是在表情弹框中点击,则弹框隐藏
+        			$(window).bind('mousedown', function(e){
+        				var x = e.pageX;			//left
+        				var y = e.pageY;			//top
+        				var offset = f.getOffset();
+        				if($('#' + p.id).css('visibility') && $('#' + p.id).css('visibility') == 'visible'){
+        					if(!((x > offset[0] && x < offset[0] + p.width) && (y > offset[1] && y < offset[1] + p.height))){
+        						if($.emoticon.panel){
+        							$.emoticon.panel.hide();
+        							$(window).unbind('mousedown');
+        						}
+        					}
+        				}
+        			});
                 }
 			}
 			
 			//元素添加点击事件
 			element.bind('click', function(){
 				f.show();
-			});
-			
-			//添加鼠标点击事件,如果鼠标不是在表情弹框中点击,则弹框隐藏
-			$(window).bind('mousedown', function(e){
-				var x = e.pageX;			//left
-				var y = e.pageY;			//top
-				var offset = f.getOffset();
-				if($('#' + p.id).css('visibility') || $('#' + p.id).css('visibility') == 'visible'){
-					if(!((x > offset[0] && x < offset[0] + p.width) && (y > offset[1] && y < offset[1] + p.height))){
-						if($.emoticon.panel)
-							$.emoticon.panel.hide();
-					}
-				}
+				f.addWindowEvent();
 			});
 		});
 	}

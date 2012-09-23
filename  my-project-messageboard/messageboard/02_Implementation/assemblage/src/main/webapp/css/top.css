@@ -61,3 +61,35 @@ body table tr td span img{
 	width: 16px;
 	vertical-align: middle;
 }
+
+a.layout-button{
+	background-attachment: scroll;
+	color: #00E;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: bold;
+	height: 16px;
+	line-height: 15px;
+	margin-left: 2px;
+	opacity: 0.6000000238418579;
+	text-decoration: underline;
+	width: 16px;
+}
+
+a.layout-button-up{
+	background-image: url(../themes/default/images/layout_button_up.gif);
+}
+
+a.layout-button-down{
+	background-image: url(../themes/default/images/layout_button_down.gif);
+}
+
+.position{
+	position: absolute;
+	bottom: 0px;
+	left: 138px;
+}
+
+.left0{
+	left: 0px !important;
+}

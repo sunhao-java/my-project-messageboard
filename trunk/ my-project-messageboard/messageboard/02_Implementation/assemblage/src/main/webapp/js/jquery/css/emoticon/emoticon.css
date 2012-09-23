@@ -138,3 +138,41 @@ a.disable:link, a.disable:hover, a.disable:active, a.disable:visited {
 	text-decoration: none !important;
 	cursor: text !important;
 }
+
+div.emotion_preview_default {
+	border: 1px solid #999;
+	position: absolute;
+	width: 59px;
+	height: 59px;
+	background-color: white;
+	overflow: hidden;
+	top: 3px;
+}
+
+div.emotion_preview_default img {
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 8px;
+	margin-left: 18px;
+	width: 24px;
+	height: 24px;
+}
+
+div.emotion_preview_default span {
+	background-color: #ECECEC;
+	color: #545454;
+	display: block;
+	font-family: Tahoma;
+	font-size: 12px;
+	line-height: 15px;
+	padding: 1px;
+	text-align: center;
+}
+
+div.floatLeft {
+	left: 3px;
+}
+
+div.floatRight {
+	right: 3px;
+}

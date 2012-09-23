@@ -9,7 +9,7 @@
     <link rel="shortcut icon" href="${contextPath }/favicon.ico" />
   </head>
   
-	<frameset rows="70,*,50" height="100%" frameborder="0" framespacing="0"> 
+	<frameset rows="70,*,50" height="100%" frameborder="0" framespacing="0" id="mainFrameSet"> 
 		<frame name="header" src="${contextPath }/home/top.do" frameborder="0" scrolling="no">
 		<frameset cols="155,*" height="100%" frameborder="0" framespacing="0" id="box" name="box">
 			<frame id="menu" name="menu" src="${contextPath }/home/left.do" frameborder="0"  scrolling="no" noresize="noresize">

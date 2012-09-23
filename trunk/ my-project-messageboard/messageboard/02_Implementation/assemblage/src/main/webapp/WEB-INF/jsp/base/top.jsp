@@ -50,6 +50,26 @@
 			$(document).ready(function(){
 				//调用公共JS自动提示组件
 				showUser('yellow','300px','wrap');
+				
+				$('#layout').bind('click', function(){
+					var link = $(this);
+					var main = window.parent.frames['mainFrameSet'];
+					if(link.hasClass('layout-button-up')){
+						link.removeClass('layout-button-up');
+						link.addClass('layout-button-down');
+						link.parent('div').addClass('left0');
+						$('.welcomeuser').css('margin-top', '0px');
+						link.attr('title', '向下展开');
+						main.rows = '25,*,50';
+					} else {
+						link.removeClass('layout-button-down');
+						link.addClass('layout-button-up');
+						link.parent('div').removeClass('left0');
+						$('.welcomeuser').css('margin-top', '39px');
+						link.attr('title', '向上收缩');
+						main.rows = '70,*,50';
+					}
+				});
 			});
 		</script>
 	</head>
@@ -110,6 +130,9 @@
 	            <a class="t2" title="收藏夹" href="javaScript:void(0);" onclick="addBookmark()"></a>
 	            <a class="t4" title="系统帮助"></a>
 	            <a class="t5" title="退出系统" href="javaScript:void(0);" onclick="logout('${contextPath}')"></a>
+	        </div>
+	        <div class="position">
+	        	<a href="javaScript:void(0);" id="layout" class="layout-button layout-button-up" title="向上收起"></a>
 	        </div>
 		</div>
 	</body>

@@ -75,6 +75,7 @@
     <div class="l-panel-bar">
         <div class="l-panel-bbar-inner">
             <div class="l-bar-group l-bar-selectpagesize">
+            	每页显示条数：
                 <select name="rp" class="l-hidden" onchange="changeNum(this.value);">
                     <option value="5" <c:if test="${paginationSupport.num eq 5}">selected="selected"</c:if>>5</option>
                     <option value="10" <c:if test="${paginationSupport.num eq 10}">selected="selected"</c:if>>10</option>

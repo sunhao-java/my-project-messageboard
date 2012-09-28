@@ -25,6 +25,7 @@ body{
 #topbar #visitorInfo{
 	color: #888;
 	float: left;
+	padding-left: 18px;
 }
 
 #message{
@@ -161,6 +162,10 @@ html[xmlns] .clearfix {
     background-position: 0 -67px;
 }
 
+.manager a.sendmsg i {
+	background-position: 0 -134px;
+}
+
 .manager a.admin i {
     background-position: 0 -201px;
 }
@@ -229,17 +234,23 @@ html[xmlns] .clearfix {
     text-align: right;
 }
 
-.more a, .albums .more a, .rmod a, a.user, a.reply, a.title, .TweetRplsWrapper a{
+.more a, .albums .more a, .rmod a, a.user, a.reply, a.title, .TweetRplsWrapper a, #visitorInfo a, .topBlogs strong a, .topBlogs ul li a{
 	color: #0066CC !important;
 }
 
-.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited, a.title:visited, .TweetRplsWrapper a:visited{
+.more a:visited, .rmod a:visited, a.user:visited, a.reply:visited, a.title:visited, .TweetRplsWrapper a:visited, #visitorInfo a:visited, .topBlogs strong a:visited, .topBlogs ul li a:visited{
 	color: #0066CC !important;
 }
 
-.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover, a.title:hover, .TweetRplsWrapper a:hover {
+.more a:hover, .rmod a:hover, a.user:hover, a.reply:hover, a.title:hover, .TweetRplsWrapper a:hover, #visitorInfo a:hover, .topBlogs strong a:hover, .topBlogs ul li a:hover {
 	color: #FF0000 !important;
 	text-decoration: underline;
+}
+
+a.disable, a.disable:hover, a.disable:visited{
+	color: #666666 !important;
+	text-decoration: none !important;
+	cursor: text !important;
 }
 
 .mod {
@@ -660,4 +671,57 @@ form.TweetReplyForm img {
 
 .TweetRpls li .TweetReplyBody .opts .links {
     float: right;
+}
+
+.topBlogs{
+	margin: 10px 0 0 0;
+	padding-bottom: 10px;
+	border: 1px solid #EEE;
+	background: white;
+	padding: 10px 10px 5px 10px;
+	overflow: hidden;
+}
+
+
+.topBlogs strong {
+	padding-left: 5px;
+	padding-right: 0;
+	display: block;
+	font-size: 12pt;
+	padding: 0 10px;
+	color: #666;
+}
+
+.topBlogs strong a {
+	font-weight: normal;
+	float: right;
+}
+
+.topBlogs ul {
+	margin: 15px 0 0 0;
+}
+
+.topBlogs ul li {
+	margin: 0 5px 3px 0;
+}
+
+.topBlogs ul li a {
+	background: none;
+	padding-left: 10px;
+	font-size: 13px;
+}
+
+.topBlogs ul li .s {
+	font-size: 9pt;
+	color: #999;
+	margin-left: 5px;
+}
+
+.topBlogs ul li .d {
+	float: right;
+	font-size: 9pt;
+	color: #999;
+	font-size: 8pt;
+	-webkit-text-size-adjust: none;
+	margin-left: 5px;
 }

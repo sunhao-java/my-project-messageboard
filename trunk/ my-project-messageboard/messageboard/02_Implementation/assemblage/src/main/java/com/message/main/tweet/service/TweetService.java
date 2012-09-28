@@ -64,4 +64,15 @@ public interface TweetService {
 	 * @throws Exception
 	 */
 	PaginationSupport listFriendTweet(LoginUser loginUser, int start, int num) throws Exception;
+	
+	/**
+	 * 获取某个人的吐槽
+	 * 
+	 * @param uid
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getTweetsByUId(Long uid, int start, int num) throws Exception;
 }

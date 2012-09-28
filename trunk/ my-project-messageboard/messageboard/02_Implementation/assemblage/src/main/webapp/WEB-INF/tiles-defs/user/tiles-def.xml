@@ -39,11 +39,15 @@
         <put-attribute name="content" value="/WEB-INF/jsp/user/user_editHead.jsp"/>
     </definition>
 	
-	<definition name="user.profile" extends="message.home">
+	<definition name="profile" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/user/profile.jsp"/>
 	</definition>
 	
 	<definition name="weibo.setting" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/user/weibo_setting.jsp"/>
+	</definition>
+	
+	<definition name="user.profile" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/user/user_profile.jsp"/>
 	</definition>
 </tiles-definitions>

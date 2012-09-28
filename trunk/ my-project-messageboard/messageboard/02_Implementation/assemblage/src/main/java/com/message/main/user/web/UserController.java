@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.pagination.PaginationSupport;
 import com.message.base.spring.SimpleController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;
@@ -27,6 +28,7 @@ import com.message.main.friend.service.FriendService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
 import com.message.main.message.service.MessageService;
+import com.message.main.tweet.service.TweetService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserPrivacyService;
 import com.message.main.user.service.UserService;
@@ -46,6 +48,7 @@ public class UserController extends SimpleController {
 	private FriendService friendService;
 	private AlbumService albumService;
 	private MessageService messageService;
+	private TweetService tweetService;
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
@@ -65,6 +68,10 @@ public class UserController extends SimpleController {
 
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
+	}
+
+	public void setTweetService(TweetService tweetService) {
+		this.tweetService = tweetService;
 	}
 
 	/**
@@ -283,17 +290,17 @@ public class UserController extends SimpleController {
     	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
     	
     	//所有好友
-    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, -1, -1).getItems();
+    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, 0, 6).getItems();
     	params.put("friends", friends);
     	
     	//所有相册
-    	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), -1, -1).getItems();
+    	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), 0, 6).getItems();
     	params.put("albums", albums);
     	
     	//博客文章数目
     	params.put("blogNum", this.messageService.getLoginUserMessageCount(loginUser.getPkId()));
     	
-        return new ModelAndView("user.profile", params);
+        return new ModelAndView("profile", params);
     }
     
     /**
@@ -351,6 +358,34 @@ public class UserController extends SimpleController {
     	params.put(ResourceType.AJAX_STATUS, result ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
     	out.toJson(params);
     	return null;
+    }
+    
+    /**
+     * 查看好友的主页
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView userProfile(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long uid = in.getLong("uid", Long.valueOf(-1));
+    	User user = this.userService.getUserById(uid);
+    	List<Long> fids = this.friendService.listFriendIds(uid);
+    	int blogNum = this.messageService.getLoginUserMessageCount(uid);
+    	List<Album> albums = this.albumService.getAlbumList(uid, -1, -1).getItems();
+    	PaginationSupport messages = this.messageService.getMyMessages(0, 5, uid, null);
+    	PaginationSupport tweets = this.tweetService.getTweetsByUId(uid, 0, 10);
+    	
+    	params.put("user", user);
+    	params.put("friendIds", fids);
+    	params.put("blogNum", blogNum);
+    	params.put("albums", albums);
+    	params.put("blogs", messages);
+    	params.put("tweets", tweets);
+    	return new ModelAndView("user.profile", params);
     }
 }
 

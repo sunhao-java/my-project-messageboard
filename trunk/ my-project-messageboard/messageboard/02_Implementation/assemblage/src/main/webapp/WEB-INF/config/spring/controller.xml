@@ -61,6 +61,7 @@
     	<property name="friendService" ref="friendService"/>
     	<property name="albumService" ref="albumService"/>
     	<property name="messageService" ref="messageService"/>
+    	<property name="tweetService" ref="tweetService"/>
     </bean>
     
     <!-- 用户隐私配置的controller -->

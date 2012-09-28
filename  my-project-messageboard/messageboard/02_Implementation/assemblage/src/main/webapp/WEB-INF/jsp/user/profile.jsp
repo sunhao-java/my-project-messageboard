@@ -404,13 +404,15 @@
 			    			<table class="tab-table">
 								<tr>
 									<td class="TweetUser">
-										<a href="#">
+										<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}">
 											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
 										</a>
 									</td>
 									<td class="TweetContent">
 										<h5>
-											<a href="#" class="user">${tweet.creator.truename}</a>
+											<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}" class="user">
+												${tweet.creator.truename}
+											</a>
 											<span class="action1">
 												更新了动态
 									    	</span>

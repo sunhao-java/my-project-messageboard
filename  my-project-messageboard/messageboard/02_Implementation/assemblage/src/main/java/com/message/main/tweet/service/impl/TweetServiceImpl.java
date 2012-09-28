@@ -1,5 +1,6 @@
 package com.message.main.tweet.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -143,6 +144,22 @@ public class TweetServiceImpl implements TweetService {
 		
 		List<Long> friends = this.friendService.listFriendIds(loginUser.getPkId());
 		PaginationSupport ps = this.tweetDAO.listTweetByUserId(friends, start, num);
+		List<Tweet> tweets = ps.getItems();
+		for(Tweet t : tweets){
+			this.handleTweet(t);
+		}
+		
+		return ps;
+	}
+
+	public PaginationSupport getTweetsByUId(Long uid, int start, int num) throws Exception {
+		if(uid == null || Integer.valueOf(-1).equals(uid)){
+			logger.debug("given uid is null!");
+			return PaginationUtils.getNullPagination();
+		}
+		
+		PaginationSupport ps = this.tweetDAO.listTweetByUserId(Arrays.asList(uid), start, num);
+		
 		List<Tweet> tweets = ps.getItems();
 		for(Tweet t : tweets){
 			this.handleTweet(t);

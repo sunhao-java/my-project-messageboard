@@ -205,4 +205,16 @@ public interface AlbumService {
      * @throws Exception
      */
     PaginationSupport listMyFriendAlbums(LoginUser loginUser, int start, int num) throws Exception;
+    
+    /**
+     * 获取一个用户的可见相册
+     * 
+     * @param loginUser		当前登录者
+     * @param uid			用户ID
+     * @param start
+     * @param num
+     * @return
+     * @throws Exception
+     */
+    PaginationSupport getViewAlbums(LoginUser loginUser, Long uid, int start, int num) throws Exception; 
 }

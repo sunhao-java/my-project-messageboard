@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/jsp/common/includes.jsp" %>
+<%
+	request.setAttribute("contextPath", request.getContextPath());
+%>
 <!--
 * .
 *
@@ -60,13 +63,13 @@
                     <table class="tab-table">
                         <tr>
                             <td class="portrait">
-                                <a target="_blank" href="#">
+                                <a href="${contextPath }/user/profile.do?uid=${reply.creatorId}">
                                     <msg:head userId="${reply.creatorId}" headType="2"/>
                                 </a>
                             </td>
                             <td class="TweetReplyBody">
                                 <div class="post">
-                                    <a target="_blank" href="#">${reply.creator.truename}</a>
+                                    <a href="${contextPath }/user/profile.do?uid=${reply.creatorId}">${reply.creator.truename}</a>
                                     <br>
                                     ${reply.content}
                                 </div>

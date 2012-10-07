@@ -98,6 +98,7 @@
     <!-- 相册的controller -->
     <bean id="albumController" class="com.message.main.album.web.AlbumController">
     	<property name="albumService" ref="albumService"/>
+    	<property name="userService" ref="userService"/>
     </bean>
 	
 	<bean id="resourceController" class="com.message.main.home.web.ResourceController">

@@ -28,7 +28,13 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/album/album_config.jsp"/>
 	</definition>
 	
+	<!-- 好友相册列表 -->
 	<definition name="album.friend.list" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/album/album_friend_list.jsp"/>
+	</definition>
+	
+	<!-- 某个用户相册列表 -->
+	<definition name="album.user.list" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/album/album_user_list.jsp"/>
 	</definition>
 </tiles-definitions>

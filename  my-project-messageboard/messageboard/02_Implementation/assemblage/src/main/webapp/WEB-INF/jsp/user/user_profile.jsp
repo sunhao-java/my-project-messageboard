@@ -22,7 +22,7 @@
 	});
 
 	function gotoAlbumDetail(albumId){
-		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId + '&visit=true';
+		window.location.href = '${contextPath}/album/listPhotos.do?albumId=' + albumId + '&visit=true&uid=${user.pkId}';
 	}
 	
 	function showOrHideReply(tweetId, reply){
@@ -62,7 +62,7 @@
 <div class="profile-main">
 	<div id="topbar">
 		<div id="visitorInfo">
-			当前访客身份： 孙昊 [ <a href="${contextPath}/user/profile.do">我的空间</a> ]
+			当前访客身份： ${loginUser.truename } [ <a href="${contextPath}/user/profile.do">我的空间</a> ]
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -91,7 +91,7 @@
 			    <div class="stat">
 			    	<a href="javaScript:void(0)">好友(${msgFun:length(friendIds)})</a>
 			    	<a href="${contextPath}/message/inListMyMessageJsp.do?viewWhoId=${user.pkId}">博文(${blogNum})</a>
-			    	<a href="javaScript:void(0)">相册(${msgFun:length(albums)})</a>
+			    	<a href="${contextPath}/album/inUserAlbum.do?uid=${user.pkId}">相册(${msgFun:length(albums)})</a>
 			    </div>
 			</div>
 			<div class="manager clearfix">
@@ -174,7 +174,7 @@
 			    	</c:forEach>
 		    	</ul>
 			    <div class="more">
-			    	<a href="${contextPath}/album/index.do">共有 ${msgFun:length(albums)} 个相册</a>
+			    	<a href="${contextPath}/album/inUserAlbum.do?uid=${user.pkId}">共有 ${msgFun:length(albums)} 个相册</a>
 			    </div>
 		    </div>
 		</div>
@@ -210,13 +210,13 @@
 			    			<table class="tab-table">
 								<tr>
 									<td class="TweetUser">
-										<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}">
+										<a href="${contextPath }/user/profile.do?uid=${tweet.creator.pkId}">
 											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
 										</a>
 									</td>
 									<td class="TweetContent">
 										<h5>
-											<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}" class="user">
+											<a href="${contextPath }/user/profile.do?uid=${tweet.creator.pkId}" class="user">
 												${tweet.creator.truename}
 											</a>
 											<span class="action1">

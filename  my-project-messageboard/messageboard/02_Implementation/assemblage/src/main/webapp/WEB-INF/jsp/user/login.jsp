@@ -39,6 +39,19 @@
 									'<q class="left">&nbsp;</q>Google Chrome 8.0<q class="right">&nbsp;</q>以上版本'
 					});
 				}
+				
+				$(window).keydown(function(e){
+					var username = $('#username').val();
+					var password = $('#password').val();
+					if(username != '' && password != ''){
+						switch(e.keyCode){
+							case 13: 
+								login();
+							default: 
+								return;
+						}
+					}
+				});
 			});
 		
 			var $C = YAHOO.util.Connect;

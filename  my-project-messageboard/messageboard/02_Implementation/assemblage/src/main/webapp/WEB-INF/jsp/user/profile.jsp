@@ -267,7 +267,7 @@
 			    <ul class="clearfix">
 			    	<c:forEach items="${friends}" var="f">
 			    		<li>
-			    			<a title="${f.friendUser.truename}" href="#">
+			    			<a title="${f.friendUser.truename}" href="${contextPath }/user/profile.do?uid=${f.friendUser.pkId}">
 			    				<msg:head userId="${f.friendUser.pkId}" headType="2"/>
 			    			</a>
 			    		</li>
@@ -404,13 +404,13 @@
 			    			<table class="tab-table">
 								<tr>
 									<td class="TweetUser">
-										<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}">
+										<a href="${contextPath }/user/profile.do?uid=${tweet.creator.pkId}">
 											<msg:head userId="${tweet.creator.pkId}" headType="2"/>
 										</a>
 									</td>
 									<td class="TweetContent">
 										<h5>
-											<a href="${contextPath }/user/userProfile.do?uid=${tweet.creator.pkId}" class="user">
+											<a href="${contextPath }/user/profile.do?uid=${tweet.creator.pkId}" class="user">
 												${tweet.creator.truename}
 											</a>
 											<span class="action1">

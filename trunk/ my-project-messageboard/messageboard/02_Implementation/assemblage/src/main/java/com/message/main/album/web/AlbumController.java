@@ -28,6 +28,7 @@ import com.message.main.album.pojo.Photo;
 import com.message.main.album.service.AlbumService;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.login.web.AuthContextHelper;
+import com.message.main.user.service.UserService;
 
 /**
  * 相册web控制层.
@@ -46,8 +47,14 @@ public class AlbumController extends SimpleController {
 	 */
 	private AlbumService albumService;
 	
+	private UserService userService;
+	
 	public void setAlbumService(AlbumService albumService) {
 		this.albumService = albumService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
 	}
 
 	/**
@@ -127,6 +134,7 @@ public class AlbumController extends SimpleController {
 		Long albumId = in.getLong("albumId");
 		Album album = this.albumService.loadAlbum(albumId);
 		boolean visit = in.getBoolean("visit", false);
+		Long uid = in.getLong("uid", Long.valueOf(-1));
 		
 		//获取这个相册中所有图片
 		//每页显示12张照片
@@ -138,6 +146,9 @@ public class AlbumController extends SimpleController {
 		
 		String randomTag = RandomUtils.randomString(5, true, true, true);
 		
+		if(uid != null && !Long.valueOf(-1).equals(uid)){
+			params.put("user", this.userService.getUserById(uid));
+		}
 		params.put("randomTag", randomTag);
 		params.put("paginationSupport", ps);
 		params.put("albums", albums);
@@ -498,6 +509,27 @@ public class AlbumController extends SimpleController {
 
 		params.put("paginationSupport", paginationSupport);
     	return new ModelAndView("album.friend.list", params);
+    }
+    
+    /**
+     * 进入用户的相册列表
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView inUserAlbum(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	Long uid = in.getLong("uid", Long.valueOf(-1));
+    	int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
+		
+		PaginationSupport paginationSupport = this.albumService.getViewAlbums(loginUser, uid, start, num);
+		params.put("paginationSupport", paginationSupport);
+		params.put("user", this.userService.getUserById(uid));
+    	return new ModelAndView("album.user.list", params);
     }
 	
 }

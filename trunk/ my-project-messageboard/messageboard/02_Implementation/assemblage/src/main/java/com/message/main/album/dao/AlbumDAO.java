@@ -41,12 +41,13 @@ public interface AlbumDAO {
 	 * 获取多个用户的相册分页对象
 	 * 
 	 * @param userId		用户ID
+	 * @param viewFlag
 	 * @param start
 	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getAlbumList(List<Long> friendIds, int start, int num) throws Exception;
+	PaginationSupport getAlbumList(List<Long> friendIds, List<Long> viewFlag, int start, int num) throws Exception;
 	
 	/**
 	 * 根据主键获得相册对象

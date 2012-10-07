@@ -13,7 +13,7 @@
 		<frame name="header" src="${contextPath }/home/top.do" frameborder="0" scrolling="no">
 		<frameset cols="155,*" height="100%" frameborder="0" framespacing="0" id="box" name="box">
 			<frame id="menu" name="menu" src="${contextPath }/home/left.do" frameborder="0"  scrolling="no" noresize="noresize">
-			<frame id="main" name="main" src="${contextPath }/user/profile.do" frameborder="0" scrolling="auto" noresize="noresize">
+			<frame id="main" name="main" src="${contextPath }/home/inMessageIndex.do" frameborder="0" scrolling="auto" noresize="noresize">
 		</frameset>
 		<frame name="footer" src="${contextPath }/home/tail.do" frameborder="0" scrolling="no">
 	</frameset>

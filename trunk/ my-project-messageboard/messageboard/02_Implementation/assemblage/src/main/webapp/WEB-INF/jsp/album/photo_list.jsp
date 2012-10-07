@@ -236,7 +236,7 @@
 	}
 	
 	function showDetail(pkId){
-		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}&visit=${visit}';
+		window.location.href = '${contextPath}/album/showDetail.do?photoId=' + pkId + '&albumId=${album.pkId}&visit=${visit}&uid=${param.uid}';
 	}
 	
 	function exportAlbum(albumId){
@@ -245,14 +245,23 @@
 </script>
 
 <c:if test="${!visit}">
-	<c:set value="我的相册" var="title1"/>
+	<c:set value="我的相册列表" var="title1"/>
 	<c:set value="${album.albumName}" var="albumUserName"/>
 	<c:set value="/album/index.do" var="urllink"/>
 </c:if>
 <c:if test="${visit}">
-	<c:set value="好友的相册" var="title1"/>
-	<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
-	<c:set value="/album/listFriendAlbums.do" var="urllink"/>
+	<c:choose>
+		<c:when test="${not empty param.uid }">
+			<c:set value="${user.truename }的相册列表" var="title1"/>
+			<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+			<c:set value="/album/inUserAlbum.do?uid=${param.uid }" var="urllink"/>
+		</c:when>
+		<c:otherwise>
+			<c:set value="好友的相册列表" var="title1"/>
+			<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+			<c:set value="/album/listFriendAlbums.do" var="urllink"/>
+		</c:otherwise>
+	</c:choose>
 </c:if>
 <jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
 	<jsp:param value="${title1}" name="title"/>

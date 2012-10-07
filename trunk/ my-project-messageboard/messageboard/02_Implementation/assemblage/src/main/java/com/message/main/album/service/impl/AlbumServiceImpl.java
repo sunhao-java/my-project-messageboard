@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -468,7 +470,8 @@ public class AlbumServiceImpl implements AlbumService {
 		}
 		List<Long> friendIds = this.friendService.listFriendIds(loginUser.getPkId());
 		
-		PaginationSupport paginationSupport = this.albumDAO.getAlbumList(friendIds, start, num);
+		List<Long> viewFlag = Arrays.asList(new Long[]{ResourceType.LOOK_ONLY_FRIENDS, ResourceType.LOOK_ALL_PROPLE});
+		PaginationSupport paginationSupport = this.albumDAO.getAlbumList(friendIds, viewFlag, start, num);
 		List<Album> albums = paginationSupport.getItems();
 		
 		for(int i = 0; i < albums.size(); i++){
@@ -476,6 +479,33 @@ public class AlbumServiceImpl implements AlbumService {
 		}
 		
 		return paginationSupport;
+	}
+
+	public PaginationSupport getViewAlbums(LoginUser loginUser, Long uid, int start, int num) throws Exception {
+		if(loginUser == null || uid == null || Long.valueOf(-1).equals(uid)){
+			logger.debug("given params maybe has null data!");
+			return PaginationUtils.getNullPagination();
+		}
+		//两人是好友
+		boolean isFriend = this.friendService.isFriend(loginUser.getPkId(), uid);
+		List<Long> viewFlag = new ArrayList<Long>();
+		if(isFriend){
+			//是好友,则"好友可见","所有人可见"
+			viewFlag.clear();
+			viewFlag.addAll(Arrays.asList(new Long[]{ResourceType.LOOK_ONLY_FRIENDS, ResourceType.LOOK_ALL_PROPLE}));
+		} else {
+			//不是好友,则仅可见"所有人可见"
+			viewFlag.clear();
+			viewFlag.add(ResourceType.LOOK_ALL_PROPLE);
+		}
+		PaginationSupport ps = this.albumDAO.getAlbumList(Arrays.asList(uid), viewFlag, start, num);
+		List<Album> albums = ps.getItems();
+		
+		for(int i = 0; i < albums.size(); i++){
+			albums.set(i, this.loadAlbum(albums.get(i).getPkId()));
+		}
+		
+		return ps;
 	}
 
 }

@@ -23,7 +23,7 @@
 				if('${previous}' != ''){
 					link.attr('title', '点击查看上一张');
 					link.attr('class', 'pre-cur');
-					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
+					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}&uid=${param.uid }');
 				} else {
 					link.attr('class', '');
 					link.attr('title', '当前已是第一张');
@@ -32,7 +32,7 @@
 				if('${next}' != ''){
 					link.attr('title', '点击查看下一张');
 					link.attr('class', 'next-cur');
-					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
+					link.attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}&uid=${param.uid }');
 				} else {
 					link.attr('class', '');
 					link.attr('title', '当前已是最后一张');
@@ -45,11 +45,11 @@
 			$('#previmg > img').attr('style', 'background: url(${contextPath}/image/pic_first.png) center center');
 			$("span.b > a:first").attr('href', 'javascript:void(0)');
 		} else {
-			$("#previmg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
+			$("#previmg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}&uid=${param.uid }');
 			$('#previmg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
 															'fileId=${previous.attachment.pkId}&width=50&height=50) center center');
 			$("span.b > a:first").attr('href', '${contextPath}/album/showDetail.do?' +
-															'photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}');
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=previous&visit=${visit}&uid=${param.uid }');
 		}
 		
 		if('${next}' == ''){
@@ -57,11 +57,11 @@
 			$('#nextimg > img').attr('style', 'background: url(${contextPath}/image/pic_last.png) center center');
 			$("span.b > a:last").attr('href', 'javascript:void(0)');
 		} else {
-			$("#nextimg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
+			$("#nextimg").attr('href', '${contextPath}/album/showDetail.do?photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}&uid=${param.uid }');
 			$('#nextimg > img').attr('style', 'background: url(${contextPath}/photo.jpg?' +
 															'fileId=${next.attachment.pkId}&width=50&height=50) center center');
 			$("span.b > a:last").attr('href', '${contextPath}/album/showDetail.do?' +
-															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}');
+															'photoId=${photo.pkId}&albumId=${album.pkId}&type=next&visit=${visit}&uid=${param.uid }');
 		}
 
         using(['emoticon', 'reply'], function(){
@@ -193,10 +193,24 @@
 	<c:set value="/album/listPhotos.do?albumId=${album.pkId}" var="urllink2"/>
 </c:if>
 <c:if test="${visit}">
-	<c:set value="好友的相册" var="title1"/>
-	<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
-	<c:set value="/album/listFriendAlbums.do" var="urllink"/>
-	<c:set value="/album/listPhotos.do?albumId=${album.pkId}&visit=true" var="urllink2"/>
+	<c:choose>
+		<c:when test="${not empty param.uid }">
+			<%-- <c:set value="${user.truename }的相册列表" var="title1"/>
+			<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+			<c:set value="/album/inUserAlbum.do?uid=${param.uid }" var="urllink"/> --%>
+			
+			<c:set value="${album.ower.truename }的相册" var="title1"/>
+			<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+			<c:set value="/album/inUserAlbum.do?uid=${param.uid }" var="urllink"/>
+			<c:set value="/album/listPhotos.do?albumId=${album.pkId}&visit=true&uid=${param.uid }" var="urllink2"/>
+		</c:when>
+		<c:otherwise>
+			<c:set value="好友的相册" var="title1"/>
+			<c:set value="${album.ower.truename }的相册--${album.albumName}" var="albumUserName"/>
+			<c:set value="/album/listFriendAlbums.do" var="urllink"/>
+			<c:set value="/album/listPhotos.do?albumId=${album.pkId}&visit=true" var="urllink2"/>
+		</c:otherwise>
+	</c:choose>
 </c:if>
 <jsp:include page="/WEB-INF/jsp/base/navigation.jsp">
 	<jsp:param value="${title1}" name="title"/>

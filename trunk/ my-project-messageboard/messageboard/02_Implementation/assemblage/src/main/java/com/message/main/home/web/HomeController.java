@@ -12,10 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.message.base.spring.ModelAndMethod;
 import com.message.base.spring.SimpleController;
 import com.message.base.web.WebInput;
 import com.message.main.ResourceType;
 import com.message.main.history.service.HistoryService;
+import com.message.main.login.pojo.LoginUser;
 import com.message.main.menu.pojo.Menu;
 import com.message.main.menu.service.MenuService;
 import com.message.main.user.pojo.User;
@@ -102,8 +104,9 @@ public class HomeController extends SimpleController {
 	 * @param response
 	 * @return
 	 */
-	public ModelAndView inMessageIndex(HttpServletRequest request, HttpServletResponse response){
-		return new ModelAndView("redirect:/message/listMessage.do");
+	public ModelAndMethod inMessageIndex(HttpServletRequest request, HttpServletResponse response, LoginUser loginUser){
+		return new ModelAndMethod("user", "profile");
+//		return new ModelAndView("redirect:/user/profile.do?uid=" + loginUser.getPkId());
 	}
 	
 	/**

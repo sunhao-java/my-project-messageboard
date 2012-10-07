@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
+import com.message.base.spring.ModelAndMethod;
 import com.message.base.spring.SimpleController;
 import com.message.base.utils.MD5Utils;
 import com.message.base.utils.SqlUtils;
@@ -277,33 +278,6 @@ public class UserController extends SimpleController {
     }
     
     /**
-     * 进入用户的主页
-     * 
-     * @param in
-     * @param out
-     * @param loginUser
-     * @return
-     * @throws Exception 
-     */
-    public ModelAndView profile(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
-    	Map<String, Object> params = new HashMap<String, Object>();
-    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
-    	
-    	//所有好友
-    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, 0, 6).getItems();
-    	params.put("friends", friends);
-    	
-    	//所有相册
-    	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), 0, 6).getItems();
-    	params.put("albums", albums);
-    	
-    	//博客文章数目
-    	params.put("blogNum", this.messageService.getLoginUserMessageCount(loginUser.getPkId()));
-    	
-        return new ModelAndView("profile", params);
-    }
-    
-    /**
      * 微博秀设置
      * 
      * @param in
@@ -361,6 +335,54 @@ public class UserController extends SimpleController {
     }
     
     /**
+     * 进入用户主页都从此方法,如果是查看自己的主页,跳转到myProfile方法,查看别人的主页,跳转到userProfile方法
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     */
+    public ModelAndMethod profile(WebInput in, WebOutput out, LoginUser loginUser){
+    	//Map<String, Object> params = new HashMap<String, Object>();
+    	Long uid = in.getLong("uid", Long.valueOf(-1));
+    	if(!Long.valueOf(-1).equals(uid) && !loginUser.getPkId().equals(uid)){
+    		//不是进入自己的主页
+    		return new ModelAndMethod("user", "userProfile");
+    	} else {
+    		//进入自己的主页
+    		return new ModelAndMethod("user", "myProfile");
+    	}
+    }
+    
+    /**
+     * 进入用户的主页
+     * 
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception 
+     */
+    public ModelAndView myProfile(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	
+    	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
+    	
+    	//所有好友
+    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, 0, 6).getItems();
+    	params.put("friends", friends);
+    	
+    	//所有相册
+    	List<Album> albums = this.albumService.getAlbumList(loginUser.getPkId(), 0, 6).getItems();
+    	params.put("albums", albums);
+    	
+    	//博客文章数目
+    	params.put("blogNum", this.messageService.getLoginUserMessageCount(loginUser.getPkId()));
+    	
+        return new ModelAndView("profile", params);
+    }
+    
+    /**
      * 查看好友的主页
      * 
      * @param in
@@ -375,7 +397,7 @@ public class UserController extends SimpleController {
     	User user = this.userService.getUserById(uid);
     	List<Long> fids = this.friendService.listFriendIds(uid);
     	int blogNum = this.messageService.getLoginUserMessageCount(uid);
-    	List<Album> albums = this.albumService.getAlbumList(uid, -1, -1).getItems();
+    	List<Album> albums = this.albumService.getViewAlbums(loginUser, uid, 0, 5).getItems();
     	PaginationSupport messages = this.messageService.getMyMessages(0, 5, uid, null);
     	PaginationSupport tweets = this.tweetService.getTweetsByUId(uid, 0, 10);
     	

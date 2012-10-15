@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
@@ -24,11 +25,8 @@ import com.message.main.tweet.service.TweetService;
  */
 public class TweetController extends SimpleController {
 	
+	@Autowired
 	private TweetService tweetService;
-
-	public void setTweetService(TweetService tweetService) {
-		this.tweetService = tweetService;
-	}
 	
 	/**
 	 * 获取当前登录人所有吐槽

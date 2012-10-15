@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -32,12 +33,9 @@ public class InfoController extends SimpleController {
 	private WebInput in = null;
 	private WebOutput out = null;
 	
+	@Autowired
 	private InfoService infoService;
 	
-	public void setInfoService(InfoService infoService) {
-		this.infoService = infoService;
-	}
-
 	/**
 	 * 进入查看留言板描述的页面
 	 * @param request

@@ -9,13 +9,13 @@ import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
 import com.message.main.user.dao.UserDAO;
 import com.message.main.user.pojo.User;
 
-public class UserDAOImpl extends GenericHibernateDAOImpl implements UserDAO {
+public class UserDAOImpl extends GenericHibernateDAO implements UserDAO {
 	private Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
 
 	public Long registerUser(User user) throws Exception {

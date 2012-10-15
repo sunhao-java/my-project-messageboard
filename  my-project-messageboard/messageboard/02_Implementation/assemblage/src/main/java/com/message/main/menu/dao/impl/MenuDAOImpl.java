@@ -9,7 +9,7 @@ import java.util.Map;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.message.base.cache.utils.ObjectCache;
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.utils.SqlUtils;
 import com.message.main.ResourceType;
@@ -23,7 +23,7 @@ import com.message.main.menu.pojo.Menu;
  * @version V1.0
  * @createTime 2012-3-2 下午09:11:10
  */
-public class MenuDAOImpl extends GenericHibernateDAOImpl implements MenuDAO {
+public class MenuDAOImpl extends GenericHibernateDAO implements MenuDAO {
     private ObjectCache cache;
     private GenericJdbcDAO genericJdbcDAO;
 

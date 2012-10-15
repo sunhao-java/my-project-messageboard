@@ -20,31 +20,28 @@
         </property>
         <property name="mappings">
             <props>
-                <prop key="/user/*.do">userController</prop>
-                <prop key="/user.do">userController</prop>
-                <prop key="/message/*.do">messageController</prop>
-                <prop key="/message.do">messageController</prop>
-                <prop key="/home/*.do">homeController</prop>
-                <prop key="/home.do">homeController</prop>
-                <prop key="/vote/*.do">voteController</prop>
-                <prop key="/vote.do">voteController</prop>
-                <prop key="/reply/*.do">replyController</prop>
-                <prop key="/reply.do">replyController</prop>
-                <prop key="/history/*.do">historyController</prop>
-                <prop key="/history.do">historyController</prop>
-                <prop key="/info/*.do">infoController</prop>
-                <prop key="/info.do">infoController</prop>
-                <prop key="/privacy/*.do">userPrivacyController</prop>
-                <prop key="/privacy.do">userPrivacyController</prop>
-                <prop key="/menu/*.do">menuController</prop>
-                <prop key="/menu.do">menuController</prop>
-                <prop key="/event/*.do">eventController</prop>
-                <prop key="/event.do">eventController</prop>
-                <prop key="/login/logout.do">loginController</prop>
-                <prop key="/album/*.do">albumController</prop>
-                <prop key="/album.do">albumController</prop>
-                <prop key="/friend/*.do">friendController</prop>
-                <prop key="/friend.do">friendController</prop>
+                <prop key="/user/*.do">genericController</prop>
+                <prop key="/message/*.do">genericController</prop>
+                <prop key="/home/*.do">genericController</prop>
+                <prop key="/home.do">genericController</prop>
+                <prop key="/vote/*.do">genericController</prop>
+                <prop key="/reply/*.do">genericController</prop>
+                <prop key="/reply.do">genericController</prop>
+                <prop key="/history/*.do">genericController</prop>
+                <prop key="/info/*.do">genericController</prop>
+                <prop key="/privacy/*.do">genericController</prop>
+                <prop key="/menu/*.do">genericController</prop>
+                <prop key="/event/*.do">genericController</prop>
+                <prop key="/login/logout.do">genericController</prop>
+                <prop key="/album/*.do">genericController</prop>
+                <prop key="/album.do">genericController</prop>
+                <prop key="/friend/*.do">genericController</prop>
+                <prop key="/friend.do">genericController</prop>
+                <prop key="/resource/*.do">genericController</prop>
+                <prop key="/resource.do">genericController</prop>
+                <prop key="/tweet/*.do">genericController</prop>
+                <prop key="/tweet.do">genericController</prop>
+                <prop key="/downloadfile/**/*">downloadFileController</prop>
                 <!-- 暂时取消验证，否则会导致swfupload不能上传的bug -->
                 <!--<prop key="/upload/*.do">uploadController</prop>-->
             </props>
@@ -56,10 +53,10 @@
         <property name="order" value="0"/>
         <property name="mappings">
             <props>
-                <prop key="/guest/*.do">guestController</prop>
-                <prop key="/login/login.do">loginController</prop>
-                <prop key="/downloadfile/**/*">downloadFileController</prop>
-                <prop key="/album/uploadPhoto.do">albumController</prop>
+            	<prop key="/upload/*.do">genericController</prop>
+                <prop key="/guest/*.do">genericController</prop>
+                <prop key="/login/login.do">genericController</prop>
+                <prop key="/album/uploadPhoto.do">genericController</prop>
             </props>
         </property>
     </bean>

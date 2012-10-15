@@ -6,55 +6,55 @@
 				http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	
 	<!-- 事件的dao -->
-	<bean id="eventDAO" class="com.message.main.event.dao.impl.EventDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="eventDAO" class="com.message.main.event.dao.impl.EventDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 登录历史的dao -->
-	<bean id="historyDAO" class="com.message.main.history.dao.impl.HistoryDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="historyDAO" class="com.message.main.history.dao.impl.HistoryDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 留言板信息的dao -->
-	<bean id="infoDAO" class="com.message.main.info.dao.impl.InfoDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="infoDAO" class="com.message.main.info.dao.impl.InfoDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 留言的dao -->
-	<bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="messageDAO" class="com.message.main.message.dao.impl.MessageDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 回复的dao -->
-	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAOImpl">
+	<bean id="replyDAO" class="com.message.main.reply.dao.impl.ReplyDAOImpl" parent="genericHibernateDAO">
         <property name="genericJdbcDAO" ref="genericJdbcDAO"/>
         <property name="cache" ref="replyObjectCache"/>
 	</bean>
 	
 	<!-- 用户的dao -->
-	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="userDAO" class="com.message.main.user.dao.impl.UserDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 用户隐私配置的dao -->
-	<bean id="userPrivacyDAO" class="com.message.main.user.dao.impl.UserPrivacyDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="userPrivacyDAO" class="com.message.main.user.dao.impl.UserPrivacyDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 投票的DAO -->
-	<bean id="voteDAO" class="com.message.main.vote.dao.impl.VoteDAOImpl" parent="genericHibernateDAOImpl"/>
+	<bean id="voteDAO" class="com.message.main.vote.dao.impl.VoteDAOImpl" parent="genericHibernateDAO"/>
 	
 	<!-- 菜单的DAO -->
-	<bean id="menuDAO" class="com.message.main.menu.dao.impl.MenuDAOImpl" parent="genericHibernateDAOImpl">
+	<bean id="menuDAO" class="com.message.main.menu.dao.impl.MenuDAOImpl" parent="genericHibernateDAO">
         <property name="cache" ref="menuObjectCache"/>
         <property name="genericJdbcDAO" ref="genericJdbcDAO"/>
 	</bean>
 
     <!-- 文件上传的DAO -->
-    <bean id="attachmentDAO" class="com.message.base.attachment.dao.impl.AttachmentDAOImpl" parent="genericHibernateDAOImpl"/>
+    <bean id="attachmentDAO" class="com.message.base.attachment.dao.impl.AttachmentDAOImpl" parent="genericHibernateDAO"/>
     
     <!-- 相册的DAO -->
-    <bean id="albumDAO" class="com.message.main.album.dao.impl.AlbumDAOImpl" parent="genericHibernateDAOImpl">
+    <bean id="albumDAO" class="com.message.main.album.dao.impl.AlbumDAOImpl" parent="genericHibernateDAO">
     	<property name="cache" ref="albumObjectCache"/>
     	<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
     </bean>
     
     <!-- 好友的DAO -->
-    <bean id="friendDAO" class="com.message.main.friend.dao.impl.FriendDAOImpl" parent="genericHibernateDAOImpl">
+    <bean id="friendDAO" class="com.message.main.friend.dao.impl.FriendDAOImpl" parent="genericHibernateDAO">
     	<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
     	<property name="cache" ref="friendObjectCache"/>
     </bean>
 	
 	<!-- 吐槽的DAO -->
-	<bean id="tweetDAO" class="com.message.main.tweet.dao.impl.TweetDAOImpl" parent="genericHibernateDAOImpl">
+	<bean id="tweetDAO" class="com.message.main.tweet.dao.impl.TweetDAOImpl" parent="genericHibernateDAO">
 		<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
 	</bean>
 	

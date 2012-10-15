@@ -1,6 +1,6 @@
 package com.message.main.user.dao.impl;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.main.user.dao.UserPrivacyDAO;
 import com.message.main.user.pojo.UserPrivacy;
 
@@ -11,7 +11,7 @@ import com.message.main.user.pojo.UserPrivacy;
  * @version V1.0
  * @createTime 2012-2-10 下午09:11:14
  */
-public class UserPrivacyDAOImpl extends GenericHibernateDAOImpl implements
+public class UserPrivacyDAOImpl extends GenericHibernateDAO implements
 		UserPrivacyDAO {
 
 	public UserPrivacy getUserPrivacy(Long pkId) throws Exception {

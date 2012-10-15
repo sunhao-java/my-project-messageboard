@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -32,11 +33,8 @@ import com.message.main.vote.service.VoteService;
 public class VoteController extends SimpleController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	@Autowired
 	private VoteService voteService;
-	
-	public void setVoteService(VoteService voteService) {
-		this.voteService = voteService;
-	}
 
 	private static WebInput in = null;
 	private static WebOutput out = null;

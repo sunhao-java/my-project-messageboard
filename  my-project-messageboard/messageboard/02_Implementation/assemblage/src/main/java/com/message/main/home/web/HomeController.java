@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.ModelAndMethod;
@@ -29,19 +30,13 @@ import com.message.main.user.pojo.User;
 public class HomeController extends SimpleController {
 	private Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	@Autowired
 	private HistoryService historyService;
+	@Autowired
     private MenuService menuService;
 	
 	private WebInput in = null;
 	
-	public void setHistoryService(HistoryService historyService) {
-		this.historyService = historyService;
-	}
-
-    public void setMenuService(MenuService menuService) {
-        this.menuService = menuService;
-    }
-
     /**
 	 * 左边菜单的请求
 	 * @param request

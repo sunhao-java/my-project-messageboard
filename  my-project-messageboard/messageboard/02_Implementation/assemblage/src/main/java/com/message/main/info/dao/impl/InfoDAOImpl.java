@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.info.dao.InfoDAO;
 import com.message.main.info.pojo.Info;
@@ -13,7 +13,7 @@ import com.message.main.info.pojo.Info;
  * 留言板描述的DAO实现
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class InfoDAOImpl extends GenericHibernateDAOImpl implements InfoDAO {
+public class InfoDAOImpl extends GenericHibernateDAO implements InfoDAO {
 
 	public Long saveInfo(Info info) throws Exception {
 		return ((Info) this.saveObject(info)).getPkId();

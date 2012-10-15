@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -29,11 +30,8 @@ public class LoginController extends SimpleController {
     private WebInput in;
     private WebOutput out;
 
+    @Autowired
     private LoginService loginService;
-
-    public void setLoginService(LoginService loginService) {
-        this.loginService = loginService;
-    }
 
     /**
      * 登录的方法

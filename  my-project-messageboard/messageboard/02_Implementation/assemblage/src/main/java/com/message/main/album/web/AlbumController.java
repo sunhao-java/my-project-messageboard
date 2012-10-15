@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -45,17 +46,10 @@ public class AlbumController extends SimpleController {
 	/**
 	 * 相册service接口.
 	 */
+	@Autowired
 	private AlbumService albumService;
-	
+	@Autowired
 	private UserService userService;
-	
-	public void setAlbumService(AlbumService albumService) {
-		this.albumService = albumService;
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 
 	/**
 	 * 获取当前登录者所有相册列表

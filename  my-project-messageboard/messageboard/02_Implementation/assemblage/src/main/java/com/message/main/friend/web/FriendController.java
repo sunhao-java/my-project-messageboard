@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -27,16 +28,10 @@ import com.message.main.user.service.UserService;
  */
 public class FriendController extends SimpleController {
 	
+	@Autowired
 	private FriendService friendService;
+	@Autowired
 	private UserService userService;
-	
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public void setFriendService(FriendService friendService) {
-		this.friendService = friendService;
-	}
 
 	/**
 	 * 进入好友列表页面

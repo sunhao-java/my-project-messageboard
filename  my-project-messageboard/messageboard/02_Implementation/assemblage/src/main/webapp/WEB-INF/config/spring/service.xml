@@ -35,7 +35,7 @@
     	<property name="userService" ref="userService"/>
     	<property name="replyService" ref="replyService"/>
     	<property name="eventService" ref="eventService"/>
-        <property name="genericHibernateDAO" ref="genericHibernateDAOImpl"/>
+        <property name="genericHibernateDAO" ref="genericHibernateDAO"/>
         <property name="friendService" ref="friendService"/>
     </bean>
     

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -22,12 +23,9 @@ public class EventController extends SimpleController {
 	
 	private WebInput in = null;
 	
+	@Autowired
 	private EventService eventService;
 
-	public void setEventService(EventService eventService) {
-		this.eventService = eventService;
-	}
-	
 	/**
 	 * 列出所有事件
 	 * @param request

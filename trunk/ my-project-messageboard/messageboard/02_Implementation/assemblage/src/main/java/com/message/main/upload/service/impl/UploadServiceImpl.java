@@ -15,7 +15,6 @@ import com.message.main.ResourceType;
 import com.message.main.upload.service.UploadService;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
-import com.message.utils.LoginUserHelper;
 
 /**
  * 上传头像的service实现

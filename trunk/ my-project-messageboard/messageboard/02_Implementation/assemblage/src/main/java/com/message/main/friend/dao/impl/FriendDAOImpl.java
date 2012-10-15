@@ -10,7 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.message.base.cache.utils.ObjectCache;
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
@@ -28,7 +28,7 @@ import com.message.main.login.pojo.LoginUser;
  * @version V1.0
  * @createTime 2012-7-21 上午03:50:00
  */
-public class FriendDAOImpl extends GenericHibernateDAOImpl implements FriendDAO {
+public class FriendDAOImpl extends GenericHibernateDAO implements FriendDAO {
 	
 	private GenericJdbcDAO genericJdbcDAO;
 	private ObjectCache cache;

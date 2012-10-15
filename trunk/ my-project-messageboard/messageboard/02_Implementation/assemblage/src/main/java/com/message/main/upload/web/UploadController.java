@@ -14,6 +14,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -45,17 +46,10 @@ public class UploadController extends SimpleController {
     /**
      * 上传头像的service
      */
+	@Autowired
 	private UploadService uploadService;
-
+	@Autowired
     private AttachmentService attachmentService;
-	
-	public void setUploadService(UploadService uploadService) {
-		this.uploadService = uploadService;
-	}
-
-    public void setAttachmentService(AttachmentService attachmentService) {
-		this.attachmentService = attachmentService;
-	}
 
 	private static WebOutput out = null;
 	private static WebInput in = null;

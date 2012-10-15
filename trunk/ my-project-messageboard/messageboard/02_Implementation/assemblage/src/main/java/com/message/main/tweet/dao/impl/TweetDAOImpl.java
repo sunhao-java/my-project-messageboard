@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
@@ -18,7 +18,7 @@ import com.message.main.tweet.pojo.Tweet;
  * @version V1.0
  * @createTime 2012-8-22 下午06:59:11
  */
-public class TweetDAOImpl extends GenericHibernateDAOImpl implements TweetDAO {
+public class TweetDAOImpl extends GenericHibernateDAO implements TweetDAO {
 	private GenericJdbcDAO genericJdbcDAO;
 
 	public void setGenericJdbcDAO(GenericJdbcDAO genericJdbcDAO) {

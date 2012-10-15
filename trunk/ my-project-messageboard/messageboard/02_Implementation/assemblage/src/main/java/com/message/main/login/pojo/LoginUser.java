@@ -16,6 +16,10 @@ public class LoginUser extends User {
 	private int loginCount;		//登录次数
 	private int messageCount;	//留言数目
 	private String loginIP;		//登录地的IP
+	
+	public LoginUser(){
+		//默认构造器
+	}
 
     public LoginUser(User user, Date lastLoginTime, Integer loginCount, Integer messageCount, String loginIP) {
         super(user);

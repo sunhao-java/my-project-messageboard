@@ -90,8 +90,8 @@
 	</bean>
 	
 	<!-- hibernate对数据库的操作交给spring管理，这里是为spring管理hibernate对数据库操作的工具类进行注入 -->
-	<bean id="genericHibernateDAOImpl" class="com.message.base.hibernate.impl.GenericHibernateDAOImpl">
-		<property name="hibernateTemplate" ref="hibernateTemplate"/>
+	<bean id="genericHibernateDAO" class="com.message.base.hibernate.GenericHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">

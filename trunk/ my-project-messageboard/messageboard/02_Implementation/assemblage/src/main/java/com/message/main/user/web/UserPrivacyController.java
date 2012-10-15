@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -25,11 +26,8 @@ import com.message.main.user.service.UserPrivacyService;
  * @createTime 2012-2-10 下午09:00:45
  */
 public class UserPrivacyController extends SimpleController {
+	@Autowired
 	private UserPrivacyService userPrivacyService;
-
-	public void setUserPrivacyService(UserPrivacyService userPrivacyService) {
-		this.userPrivacyService = userPrivacyService;
-	}
 
 	private WebInput in = null;
 	private WebOutput out = null;

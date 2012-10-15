@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.properties.SystemConfig;
@@ -30,13 +31,10 @@ public class GuestController extends SimpleController {
     private WebInput in = null;
     private WebOutput out = null;
 
+    @Autowired
     private UserService userService;
     
     private static final Logger logger = LoggerFactory.getLogger(GuestController.class);
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * 进入用户登录页面

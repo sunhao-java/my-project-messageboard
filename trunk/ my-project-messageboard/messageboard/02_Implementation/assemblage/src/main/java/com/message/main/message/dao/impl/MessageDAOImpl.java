@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
@@ -19,7 +19,7 @@ import com.message.main.message.pojo.Message;
  * 留言操作的DAO
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class MessageDAOImpl extends GenericHibernateDAOImpl implements MessageDAO {
+public class MessageDAOImpl extends GenericHibernateDAO implements MessageDAO {
 	
 	public PaginationSupport getAllMessages(int start, int num, Message message)
 			throws Exception {

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
 import com.message.main.user.pojo.User;
@@ -23,7 +23,7 @@ import com.message.main.vote.pojo.VoteOption;
  * @version V1.0
  * @createTime 2012-2-12 下午12:40:44
  */
-public class VoteDAOImpl extends GenericHibernateDAOImpl implements VoteDAO {
+public class VoteDAOImpl extends GenericHibernateDAO implements VoteDAO {
 
 	public Vote saveVote(Vote vote) throws Exception {
 		return (Vote) this.saveObject(vote);

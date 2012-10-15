@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
@@ -39,17 +40,10 @@ public class MessageController extends SimpleController {
 	private WebInput in = null;
 	private WebOutput out = null;
 	
+	@Autowired
 	private MessageService messageService;
-	
+	@Autowired
 	private UserService userService;
-	
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
 
 	/**
 	 * 列出所有留言

@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.base.utils.SqlUtils;
 import com.message.base.utils.StringUtils;
@@ -19,7 +19,7 @@ import com.message.main.history.pojo.UserLoginHistory;
  * 登录历史操作的DAO的实现
  * @author sunhao(sunhao.java@gmail.com)
  */
-public class HistoryDAOImpl extends GenericHibernateDAOImpl implements HistoryDAO {
+public class HistoryDAOImpl extends GenericHibernateDAO implements HistoryDAO {
 
 	public void saveLoginHistory(UserLoginHistory history) throws Exception {
 		this.saveObject(history);

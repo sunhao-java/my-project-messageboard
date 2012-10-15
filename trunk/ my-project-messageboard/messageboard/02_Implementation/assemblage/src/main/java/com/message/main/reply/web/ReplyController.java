@@ -11,6 +11,8 @@ import com.message.base.web.WebOutput;
 import com.message.main.ResourceType;
 import com.message.main.login.pojo.LoginUser;
 import com.message.main.reply.service.ReplyService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -24,11 +26,8 @@ import java.util.Map;
  */
 public class ReplyController extends SimpleController {
 
+	@Autowired
     private ReplyService replyService;
-
-    public void setReplyService(ReplyService replyService) {
-        this.replyService = replyService;
-    }
 
     /**
      * 列出回复

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -40,12 +41,9 @@ public class MenuController extends SimpleController {
 	/**
 	 * 菜单service接口
 	 */
+	@Autowired
 	private MenuService menuService;
 	
-	public void setMenuService(MenuService menuService) {
-		this.menuService = menuService;
-	}
-
 	/**
 	 * 进入菜单管理页面
 	 * 

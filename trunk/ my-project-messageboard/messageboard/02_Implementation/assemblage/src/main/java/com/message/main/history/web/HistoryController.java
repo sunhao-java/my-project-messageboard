@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.spring.SimpleController;
@@ -23,12 +24,9 @@ public class HistoryController extends SimpleController {
 	private WebInput in = null;
 	//private WebOutput out = null;
 	
+	@Autowired
 	private HistoryService historyService;
 	
-	public void setHistoryService(HistoryService historyService) {
-		this.historyService = historyService;
-	}
-
 	/**
 	 * 列出登录者的登录历史
 	 * @param request

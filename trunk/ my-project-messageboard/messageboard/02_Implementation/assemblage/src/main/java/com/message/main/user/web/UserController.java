@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.message.base.pagination.PaginationSupport;
@@ -44,36 +45,18 @@ public class UserController extends SimpleController {
 	private static WebInput in = null;
 	private static WebOutput out = null;
 	
+	@Autowired
 	private UserService userService;
+	@Autowired
 	private UserPrivacyService userPrivacyService;
+	@Autowired
 	private FriendService friendService;
+	@Autowired
 	private AlbumService albumService;
+	@Autowired
 	private MessageService messageService;
+	@Autowired
 	private TweetService tweetService;
-
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}
-
-	public void setUserPrivacyService(UserPrivacyService userPrivacyService) {
-		this.userPrivacyService = userPrivacyService;
-	}
-	
-	public void setFriendService(FriendService friendService) {
-		this.friendService = friendService;
-	}
-
-	public void setAlbumService(AlbumService albumService) {
-		this.albumService = albumService;
-	}
-
-	public void setMessageService(MessageService messageService) {
-		this.messageService = messageService;
-	}
-
-	public void setTweetService(TweetService tweetService) {
-		this.tweetService = tweetService;
-	}
 
 	/**
 	 * 进入用户信息界面

@@ -14,7 +14,6 @@ import com.message.base.properties.MessageUtils;
 import com.message.base.spring.ApplicationHelper;
 import com.message.base.utils.FileUtils;
 import com.message.base.utils.MD5Utils;
-import com.message.base.utils.RequestUtils;
 import com.message.base.utils.StringUtils;
 import com.message.base.web.WebInput;
 import com.message.main.ResourceType;

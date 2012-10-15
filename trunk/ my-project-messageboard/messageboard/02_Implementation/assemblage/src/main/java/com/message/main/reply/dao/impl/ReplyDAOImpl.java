@@ -1,16 +1,16 @@
 package com.message.main.reply.dao.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.message.base.cache.utils.ObjectCache;
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
 import com.message.main.reply.dao.ReplyDAO;
 import com.message.main.reply.pojo.Reply;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 回复DAO接口实现.
@@ -18,7 +18,7 @@ import java.util.Map;
  * @author sunhao(sunhao.java@gmail.com)
  * @version V1.0, 12-8-31 下午9:41
  */
-public class ReplyDAOImpl extends GenericHibernateDAOImpl implements ReplyDAO {
+public class ReplyDAOImpl extends GenericHibernateDAO implements ReplyDAO {
     private GenericJdbcDAO genericJdbcDAO;
     private ObjectCache cache;
 

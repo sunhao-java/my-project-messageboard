@@ -1,6 +1,5 @@
 package com.message.main.album.dao.impl;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.message.base.cache.utils.ObjectCache;
-import com.message.base.hibernate.impl.GenericHibernateDAOImpl;
+import com.message.base.hibernate.GenericHibernateDAO;
 import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
@@ -24,7 +23,7 @@ import com.message.main.album.pojo.Photo;
  * @version V1.0
  * @createTime 2012-4-21 下午05:53:00
  */
-public class AlbumDAOImpl extends GenericHibernateDAOImpl implements AlbumDAO {
+public class AlbumDAOImpl extends GenericHibernateDAO implements AlbumDAO {
 	/**
 	 * 缓存
 	 */

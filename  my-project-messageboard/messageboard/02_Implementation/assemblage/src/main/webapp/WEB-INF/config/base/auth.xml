@@ -55,6 +55,7 @@
             <props>
             	<prop key="/upload/*.do">genericController</prop>
                 <prop key="/guest/*.do">genericController</prop>
+                <prop key="/guest.do">genericController</prop>
                 <prop key="/login/login.do">genericController</prop>
                 <prop key="/album/uploadPhoto.do">genericController</prop>
             </props>

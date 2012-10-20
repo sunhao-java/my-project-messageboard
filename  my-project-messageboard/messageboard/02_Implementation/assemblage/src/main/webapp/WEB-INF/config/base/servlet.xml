@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd" >
 <beans>
-	<!--<bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-				<property name="location">
-					<value>
-						classpath:message_controllers.properties
-					</value>
-				</property>
-			</bean>
-		</property>
-	</bean>-->
-	
 	<!-- 配置tiles页面解析器--> 
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass">
@@ -56,10 +44,11 @@
 		<property name="viewResolver" ref="viewResolver"/>
 		<property name="render" value="true"/>
         <property name="expires" value="true"/>
+        <property name="controllerForwardCenter" ref="controllerForwardCenter"/>
 	</bean>
 	
-	<!-- 配置ControllerProcess -->
-	<bean id="controllerProcess" class="com.message.base.spring.ControllerProcess">
+	<!-- controller转发中心配置 -->
+	<bean id="controllerForwardCenter" class="com.message.base.spring.ControllerForwardCenter">
 		<property name="controllerConfigFiles">
 			<list>
 				<value>classpath:message_controllers.properties</value>
@@ -70,20 +59,18 @@
 				<value>classpath:message_parameter.properties</value>
 			</list>
 		</property>
+		<property name="debug" value="false"/>
+		<property name="beanParameterHandlers">
+			<list>
+				<bean class="com.message.base.spring.BeanHandler">
+					<property name="clazz" value="com.message.main.login.pojo.LoginUser"/>
+					<property name="value" ref="loginUserBeanHandlerFactory"/>
+				</bean>
+			</list>
+		</property>
 	</bean>
-	
-	<bean id="beanHandler" class="java.util.ArrayList">
-        <constructor-arg>
-            <list>
-            	<bean class="com.message.base.spring.BeanHandler">
-                    <property name="clazz" value="com.message.main.login.pojo.LoginUser"/>
-                    <property name="value" ref="testHandlerFactory"/>
-                </bean>
-            </list>
-        </constructor-arg>
-    </bean>
     
-    <bean id="testHandlerFactory" class="com.message.main.login.service.impl.LoginUserBeanHandlerFactory"/>
+    <bean id="loginUserBeanHandlerFactory" class="com.message.main.login.service.impl.LoginUserBeanHandlerFactory"/>
     
     <!-- 文件下载的controller -->
     <bean id="downloadFileController" class="com.message.main.upload.web.DownloadFileController">

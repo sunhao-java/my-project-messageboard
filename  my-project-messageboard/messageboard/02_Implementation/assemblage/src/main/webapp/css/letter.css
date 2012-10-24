@@ -1,0 +1,117 @@
+@CHARSET "UTF-8";
+a:link,a:visited {
+	color: #06C;
+	text-decoration: none;
+}
+
+a:link,a:visited {
+	color: #06C;
+	text-decoration: none;
+}
+
+a {
+	outline: none;
+}
+
+p.bar {
+	margin: 0;
+	padding: 3px 0 0 20px;
+	background: white;
+	line-height: 30px;
+}
+
+.ui-t2 {
+	background: white url(../image/wiseduimg/ui-bg.gif) repeat-y scroll 1000px 0;
+	border-top: 1px solid #CCC;
+	min-height: 601px;
+	height: auto !important;
+	height: 601px;
+	overflow: visible;
+}
+
+table#pmlist {
+	table-layout: fixed;
+	width: 100%;
+	margin: 2px 0;
+	font-size: inherit;
+	font: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+#pmsg .new {
+	background-color: #E8F4FF;
+}
+
+#pmsg .sel {
+	width: 4em;
+}
+
+#pmsg .ava {
+	width: 90px;
+}
+
+#pmsg .per {
+	width: 15.5em;
+	color: #999;
+}
+
+.pm-bd td {
+	padding: 5px 0;
+	border-top: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+
+#pmsg .per .time {
+	display: block;
+	color: #999;
+}
+
+#pmsg .new .title {
+	font-weight: bold;
+}
+
+#pmsg .title {
+	padding-bottom: 2px;
+	line-height: 120%;
+}
+
+#pmsg .title a {
+	display: block;
+	padding-bottom: 5px;
+	font-size: 14px;
+}
+
+#pmsg .title a:hover{
+	text-decoration: underline;
+}
+
+#pmsg .pm-bd .summary {
+	background: none !important;
+}
+
+#pmsg .pm-bd .summary {
+	display: block;
+	color: #666;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+#pmsg .act {
+	text-align: center;
+	width: 48px;
+}
+
+td.act a {
+	display: block;
+	width: 13px;
+	height: 14px;
+	overflow: hidden;
+	background: url(base/img/delete.gif);
+	text-indent: -999em;
+}
+
+td.act a:hover {
+    background-position: 0 -14px;
+    vertical-align: middle !important;
+}

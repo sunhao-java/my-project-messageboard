@@ -70,6 +70,7 @@ textarea{
     overflow: visible;
     top: -1px;
     word-wrap: break-word;
+    min-height: 600px;
 }
 
 .content01 .top{

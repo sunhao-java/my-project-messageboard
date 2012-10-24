@@ -12,6 +12,7 @@
 	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<property name="definitions">
 			<list>
+				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/info/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/message/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/user/tiles-def.xml</value>
@@ -21,7 +22,7 @@
 				<value>/WEB-INF/tiles-defs/album/tiles-def.xml</value>
 				<value>/WEB-INF/tiles-defs/friend/tiles-def.xml</value>
                 <value>/WEB-INF/tiles-defs/reply/tiles-def.xml</value>
-				<value>/WEB-INF/tiles-defs/main-tiles-def.xml</value>
+                <value>/WEB-INF/tiles-defs/letter/tiles-def.xml</value>
 			</list>
 		</property>
 	</bean>

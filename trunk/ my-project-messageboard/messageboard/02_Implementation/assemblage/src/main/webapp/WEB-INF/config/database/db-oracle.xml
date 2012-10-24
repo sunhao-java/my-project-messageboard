@@ -69,6 +69,8 @@
                 <value>com/message/main/friend/po/FriendGroup.hbm.xml</value>
                 <value>com/message/main/friend/po/FriendGroupUser.hbm.xml</value>
                 <value>com/message/main/tweet/pojo/Tweet.hbm.xml</value>
+                <value>com/message/main/letter/pojo/Letter.hbm.xml</value>
+                <value>com/message/main/letter/pojo/LetterUserRelation.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

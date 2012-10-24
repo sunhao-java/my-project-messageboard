@@ -41,6 +41,7 @@
                 <prop key="/resource.do">genericController</prop>
                 <prop key="/tweet/*.do">genericController</prop>
                 <prop key="/tweet.do">genericController</prop>
+                <prop key="/letter/*.do">genericController</prop>
                 <prop key="/downloadfile/**/*">downloadFileController</prop>
                 <!-- 暂时取消验证，否则会导致swfupload不能上传的bug -->
                 <!--<prop key="/upload/*.do">uploadController</prop>-->

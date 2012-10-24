@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2011-6-16 13:49:15 by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+	<class name="com.message.main.letter.pojo.LetterUserRelation" table="t_message_letter_user">
+		<id name="pkId" type="java.lang.Long">
+			<column name="PK_ID" precision="10" scale="0"/>
+			<generator class="sequence">
+				<param name="sequence">seq_message_letter</param>
+			</generator>
+		</id>
+		<property name="receiverId" type="java.lang.Long">
+			<column name="RECEIVER_ID" precision="10" scale="0">
+				<comment>接收者ID</comment>
+			</column>
+		</property>
+		<property name="acceptTime" type="java.util.Date">
+			<column name="ACCEPT_TIME">
+				<comment>接收时间</comment>
+			</column>
+		</property>
+		<property name="read" type="java.lang.Integer">
+			<column name="READ" length="1">
+				<comment>是否是已读(1已读0未读)</comment>
+			</column>
+		</property>
+		<property name="deleteFlag" type="java.lang.Long">
+			<column name="DELETE_FLAG" length="1">
+				<comment>删除的标识(1删除0未删)</comment>
+			</column>
+		</property>
+		<property name="letterId" type="java.lang.Long">
+			<column name="LETTER_ID" precision="10" scale="0">
+				<comment>站内信主题信息ID</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

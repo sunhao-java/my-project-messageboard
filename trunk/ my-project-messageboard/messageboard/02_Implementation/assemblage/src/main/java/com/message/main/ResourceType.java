@@ -215,4 +215,16 @@ public final class ResourceType {
     public static final Integer RETURN_PKID = Integer.valueOf(1);
     //返回其他
     public static final Integer RETURN_OTHER = Integer.valueOf(2);
+    
+    //站内信标识
+    /**
+     * 是否是站内信回复(1站内信0站内信回复)
+     */
+    public static final Long IS_LETTER_YES = Long.valueOf(1);
+    public static final Long IS_LETTER_NO = Long.valueOf(0);
+    /**
+     * 是否是已读(1已读0未读)
+     */
+    public static final Integer READ_YES = Integer.valueOf(1);
+    public static final Integer READ_NO = Integer.valueOf(0);
 }

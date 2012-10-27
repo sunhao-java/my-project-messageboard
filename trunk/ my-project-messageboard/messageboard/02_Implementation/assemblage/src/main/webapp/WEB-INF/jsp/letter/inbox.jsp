@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 <!--
-* 个人主页
+* 站内信收件箱
 * Developed By: sunhao
 * Mail: sunhao.java@gmail.com
-* Time: 12-8-16 下午10:04
+* Time: 12-10-24 下午11:22
 * Version:1.0
 * History:
 -->

@@ -64,6 +64,14 @@ textarea{
 	width: 350px;
 }
 
+.width400{
+	width: 400px;
+}
+
+.width450{
+	width: 450px;
+}
+
 .content01{
 	background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #ADADAD;
@@ -199,7 +207,7 @@ ul.navigation li.split {
 	margin-right: 10px;
 }
 
-input.f-button{
+input.f-button, input.f-alt{
 	border-color: #DDDDDD #264F6E #264F6E #DDDDDD;
 	border-width: 1px;
 	border-style: solid;
@@ -213,6 +221,12 @@ input.f-button{
 	cursor: pointer;
 }
 
+input.f-alt {
+	background: #EEE;
+	border-color: white #999 #999 white;
+	color: #333;
+}
+
 ul li, ol li{
 	list-style: none;
 	list-style-type: none;
@@ -221,4 +235,21 @@ ul li, ol li{
 .dialog{
 	background: none !important;
 	padding: 0px !important;
+}
+
+.msg-error, .msg-succ {
+    background: none repeat scroll 0 0 #FFEBE8;
+    border: 1px solid #DD3C10;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.msg-succ {
+    background: none repeat scroll 0 0 #FFFBCC;
+    border: 1px solid #FFEC19;
+}
+
+.msg-error {
+    background: none repeat scroll 0 0 #FFEBE8;
+    border: 1px solid #DD3C10;
 }

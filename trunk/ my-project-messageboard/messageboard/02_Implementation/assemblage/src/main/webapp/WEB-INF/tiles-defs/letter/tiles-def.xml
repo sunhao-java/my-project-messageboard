@@ -8,4 +8,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/letter/inbox.jsp"/>
 	</definition>
 	
+	<definition name="letter.compose" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/letter/compose.jsp"/>
+	</definition>
 </tiles-definitions>        

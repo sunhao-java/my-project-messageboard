@@ -17,7 +17,7 @@
 		</property>
 		<property name="acceptTime" type="java.util.Date">
 			<column name="ACCEPT_TIME">
-				<comment>接收时间</comment>
+				<comment>查看时间</comment>
 			</column>
 		</property>
 		<property name="read" type="java.lang.Integer">

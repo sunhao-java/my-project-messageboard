@@ -102,4 +102,9 @@
 		<property name="friendService" ref="friendService"/>
         <property name="replyService" ref="replyService"/>
 	</bean>
+	
+	<!-- 站内信 -->
+	<bean id="letterService" class="com.message.main.letter.service.impl.LetterServiceImpl">
+		<property name="letterDAO" ref="letterDAO"/>
+	</bean>
 </beans>

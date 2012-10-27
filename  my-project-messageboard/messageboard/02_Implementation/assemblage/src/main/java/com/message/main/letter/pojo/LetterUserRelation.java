@@ -25,7 +25,7 @@ public class LetterUserRelation implements Serializable {
 	@Column
 	private Long receiverId;			//接收者ID
 	@Column
-	private Date acceptTime;			//接收时间
+	private Date acceptTime;			//查看时间
 	@Column
 	private Integer read;				//是否是已读(1已读0未读)
 	@Column

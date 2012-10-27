@@ -115,3 +115,18 @@ td.act a:hover {
     background-position: 0 -14px;
     vertical-align: middle !important;
 }
+
+.pmsg-comp {
+	padding: 20px 100px;
+}
+
+#pmsg table {
+	table-layout: fixed;
+	width: 100%;
+	margin: 2px 0;
+}
+
+.pmsg-comp td {
+	padding: 8px;
+	vertical-align: top;
+}

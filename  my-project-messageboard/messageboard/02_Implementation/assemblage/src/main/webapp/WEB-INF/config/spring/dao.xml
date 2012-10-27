@@ -58,4 +58,5 @@
 		<property name="genericJdbcDAO" ref="genericJdbcDAO"/>
 	</bean>
 	
+	<bean id="letterDAO" class="com.message.main.letter.dao.impl.LetterDAOImpl" parent="genericJdbcDAO"/>
 </beans>

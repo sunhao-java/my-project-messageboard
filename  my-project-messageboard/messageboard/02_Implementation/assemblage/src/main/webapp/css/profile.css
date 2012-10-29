@@ -379,7 +379,7 @@ div.myblog:hover{
 }
 
 #tForm #tFormOpts {
-	margin: 0 0 0 5px;
+	margin: -2px 0px 0px 500px;
 	padding: 0px;
 }
 
@@ -514,7 +514,7 @@ ul.tabs li.active a {
 
 .extBtn {
     height: 28px;
-    margin-right: 160px;
+    margin-right: 200px;
     padding-top: 6px;
     position: relative;
     z-index: 2;

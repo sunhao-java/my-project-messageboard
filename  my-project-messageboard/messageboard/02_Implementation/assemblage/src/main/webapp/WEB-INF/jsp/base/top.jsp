@@ -53,18 +53,19 @@
 				
 				$('#layout').bind('click', function(){
 					var link = $(this);
-					var main = window.parent.frames['mainFrameSet'];
+					//var main = top.window.parent.frames['mainFrameSet'];
+					var main = parent.document.getElementById('mainFrameSet');
 					if(link.hasClass('layout-button-up')){
 						link.removeClass('layout-button-up');
 						link.addClass('layout-button-down');
-						link.parent('div').addClass('left0');
+						//link.parent('div').addClass('left0');
 						$('.welcomeuser').css('margin-top', '0px');
 						link.attr('title', '向下展开');
 						main.rows = '25,*,50';
 					} else {
 						link.removeClass('layout-button-down');
 						link.addClass('layout-button-up');
-						link.parent('div').removeClass('left0');
+						//link.parent('div').removeClass('left0');
 						$('.welcomeuser').css('margin-top', '39px');
 						link.attr('title', '向上收缩');
 						main.rows = '70,*,50';

@@ -106,5 +106,6 @@
 	<!-- 站内信 -->
 	<bean id="letterService" class="com.message.main.letter.service.impl.LetterServiceImpl">
 		<property name="letterDAO" ref="letterDAO"/>
+		<property name="userService" ref="userService"/>
 	</bean>
 </beans>

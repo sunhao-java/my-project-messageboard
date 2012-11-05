@@ -130,3 +130,51 @@ td.act a:hover {
 	padding: 8px;
 	vertical-align: top;
 }
+
+.letter-content{
+	padding: 10px 30px 30px;
+}
+
+.letter-content .hd {
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 5px;
+}
+
+.letter-content .hd h2 {
+	margin: 4px 24px 4px 165px;
+}
+
+.letter-content .bd {
+	padding-top: 10px;
+}
+
+.letter-content table{
+	table-layout: fixed;
+	width: 100%;
+	margin: 2px 0;
+}
+
+.letter-content .ava {
+	width: 90px;
+}
+
+.letter-content table td {
+	padding: 5px 0;
+	vertical-align: top;
+}
+
+.letter-content .per {
+	padding-top: 5px;
+	text-align: center;
+	width: 10.5em;
+	color: #999;
+}
+
+.letter-content .per .time {
+	display: block;
+	color: #999;
+}
+
+.letter-content .cnt {
+	border-bottom: 1px solid #DDD;
+}

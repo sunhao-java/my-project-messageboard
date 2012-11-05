@@ -152,6 +152,10 @@ public class UserServiceImpl implements UserService{
 	}
 
 	public User getUserById(Long userId) throws Exception {
+		if(userId == null || Long.valueOf(-1).equals(userId)){
+			logger.warn("userId is null!");
+			return null;
+		}
 		return this.userDAO.getUserById(userId);
 	}
 

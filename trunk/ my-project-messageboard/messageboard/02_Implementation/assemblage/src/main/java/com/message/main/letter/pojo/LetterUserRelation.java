@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.message.main.user.pojo.User;
+
 /**
  * 站内信与人员之间的信息.
  * 
@@ -32,6 +34,10 @@ public class LetterUserRelation implements Serializable {
 	private Long deleteFlag;			//删除的标识(1删除0未删)
 	@Column
 	private Long letterId;				//站内信主题信息ID
+	
+	//VO
+	private Letter letter;				//对应的站内信主体信息
+	private User receiver;				//接收者
 
 	public Long getPkId() {
 		return pkId;
@@ -79,5 +85,21 @@ public class LetterUserRelation implements Serializable {
 
 	public void setLetterId(Long letterId) {
 		this.letterId = letterId;
+	}
+
+	public Letter getLetter() {
+		return letter;
+	}
+
+	public void setLetter(Letter letter) {
+		this.letter = letter;
+	}
+
+	public User getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(User receiver) {
+		this.receiver = receiver;
 	}
 }

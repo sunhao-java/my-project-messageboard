@@ -11,4 +11,9 @@
 	<definition name="letter.compose" extends="message.home">
 		<put-attribute name="content" value="/WEB-INF/jsp/letter/compose.jsp"/>
 	</definition>
+	
+	<definition name="letter.show" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/letter/show.jsp"/>
+	</definition>
+	
 </tiles-definitions>        

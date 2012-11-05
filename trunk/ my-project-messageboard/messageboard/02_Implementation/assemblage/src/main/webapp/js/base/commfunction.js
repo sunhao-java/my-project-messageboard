@@ -187,3 +187,37 @@ function updateObject(requestURL, responseURL, alertMsg){
 		});
 	}});
 }
+
+/**
+ * 获取table中被选中的行的对象ID
+ * 
+ * @param pId			checkbox的name
+ * @param single		是否是多选
+ * @return
+ */
+function getSelectedRows(pId, single){
+	var pIdFields = $('input[type=checkbox][name=' + pId + ']:checked');
+	var result = [];
+	
+	if(pIdFields.length == 0){
+    	YAHOO.app.dialog.pop({
+    		dialogHead: "提示", 
+    		cancelButton: 'false', 
+    		alertMsg: "至少选择一行！",
+    		icon: 'blckicon'
+    	});
+    } else if(pIdFields.length > 1 && single){
+    	YAHOO.app.dialog.pop({
+    		dialogHead: "提示", 
+    		cancelButton: 'false', 
+    		alertMsg: "只能选择一行！",
+    		icon: 'blckicon'
+    	});
+    } else {
+        for(var i = 0; i < pIdFields.length; i++){
+        	result[i] = pIdFields[i].value;
+        }
+    }
+	
+	return result;
+}

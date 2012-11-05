@@ -62,7 +62,7 @@
 <div class="profile-main">
 	<div id="topbar">
 		<div id="visitorInfo">
-			当前访客身份： ${loginUser.truename } [ <a href="${contextPath}/user/profile.do">我的空间</a> ]
+			当前访客身份： ${loginUser.truename } [ <a href="${contextPath}/user/profile.do">我的主页</a> ]
 		</div>
 		<div class="clear"></div>
 	</div>

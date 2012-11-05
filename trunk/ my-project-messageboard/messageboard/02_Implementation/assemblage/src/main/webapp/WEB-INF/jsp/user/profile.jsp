@@ -488,13 +488,13 @@
 				    			<table class="tab-table">
 									<tr>
 										<td class="TweetUser">
-											<a href="#">
+											<a href="${contextPath }/user/profile.do?uid=${message1.createUser.pkId}">
 												<msg:head userId="${message1.createUser.pkId}" headType="2"/>
 											</a>
 										</td>
 										<td class="TweetContent">
 											<h5>
-												<a href="#" class="user">${message1.createUser.truename}</a>
+												<a href="${contextPath }/user/profile.do?uid=${message1.createUser.pkId}" class="user">${message1.createUser.truename}</a>
 												<span class="action1">
 													更新了博客 --
 													<a href="${contextPath}/message/inDetailJsp.do?pkId=${message1.pkId}" 

@@ -31,12 +31,13 @@ public interface LetterService {
 	 * 获取当前登录人的收件箱内容
 	 * 
 	 * @param loginUser			当前登录人
+	 * @param read				为空取全部;为1取已读;为0取未读
 	 * @param start
 	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getInbox(LoginUser loginUser, int start, int num) throws Exception;
+	PaginationSupport getInbox(LoginUser loginUser, Integer read, int start, int num) throws Exception;
 	
 	/**
 	 * 获取站内信

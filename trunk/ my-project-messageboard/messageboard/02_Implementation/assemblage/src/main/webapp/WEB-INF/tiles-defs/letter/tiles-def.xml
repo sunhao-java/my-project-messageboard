@@ -16,4 +16,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/letter/show.jsp"/>
 	</definition>
 	
+	<definition name="letter.outbox" extends="message.home">
+		<put-attribute name="content" value="/WEB-INF/jsp/letter/outbox.jsp"/>
+	</definition>
+	
 </tiles-definitions>        

@@ -24,10 +24,15 @@ public class LetterDAOImpl extends GenericJdbcDAO implements LetterDAO {
 		return this.genericInsert(entity);
 	}
 
-	public PaginationSupport getInbox(Long userId, int start, int num) throws Exception {
+	public PaginationSupport getInbox(Long userId, Integer read, int start, int num) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		String sql = "select * from t_message_letter_user lu where lu.receiver_id = :uid and " +
-				" lu.delete_flag = :deleteFlag order by lu.pk_id desc ";
+				" lu.delete_flag = :deleteFlag ";
+		if(read != null){
+			sql += " and lu.read = :read ";
+			params.put("read", read);
+		}
+		sql += " order by lu.pk_id desc ";
 		
 		params.put("uid", userId);
 		params.put("deleteFlag", ResourceType.DELETE_NO);

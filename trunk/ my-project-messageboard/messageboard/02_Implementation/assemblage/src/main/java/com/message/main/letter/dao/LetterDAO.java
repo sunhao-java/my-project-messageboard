@@ -29,12 +29,13 @@ public interface LetterDAO {
 	 * 根据用户ID获取此人的收件箱内容
 	 * 
 	 * @param userId		用户ID
+	 * @param read			为空取全部;为1取已读;为0取未读
 	 * @param start
 	 * @param num
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport getInbox(Long userId, int start, int num) throws Exception;
+	PaginationSupport getInbox(Long userId, Integer read, int start, int num) throws Exception;
 	
 	/**
 	 * 根据class和主键获取DB中的对象

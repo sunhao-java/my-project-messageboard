@@ -1,6 +1,5 @@
 package com.message.main.letter.web;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +42,9 @@ public class LetterController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
+		Integer read = in.getInt("r");
 		
-		params.put("paginationSupport", this.letterService.getInbox(loginUser, start, num));
+		params.put("paginationSupport", this.letterService.getInbox(loginUser, read, start, num));
 		params.put("current", "inbox");
 		return new ModelAndView("letter.inbox", params);
 	}
@@ -146,5 +146,21 @@ public class LetterController {
 		params.put(ResourceType.AJAX_STATUS, res ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
 		return null;
+	}
+	
+	/**
+	 * 发件箱
+	 * 
+	 * @param in
+	 * @param out
+	 * @param loginUser
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView outbox(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("current", "outbox");
+		return new ModelAndView("letter.outbox", params);
 	}
 }

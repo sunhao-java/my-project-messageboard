@@ -74,13 +74,13 @@ public class LetterServiceImpl implements LetterService {
 		return true;
 	}
 
-	public PaginationSupport getInbox(LoginUser loginUser, int start, int num) throws Exception {
+	public PaginationSupport getInbox(LoginUser loginUser, Integer read, int start, int num) throws Exception {
 		if(loginUser == null || loginUser.getPkId() == null){
 			logger.warn("not login!");
 			return PaginationUtils.getNullPagination();
 		}
 		
-		PaginationSupport ps = this.letterDAO.getInbox(loginUser.getPkId(), start, num);
+		PaginationSupport ps = this.letterDAO.getInbox(loginUser.getPkId(), read, start, num);
 		List relations = ps.getItems();
 		for(int i = 0; i < relations.size(); i++){
 			LetterUserRelation r = (LetterUserRelation) relations.get(i);

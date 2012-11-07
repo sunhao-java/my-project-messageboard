@@ -104,8 +104,8 @@
          	<a href="javaScript:setRead(0);">设置为未读</a>
          </span>
 		<span style="float:right"> 
-			<a href="/message/inbox.do?r=1">已读信件 </a> &nbsp;|&nbsp; 
-			<a href="/message/inbox.do?r=0">未读信件 </a> 
+			<a href="${contextPath}/letter/inbox.do?r=1">已读信件 </a> &nbsp;|&nbsp; 
+			<a href="${contextPath}/letter/inbox.do?r=0">未读信件 </a> 
 		</span>
 	</div>
 

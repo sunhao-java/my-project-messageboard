@@ -9,6 +9,7 @@ import com.message.base.jdbc.GenericJdbcDAO;
 import com.message.base.pagination.PaginationSupport;
 import com.message.main.ResourceType;
 import com.message.main.letter.dao.LetterDAO;
+import com.message.main.letter.pojo.Letter;
 import com.message.main.letter.pojo.LetterUserRelation;
 
 /**
@@ -54,33 +55,41 @@ public class LetterDAOImpl extends GenericJdbcDAO implements LetterDAO {
 		
 		return this.queryForBeanList(sql, -1, -1, params, LetterUserRelation.class);
 	}
-
-	public LetterUserRelation getRelation(Long letterId, Long receiverId) throws Exception {
-		Map<String, Object> params = new HashMap<String, Object>();
-		String sql = "select * from t_message_letter_user lu where lu.delete_flag = :deleteFlag " +
-				" and lu.letter_id = :letterId and receiver_id = :receiverId ";
-		
-		params.put("letterId", letterId);
-		params.put("deleteFlag", ResourceType.DELETE_NO);
-		params.put("receiverId", receiverId);
-		
-		return (LetterUserRelation) this.queryForBean(sql, params, LetterUserRelation.class);
-	}
 	
 	public void updateObject(Object obj) throws Exception {
 		this.genericUpdate(obj);
 	}
 
-	public boolean deleteInbox(List<Long> letterIds, Long receiverId) throws Exception {
+	public boolean deleteInbox(List<Long> lrids) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String sql = "update t_message_letter_user lu set lu.delete_flag = :deleteFlag where lu.letter_id " +
-				" in (:letterIds) and receiver_id = :receiverId";
+		String sql = "update t_message_letter_user lu set lu.delete_flag = :deleteFlag where lu.pk_id " +
+				" in (:lrids) ";
 		
-		params.put("letterIds", letterIds);
+		params.put("lrids", lrids);
 		params.put("deleteFlag", ResourceType.DELETE_YES);
-		params.put("receiverId", receiverId);
 		
-		return this.update(sql, params) == letterIds.size();
+		return this.update(sql, params) == lrids.size();
 	}
 
+	public boolean deleteOutBox(List<Long> lids) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "update t_message_letter l set l.delete_flag = :deleteFlag where l.pk_id " +
+				" in (:lids) ";
+		
+		params.put("lids", lids);
+		params.put("deleteFlag", ResourceType.DELETE_YES);
+		
+		return this.update(sql, params) == lids.size();
+	}
+
+	public PaginationSupport getOutBox(Long userId, int start, int num) throws Exception {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String sql = "select l.pk_id from t_message_letter l where l.creator_id = :uid and " +
+				" l.delete_flag = :deleteFlag order by l.pk_id desc ";
+		
+		params.put("uid", userId);
+		params.put("deleteFlag", ResourceType.DELETE_NO);
+		
+		return this.getBeanPaginationSupport(sql, null, start, num, params, Letter.class);
+	}
 }

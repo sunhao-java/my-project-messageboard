@@ -11,12 +11,32 @@
 -->
 
 <msg:js src="js/jquery/jquery-1.4.2.min.js"/>
+<msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:css href="css/letter.css"/>
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		using("confirm", function(){
+			$('.pm-del').each(function(){
+				var del = $(this);
+				del.confirm({
+					confirmMessage: '站内信',
+                    removeElement: $('#letter_' + del.attr('lrids')),
+                    customSucTip: function(status){
+						$('#msg_succ').show();
+						setTimeout(function() {
+	                        $('#msg_succ').hide('slow');
+	                    }, 1000);
+                    },
+                    customErrTip: function(status){
+                    	$('#msg-error').show();
+                    }
+				});
+			});
+		});
+		
 		$('#batchDelbtn').bind('click', function(){
 			var letterIds = getSelectedRows('letterId', false);
 			if(letterIds == null || letterIds.length == 0){
@@ -27,7 +47,7 @@
 				'alertMsg':'确定要删除选中的站内信?',
 				'confirmFunction':function(){
 					$.ajax({
-						url: '${contextPath}/letter/delete.do?letterIds=' + letterIds,
+						url: '${contextPath}/letter/deleteInBox.do?lrids=' + letterIds,
                         type: 'post',
                         dataType: 'json',
                         success: function(o){
@@ -68,7 +88,7 @@
 		}
 		
 		$.ajax({
-			url: '${contextPath}/letter/setRead.do?letterIds=' + letterIds + '&type=' + type,
+			url: '${contextPath}/letter/setRead.do?luids=' + letterIds + '&type=' + type,
             type: 'post',
             dataType: 'json',
             success: function(o){
@@ -92,6 +112,14 @@
 <div class="content01">
 	<jsp:include page="letter_head.jsp"/>
 	
+	<div style="display:none" class="msg-succ" id="msg_succ">
+	 	删除站内信成功！
+	</div>
+
+	<div id="msg-error" class="msg-error" style="display:none">
+		删除站内信失败！
+	</div>
+	
 	<p class="bar">
 		${paginationSupport.totalRow } 封站内信
     </p>
@@ -113,10 +141,10 @@
 		<div class="pm-bd">
 			<table id="pmlist">
 				<c:forEach items="${paginationSupport.items }" var="lr">
-					<tr <c:if test="${lr.read eq 0}">class="new"</c:if> id="letter_${lr.letter.pkId}">
+					<tr <c:if test="${lr.read eq 0}">class="new"</c:if> id="letter_${lr.pkId}">
 						<td class="sel">
 							&nbsp;&nbsp;&nbsp;&nbsp;
-							<input type="checkBox" name="letterId" value="${lr.letter.pkId}">
+							<input type="checkBox" name="letterId" value="${lr.pkId}">
 						</td>
 						<td class="ava">
 							<a href="${contextPath}/user/profile.do?uid=${lr.letter.creatorId}"> 
@@ -144,7 +172,8 @@
 							</a>
 						</td>
 						<td class="act">
-							<a class="pm-del" rel="#" href="javascript:void(0)">删除 </a>
+							<a class="pm-del" rel="${contextPath}/letter/deleteInBox.do?lrids=${lr.pkId}" 
+								href="javascript:void(0)" lrids="${lr.pkId}">删除 </a>
 						</td>
 					</tr>
 				</c:forEach>

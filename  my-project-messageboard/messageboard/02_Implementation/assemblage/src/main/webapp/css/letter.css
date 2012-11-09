@@ -51,6 +51,10 @@ table#pmlist {
 	width: 90px;
 }
 
+.ava img{
+	vertical-align: middle;
+}
+
 #pmsg .per {
 	width: 15.5em;
 	color: #999;
@@ -88,6 +92,10 @@ table#pmlist {
 
 #pmsg .pm-bd .summary {
 	background: none !important;
+}
+
+a.summary{
+	color: #666 !important;
 }
 
 #pmsg .pm-bd .summary {

@@ -108,7 +108,7 @@ public class LetterController {
 	}
 	
 	/**
-	 * 删除站内信的方法
+	 * 删除发件箱站内信的方法
 	 * 
 	 * @param in
 	 * @param out
@@ -116,11 +116,31 @@ public class LetterController {
 	 * @return
 	 * @throws Exception
 	 */
-	public ModelAndView delete(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+	public ModelAndView deleteOutBox(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		String letterIds = in.getString("letterIds", StringUtils.EMPTY);
+		String lids = in.getString("lids", StringUtils.EMPTY);
 		
-		boolean res = this.letterService.delete(letterIds, true, loginUser);
+		boolean res = this.letterService.delete(lids, false);
+		
+		params.put(ResourceType.AJAX_STATUS, res ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
+		out.toJson(params);
+		return null;
+	}
+	
+	/**
+	 * 删除收件箱的站内信
+	 * 
+	 * @param in
+	 * @param out
+	 * @param loginUser
+	 * @return
+	 * @throws Exception
+	 */
+	public ModelAndView deleteInBox(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+		Map<String, Object> params = new HashMap<String, Object>();
+		String lrids = in.getString("lrids", StringUtils.EMPTY);
+		
+		boolean res = this.letterService.delete(lrids, true);
 		
 		params.put(ResourceType.AJAX_STATUS, res ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
@@ -138,10 +158,10 @@ public class LetterController {
 	 */
 	public ModelAndView setRead(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		String letterIds = in.getString("letterIds", StringUtils.EMPTY);
+		String luids = in.getString("luids", StringUtils.EMPTY);
 		boolean type = in.getBoolean("type", true);
 		
-		boolean res = this.letterService.setReadOrUnRead(letterIds, loginUser, type);
+		boolean res = this.letterService.setReadOrUnRead(luids, loginUser, type);
 		
 		params.put(ResourceType.AJAX_STATUS, res ? ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
 		out.toJson(params);
@@ -159,7 +179,10 @@ public class LetterController {
 	 */
 	public ModelAndView outbox(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
+		int num = in.getInt("num", 10);
+		int start = SqlUtils.getStartNum(in, num);
 		
+		params.put("paginationSupport", this.letterService.getOutBox(loginUser, start, num));
 		params.put("current", "outbox");
 		return new ModelAndView("letter.outbox", params);
 	}

@@ -60,22 +60,54 @@ public interface LetterService {
 	/**
 	 * 将未读站内信设置为已读
 	 * 
-	 * @param letterIds		站内信ID
+	 * @param luids			站内信和用户关系对象ID
 	 * @param loginUser		当前登录人
 	 * @param setRead		true:设置成已读;false:设置成未读
 	 * @return
 	 * @throws Exception
 	 */
-	boolean setReadOrUnRead(String letterIds, LoginUser loginUser, boolean setRead) throws Exception;
+	boolean setReadOrUnRead(String luids, LoginUser loginUser, boolean setRead) throws Exception;
 	
 	/**
 	 * 删除站内信
 	 * 
-	 * @param letterIds		站内信的ID(以,分开)
+	 * @param ids			站内信的ID(以,分开)(收件箱或者发件箱)
 	 * @param isInbox		是否是收件箱删除(true收件箱false发件箱)
-	 * @param loginUser		登录人
 	 * @return
 	 * @throws Exception
 	 */
-	boolean delete(String letterIds, boolean isInbox, LoginUser loginUser) throws Exception;
+	boolean delete(String ids, boolean isInbox) throws Exception;
+	
+	/**
+	 * 获取登录用户的发件箱
+	 * 
+	 * @param loginUser		登录用户
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getOutBox(LoginUser loginUser, int start, int num) throws Exception;
+	
+	/**
+	 * 开放接口,给指定的人发送站内信(发给一个人)
+	 * 
+	 * @param title			站内信标题
+	 * @param content		站内信内容
+	 * @param receiverId	站内信接收人(单个人)
+	 * @return
+	 * @throws Exception
+	 */
+	boolean sendLetter(String title, String content, Long receiverId) throws Exception;
+	
+	/**
+	 * 开放接口,给指定的人发送站内信(群发)
+	 * 
+	 * @param title			站内信标题
+	 * @param content		站内信内容
+	 * @param receiverIds	站内信接收人集合(群发)
+	 * @return
+	 * @throws Exception
+	 */
+	boolean sendLetter(String title, String content, List<Long> receiverIds) throws Exception;
 }

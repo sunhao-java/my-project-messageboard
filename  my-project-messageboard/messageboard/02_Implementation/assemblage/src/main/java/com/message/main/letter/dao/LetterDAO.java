@@ -58,16 +58,6 @@ public interface LetterDAO {
 	List<LetterUserRelation> getReleationByLetter(Long letterId) throws Exception;
 	
 	/**
-	 * 获取某个接收者与指定站内信的关系
-	 * 
-	 * @param letterId		站内信ID
-	 * @param receiverId	人员ID
-	 * @return
-	 * @throws Exception
-	 */
-	LetterUserRelation getRelation(Long letterId, Long receiverId) throws Exception;
-	
-	/**
 	 * 更新对象
 	 * 
 	 * @param obj			要更新的对象
@@ -78,10 +68,29 @@ public interface LetterDAO {
 	/**
 	 * 删除收件箱中的站内信
 	 * 
-	 * @param letterIds		站内信IDs
-	 * @param receiverId	接收者ID
+	 * @param lrids			站内信收件箱IDs
 	 * @return
 	 * @throws Exception
 	 */
-	boolean deleteInbox(List<Long> letterIds, Long receiverId) throws Exception;
+	boolean deleteInbox(List<Long> lrids) throws Exception;
+	
+	/**
+	 * 删除发件箱中的站内信
+	 * 
+	 * @param lids			站内信发件箱IDS
+	 * @return
+	 * @throws Exception
+	 */
+	boolean deleteOutBox(List<Long> lids) throws Exception;
+	
+	/**
+	 * 根据用户ID获取此人的发件箱内容
+	 * 
+	 * @param userId		用户ID
+	 * @param start
+	 * @param num
+	 * @return
+	 * @throws Exception
+	 */
+	PaginationSupport getOutBox(Long userId, int start, int num) throws Exception;
 }

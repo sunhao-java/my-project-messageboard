@@ -1,6 +1,7 @@
 package com.message.main.letter.service.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -103,7 +104,15 @@ public class LetterServiceImpl implements LetterService {
 		}
 		
 		Letter letter = this.letterDAO.loadObject(Letter.class, pkId);
-		if(letter != null){
+		if(letter == null)
+			return null;
+		
+		if(letter.getPkId() != null){
+			List<LetterUserRelation> relations = this.getReleationByLetter(letter.getPkId());
+			letter.setRelations(relations);
+		}
+		
+		if(letter.getCreatorId() != null){
 			User user = this.userService.getUserById(letter.getCreatorId());
 			letter.setCreator(user);
 		}
@@ -131,33 +140,34 @@ public class LetterServiceImpl implements LetterService {
 		return lurs;
 	}
 
-	public boolean setReadOrUnRead(String letterIds, LoginUser loginUser, boolean setRead) throws Exception {
-		if(StringUtils.isEmpty(letterIds) || loginUser == null){
-			logger.warn("letter id is null or not login!");
+	public boolean setReadOrUnRead(String luids, LoginUser loginUser, boolean setRead) throws Exception {
+		if(StringUtils.isEmpty(luids) || loginUser == null){
+			logger.warn("letter user relation id is null or not login!");
 			return false;
 		}
 		
-		String[] ids = StringUtils.split(letterIds, ",");
+		String[] ids = StringUtils.split(luids, ",");
 		
 		for(String id : ids){
 			if(StringUtils.isEmpty(id) || !NumberUtils.isNumber(id)){
 				continue;
 			}
 			
-			Long letterId = Long.valueOf(id);
-			LetterUserRelation lur = this.letterDAO.getRelation(letterId, loginUser.getPkId());
+			Long luid = Long.valueOf(id);
+			LetterUserRelation lur = this.letterDAO.loadObject(LetterUserRelation.class, luid);
 			if(lur == null){
 				logger.warn("can't get any relation by given letterId:'{}' and receiverId:'{}'!", 
-						letterId, loginUser.getPkId());
+						luid, loginUser.getPkId());
 				continue;
 			}
 			
-			if(setRead && ResourceType.READ_NO.equals(lur.getRead()))
+			if(setRead && ResourceType.READ_NO.equals(lur.getRead())){
 				lur.setRead(ResourceType.READ_YES);
-			else if(!setRead && ResourceType.READ_YES.equals(lur.getRead()))
+				lur.setAcceptTime(new Date());
+			} else if(!setRead && ResourceType.READ_YES.equals(lur.getRead())){
 				lur.setRead(ResourceType.READ_NO);
-			else
-				return false;
+				lur.setAcceptTime(null);
+			}
 			
 			this.letterDAO.updateObject(lur);
 		}
@@ -165,23 +175,59 @@ public class LetterServiceImpl implements LetterService {
 		return true;
 	}
 
-	public boolean delete(String letterIds, boolean isInbox, LoginUser loginUser) throws Exception {
-		if(StringUtils.isEmpty(letterIds) || loginUser == null){
+	public boolean delete(String ids, boolean isInbox) throws Exception {
+		if(StringUtils.isEmpty(ids)){
 			logger.warn("given no letter ids!");
 			return false;
 		}
 		
-		String[] letterIdsTmp = StringUtils.split(letterIds, ",");
+		String[] idsTmp = StringUtils.split(ids, ",");
 		List<Long> pkIds = new ArrayList<Long>();
-		for(String id : letterIdsTmp){
+		for(String id : idsTmp){
 			if(StringUtils.isNotEmpty(id) && NumberUtils.isNumber(id))
 				pkIds.add(Long.valueOf(id));
 		}
 		
 		if(isInbox)
-			return this.letterDAO.deleteInbox(pkIds, loginUser.getPkId());
+			return this.letterDAO.deleteInbox(pkIds);
 		else
-			return false;	//删除发件箱
+			return this.letterDAO.deleteOutBox(pkIds);	//删除发件箱
 	}
 
+	public PaginationSupport getOutBox(LoginUser loginUser, int start, int num) throws Exception {
+		if(loginUser == null || loginUser.getPkId() == null){
+			logger.warn("not login!");
+			return PaginationUtils.getNullPagination();
+		}
+		
+		PaginationSupport ps = this.letterDAO.getOutBox(loginUser.getPkId(), start, num);
+		List<Letter> letters = ps.getItems();
+		for(int i = 0; i < letters.size(); i++){
+			Letter l = letters.get(i);
+			if(l != null && l.getPkId() != null){
+				letters.set(i, this.getLetter(l.getPkId()));
+			}
+		}
+		
+		return ps;
+	}
+
+	public boolean sendLetter(String title, String content, Long receiverId) throws Exception {
+		if(StringUtils.isEmpty(title) || StringUtils.isEmpty(content) || receiverId == null){
+			logger.warn("must given enough parameter!");
+			return false;
+		}
+		
+		return this.sendLetter(title, content, Arrays.asList(receiverId));
+	}
+
+	public boolean sendLetter(String title, String content, List<Long> receiverIds) throws Exception {
+		if(StringUtils.isEmpty(title) || StringUtils.isEmpty(content) || receiverIds.isEmpty()){
+			logger.warn("must given enough parameter!");
+			return false;
+		}
+		
+		//TODO 开始发送
+		return false;
+	}
 }

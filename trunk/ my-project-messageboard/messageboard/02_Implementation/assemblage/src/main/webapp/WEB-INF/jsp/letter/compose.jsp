@@ -37,7 +37,7 @@
 						dataType: 'json',
 						success: function(o){
 							if(o.status == '1'){
-								window.location.href = '${contextPath}/letter/inbox.do';
+								window.location.href = '${contextPath}/letter/outbox.do';
 							} else {
 								$('#msg-error').show();
 							}

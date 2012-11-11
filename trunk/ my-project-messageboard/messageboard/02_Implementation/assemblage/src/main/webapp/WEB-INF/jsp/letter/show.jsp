@@ -16,6 +16,18 @@
 
 </script>
 
+<style type="text/css">
+	.unread{
+		color: red;
+		font-weight: bold;
+	}
+	
+	.read{
+		color: #000000;
+		font-weight: normal;
+	}
+</style>
+
 <jsp:include page="/WEB-INF/jsp/base/head.jsp">
 	<jsp:param value="收件箱" name="title"/>
 </jsp:include>
@@ -31,7 +43,10 @@
 	            </h2>
 				收件人：
 				<c:forEach items="${lurs}" var="lur">
-					${lur.receiver.truename}
+					<span <c:if test="${lur.read eq 0}">class="unread" title="未读"</c:if>
+						<c:if test="${lur.read eq 1}">class="read" title="已读"</c:if>>
+						${lur.receiver.truename}
+					</span>
 				</c:forEach>
             </div>
             <div class="bd">
@@ -43,6 +58,7 @@
 						    </a>
 						</td>
 	                    <td class="per">
+	                    	发件人：
 	                        <a href="${contextPath}/user/profile.do?uid=${letter.creatorId}">
 	                            <span class="visitor_online">${letter.creator.truename}</span>
 	                        </a>

@@ -16,6 +16,7 @@
 <msg:css href="css/letter.css"/>
 
 <script type="text/javascript">
+	var count = '${paginationSupport.totalRow }';
 	$(document).ready(function(){
 		using("confirm", function(){
 			$('.pm-del').each(function(){
@@ -24,6 +25,8 @@
 					confirmMessage: '站内信',
                     removeElement: $('#letter_' + del.attr('lids')),
                     customSucTip: function(status){
+						$("#count").html(count - 1 + "");
+						count--;
 						$('#msg_succ').show();
 						setTimeout(function() {
 	                        $('#msg_succ').hide('slow');
@@ -84,8 +87,16 @@
 <div class="content01">
 	<jsp:include page="letter_head.jsp"/>
 	
+	<div style="display:none" class="msg-succ" id="msg_succ">
+	 	删除站内信成功！
+	</div>
+
+	<div id="msg-error" class="msg-error" style="display:none">
+		删除站内信失败！
+	</div>
+	
 	<p class="bar">
-		${paginationSupport.totalRow } 封站内信
+		<span id="count">${paginationSupport.totalRow }</span> 封站内信
     </p>
 	<div class="info" style="height: 25px; border-top: 1px solid #ccc; padding:10px 15px 0px;background: none repeat scroll 0 0 whiteSmoke" id="ctrlbar">
 		<span style="float:left"> 
@@ -108,8 +119,8 @@
 						</td>
 						<td class="ava" align="justify">
 							给：
-							<a href="${contextPath}/user/profile.do?uid=${l.creatorId}"> 
-								<msg:head userId="${l.creatorId}" headType="2"/>
+							<a href="${contextPath}/user/profile.do?uid=${firstLur.receiverId}"> 
+								<msg:head userId="${firstLur.receiverId}" headType="2"/>
 							</a>
 						</td>
 						<td class="per">

@@ -17,6 +17,7 @@
 <msg:css href="css/letter.css"/>
 
 <script type="text/javascript">
+	var count = '${paginationSupport.totalRow }';
 	$(document).ready(function(){
 		using("confirm", function(){
 			$('.pm-del').each(function(){
@@ -25,6 +26,8 @@
 					confirmMessage: '站内信',
                     removeElement: $('#letter_' + del.attr('lrids')),
                     customSucTip: function(status){
+						$("#count").html(count - 1 + "");
+						count--;
 						$('#msg_succ').show();
 						setTimeout(function() {
 	                        $('#msg_succ').hide('slow');
@@ -121,7 +124,7 @@
 	</div>
 	
 	<p class="bar">
-		${paginationSupport.totalRow } 封站内信
+		<span id="count">${paginationSupport.totalRow }</span> 封站内信
     </p>
 	<div class="info" style="height: 25px; border-top: 1px solid #ccc; padding:10px 15px 0px;background: none repeat scroll 0 0 whiteSmoke" id="ctrlbar">
 		<span style="float:left"> 
@@ -163,10 +166,10 @@
 							</span>
 						</td>
 						<td class="title">
-							<a href="${contextPath}/letter/show.do?lid=${lr.letter.pkId}">
+							<a href="${contextPath}/letter/show.do?lid=${lr.letter.pkId}&luid=${lr.pkId}">
 								<c:out value="${lr.letter.title}"/>
 							</a>
-							<a href="${contextPath}/letter/show.do?lid=${lr.letter.pkId}" class="summary">
+							<a href="${contextPath}/letter/show.do?lid=${lr.letter.pkId}&luid=${lr.pkId}" class="summary">
 								<msg:text endText="..." length="100" text="${lr.letter.content}" 
 									escapeHtml="true" default="..."/>
 							</a>

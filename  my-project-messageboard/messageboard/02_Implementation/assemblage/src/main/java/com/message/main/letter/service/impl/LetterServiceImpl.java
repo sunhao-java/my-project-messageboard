@@ -19,6 +19,7 @@ import com.message.main.letter.pojo.Letter;
 import com.message.main.letter.pojo.LetterUserRelation;
 import com.message.main.letter.service.LetterService;
 import com.message.main.login.pojo.LoginUser;
+import com.message.main.login.web.AuthContextHelper;
 import com.message.main.user.pojo.User;
 import com.message.main.user.service.UserService;
 
@@ -226,8 +227,24 @@ public class LetterServiceImpl implements LetterService {
 			logger.warn("must given enough parameter!");
 			return false;
 		}
+		LoginUser loginUser = AuthContextHelper.getAuthContext().getLoginUser();
+		if(loginUser == null){
+			logger.warn("send letter...not login...");
+			return false;
+		}
 		
-		//TODO 开始发送
-		return false;
+		Letter letter = new Letter();
+		letter.setTitle(title);
+		letter.setContent(content);
+		
+		StringBuffer ids = new StringBuffer();
+		for(Long id : receiverIds){
+			ids.append(id).append(",");
+		}
+		if(ids.length() > 0 && ids.lastIndexOf(",") != -1){
+			ids.substring(0, ids.length() - 1);
+		}
+		
+		return this.send(ids.toString(), letter, loginUser);
 	}
 }

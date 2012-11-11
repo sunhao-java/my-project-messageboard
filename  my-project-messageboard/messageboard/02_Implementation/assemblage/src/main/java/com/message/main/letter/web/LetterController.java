@@ -96,11 +96,15 @@ public class LetterController {
 	public ModelAndView show(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
 		Long lid = in.getLong("lid", Long.valueOf(-1));
+		Long luid = in.getLong("luid");
 		
 		Letter letter = this.letterService.getLetter(lid);
 		List<LetterUserRelation> lurs = this.letterService.getReleationByLetter(lid);
-		//设置成已读
-		this.letterService.setReadOrUnRead(lid + "", loginUser, true);
+		
+		if(luid != null){
+			//设置成已读
+			this.letterService.setReadOrUnRead(luid + "", loginUser, true);
+		}
 		
 		params.put("letter", letter);
 		params.put("lurs", lurs);

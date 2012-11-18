@@ -24,6 +24,9 @@
 				overflow-y: auto; 
 			}
 		</style>
+        <script type="text/javascript">
+            YAHOO.util.contextPath = '${contextPath}';
+        </script>
 	</head>
 	<body class="no-scroll yui-skin-sam">
 		<tiles:insertAttribute name="content"/>

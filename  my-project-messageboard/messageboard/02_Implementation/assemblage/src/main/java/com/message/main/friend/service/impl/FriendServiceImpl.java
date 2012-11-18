@@ -53,8 +53,8 @@ public class FriendServiceImpl implements FriendService {
 		this.mailSend = mailSend;
 	}
 
-	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception {
-		PaginationSupport ps = this.friendDAO.listFriends(userId, groupId, start, num);
+	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num, String keyword) throws Exception {
+		PaginationSupport ps = this.friendDAO.listFriends(userId, groupId, start, num, keyword);
 		List<Friend> friends = ps.getItems();
 		for(int i = 0; i < friends.size(); i++){
 			Friend f = friends.get(i);
@@ -103,7 +103,7 @@ public class FriendServiceImpl implements FriendService {
 	}
 
 	public List<Long> listFriendIds(Long userId) throws Exception {
-		PaginationSupport ps = this.listFriends(userId, null, -1, -1);
+		PaginationSupport ps = this.listFriends(userId, null, -1, -1, StringUtils.EMPTY);
 		List<Long> ids = new ArrayList<Long>();
 		for(Object f : ps.getItems()){
 			Friend friend = (Friend) f;

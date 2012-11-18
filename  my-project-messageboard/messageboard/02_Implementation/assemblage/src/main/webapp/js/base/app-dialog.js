@@ -43,6 +43,8 @@ YAHOO.app.dialog = function(){
 			var autoClose_ = args.autoClose;						//是否自动关闭，为空表示手动关闭对话框
 			
 			var extBtn_ = args.extBtn;								//自定义扩展的按钮,默认为空
+
+            var popFuc_ = args.popFunc;                                // 弹窗后需要执行的函数
 			
 			/**
 			 * B.ICON_BLOCK = "blckicon"; 
@@ -198,7 +200,13 @@ YAHOO.app.dialog = function(){
 			            alertDialog.render(document.body);
 						alertDialog.setHeader(dialogHead_);	//头上显示文字
 						alertDialog.show();
-			
+
+                        if(popFuc_) {
+                            if($L.isString(popFuc_)){
+                                popFuc_ = YAHOO.util.decode(popFuc_);
+                            }
+                            popFuc_();
+                        }
 			            return alertDialog;
                     },
                     failure : function(o){
@@ -230,7 +238,13 @@ YAHOO.app.dialog = function(){
 				alertDialog.show();
 				
 				dom.addClass(id_, 'dialog');
-				
+
+                if(popFuc_!=null) {
+                    if($L.isString(popFuc_)){
+                        popFuc_ = YAHOO.util.decode(popFuc_);
+                    }
+                    popFuc_();
+                }
 	            return alertDialog;
 			}
 

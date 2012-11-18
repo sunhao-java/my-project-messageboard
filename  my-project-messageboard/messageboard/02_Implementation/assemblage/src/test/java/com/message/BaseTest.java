@@ -23,7 +23,7 @@ import com.message.base.test.GenericTest;
         "classpath:spring/service.xml",
         "classpath:database/db-oracle.xml",
         "classpath:base/cache.xml",
-        "classpath:base/mail.xml",
+        "classpath:base/mail.xml"
 })
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 public class BaseTest extends GenericTest {

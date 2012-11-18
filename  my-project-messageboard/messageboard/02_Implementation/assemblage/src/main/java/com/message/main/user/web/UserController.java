@@ -1,5 +1,6 @@
 package com.message.main.user.web;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -352,7 +353,7 @@ public class UserController extends SimpleController {
     	params.put("loginUser", this.userService.getUserById(loginUser.getPkId()));
     	
     	//所有好友
-    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, 0, 6).getItems();
+    	List<Friend> friends = this.friendService.listFriends(loginUser.getPkId(), -1L, 0, 6, StringUtils.EMPTY).getItems();
     	params.put("friends", friends);
     	
     	//所有相册
@@ -391,6 +392,35 @@ public class UserController extends SimpleController {
     	params.put("blogs", messages);
     	params.put("tweets", tweets);
     	return new ModelAndView("user.profile", params);
+    }
+
+    /**
+     * 根据好友分组获取用户
+     *
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView loadUserByGroup(WebInput in, WebOutput out, LoginUser loginUser) throws Exception{
+        Map<String, Object> params = new HashMap<String, Object>();
+        Long groupId = in.getLong("pkId");
+        String keyword = in.getString("keyword");
+        int num = 28;
+        int start = SqlUtils.getStartNum(in, num);
+        //所有好友
+        PaginationSupport ps = this.friendService.listFriends(loginUser.getPkId(), groupId, start, num, keyword);
+        List<Friend> friends = ps.getItems();
+        List<User> users = new ArrayList<User>();
+        for(Friend f : friends){
+            if(f.getFriendId() != null)
+                users.add(this.userService.getUserById(f.getFriendId()));
+        }
+        ps.setItems(users);
+        params.put("paginationSupport", ps);
+        out.toJson(params);
+        return null;
     }
 }
 

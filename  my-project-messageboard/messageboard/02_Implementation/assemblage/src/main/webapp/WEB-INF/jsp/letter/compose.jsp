@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		using(['validationengine', 'simpleTip', 'newForm'], function(){
+		using(['validationengine', 'simpleTip', 'newForm', 'select'], function(){
 			$('#letter-frm').formTip({
 				size: '13px'
 			});
@@ -52,6 +52,18 @@
 			$('#cancel').bind('click', function(){
 				history.back(-1);
 			});
+
+            $('#receiverIds').select({
+                itemName: 'truename',
+                itemValue: 'pkId',
+                items: [
+                    {
+                        title: '好友',
+                        leftUrl: '${contextPath }/friend/ajaxGetFriendGroup.do',
+                        rightUrl: '${contextPath }/user/loadUserByGroup.do'
+                    }
+                ]
+            });
 		});
 	});
 </script>
@@ -73,7 +85,7 @@
 				<tr>
                 	<td>收件人：</td>
                     <td>
-                    	<input class="width450" type="text" id="receiverIds" name="receiverIds" tip="请输入收件人的ID,以逗号(,)隔开!"/>
+                    	<input class="width450" type="text" id="receiverIds" name="receiverIds"/>
                     </td>
                     </tr>
                     <tr>

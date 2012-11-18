@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import com.message.base.utils.SqlUtils;
+import com.message.base.utils.StringUtils;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.message.base.cache.utils.ObjectCache;
@@ -41,9 +42,10 @@ public class FriendDAOImpl extends GenericHibernateDAO implements FriendDAO {
 		this.cache = cache;
 	}
 
-	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception {
+	public PaginationSupport listFriends(Long userId, Long groupId, int start, int num, String keyword) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
-		String sql = "select f.pk_id from t_message_friend f where f.user_id = :applyId ";
+		String sql = "select f.pk_id from t_message_friend f join t_message_user u on u.pk_id = f.friend_id " +
+                " where f.user_id = :applyId ";
 		if(Long.valueOf(0).equals(groupId)){
 			//未分组的
 			sql += " and f.pk_id not in (" +
@@ -58,6 +60,10 @@ public class FriendDAOImpl extends GenericHibernateDAO implements FriendDAO {
 					")";
 			params.put("groupId", groupId);
 		}
+        if(StringUtils.isNotEmpty(keyword)){
+            sql += " and (u.true_name like :keyword or u.user_name like :keyword )";
+            params.put("keyword", SqlUtils.makeLikeString(keyword));
+        }
 		sql += " order by f.pk_id desc ";
 		params.put("applyId", userId);
 		

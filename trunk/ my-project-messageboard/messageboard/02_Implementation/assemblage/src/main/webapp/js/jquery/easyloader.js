@@ -217,6 +217,22 @@
         },
         kindeditor: {
         	js: "../../kindeditor/kindeditor.js"
+        },
+        dialog: {
+            js: "../../base/app-dialog.js"
+        },
+        ligerTab: {
+            js: "tab.js",
+            css: "/../../../css/tab/tab.css"
+        },
+        newTree: {
+            js: "tree.js",
+            css: "/../../../css/tree/tree.css"
+        },
+        select: {
+            js: "app-select.js",
+            css: '/../../../css/select/app-select.css',
+            dependencies: ['dialog', 'ligerTab', 'newTree']
         }
 	};
 	var _2 = {

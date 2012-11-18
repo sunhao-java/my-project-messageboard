@@ -25,10 +25,11 @@ public interface FriendService {
 	 * @param groupId			分组ID
 	 * @param start
 	 * @param num
+     * @param keyword         好友用户名的关键字(USER_NAME,TRUE_NAME)
 	 * @return
 	 * @throws Exception
 	 */
-	PaginationSupport listFriends(Long userId, Long groupId, int start, int num) throws Exception;
+	PaginationSupport listFriends(Long userId, Long groupId, int start, int num, String keyword) throws Exception;
 	
 	/**
 	 * 获取登录者的未分组好友数目

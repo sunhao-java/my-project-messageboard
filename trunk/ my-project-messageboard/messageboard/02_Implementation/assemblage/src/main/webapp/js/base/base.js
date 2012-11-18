@@ -7,6 +7,13 @@
  */
 //YAHOO的命名空间
 YAHOO.namespace("util");
+
+/**
+ * contextPath的值
+ * @type {String}
+ */
+YAHOO.util.contextPath = '/';
+
 /**
  * 获取i18n的资源内容
  * 

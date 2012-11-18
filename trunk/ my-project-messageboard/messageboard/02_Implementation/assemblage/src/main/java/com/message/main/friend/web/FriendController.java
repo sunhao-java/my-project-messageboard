@@ -49,7 +49,7 @@ public class FriendController extends SimpleController {
 		//每页显示10个用户
 		int num = in.getInt("num", 10);
 		int start = SqlUtils.getStartNum(in, num);
-		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), groupId, start, num));
+		params.put("paginationSupport", this.friendService.listFriends(loginUser.getPkId(), groupId, start, num, StringUtils.EMPTY));
 		params.put("groups", this.friendService.getFriendGroups(loginUser, -1, -1).getItems());
 		params.put("noGroupFriendNum", this.friendService.getNoGroupFriendNum(loginUser));
 		
@@ -284,5 +284,23 @@ public class FriendController extends SimpleController {
     			ResourceType.AJAX_SUCCESS : ResourceType.AJAX_FAILURE);
     	out.toJson(params);
     	return null;
+    }
+
+    /**
+     * ajax获取好友分组
+     *
+     * @param in
+     * @param out
+     * @param loginUser
+     * @return
+     * @throws Exception
+     */
+    public ModelAndView ajaxGetFriendGroup(WebInput in, WebOutput out, LoginUser loginUser) throws Exception {
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        List<FriendGroup> groups = this.friendService.getFriendGroups(loginUser, -1, -1).getItems();
+        params.put("Rows", groups);
+        out.toJson(params);
+        return null;
     }
 }

@@ -1,10 +1,10 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!--
-* åå¤ç»ä»¶çjspæ¨¡æ¿.
+* 发表回复和展示回复的js模板
 *
 * Developed By: sunhao
 * Mail: sunhao.java@gmail.com
-* Time: 12-9-7 ä¸å9:42
+* Time: 12-9-7 晚上9:42
 * Version:1.0
 * History:
 -->

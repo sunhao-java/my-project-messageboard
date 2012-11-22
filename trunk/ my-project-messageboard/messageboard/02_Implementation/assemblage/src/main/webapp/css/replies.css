@@ -159,19 +159,6 @@ dl.replies dt{
 .commentinalbum .m-editor{width:90%;float:left}
 .commentinalbum .m-editor textarea#cmtbody{width:96%;height:90px;*margin-top:-1px;overflow-y:auto}
 
-.m-editor .m-editor-action{height:23px;float:right;padding-top: 5px;}
-
-.m-editor .m-editor-action a {
-    display: block;
-    outline: none;
-    float: left;
-    line-height: 23px;
-    background-image: url(../image/photo/untitled.bmp);
-    background-repeat: no-repeat
-}
-.m-editor .m-editor-action a.m-editor-emo{height:23px;padding-left:25px;background-position:0 -23px}
-.m-editor .m-editor-textarea textarea{border:1px solid #CEE1EE;margin:0}
-.m-editor .m-editor-submit{padding-top:5px}
 #commentEditorForm  .m-editor .m-editor-submit{float:left;}
 
 .commentinalbum .user-avatar{float:left;width:50px;height:50px;padding:0 8px 0 6px}

@@ -75,7 +75,7 @@ public class LetterController {
 	 */
 	public ModelAndView send(WebInput in, WebOutput out, LoginUser loginUser, Letter letter) throws Exception{
 		Map<String, Object> params = new HashMap<String, Object>();
-		String receiverIds = in.getString("receiverIds", StringUtils.EMPTY);
+		String receiverIds = in.getString("receiverIds_val", StringUtils.EMPTY);
 		
 		boolean res = this.letterService.send(receiverIds, letter, loginUser);
 		

@@ -299,6 +299,12 @@ public class FriendController extends SimpleController {
         Map<String, Object> params = new HashMap<String, Object>();
 
         List<FriendGroup> groups = this.friendService.getFriendGroups(loginUser, -1, -1).getItems();
+        //未分组
+        FriendGroup unGroup = new FriendGroup();
+        unGroup.setPkId(0L);
+        unGroup.setName("未分组");
+        groups.add(unGroup);
+
         params.put("Rows", groups);
         out.toJson(params);
         return null;

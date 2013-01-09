@@ -1,3 +1,53 @@
+//单击行选中或者取消选中行前的checkbox(兼容IE.chrome.FF)
+//by sunhao 2012-11-05
+$(document).ready(function(){
+	var t1,t2,t3,t4,t5,t6,t7,t8,t9,rows;
+	t1 = $('table#listContent tr');
+	t2 = $('table#tbl tr');
+	t3 = $('table#typeOrderTable tr');
+	t4 = $('table#scopeListT tr');
+	t5 = $('table#table tr');
+	t6 = $('table#adminsTable tr');
+	t7 = $('table#fileListTable tr');
+	t8 = $('table#datalist tr');
+	t9 = $('table#filter tr');
+	if(t1 != null && t1.length > 0)
+		rows = t1;
+	else if(t2 != null && t2.length > 0)
+		rows = t2;
+	else if(t3 != null && t3.length > 0)
+		rows = t3;
+	else if(t4 != null && t4.length > 0)
+		rows = t4;
+	else if(t5 != null && t5.length > 0)
+		rows = t5;
+	else if(t6 != null && t6.length > 0)
+		rows = t6;
+	else if(t7 != null && t7.length > 0)
+		rows = t7;
+	else if(t8 != null && t8.length > 0)
+		rows = t8;
+	else if(t9 != null && t9.length > 0)
+		rows = t9;
+
+	if(rows != null && rows.length > 0){
+		rows.each(function(i){
+			$(rows[i]).bind('click', function(e){
+				var checkboxs = $(rows[i]).find('td > input[type=checkbox]');
+				if(checkboxs != null && checkboxs.length == 1){
+					var target = e.target;
+					if(target.tagName.toLowerCase() == 'a')
+						return;
+					if(target.tagName.toLowerCase() == 'input' && $(target).attr('type') == 'checkbox'){
+						target.checked = !target.checked;
+					}
+					var ck = checkboxs[0];
+					ck.checked = !ck.checked;
+				}
+			});
+		});
+	}
+});
 
 function mouseOverOrOut() {
         var table1,table2,table3,table4,table5,table6,table7,table8,table9,rows;

@@ -3,9 +3,9 @@
 <%@ include file="/WEB-INF/jsp/common/common_js.jsp" %>
 
 <msg:css href="css/tableForm.css"/>
+<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/base/commfunction.js"/>
 <msg:js src="js/mouse-over-out.js"/>
-<msg:js src="js/jquery/jquery-1.4.2.min.js"/>
 <msg:js src="js/jquery/easyloader.js"/>
 <msg:js src="js/base/app-dialog.js"/>
 <msg:js src="js/base/app-alertForm.js"/>

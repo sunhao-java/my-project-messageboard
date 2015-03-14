@@ -1,2 +1,2 @@
 # my-project-messageboard
-y message board by springMVC+hibernate+tiles implemention
+my message board by springMVC+hibernate+tiles implemention
